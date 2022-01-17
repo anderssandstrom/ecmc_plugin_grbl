@@ -122,7 +122,6 @@ void system_execute_startup(char *line)
 // be an issue, since these commands are not typically used during a cycle.
 
 
-// Anders: MAIN entry point for configuration and G-CODE!!!!!
 uint8_t system_execute_line(char *line)
 {
   uint8_t char_counter = 1;

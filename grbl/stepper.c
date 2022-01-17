@@ -179,6 +179,8 @@ typedef struct {
 } st_prep_t;
 static st_prep_t prep;
 
+static bool stepperInterruptEnable = 0;
+
 
 /*    BLOCK VELOCITY PROFILE DEFINITION
           __________________________
@@ -218,6 +220,32 @@ static st_prep_t prep;
   are shown and defined in the above illustration.
 */
 
+void ecmc_grbl_main_thread();
+pthread_t tid;
+
+void ecmc_dummy_thread() {
+  while (stepperInterruptEnable) {
+    for(int i=0; i< 30;i++) {
+      ecmc_grbl_main_thread();
+    }
+    printf("%s:%s:%d Positions(x,y,x)=%lf,%lf,%lf..\n",__FILE__,__FUNCTION__,__LINE__,sys_position[X_AXIS], sys_position[Y_AXIS],sys_position[Z_AXIS] );
+    sleep(0.001);
+  }
+}
+
+void ecmc_start_dummy_thread()
+{
+    int i = 0;
+    int err;
+
+    err = pthread_create(&(tid), NULL, &ecmc_dummy_thread, NULL);
+    if (err != 0)
+        printf("\ncan't create thread :[%s]", strerror(err));
+    else
+        printf("\n Thread created successfully\n");
+    i++;
+    return 0;
+}
 
 // Stepper state initialization. Cycle should only start if the st.cycle_start flag is
 // enabled. Startup init and limits call this function but shouldn't start the cycle.
@@ -242,16 +270,22 @@ void st_wake_up()
   #endif
 
   // Enable Stepper Driver Interrupt
-  TIMSK1 |= (1<<OCIE1A);
+  //TIMSK1 |= (1<<OCIE1A);
+  stepperInterruptEnable = 1;
+  //This should be linked to ecmc execute later
+  ecmc_start_dummy_thread();
 }
+
 
 
 // Stepper shutdown
 void st_go_idle()
 {
+  stepperInterruptEnable = 0;
+
   // Disable Stepper Driver Interrupt. Allow Stepper Port Reset Interrupt to finish, if active.
-  TIMSK1 &= ~(1<<OCIE1A); // Disable Timer1 interrupt
-  TCCR1B = (TCCR1B & ~((1<<CS12) | (1<<CS11))) | (1<<CS10); // Reset clock to no prescaling.
+  //TIMSK1 &= ~(1<<OCIE1A); // Disable Timer1 interrupt
+  //TCCR1B = (TCCR1B & ~((1<<CS12) | (1<<CS11))) | (1<<CS10); // Reset clock to no prescaling.
   busy = false;
 
   // Set stepper driver idle state, disabled or enabled, depending on settings and circumstances.
@@ -316,8 +350,11 @@ void st_go_idle()
 // TODO: Replace direct updating of the int32 position counters in the ISR somehow. Perhaps use smaller
 // int8 variables and update position counters only when a segment completes. This can get complicated
 // with probing and homing cycles that require true real-time positions.
-ISR(TIMER1_COMPA_vect)
-{
+
+// call from plugin execute
+void ecmc_grbl_main_thread()
+{ 
+
   if (busy) { return; } // The busy-flag is used to avoid reentering this interrupt
 
   // Set the direction pins a couple of nanoseconds before we step the steppers
@@ -341,11 +378,11 @@ ISR(TIMER1_COMPA_vect)
 
   // Enable step pulse reset timer so that The Stepper Port Reset Interrupt can reset the signal after
   // exactly settings.pulse_microseconds microseconds, independent of the main Timer1 prescaler.
-  TCNT0 = st.step_pulse_time; // Reload Timer0 counter
-  TCCR0B = (1<<CS01); // Begin Timer0. Full speed, 1/8 prescaler
+  //TCNT0 = st.step_pulse_time; // Reload Timer0 counter
+  //TCCR0B = (1<<CS01); // Begin Timer0. Full speed, 1/8 prescaler
 
   busy = true;
-  sei(); // Re-enable interrupts to allow Stepper Port Reset Interrupt to fire on-time.
+  //sei(); // Re-enable interrupts to allow Stepper Port Reset Interrupt to fire on-time.
          // NOTE: The remaining code in this ISR will finish before returning to main program.
 
   // If there is no step segment, attempt to pop one from the stepper buffer
@@ -361,7 +398,7 @@ ISR(TIMER1_COMPA_vect)
       #endif
 
       // Initialize step segment timing per step and load number of steps to execute.
-      OCR1A = st.exec_segment->cycles_per_tick;
+      //OCR1A = st.exec_segment->cycles_per_tick;
       st.step_count = st.exec_segment->n_step; // NOTE: Can sometimes be zero when moving slow.
       // If the new segment starts a new planner block, initialize stepper variables and counters.
       // NOTE: When the segment data index changes, this indicates a new planner block.
@@ -486,30 +523,30 @@ ISR(TIMER1_COMPA_vect)
 // This interrupt is enabled by ISR_TIMER1_COMPAREA when it sets the motor port bits to execute
 // a step. This ISR resets the motor port after a short period (settings.pulse_microseconds)
 // completing one step cycle.
-ISR(TIMER0_OVF_vect)
-{
-  // Reset stepping pins (leave the direction pins)
-  STEP_PORT = (STEP_PORT & ~STEP_MASK) | (step_port_invert_mask & STEP_MASK);
-  #ifdef ENABLE_DUAL_AXIS
-    STEP_PORT_DUAL = (STEP_PORT_DUAL & ~STEP_MASK_DUAL) | (step_port_invert_mask_dual & STEP_MASK_DUAL);
-  #endif
-  TCCR0B = 0; // Disable Timer0 to prevent re-entering this interrupt when it's not needed.
-}
-#ifdef STEP_PULSE_DELAY
-  // This interrupt is used only when STEP_PULSE_DELAY is enabled. Here, the step pulse is
-  // initiated after the STEP_PULSE_DELAY time period has elapsed. The ISR TIMER2_OVF interrupt
-  // will then trigger after the appropriate settings.pulse_microseconds, as in normal operation.
-  // The new timing between direction, step pulse, and step complete events are setup in the
-  // st_wake_up() routine.
-  ISR(TIMER0_COMPA_vect)
-  {
-    STEP_PORT = st.step_bits; // Begin step pulse.
-    #ifdef ENABLE_DUAL_AXIS
-      STEP_PORT_DUAL = st.step_bits_dual;
-    #endif
-  }
-#endif
-
+//ISR(TIMER0_OVF_vect)
+//{
+//  // Reset stepping pins (leave the direction pins)
+//  STEP_PORT = (STEP_PORT & ~STEP_MASK) | (step_port_invert_mask & STEP_MASK);
+//  #ifdef ENABLE_DUAL_AXIS
+//    STEP_PORT_DUAL = (STEP_PORT_DUAL & ~STEP_MASK_DUAL) | (step_port_invert_mask_dual & STEP_MASK_DUAL);
+//  #endif
+//  TCCR0B = 0; // Disable Timer0 to prevent re-entering this interrupt when it's not needed.
+//}
+//#ifdef STEP_PULSE_DELAY
+//  // This interrupt is used only when STEP_PULSE_DELAY is enabled. Here, the step pulse is
+//  // initiated after the STEP_PULSE_DELAY time period has elapsed. The ISR TIMER2_OVF interrupt
+//  // will then trigger after the appropriate settings.pulse_microseconds, as in normal operation.
+//  // The new timing between direction, step pulse, and step complete events are setup in the
+//  // st_wake_up() routine.
+//  ISR(TIMER0_COMPA_vect)
+//  {
+//    STEP_PORT = st.step_bits; // Begin step pulse.
+//    #ifdef ENABLE_DUAL_AXIS
+//      STEP_PORT_DUAL = st.step_bits_dual;
+//    #endif
+//  }
+//#endif
+//
 
 // Generates the step and direction port invert masks used in the Stepper Interrupt Driver.
 void st_generate_step_dir_invert_masks()
@@ -575,22 +612,22 @@ void stepper_init()
     DIRECTION_DDR_DUAL |= DIRECTION_MASK_DUAL;
   #endif
 
-  // Configure Timer 1: Stepper Driver Interrupt
-  TCCR1B &= ~(1<<WGM13); // waveform generation = 0100 = CTC
-  TCCR1B |=  (1<<WGM12);
-  TCCR1A &= ~((1<<WGM11) | (1<<WGM10));
-  TCCR1A &= ~((1<<COM1A1) | (1<<COM1A0) | (1<<COM1B1) | (1<<COM1B0)); // Disconnect OC1 output
-  // TCCR1B = (TCCR1B & ~((1<<CS12) | (1<<CS11))) | (1<<CS10); // Set in st_go_idle().
-  // TIMSK1 &= ~(1<<OCIE1A);  // Set in st_go_idle().
-
-  // Configure Timer 0: Stepper Port Reset Interrupt
-  TIMSK0 &= ~((1<<OCIE0B) | (1<<OCIE0A) | (1<<TOIE0)); // Disconnect OC0 outputs and OVF interrupt.
-  TCCR0A = 0; // Normal operation
-  TCCR0B = 0; // Disable Timer0 until needed
-  TIMSK0 |= (1<<TOIE0); // Enable Timer0 overflow interrupt
-  #ifdef STEP_PULSE_DELAY
-    TIMSK0 |= (1<<OCIE0A); // Enable Timer0 Compare Match A interrupt
-  #endif
+  //// Configure Timer 1: Stepper Driver Interrupt
+  //TCCR1B &= ~(1<<WGM13); // waveform generation = 0100 = CTC
+  //TCCR1B |=  (1<<WGM12);
+  //TCCR1A &= ~((1<<WGM11) | (1<<WGM10));
+  //TCCR1A &= ~((1<<COM1A1) | (1<<COM1A0) | (1<<COM1B1) | (1<<COM1B0)); // Disconnect OC1 output
+  //// TCCR1B = (TCCR1B & ~((1<<CS12) | (1<<CS11))) | (1<<CS10); // Set in st_go_idle().
+  //// TIMSK1 &= ~(1<<OCIE1A);  // Set in st_go_idle().
+//
+  //// Configure Timer 0: Stepper Port Reset Interrupt
+  //TIMSK0 &= ~((1<<OCIE0B) | (1<<OCIE0A) | (1<<TOIE0)); // Disconnect OC0 outputs and OVF interrupt.
+  //TCCR0A = 0; // Normal operation
+  //TCCR0B = 0; // Disable Timer0 until needed
+  //TIMSK0 |= (1<<TOIE0); // Enable Timer0 overflow interrupt
+  //#ifdef STEP_PULSE_DELAY
+  //  TIMSK0 |= (1<<OCIE0A); // Enable Timer0 Compare Match A interrupt
+  //#endif
 }
 
 
