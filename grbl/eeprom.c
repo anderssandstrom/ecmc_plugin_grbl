@@ -21,21 +21,82 @@
 *                         $Revision: 1.6 $
 *                         $Date: Friday, February 11, 2005 07:16:44 UTC $
 ****************************************************************************/
-#include <avr/io.h>
-#include <avr/interrupt.h>
+//#include <avr/io.h>
+//#include <avr/interrupt.h>
+
+
+// ecmc added
+#include <stdlib.h>
+#include <string.h>
+#define EEPROM_DUMMY_FILE ./ecmc_grbl_eeprom.txt
+#define EEPROM_MEM_SIZE 512
+char buffer[EEPROM_MEM_SIZE];
+
 
 /* These EEPROM bits have different names on different devices. */
-#ifndef EEPE
-		#define EEPE  EEWE  //!< EEPROM program/write enable.
-		#define EEMPE EEMWE //!< EEPROM master program/write enable.
-#endif
+//#ifndef EEPE
+//		#define EEPE  EEWE  //!< EEPROM program/write enable.
+//		#define EEMPE EEMWE //!< EEPROM master program/write enable.
+//#endif
 
 /* These two are unfortunately not defined in the device include files. */
-#define EEPM1 5 //!< EEPROM Programming Mode Bit 1.
-#define EEPM0 4 //!< EEPROM Programming Mode Bit 0.
+//#define EEPM1 5 //!< EEPROM Programming Mode Bit 1.
+//#define EEPM0 4 //!< EEPROM Programming Mode Bit 0.
 
 /* Define to reduce code size. */
-#define EEPROM_IGNORE_SELFPROG //!< Remove SPM flag polling.
+//#define EEPROM_IGNORE_SELFPROG //!< Remove SPM flag polling.
+
+
+// Init file
+void ecmc_init_file() {
+  printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
+  memset(&buffer[0],0,EEPROM_MEM_SIZE);
+  ecmc_mem_to_file();
+}
+
+// Read file to buffer[]
+unsigned char  ecmc_file_to_mem()
+{
+  printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
+
+  FILE* fh = fopen(EEPROM_DUMMY_FILE, "rd");
+
+  if (fh == NULL)
+    {
+        printf("something went wrong and file could not be opened");
+        return 1;
+    }
+    unsigned char c = 0;    
+    for (int i = 0, i < EEPROM_MEM_SIZE ; i++) { 
+         // Get the characters
+        buffer[i] = fgetc(fh);
+    }
+   
+    fclose(fh);
+    return 0;
+}
+
+// Write buffer[] to file
+unsigned char void ecmc_mem_to_file()
+{
+  printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
+
+  FILE* fh = fopen(EEPROM_DUMMY_FILE, "w");
+
+  if (fh == NULL)
+    {
+        printf("something went wrong and file could not be opened");
+        return 1;
+    }    
+    for (int i = 0, i < EEPROM_MEM_SIZE ; i++) { 
+         // Get the characters
+		fputc (buffer[i], fh);     
+    }
+   
+    fclose(fh);
+    return 0;
+}
+
 
 /*! \brief  Read byte from EEPROM.
  *
@@ -48,10 +109,15 @@
  */
 unsigned char eeprom_get_char( unsigned int addr )
 {
-	do {} while( EECR & (1<<EEPE) ); // Wait for completion of previous write.
-	EEAR = addr; // Set EEPROM address register.
-	EECR = (1<<EERE); // Start EEPROM read operation.
-	return EEDR; // Return the byte read from EEPROM.
+  printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
+
+  ecmc_file_to_mem();
+  return buffer[addr];
+
+  //do {} while( EECR & (1<<EEPE) ); // Wait for completion of previous write.
+  //EEAR = addr; // Set EEPROM address register.
+  //EECR = (1<<EERE); // Start EEPROM read operation.
+  //return EEDR; // Return the byte read from EEPROM.
 }
 
 /*! \brief  Write byte to EEPROM.
@@ -73,61 +139,68 @@ unsigned char eeprom_get_char( unsigned int addr )
  */
 void eeprom_put_char( unsigned int addr, unsigned char new_value )
 {
-	char old_value; // Old EEPROM value.
-	char diff_mask; // Difference mask, i.e. old value XOR new value.
+    printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
+    
+    ecmc_file_to_mem();
+    buffer[addr] = new_value;
+	ecmc_mem_to_file();
 
-	cli(); // Ensure atomic operation for the write operation.
-	
-	do {} while( EECR & (1<<EEPE) ); // Wait for completion of previous write.
-	#ifndef EEPROM_IGNORE_SELFPROG
-	do {} while( SPMCSR & (1<<SELFPRGEN) ); // Wait for completion of SPM.
-	#endif
-	
-	EEAR = addr; // Set EEPROM address register.
-	EECR = (1<<EERE); // Start EEPROM read operation.
-	old_value = EEDR; // Get old EEPROM value.
-	diff_mask = old_value ^ new_value; // Get bit differences.
-	
-	// Check if any bits are changed to '1' in the new value.
-	if( diff_mask & new_value ) {
-		// Now we know that _some_ bits need to be erased to '1'.
-		
-		// Check if any bits in the new value are '0'.
-		if( new_value != 0xff ) {
-			// Now we know that some bits need to be programmed to '0' also.
-			
-			EEDR = new_value; // Set EEPROM data register.
-			EECR = (1<<EEMPE) | // Set Master Write Enable bit...
-			       (0<<EEPM1) | (0<<EEPM0); // ...and Erase+Write mode.
-			EECR |= (1<<EEPE);  // Start Erase+Write operation.
-		} else {
-			// Now we know that all bits should be erased.
-
-			EECR = (1<<EEMPE) | // Set Master Write Enable bit...
-			       (1<<EEPM0);  // ...and Erase-only mode.
-			EECR |= (1<<EEPE);  // Start Erase-only operation.
-		}
-	} else {
-		// Now we know that _no_ bits need to be erased to '1'.
-		
-		// Check if any bits are changed from '1' in the old value.
-		if( diff_mask ) {
-			// Now we know that _some_ bits need to the programmed to '0'.
-			
-			EEDR = new_value;   // Set EEPROM data register.
-			EECR = (1<<EEMPE) | // Set Master Write Enable bit...
-			       (1<<EEPM1);  // ...and Write-only mode.
-			EECR |= (1<<EEPE);  // Start Write-only operation.
-		}
-	}
-	
-	sei(); // Restore interrupt flag state.
+	//char old_value; // Old EEPROM value.
+	//char diff_mask; // Difference mask, i.e. old value XOR new value.
+//
+	//cli(); // Ensure atomic operation for the write operation.
+	//
+	//do {} while( EECR & (1<<EEPE) ); // Wait for completion of previous write.
+	//#ifndef EEPROM_IGNORE_SELFPROG
+	//do {} while( SPMCSR & (1<<SELFPRGEN) ); // Wait for completion of SPM.
+	//#endif
+	//
+	//EEAR = addr; // Set EEPROM address register.
+	//EECR = (1<<EERE); // Start EEPROM read operation.
+	//old_value = EEDR; // Get old EEPROM value.
+	//diff_mask = old_value ^ new_value; // Get bit differences.
+	//
+	//// Check if any bits are changed to '1' in the new value.
+	//if( diff_mask & new_value ) {
+	//	// Now we know that _some_ bits need to be erased to '1'.
+	//	
+	//	// Check if any bits in the new value are '0'.
+	//	if( new_value != 0xff ) {
+	//		// Now we know that some bits need to be programmed to '0' also.
+	//		
+	//		EEDR = new_value; // Set EEPROM data register.
+	//		EECR = (1<<EEMPE) | // Set Master Write Enable bit...
+	//		       (0<<EEPM1) | (0<<EEPM0); // ...and Erase+Write mode.
+	//		EECR |= (1<<EEPE);  // Start Erase+Write operation.
+	//	} else {
+	//		// Now we know that all bits should be erased.
+//
+	//		EECR = (1<<EEMPE) | // Set Master Write Enable bit...
+	//		       (1<<EEPM0);  // ...and Erase-only mode.
+	//		EECR |= (1<<EEPE);  // Start Erase-only operation.
+	//	}
+	//} else {
+	//	// Now we know that _no_ bits need to be erased to '1'.
+	//	
+	//	// Check if any bits are changed from '1' in the old value.
+	//	if( diff_mask ) {
+	//		// Now we know that _some_ bits need to the programmed to '0'.
+	//		
+	//		EEDR = new_value;   // Set EEPROM data register.
+	//		EECR = (1<<EEMPE) | // Set Master Write Enable bit...
+	//		       (1<<EEPM1);  // ...and Write-only mode.
+	//		EECR |= (1<<EEPE);  // Start Write-only operation.
+	//	}
+	//}
+	//
+	//sei(); // Restore interrupt flag state.
 }
 
 // Extensions added as part of Grbl 
 
 
 void memcpy_to_eeprom_with_checksum(unsigned int destination, char *source, unsigned int size) {
+  printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
   unsigned char checksum = 0;
   for(; size > 0; size--) { 
     checksum = (checksum << 1) || (checksum >> 7);
@@ -138,6 +211,7 @@ void memcpy_to_eeprom_with_checksum(unsigned int destination, char *source, unsi
 }
 
 int memcpy_from_eeprom_with_checksum(char *destination, unsigned int source, unsigned int size) {
+  printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
   unsigned char data, checksum = 0;
   for(; size > 0; size--) { 
     data = eeprom_get_char(source++);

@@ -120,6 +120,9 @@ void system_execute_startup(char *line)
 // the lines that are processed afterward, not necessarily real-time during a cycle,
 // since there are motions already stored in the buffer. However, this 'lag' should not
 // be an issue, since these commands are not typically used during a cycle.
+
+
+// Anders: MAIN entry point for configuration and G-CODE!!!!!
 uint8_t system_execute_line(char *line)
 {
   uint8_t char_counter = 1;

@@ -24,6 +24,10 @@
 
 #define MAX_INT_DIGITS 8 // Maximum number of digits in int32 (and float)
 
+//added for ecmc
+#include <time.h>
+CLOCK_MONOTONIC
+
 
 // Extracts a floating point value from a string. The following code is based loosely on
 // the avr-libc strtod() function by Michael Stumpf and Dmitry Xmelkov and many freely
@@ -111,18 +115,21 @@ uint8_t read_float(char *line, uint8_t *char_counter, float *float_ptr)
 // Non-blocking delay function used for general operation and suspend features.
 void delay_sec(float seconds, uint8_t mode)
 {
- 	uint16_t i = ceil(1000/DWELL_TIME_STEP*seconds);
-	while (i-- > 0) {
-		if (sys.abort) { return; }
-		if (mode == DELAY_MODE_DWELL) {
-			protocol_execute_realtime();
-		} else { // DELAY_MODE_SYS_SUSPEND
-		  // Execute rt_system() only to avoid nesting suspend loops.
-		  protocol_exec_rt_system();
-		  if (sys.suspend & SUSPEND_RESTART_RETRACT) { return; } // Bail, if safety door reopens.
-		}
-		_delay_ms(DWELL_TIME_STEP); // Delay DWELL_TIME_STEP increment
-	}
+
+  clock_nanosleep(CLOCK_MONOTONIC,0,1E9);
+
+ 	//uint16_t i = ceil(1000/DWELL_TIME_STEP*seconds);
+	//while (i-- > 0) {
+	//	if (sys.abort) { return; }
+	//	if (mode == DELAY_MODE_DWELL) {
+	//		protocol_execute_realtime();
+	//	} else { // DELAY_MODE_SYS_SUSPEND
+	//	  // Execute rt_system() only to avoid nesting suspend loops.
+	//	  protocol_exec_rt_system();
+	//	  if (sys.suspend & SUSPEND_RESTART_RETRACT) { return; } // Bail, if safety door reopens.
+	//	}
+	//	_delay_ms(DWELL_TIME_STEP); // Delay DWELL_TIME_STEP increment
+	//}
 }
 
 
@@ -130,7 +137,8 @@ void delay_sec(float seconds, uint8_t mode)
 // which only accepts constants in future compiler releases.
 void delay_ms(uint16_t ms)
 {
-  while ( ms-- ) { _delay_ms(1); }
+  clock_nanosleep(CLOCK_MONOTONIC,0,1E6);
+  //while ( ms-- ) { _delay_ms(1); }
 }
 
 
@@ -139,21 +147,23 @@ void delay_ms(uint16_t ms)
 // efficiently with larger delays, as the counter adds parasitic time in each iteration.
 void delay_us(uint32_t us)
 {
-  while (us) {
-    if (us < 10) {
-      _delay_us(1);
-      us--;
-    } else if (us < 100) {
-      _delay_us(10);
-      us -= 10;
-    } else if (us < 1000) {
-      _delay_us(100);
-      us -= 100;
-    } else {
-      _delay_ms(1);
-      us -= 1000;
-    }
-  }
+  clock_nanosleep(CLOCK_MONOTONIC,0,1E3);
+  
+  //while (us) {
+  //  if (us < 10) {
+  //    _delay_us(1);
+  //    us--;
+  //  } else if (us < 100) {
+  //    _delay_us(10);
+  //    us -= 10;
+  //  } else if (us < 1000) {
+  //    _delay_us(100);
+  //    us -= 100;
+  //  } else {
+  //    _delay_ms(1);
+  //    us -= 1000;
+  //  }
+  //}
 }
 
 

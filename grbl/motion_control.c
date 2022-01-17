@@ -31,6 +31,8 @@
 // in the planner and to let backlash compensation or canned cycle integration simple and direct.
 void mc_line(float *target, plan_line_data_t *pl_data)
 {
+  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+
   // If enabled, check for soft limit violations. Placed here all line motions are picked up
   // from everywhere in Grbl.
   if (bit_istrue(settings.flags,BITFLAG_SOFT_LIMIT_ENABLE)) {
@@ -87,6 +89,8 @@ void mc_line(float *target, plan_line_data_t *pl_data)
 void mc_arc(float *target, plan_line_data_t *pl_data, float *position, float *offset, float radius,
   uint8_t axis_0, uint8_t axis_1, uint8_t axis_linear, uint8_t is_clockwise_arc)
 {
+  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+
   float center_axis0 = position[axis_0] + offset[axis_0];
   float center_axis1 = position[axis_1] + offset[axis_1];
   float r_axis0 = -offset[axis_0];  // Radius vector from center to current location
@@ -194,6 +198,8 @@ void mc_arc(float *target, plan_line_data_t *pl_data, float *position, float *of
 // Execute dwell in seconds.
 void mc_dwell(float seconds)
 {
+  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+
   if (sys.state == STATE_CHECK_MODE) { return; }
   protocol_buffer_synchronize();
   delay_sec(seconds, DELAY_MODE_DWELL);
@@ -205,49 +211,51 @@ void mc_dwell(float seconds)
 // executing the homing cycle. This prevents incorrect buffered plans after homing.
 void mc_homing_cycle(uint8_t cycle_mask)
 {
-  // Check and abort homing cycle, if hard limits are already enabled. Helps prevent problems
-  // with machines with limits wired on both ends of travel to one limit pin.
-  // TODO: Move the pin-specific LIMIT_PIN call to limits.c as a function.
-  #ifdef LIMITS_TWO_SWITCHES_ON_AXES
-    if (limits_get_state()) {
-      mc_reset(); // Issue system reset and ensure spindle and coolant are shutdown.
-      system_set_exec_alarm(EXEC_ALARM_HARD_LIMIT);
-      return;
-    }
-  #endif
+  printf("%s:%s:%d Not supported yet..\n",__FILE__,__FUNCTION__,__LINE__);
 
-  limits_disable(); // Disable hard limits pin change register for cycle duration
-
-  // -------------------------------------------------------------------------------------
-  // Perform homing routine. NOTE: Special motion case. Only system reset works.
-  
-  #ifdef HOMING_SINGLE_AXIS_COMMANDS
-    if (cycle_mask) { limits_go_home(cycle_mask); } // Perform homing cycle based on mask.
-    else
-  #endif
-  {
-    // Search to engage all axes limit switches at faster homing seek rate.
-    limits_go_home(HOMING_CYCLE_0);  // Homing cycle 0
-    #ifdef HOMING_CYCLE_1
-      limits_go_home(HOMING_CYCLE_1);  // Homing cycle 1
-    #endif
-    #ifdef HOMING_CYCLE_2
-      limits_go_home(HOMING_CYCLE_2);  // Homing cycle 2
-    #endif
-  }
-
-  protocol_execute_realtime(); // Check for reset and set system abort.
-  if (sys.abort) { return; } // Did not complete. Alarm state set by mc_alarm.
-
-  // Homing cycle complete! Setup system for normal operation.
-  // -------------------------------------------------------------------------------------
-
-  // Sync gcode parser and planner positions to homed position.
-  gc_sync_position();
-  plan_sync_position();
-
-  // If hard limits feature enabled, re-enable hard limits pin change register after homing cycle.
-  limits_init();
+//  // Check and abort homing cycle, if hard limits are already enabled. Helps prevent problems
+//  // with machines with limits wired on both ends of travel to one limit pin.
+//  // TODO: Move the pin-specific LIMIT_PIN call to limits.c as a function.
+//  #ifdef LIMITS_TWO_SWITCHES_ON_AXES
+//    if (limits_get_state()) {
+//      mc_reset(); // Issue system reset and ensure spindle and coolant are shutdown.
+//      system_set_exec_alarm(EXEC_ALARM_HARD_LIMIT);
+//      return;
+//    }
+//  #endif
+//
+//  limits_disable(); // Disable hard limits pin change register for cycle duration
+//
+//  // -------------------------------------------------------------------------------------
+//  // Perform homing routine. NOTE: Special motion case. Only system reset works.
+//  
+//  #ifdef HOMING_SINGLE_AXIS_COMMANDS
+//    if (cycle_mask) { limits_go_home(cycle_mask); } // Perform homing cycle based on mask.
+//    else
+//  #endif
+//  {
+//    // Search to engage all axes limit switches at faster homing seek rate.
+//    limits_go_home(HOMING_CYCLE_0);  // Homing cycle 0
+//    #ifdef HOMING_CYCLE_1
+//      limits_go_home(HOMING_CYCLE_1);  // Homing cycle 1
+//    #endif
+//    #ifdef HOMING_CYCLE_2
+//      limits_go_home(HOMING_CYCLE_2);  // Homing cycle 2
+//    #endif
+//  }
+//
+//  protocol_execute_realtime(); // Check for reset and set system abort.
+//  if (sys.abort) { return; } // Did not complete. Alarm state set by mc_alarm.
+//
+//  // Homing cycle complete! Setup system for normal operation.
+//  // -------------------------------------------------------------------------------------
+//
+//  // Sync gcode parser and planner positions to homed position.
+//  gc_sync_position();
+//  plan_sync_position();
+//
+//  // If hard limits feature enabled, re-enable hard limits pin change register after homing cycle.
+//  limits_init();
 }
 
 
@@ -255,66 +263,69 @@ void mc_homing_cycle(uint8_t cycle_mask)
 // NOTE: Upon probe failure, the program will be stopped and placed into ALARM state.
 uint8_t mc_probe_cycle(float *target, plan_line_data_t *pl_data, uint8_t parser_flags)
 {
-  // TODO: Need to update this cycle so it obeys a non-auto cycle start.
-  if (sys.state == STATE_CHECK_MODE) { return(GC_PROBE_CHECK_MODE); }
+  printf("%s:%s:%d Not supported yet..\n",__FILE__,__FUNCTION__,__LINE__);
+  return 0;
 
-  // Finish all queued commands and empty planner buffer before starting probe cycle.
-  protocol_buffer_synchronize();
-  if (sys.abort) { return(GC_PROBE_ABORT); } // Return if system reset has been issued.
-
-  // Initialize probing control variables
-  uint8_t is_probe_away = bit_istrue(parser_flags,GC_PARSER_PROBE_IS_AWAY);
-  uint8_t is_no_error = bit_istrue(parser_flags,GC_PARSER_PROBE_IS_NO_ERROR);
-  sys.probe_succeeded = false; // Re-initialize probe history before beginning cycle.
-  probe_configure_invert_mask(is_probe_away);
-
-  // After syncing, check if probe is already triggered. If so, halt and issue alarm.
-  // NOTE: This probe initialization error applies to all probing cycles.
-  if ( probe_get_state() ) { // Check probe pin state.
-    system_set_exec_alarm(EXEC_ALARM_PROBE_FAIL_INITIAL);
-    protocol_execute_realtime();
-    probe_configure_invert_mask(false); // Re-initialize invert mask before returning.
-    return(GC_PROBE_FAIL_INIT); // Nothing else to do but bail.
-  }
-
-  // Setup and queue probing motion. Auto cycle-start should not start the cycle.
-  mc_line(target, pl_data);
-
-  // Activate the probing state monitor in the stepper module.
-  sys_probe_state = PROBE_ACTIVE;
-
-  // Perform probing cycle. Wait here until probe is triggered or motion completes.
-  system_set_exec_state_flag(EXEC_CYCLE_START);
-  do {
-    protocol_execute_realtime();
-    if (sys.abort) { return(GC_PROBE_ABORT); } // Check for system abort
-  } while (sys.state != STATE_IDLE);
-
-  // Probing cycle complete!
-
-  // Set state variables and error out, if the probe failed and cycle with error is enabled.
-  if (sys_probe_state == PROBE_ACTIVE) {
-    if (is_no_error) { memcpy(sys_probe_position, sys_position, sizeof(sys_position)); }
-    else { system_set_exec_alarm(EXEC_ALARM_PROBE_FAIL_CONTACT); }
-  } else {
-    sys.probe_succeeded = true; // Indicate to system the probing cycle completed successfully.
-  }
-  sys_probe_state = PROBE_OFF; // Ensure probe state monitor is disabled.
-  probe_configure_invert_mask(false); // Re-initialize invert mask.
-  protocol_execute_realtime();   // Check and execute run-time commands
-
-  // Reset the stepper and planner buffers to remove the remainder of the probe motion.
-  st_reset(); // Reset step segment buffer.
-  plan_reset(); // Reset planner buffer. Zero planner positions. Ensure probing motion is cleared.
-  plan_sync_position(); // Sync planner position to current machine position.
-
-  #ifdef MESSAGE_PROBE_COORDINATES
-    // All done! Output the probe position as message.
-    report_probe_parameters();
-  #endif
-
-  if (sys.probe_succeeded) { return(GC_PROBE_FOUND); } // Successful probe cycle.
-  else { return(GC_PROBE_FAIL_END); } // Failed to trigger probe within travel. With or without error.
+  //// TODO: Need to update this cycle so it obeys a non-auto cycle start.
+  //if (sys.state == STATE_CHECK_MODE) { return(GC_PROBE_CHECK_MODE); }
+//
+  //// Finish all queued commands and empty planner buffer before starting probe cycle.
+  //protocol_buffer_synchronize();
+  //if (sys.abort) { return(GC_PROBE_ABORT); } // Return if system reset has been issued.
+//
+  //// Initialize probing control variables
+  //uint8_t is_probe_away = bit_istrue(parser_flags,GC_PARSER_PROBE_IS_AWAY);
+  //uint8_t is_no_error = bit_istrue(parser_flags,GC_PARSER_PROBE_IS_NO_ERROR);
+  //sys.probe_succeeded = false; // Re-initialize probe history before beginning cycle.
+  //probe_configure_invert_mask(is_probe_away);
+//
+  //// After syncing, check if probe is already triggered. If so, halt and issue alarm.
+  //// NOTE: This probe initialization error applies to all probing cycles.
+  //if ( probe_get_state() ) { // Check probe pin state.
+  //  system_set_exec_alarm(EXEC_ALARM_PROBE_FAIL_INITIAL);
+  //  protocol_execute_realtime();
+  //  probe_configure_invert_mask(false); // Re-initialize invert mask before returning.
+  //  return(GC_PROBE_FAIL_INIT); // Nothing else to do but bail.
+  //}
+//
+  //// Setup and queue probing motion. Auto cycle-start should not start the cycle.
+  //mc_line(target, pl_data);
+//
+  //// Activate the probing state monitor in the stepper module.
+  //sys_probe_state = PROBE_ACTIVE;
+//
+  //// Perform probing cycle. Wait here until probe is triggered or motion completes.
+  //system_set_exec_state_flag(EXEC_CYCLE_START);
+  //do {
+  //  protocol_execute_realtime();
+  //  if (sys.abort) { return(GC_PROBE_ABORT); } // Check for system abort
+  //} while (sys.state != STATE_IDLE);
+//
+  //// Probing cycle complete!
+//
+  //// Set state variables and error out, if the probe failed and cycle with error is enabled.
+  //if (sys_probe_state == PROBE_ACTIVE) {
+  //  if (is_no_error) { memcpy(sys_probe_position, sys_position, sizeof(sys_position)); }
+  //  else { system_set_exec_alarm(EXEC_ALARM_PROBE_FAIL_CONTACT); }
+  //} else {
+  //  sys.probe_succeeded = true; // Indicate to system the probing cycle completed successfully.
+  //}
+  //sys_probe_state = PROBE_OFF; // Ensure probe state monitor is disabled.
+  //probe_configure_invert_mask(false); // Re-initialize invert mask.
+  //protocol_execute_realtime();   // Check and execute run-time commands
+//
+  //// Reset the stepper and planner buffers to remove the remainder of the probe motion.
+  //st_reset(); // Reset step segment buffer.
+  //plan_reset(); // Reset planner buffer. Zero planner positions. Ensure probing motion is cleared.
+  //plan_sync_position(); // Sync planner position to current machine position.
+//
+  //#ifdef MESSAGE_PROBE_COORDINATES
+  //  // All done! Output the probe position as message.
+  //  report_probe_parameters();
+  //#endif
+//
+  //if (sys.probe_succeeded) { return(GC_PROBE_FOUND); } // Successful probe cycle.
+  //else { return(GC_PROBE_FAIL_END); } // Failed to trigger probe within travel. With or without error.
 }
 
 
@@ -323,6 +334,8 @@ uint8_t mc_probe_cycle(float *target, plan_line_data_t *pl_data, uint8_t parser_
 #ifdef PARKING_ENABLE
   void mc_parking_motion(float *parking_target, plan_line_data_t *pl_data)
   {
+    printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+
     if (sys.abort) { return; } // Block during abort.
 
     uint8_t plan_status = plan_buffer_line(parking_target, pl_data);
@@ -350,6 +363,8 @@ uint8_t mc_probe_cycle(float *target, plan_line_data_t *pl_data, uint8_t parser_
 #ifdef ENABLE_PARKING_OVERRIDE_CONTROL
   void mc_override_ctrl_update(uint8_t override_state)
   {
+    printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+
     // Finish all queued commands before altering override control state
     protocol_buffer_synchronize();
     if (sys.abort) { return; }
@@ -365,6 +380,8 @@ uint8_t mc_probe_cycle(float *target, plan_line_data_t *pl_data, uint8_t parser_
 // realtime abort command and hard limits. So, keep to a minimum.
 void mc_reset()
 {
+  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+
   // Only this function can set the system reset. Helps prevent multiple kill calls.
   if (bit_isfalse(sys_rt_exec_state, EXEC_RESET)) {
     system_set_exec_state_flag(EXEC_RESET);
