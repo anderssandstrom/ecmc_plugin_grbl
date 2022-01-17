@@ -20,7 +20,6 @@
 
 #include "grbl.h"
 
-
 void coolant_init()
 {
 printf("%s:%s:%d Not supported yet..\n",__FILE__,__FUNCTION__,__LINE__);

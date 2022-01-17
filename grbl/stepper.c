@@ -20,7 +20,8 @@
 */
 
 #include "grbl.h"
-
+#include <pthread.h>
+#include <unistd.h>
 
 // Some useful constants.
 #define DT_SEGMENT (1.0/(ACCELERATION_TICKS_PER_SECOND*60.0)) // min/segment
@@ -223,28 +224,27 @@ static bool stepperInterruptEnable = 0;
 void ecmc_grbl_main_thread();
 pthread_t tid;
 
-void ecmc_dummy_thread() {
+void *ecmc_dummy_thread(void *ptr) {
   while (stepperInterruptEnable) {
     for(int i=0; i< 30;i++) {
       ecmc_grbl_main_thread();
     }
-    printf("%s:%s:%d Positions(x,y,x)=%lf,%lf,%lf..\n",__FILE__,__FUNCTION__,__LINE__,sys_position[X_AXIS], sys_position[Y_AXIS],sys_position[Z_AXIS] );
+    printf("%s:%s:%d Positions(x,y,x)=%d,%d,%d..\n",__FILE__,__FUNCTION__,__LINE__,sys_position[X_AXIS], sys_position[Y_AXIS],sys_position[Z_AXIS] );
     sleep(0.001);
   }
 }
-
 void ecmc_start_dummy_thread()
 {
     int i = 0;
     int err;
 
-    err = pthread_create(&(tid), NULL, &ecmc_dummy_thread, NULL);
+    err = pthread_create(&(tid), NULL, *ecmc_dummy_thread, NULL);
     if (err != 0)
         printf("\ncan't create thread :[%s]", strerror(err));
     else
         printf("\n Thread created successfully\n");
     i++;
-    return 0;
+    return;
 }
 
 // Stepper state initialization. Cycle should only start if the st.cycle_start flag is
@@ -252,22 +252,22 @@ void ecmc_start_dummy_thread()
 void st_wake_up()
 {
   // Enable stepper drivers.
-  if (bit_istrue(settings.flags,BITFLAG_INVERT_ST_ENABLE)) { STEPPERS_DISABLE_PORT |= (1<<STEPPERS_DISABLE_BIT); }
-  else { STEPPERS_DISABLE_PORT &= ~(1<<STEPPERS_DISABLE_BIT); }
+  //if (bit_istrue(settings.flags,BITFLAG_INVERT_ST_ENABLE)) { STEPPERS_DISABLE_PORT |= (1<<STEPPERS_DISABLE_BIT); }
+  //else { STEPPERS_DISABLE_PORT &= ~(1<<STEPPERS_DISABLE_BIT); }
 
   // Initialize stepper output bits to ensure first ISR call does not step.
-  st.step_outbits = step_port_invert_mask;
-
-  // Initialize step pulse timing from settings. Here to ensure updating after re-writing.
-  #ifdef STEP_PULSE_DELAY
-    // Set total step pulse time after direction pin set. Ad hoc computation from oscilloscope.
-    st.step_pulse_time = -(((settings.pulse_microseconds+STEP_PULSE_DELAY-2)*TICKS_PER_MICROSECOND) >> 3);
-    // Set delay between direction pin write and step command.
-    OCR0A = -(((settings.pulse_microseconds)*TICKS_PER_MICROSECOND) >> 3);
-  #else // Normal operation
-    // Set step pulse time. Ad hoc computation from oscilloscope. Uses two's complement.
-    st.step_pulse_time = -(((settings.pulse_microseconds-2)*TICKS_PER_MICROSECOND) >> 3);
-  #endif
+//  st.step_outbits = step_port_invert_mask;
+//
+//  // Initialize step pulse timing from settings. Here to ensure updating after re-writing.
+//  #ifdef STEP_PULSE_DELAY
+//    // Set total step pulse time after direction pin set. Ad hoc computation from oscilloscope.
+//    st.step_pulse_time = -(((settings.pulse_microseconds+STEP_PULSE_DELAY-2)*TICKS_PER_MICROSECOND) >> 3);
+//    // Set delay between direction pin write and step command.
+//    //OCR0A = -(((settings.pulse_microseconds)*TICKS_PER_MICROSECOND) >> 3);
+//  #else // Normal operation
+//    // Set step pulse time. Ad hoc computation from oscilloscope. Uses two's complement.
+//    st.step_pulse_time = -(((settings.pulse_microseconds-2)*TICKS_PER_MICROSECOND) >> 3);
+//  #endif
 
   // Enable Stepper Driver Interrupt
   //TIMSK1 |= (1<<OCIE1A);
@@ -296,9 +296,9 @@ void st_go_idle()
     delay_ms(settings.stepper_idle_lock_time);
     pin_state = true; // Override. Disable steppers.
   }
-  if (bit_istrue(settings.flags,BITFLAG_INVERT_ST_ENABLE)) { pin_state = !pin_state; } // Apply pin invert.
-  if (pin_state) { STEPPERS_DISABLE_PORT |= (1<<STEPPERS_DISABLE_BIT); }
-  else { STEPPERS_DISABLE_PORT &= ~(1<<STEPPERS_DISABLE_BIT); }
+//  if (bit_istrue(settings.flags,BITFLAG_INVERT_ST_ENABLE)) { pin_state = !pin_state; } // Apply pin invert.
+//  if (pin_state) { STEPPERS_DISABLE_PORT |= (1<<STEPPERS_DISABLE_BIT); }
+//  else { STEPPERS_DISABLE_PORT &= ~(1<<STEPPERS_DISABLE_BIT); }
 }
 
 
@@ -358,23 +358,23 @@ void ecmc_grbl_main_thread()
   if (busy) { return; } // The busy-flag is used to avoid reentering this interrupt
 
   // Set the direction pins a couple of nanoseconds before we step the steppers
-  DIRECTION_PORT = (DIRECTION_PORT & ~DIRECTION_MASK) | (st.dir_outbits & DIRECTION_MASK);
-  #ifdef ENABLE_DUAL_AXIS
-    DIRECTION_PORT_DUAL = (DIRECTION_PORT_DUAL & ~DIRECTION_MASK_DUAL) | (st.dir_outbits_dual & DIRECTION_MASK_DUAL);
-  #endif
-
-  // Then pulse the stepping pins
-  #ifdef STEP_PULSE_DELAY
-    st.step_bits = (STEP_PORT & ~STEP_MASK) | st.step_outbits; // Store out_bits to prevent overwriting.
-    #ifdef ENABLE_DUAL_AXIS
-      st.step_bits_dual = (STEP_PORT_DUAL & ~STEP_MASK_DUAL) | st.step_outbits_dual;
-    #endif
-  #else  // Normal operation
-    STEP_PORT = (STEP_PORT & ~STEP_MASK) | st.step_outbits;
-    #ifdef ENABLE_DUAL_AXIS
-      STEP_PORT_DUAL = (STEP_PORT_DUAL & ~STEP_MASK_DUAL) | st.step_outbits_dual;
-    #endif
-  #endif
+  //DIRECTION_PORT = (DIRECTION_PORT & ~DIRECTION_MASK) | (st.dir_outbits & DIRECTION_MASK);
+  //#ifdef ENABLE_DUAL_AXIS
+  //  DIRECTION_PORT_DUAL = (DIRECTION_PORT_DUAL & ~DIRECTION_MASK_DUAL) | (st.dir_outbits_dual & DIRECTION_MASK_DUAL);
+  //#endif
+//
+  //// Then pulse the stepping pins
+  //#ifdef STEP_PULSE_DELAY
+  //  st.step_bits = (STEP_PORT & ~STEP_MASK) | st.step_outbits; // Store out_bits to prevent overwriting.
+  //  #ifdef ENABLE_DUAL_AXIS
+  //    st.step_bits_dual = (STEP_PORT_DUAL & ~STEP_MASK_DUAL) | st.step_outbits_dual;
+  //  #endif
+  //#else  // Normal operation
+  //  STEP_PORT = (STEP_PORT & ~STEP_MASK) | st.step_outbits;
+  //  #ifdef ENABLE_DUAL_AXIS
+  //    STEP_PORT_DUAL = (STEP_PORT_DUAL & ~STEP_MASK_DUAL) | st.step_outbits_dual;
+  //  #endif
+  //#endif
 
   // Enable step pulse reset timer so that The Stepper Port Reset Interrupt can reset the signal after
   // exactly settings.pulse_microseconds microseconds, independent of the main Timer1 prescaler.
@@ -588,14 +588,14 @@ void st_reset()
   st.dir_outbits = dir_port_invert_mask; // Initialize direction bits to default.
 
   // Initialize step and direction port pins.
-  STEP_PORT = (STEP_PORT & ~STEP_MASK) | step_port_invert_mask;
-  DIRECTION_PORT = (DIRECTION_PORT & ~DIRECTION_MASK) | dir_port_invert_mask;
-  
-  #ifdef ENABLE_DUAL_AXIS
-    st.dir_outbits_dual = dir_port_invert_mask_dual;
-    STEP_PORT_DUAL = (STEP_PORT_DUAL & ~STEP_MASK_DUAL) | step_port_invert_mask_dual;
-    DIRECTION_PORT_DUAL = (DIRECTION_PORT_DUAL & ~DIRECTION_MASK_DUAL) | dir_port_invert_mask_dual;
-  #endif
+  //STEP_PORT = (STEP_PORT & ~STEP_MASK) | step_port_invert_mask;
+  //DIRECTION_PORT = (DIRECTION_PORT & ~DIRECTION_MASK) | dir_port_invert_mask;
+  //
+  //#ifdef ENABLE_DUAL_AXIS
+  //  st.dir_outbits_dual = dir_port_invert_mask_dual;
+  //  STEP_PORT_DUAL = (STEP_PORT_DUAL & ~STEP_MASK_DUAL) | step_port_invert_mask_dual;
+  //  DIRECTION_PORT_DUAL = (DIRECTION_PORT_DUAL & ~DIRECTION_MASK_DUAL) | dir_port_invert_mask_dual;
+  //#endif
 }
 
 
@@ -603,14 +603,14 @@ void st_reset()
 void stepper_init()
 {
   // Configure step and direction interface pins
-  STEP_DDR |= STEP_MASK;
-  STEPPERS_DISABLE_DDR |= 1<<STEPPERS_DISABLE_BIT;
-  DIRECTION_DDR |= DIRECTION_MASK;
-  
-  #ifdef ENABLE_DUAL_AXIS
-    STEP_DDR_DUAL |= STEP_MASK_DUAL;
-    DIRECTION_DDR_DUAL |= DIRECTION_MASK_DUAL;
-  #endif
+//  STEP_DDR |= STEP_MASK;
+//  STEPPERS_DISABLE_DDR |= 1<<STEPPERS_DISABLE_BIT;
+//  DIRECTION_DDR |= DIRECTION_MASK;
+//  
+//  #ifdef ENABLE_DUAL_AXIS
+//    STEP_DDR_DUAL |= STEP_MASK_DUAL;
+//    DIRECTION_DDR_DUAL |= DIRECTION_MASK_DUAL;
+//  #endif
 
   //// Configure Timer 1: Stepper Driver Interrupt
   //TCCR1B &= ~(1<<WGM13); // waveform generation = 0100 = CTC

@@ -37,6 +37,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 // Define the Grbl system include files. NOTE: Do not alter organization.
 #include "config.h"

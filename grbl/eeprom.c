@@ -28,7 +28,8 @@
 // ecmc added
 #include <stdlib.h>
 #include <string.h>
-#define EEPROM_DUMMY_FILE ./ecmc_grbl_eeprom.txt
+#include <stdio.h>
+#define EEPROM_DUMMY_FILE "./ecmc_grbl_eeprom.txt"
 #define EEPROM_MEM_SIZE 512
 char buffer[EEPROM_MEM_SIZE];
 
@@ -46,7 +47,7 @@ char buffer[EEPROM_MEM_SIZE];
 /* Define to reduce code size. */
 //#define EEPROM_IGNORE_SELFPROG //!< Remove SPM flag polling.
 
-
+unsigned char ecmc_mem_to_file();
 // Init file
 void ecmc_init_file() {
   printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
@@ -67,7 +68,7 @@ unsigned char  ecmc_file_to_mem()
         return 1;
     }
     unsigned char c = 0;    
-    for (int i = 0, i < EEPROM_MEM_SIZE ; i++) { 
+    for (int i = 0; i < EEPROM_MEM_SIZE ; i++) { 
          // Get the characters
         buffer[i] = fgetc(fh);
     }
@@ -77,7 +78,7 @@ unsigned char  ecmc_file_to_mem()
 }
 
 // Write buffer[] to file
-unsigned char void ecmc_mem_to_file()
+unsigned char ecmc_mem_to_file()
 {
   printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
 
@@ -88,7 +89,7 @@ unsigned char void ecmc_mem_to_file()
         printf("something went wrong and file could not be opened");
         return 1;
     }    
-    for (int i = 0, i < EEPROM_MEM_SIZE ; i++) { 
+    for (int i = 0; i < EEPROM_MEM_SIZE ; i++) { 
          // Get the characters
 		fputc (buffer[i], fh);     
     }

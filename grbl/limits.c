@@ -20,7 +20,7 @@
 */
 
 #include "grbl.h"
-#include "ecmcMotion.h"
+//#include "ecmcMotion.h"
 
 // Homing axis search distance multiplier. Computed by this value times the cycle travel.
 #ifndef HOMING_AXIS_SEARCH_SCALAR
@@ -413,7 +413,7 @@ void limits_go_home(uint8_t cycle_mask)
 //    }
 //  }
 //  sys.step_control = STEP_CONTROL_NORMAL_OP; // Return step control to normal operation.
-//}
+}
 
 
 // Performs a soft limit check. Called from mc_line() only. Assumes the machine has been homed,

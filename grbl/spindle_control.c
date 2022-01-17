@@ -21,7 +21,6 @@
 
 #include "grbl.h"
 
-
 #ifdef VARIABLE_SPINDLE
   static float pwm_gradient; // Precalulated value to speed up rpm to PWM conversions.
 #endif
@@ -149,9 +148,9 @@ void spindle_stop()
   //    } else {
   //      SPINDLE_TCCRA_REGISTER |= (1<<SPINDLE_COMB_BIT); // Ensure PWM output is enabled.
   //    }
-  //  #endif
+  //
   }
-
+  #endif
 
   //#ifdef ENABLE_PIECEWISE_LINEAR_SPINDLE
   

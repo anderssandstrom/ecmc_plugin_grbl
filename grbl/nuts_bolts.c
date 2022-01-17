@@ -26,8 +26,6 @@
 
 //added for ecmc
 #include <time.h>
-CLOCK_MONOTONIC
-
 
 // Extracts a floating point value from a string. The following code is based loosely on
 // the avr-libc strtod() function by Michael Stumpf and Dmitry Xmelkov and many freely
@@ -115,9 +113,13 @@ uint8_t read_float(char *line, uint8_t *char_counter, float *float_ptr)
 // Non-blocking delay function used for general operation and suspend features.
 void delay_sec(float seconds, uint8_t mode)
 {
-
-  clock_nanosleep(CLOCK_MONOTONIC,0,1E9);
-
+  struct timespec deadline;
+  clock_gettime(CLOCK_MONOTONIC,&deadline);
+  deadline.tv_sec+=1*seconds;
+  clock_nanosleep(CLOCK_MONOTONIC,TIMER_ABSTIME, &deadline,NULL);
+  
+  // NOTE!!!: mode not used!!!!
+  
  	//uint16_t i = ceil(1000/DWELL_TIME_STEP*seconds);
 	//while (i-- > 0) {
 	//	if (sys.abort) { return; }
@@ -137,7 +139,15 @@ void delay_sec(float seconds, uint8_t mode)
 // which only accepts constants in future compiler releases.
 void delay_ms(uint16_t ms)
 {
-  clock_nanosleep(CLOCK_MONOTONIC,0,1E6);
+  struct timespec deadline;
+  clock_gettime(CLOCK_MONOTONIC,&deadline);
+  deadline.tv_nsec+=1E6*ms;
+  if(deadline.tv_nsec>=1E9) {
+    deadline.tv_nsec-=1E6;
+    deadline.tv_sec++;
+  }
+  clock_nanosleep(CLOCK_MONOTONIC,TIMER_ABSTIME, &deadline,NULL);
+
   //while ( ms-- ) { _delay_ms(1); }
 }
 
@@ -147,7 +157,15 @@ void delay_ms(uint16_t ms)
 // efficiently with larger delays, as the counter adds parasitic time in each iteration.
 void delay_us(uint32_t us)
 {
-  clock_nanosleep(CLOCK_MONOTONIC,0,1E3);
+  struct timespec deadline;
+  clock_gettime(CLOCK_MONOTONIC,&deadline);
+  deadline.tv_nsec+=1E3*us;
+  if(deadline.tv_nsec>=1E9) {
+    deadline.tv_nsec-=1E6;
+    deadline.tv_sec++;
+  }
+  clock_nanosleep(CLOCK_MONOTONIC,TIMER_ABSTIME, &deadline,NULL);
+
   
   //while (us) {
   //  if (us < 10) {

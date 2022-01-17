@@ -34,7 +34,7 @@ void printString(const char *s)
 // Print a string stored in PGM-memory
 void printPgmString(const char *s)
 {
-  printf("%s:%s:%d: Not supported\n",__FILE__,__FUNCTION__,__LINE__,s);
+  printf("%s:%s:%d: %s\n",__FILE__,__FUNCTION__,__LINE__,s);
 //  char c;
 //  while ((c = pgm_read_byte_near(s++)))
 //    serial_write(c);
@@ -88,7 +88,7 @@ void print_uint8_base10(uint8_t n)
 void print_uint8_base2_ndigit(uint8_t n, uint8_t digits) {
 
 
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__,n);
+  printf("%s:%s:%d:%d\n",__FILE__,__FUNCTION__,__LINE__,n);
 
   unsigned char buf[digits];
   uint8_t i = 0;
@@ -130,7 +130,7 @@ void print_uint32_base10(uint32_t n)
 
 void printInteger(long n)
 {
-  printf("%s:%s:%d:%d\n",__FILE__,__FUNCTION__,__LINE__,n);
+  printf("%s:%s:%d:%ld\n",__FILE__,__FUNCTION__,__LINE__,n);
 
   //if (n < 0) {
   //  serial_write('-');
