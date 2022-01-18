@@ -52,7 +52,9 @@ int grblConstruct(char *configStr)
   lastConfStr = strdup(configStr);
 
   // Initialize system upon power-up.
-  serial_init();   // Setup serial baud rate and interrupts
+  //serial_init();   // Setup serial baud rate and interrupts
+  ecmc_init_file();  // create and clear file (simulated eeprom)
+  settings_restore(0b1111);  // restore all to defaults
   settings_init(); // Load Grbl settings from EEPROM
   stepper_init();  // Configure stepper pins and interrupt timers
   system_init();   // Configure pinout pins and pin-change interrupt
@@ -115,7 +117,7 @@ int grblConstruct(char *configStr)
     report_init_message();
 
     // Start Grbl main loop. Processes program inputs and executes them.
-    protocol_main_loop();
+    //protocol_main_loop(); This is for serial interface use.. comment out for now..
  //}
 
   return 0; //createSocketCAN(configStr,getEcmcSampleTimeMS());

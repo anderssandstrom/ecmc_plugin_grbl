@@ -104,7 +104,7 @@ void write_global_settings()
 void settings_restore(uint8_t restore_flag) {
   if (restore_flag & SETTINGS_RESTORE_DEFAULTS) {    
     settings = defaults;
-    write_global_settings();
+    write_global_settings();    
   }
 
   if (restore_flag & SETTINGS_RESTORE_PARAMETERS) {
@@ -129,6 +129,7 @@ void settings_restore(uint8_t restore_flag) {
     eeprom_put_char(EEPROM_ADDR_BUILD_INFO , 0);
     eeprom_put_char(EEPROM_ADDR_BUILD_INFO+1 , 0); // Checksum
   }
+  printf("%s:%s:%d settings_restore complete!!!..\n",__FILE__,__FUNCTION__,__LINE__);
 }
 
 

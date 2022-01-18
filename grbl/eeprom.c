@@ -30,7 +30,7 @@
 #include <string.h>
 #include <stdio.h>
 #define EEPROM_DUMMY_FILE "./ecmc_grbl_eeprom.txt"
-#define EEPROM_MEM_SIZE 512
+#define EEPROM_MEM_SIZE 1024
 char buffer[EEPROM_MEM_SIZE];
 
 
@@ -50,7 +50,7 @@ char buffer[EEPROM_MEM_SIZE];
 unsigned char ecmc_mem_to_file();
 // Init file
 void ecmc_init_file() {
-  printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
+  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
   memset(&buffer[0],0,EEPROM_MEM_SIZE);
   ecmc_mem_to_file();
 }
@@ -58,7 +58,7 @@ void ecmc_init_file() {
 // Read file to buffer[]
 unsigned char  ecmc_file_to_mem()
 {
-  printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
 
   FILE* fh = fopen(EEPROM_DUMMY_FILE, "rd");
 
@@ -80,7 +80,7 @@ unsigned char  ecmc_file_to_mem()
 // Write buffer[] to file
 unsigned char ecmc_mem_to_file()
 {
-  printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
+//  printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
 
   FILE* fh = fopen(EEPROM_DUMMY_FILE, "w");
 
@@ -110,9 +110,9 @@ unsigned char ecmc_mem_to_file()
  */
 unsigned char eeprom_get_char( unsigned int addr )
 {
-  printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
-
   ecmc_file_to_mem();
+  //printf("%s:%s:%d addr: %ud, value %d..\n",__FILE__,__FUNCTION__,__LINE__,addr,buffer[addr]);
+
   return buffer[addr];
 
   //do {} while( EECR & (1<<EEPE) ); // Wait for completion of previous write.
@@ -140,10 +140,10 @@ unsigned char eeprom_get_char( unsigned int addr )
  */
 void eeprom_put_char( unsigned int addr, unsigned char new_value )
 {
-    printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
-    
-    ecmc_file_to_mem();
-    buffer[addr] = new_value;
+  //printf("%s:%s:%d addr: %ud, value %d..\n",__FILE__,__FUNCTION__,__LINE__,addr,new_value);
+
+  ecmc_file_to_mem();
+  buffer[addr] = new_value;
 	ecmc_mem_to_file();
 
 	//char old_value; // Old EEPROM value.
@@ -201,7 +201,7 @@ void eeprom_put_char( unsigned int addr, unsigned char new_value )
 
 
 void memcpy_to_eeprom_with_checksum(unsigned int destination, char *source, unsigned int size) {
-  printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
   unsigned char checksum = 0;
   for(; size > 0; size--) { 
     checksum = (checksum << 1) || (checksum >> 7);

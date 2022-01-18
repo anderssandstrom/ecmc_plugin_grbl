@@ -37,6 +37,8 @@ static void protocol_exec_rt_suspend();
 */
 void protocol_main_loop()
 {
+  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+
   // Perform some machine checks to make sure everything is good to go.
   #ifdef CHECK_LIMITS_AT_INIT
     if (bit_istrue(settings.flags, BITFLAG_HARD_LIMIT_ENABLE)) {
