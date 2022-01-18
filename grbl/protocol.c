@@ -74,12 +74,11 @@ void protocol_main_loop()
   uint8_t char_counter = 0;
   uint8_t c;
   for (;;) {
-
     // Process one line of incoming serial data, as the data becomes available. Performs an
     // initial filtering by removing spaces and comments and capitalizing all letters.
-    while((c = serial_read()) != SERIAL_NO_DATA) {
+    while((c = serial_read()) != SERIAL_NO_DATA) {      
       if ((c == '\n') || (c == '\r')) { // End of line reached
-
+        printf("NEW_CHAR\n");
         protocol_execute_realtime(); // Runtime command check point.
         if (sys.abort) { return; } // Bail to calling function upon system abort
 

@@ -129,14 +129,15 @@ void system_execute_startup(char *line)
 // since there are motions already stored in the buffer. However, this 'lag' should not
 // be an issue, since these commands are not typically used during a cycle.
 
-//Nice!!
 uint8_t system_execute_line(char *line)
 {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  printf("\n%s:%s:%d:###################\n",__FILE__,__FUNCTION__,__LINE__);
+  printf("%s:%s:%d:%s\n",__FILE__,__FUNCTION__,__LINE__,line);
 
   uint8_t char_counter = 1;
   uint8_t helper_var = 0; // Helper variable
   float parameter, value;
+  printf("system_execute_line switch line[1]=%c\n",line[char_counter]);
   switch( line[char_counter] ) {
     case 0 : report_grbl_help(); break;
     case 'J' : // Jogging
@@ -262,8 +263,11 @@ uint8_t system_execute_line(char *line)
             // No break. Continues into default: to read remaining command characters.
           }
         default :  // Storing setting methods [IDLE/ALARM]
+          printf("1\n");
           if(!read_float(line, &char_counter, &parameter)) { return(STATUS_BAD_NUMBER_FORMAT); }
+          printf("2 parameter %f\n",parameter);
           if(line[char_counter++] != '=') { return(STATUS_INVALID_STATEMENT); }
+          printf("3\n");
           if (helper_var) { // Store startup line
             // Prepare sending gcode block to gcode parser by shifting all characters
             helper_var = char_counter; // Set helper variable as counter to start of gcode block

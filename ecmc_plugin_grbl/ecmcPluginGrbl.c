@@ -22,6 +22,9 @@ extern "C" {
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <pthread.h>
+#include <unistd.h>
+
 
 #include "ecmcPluginDefs.h"
 #include "ecmcPluginClient.h"
@@ -35,33 +38,22 @@ extern "C" {
 static int    lastEcmcError   = 0;
 static char*  lastConfStr     = NULL;
 static int    alreadyLoaded   = 0;
+int initDone = 0;
+pthread_t tid;
 
-/** Optional. 
- *  Will be called once after successfull load into ecmc.
- *  Return value other than 0 will be considered error.
- *  configStr can be used for configuration parameters.
- **/
-int grblConstruct(char *configStr)
-{
-  if(alreadyLoaded) {    
-    return 1;
-  }
-
-  alreadyLoaded = 1;
-  // create SocketCAN object and register data callback
-  lastConfStr = strdup(configStr);
+// copied for grbl main.c
+void *ecmc_grbl_main_thread(void *ptr) {
+  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
 
   // Initialize system upon power-up.
-  //serial_init();   // Setup serial baud rate and interrupts
+  serial_init();   // Setup serial baud rate and interrupts
   ecmc_init_file();  // create and clear file (simulated eeprom)
   settings_restore(0b1111);  // restore all to defaults
   settings_init(); // Load Grbl settings from EEPROM
   stepper_init();  // Configure stepper pins and interrupt timers
   system_init();   // Configure pinout pins and pin-change interrupt
-
   memset(sys_position,0,sizeof(sys_position)); // Clear machine position.
   //sei(); // Enable interrupts
-
   // Initialize system state.
   #ifdef FORCE_INITIALIZATION_ALARM
     // Force Grbl into an ALARM state upon a power-cycle or hard reset.
@@ -80,11 +72,9 @@ int grblConstruct(char *configStr)
   #ifdef HOMING_INIT_LOCK
     if (bit_istrue(settings.flags,BITFLAG_HOMING_ENABLE)) { sys.state = STATE_ALARM; }
   #endif
-
-  // Grbl initialization loop upon power-up or a system abort. For the latter, all processes
+   // Grbl initialization loop upon power-up or a system abort. For the latter, all processes
   // will return to this loop to be cleanly re-initialized.
-  //for(;;) {
-
+  for(;;) {    
     // Reset system variables.
     uint8_t prior_state = sys.state;
     memset(&sys, 0, sizeof(system_t)); // Clear system struct variable.
@@ -116,10 +106,81 @@ int grblConstruct(char *configStr)
     // Print welcome message. Indicates an initialization has occured at power-up or with a reset.
     report_init_message();
 
-    // Start Grbl main loop. Processes program inputs and executes them.
-    //protocol_main_loop(); This is for serial interface use.. comment out for now..
- //}
+    // ready for commands through serial interface
+    initDone = 1;
+    protocol_main_loop();
+  }
+}
 
+/** Optional. 
+ *  Will be called once after successfull load into ecmc.
+ *  Return value other than 0 will be considered error.
+ *  configStr can be used for configuration parameters.
+ **/
+int grblConstruct(char *configStr)
+{
+  if(alreadyLoaded) {    
+    return 1;
+  }
+
+  alreadyLoaded = 1;
+  // create SocketCAN object and register data callback
+  lastConfStr = strdup(configStr);
+
+  // start grbl main thread and wait for init done!
+  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  int err;
+  err = pthread_create(&(tid), NULL, *ecmc_grbl_main_thread, NULL);
+  if (err != 0) {
+      printf("\n Can't create thread :[%s]", strerror(err));
+      return 1;
+  }
+  else
+      printf("\n grbl main thread created successfully\n");
+  
+  // whait for initDone!
+  printf("Waiting for grbl init..");
+  while(!initDone) {      
+    sleep(1);
+    printf(".");
+  }
+
+  printf("\n");
+  printf("\n grbl ready for commands!\n");
+  sleep(1);
+
+  // test some commands
+  printf("Test command:G0X11\n");
+  ecmc_write_command_serial("G0X11\n");
+  printf("Test command:$J=X10.0Y-1.5\n");
+  ecmc_write_command_serial("$J=X10.0Y-1.5\n");
+  printf("Test command:#\n");
+  ecmc_write_command_serial("#\n");
+  printf("Test command:?\n");
+  ecmc_write_command_serial("?\n");
+  printf("Test command:G1X200Y100\n");
+  ecmc_write_command_serial("G1X200Y100\n");
+  return 0;
+
+  printf("system_execute_line(G0 X11), %d \n ",system_execute_line("G0X11\0"));
+  printf("end\n");
+  printf("system_execute_line(G1X200Y100), %d \n",system_execute_line("G1X200Y100\0"));
+  printf("end\n");
+  printf("system_execute_line($$), %d \n",system_execute_line("$$\0"));
+  printf("end\n");
+  printf("system_execute_line($), %d \n",system_execute_line("$\0"));
+  printf("end\n");
+  printf("system_execute_line(#), %d \n",system_execute_line("#\0"));
+  printf("end\n");
+  printf("system_execute_line(?), %d \n",system_execute_line("?\0"));
+  printf("end\n");
+  printf("system_execute_line($J=X10.0Y-1.5), %d \n",system_execute_line("$J=X10.0Y-1.5\0"));
+  printf("end\n");
+  printf("gc_execute_line(G0 X100.25), %d \n",gc_execute_line("G0 X100.25\0"));
+  printf("end\n");
+  printf("gc_execute_line(G1X200Y100), %d \n",gc_execute_line("G1X200Y100\0"));
+  printf("end\n");
+  
   return 0; //createSocketCAN(configStr,getEcmcSampleTimeMS());
 }
 

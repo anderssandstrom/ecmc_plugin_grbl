@@ -37,6 +37,8 @@
 #define SERIAL_NO_DATA 0xff
 
 
+void ecmc_write_command_serial(char* line);
+
 void serial_init();
 
 // Writes one byte to the TX serial buffer. Called by main program.
