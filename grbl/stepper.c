@@ -227,7 +227,7 @@ pthread_t tid;
 void *ecmc_dummy_thread(void *ptr) {
   printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
   while (stepperInterruptEnable) {
-    for(int i=0; i< 30;i++) {
+    for(int i=0; i < 30; i++) {
       ecmc_grbl_main_rt_thread();
     }
     printf("%s:%s:%d Positions(x,y,x)=%d,%d,%d..\n",__FILE__,__FUNCTION__,__LINE__,sys_position[X_AXIS], sys_position[Y_AXIS],sys_position[Z_AXIS] );
@@ -362,7 +362,7 @@ void st_go_idle()
 // call from plugin execute
 void ecmc_grbl_main_rt_thread()
 { 
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
 
   if (busy) { return; } // The busy-flag is used to avoid reentering this interrupt
 
@@ -723,7 +723,7 @@ static uint8_t st_next_block_index(uint8_t block_index)
 */
 void st_prep_buffer()
 {
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
 
   // Block step prep buffer, while in a suspend state and there is no suspend motion to execute.
   if (bit_istrue(sys.step_control,STEP_CONTROL_END_MOTION)) { return; }

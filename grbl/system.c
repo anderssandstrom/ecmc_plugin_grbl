@@ -371,7 +371,7 @@ uint8_t system_check_travel_limits(float *target)
 // Special handlers for setting and clearing Grbl's real-time execution flags.
 // ecmc: set execute here (start rt thread maybe)
 void system_set_exec_state_flag(uint8_t mask) {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
 
   //uint8_t sreg = SREG;
   //cli();
@@ -380,7 +380,7 @@ void system_set_exec_state_flag(uint8_t mask) {
 }
 
 void system_clear_exec_state_flag(uint8_t mask) {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
 
   //uint8_t sreg = SREG;
   //cli();
