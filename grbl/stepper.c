@@ -229,7 +229,10 @@ void *ecmc_dummy_thread(void *ptr) {
   
   while (stepperInterruptEnable) {    
     for(int i=0; i < 30; i++) {
-      ecmc_grbl_main_rt_thread();
+      if(!stepperInterruptEnable) {
+        break;
+      }
+      ecmc_grbl_main_rt_thread();      
     }
     printf("%s:%s:%d Positions(x,y,z)=%d,%d,%d..\n",__FILE__,__FUNCTION__,__LINE__,sys_position[X_AXIS], sys_position[Y_AXIS],sys_position[Z_AXIS] );
     delay_ms(1);
@@ -439,6 +442,7 @@ void ecmc_grbl_main_rt_thread()
 
     } else {
       // Segment buffer empty. Shutdown.
+      printf("Segment buffer empty!!!!!!!!!!!!!!!!!!!!!");
       st_go_idle();
       #ifdef VARIABLE_SPINDLE
         // Ensure pwm is set properly upon completion of rate-controlled motion.
