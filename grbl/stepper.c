@@ -226,13 +226,15 @@ pthread_t tid;
 
 void *ecmc_dummy_thread(void *ptr) {
   printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
-  while (stepperInterruptEnable) {
+  
+  while (stepperInterruptEnable) {    
     for(int i=0; i < 30; i++) {
       ecmc_grbl_main_rt_thread();
     }
-    printf("%s:%s:%d Positions(x,y,x)=%d,%d,%d..\n",__FILE__,__FUNCTION__,__LINE__,sys_position[X_AXIS], sys_position[Y_AXIS],sys_position[Z_AXIS] );
-    sleep(0.001);
+    printf("%s:%s:%d Positions(x,y,z)=%d,%d,%d..\n",__FILE__,__FUNCTION__,__LINE__,sys_position[X_AXIS], sys_position[Y_AXIS],sys_position[Z_AXIS] );
+    delay_ms(1);
   }
+  fflush(stdout);
 }
 
 void ecmc_start_dummy_thread()

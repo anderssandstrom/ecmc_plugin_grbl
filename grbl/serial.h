@@ -23,21 +23,26 @@
 #define serial_h
 
 
-#ifndef RX_BUFFER_SIZE
-  #define RX_BUFFER_SIZE 128
-#endif
-#ifndef TX_BUFFER_SIZE
-  #ifdef USE_LINE_NUMBERS
-    #define TX_BUFFER_SIZE 112
-  #else
-    #define TX_BUFFER_SIZE 104
-  #endif
-#endif
+//#ifndef RX_BUFFER_SIZE
+//  #define RX_BUFFER_SIZE 128
+//#endif
+//#ifndef TX_BUFFER_SIZE
+//  #ifdef USE_LINE_NUMBERS
+//    #define TX_BUFFER_SIZE 112
+//  #else
+//    #define TX_BUFFER_SIZE 104
+//  #endif
+//#endif
+
+
+#define RX_BUFFER_SIZE 1024
+#define TX_BUFFER_SIZE 1024
 
 #define SERIAL_NO_DATA 0xff
 
 
 void ecmc_write_command_serial(char* line);
+char ecmc_get_char_from_grbl_tx_buffer();
 
 void serial_init();
 

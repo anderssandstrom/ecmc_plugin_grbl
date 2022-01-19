@@ -143,7 +143,7 @@ void delay_ms(uint16_t ms)
   clock_gettime(CLOCK_MONOTONIC,&deadline);
   deadline.tv_nsec+=1E6*ms;
   if(deadline.tv_nsec>=1E9) {
-    deadline.tv_nsec-=1E6;
+    deadline.tv_nsec-=1E9;
     deadline.tv_sec++;
   }
   clock_nanosleep(CLOCK_MONOTONIC,TIMER_ABSTIME, &deadline,NULL);
@@ -161,7 +161,7 @@ void delay_us(uint32_t us)
   clock_gettime(CLOCK_MONOTONIC,&deadline);
   deadline.tv_nsec+=1E3*us;
   if(deadline.tv_nsec>=1E9) {
-    deadline.tv_nsec-=1E6;
+    deadline.tv_nsec-=1E9;
     deadline.tv_sec++;
   }
   clock_nanosleep(CLOCK_MONOTONIC,TIMER_ABSTIME, &deadline,NULL);

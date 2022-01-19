@@ -36,7 +36,7 @@ volatile uint8_t serial_tx_buffer_tail = 0;
 // Returns the number of bytes available in the RX serial buffer.
 uint8_t serial_get_rx_buffer_available()
 {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
   uint8_t rtail = serial_rx_buffer_tail; // Copy to limit multiple calls to volatile
   if (serial_rx_buffer_head >= rtail) { return(RX_BUFFER_SIZE - (serial_rx_buffer_head-rtail)); }
   return((rtail-serial_rx_buffer_head-1));
@@ -47,7 +47,7 @@ uint8_t serial_get_rx_buffer_available()
 // NOTE: Deprecated. Not used unless classic status reports are enabled in config.h.
 uint8_t serial_get_rx_buffer_count()
 {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
   uint8_t rtail = serial_rx_buffer_tail; // Copy to limit multiple calls to volatile
   if (serial_rx_buffer_head >= rtail) { return(serial_rx_buffer_head-rtail); }
   return (RX_BUFFER_SIZE - (rtail-serial_rx_buffer_head));
@@ -58,7 +58,7 @@ uint8_t serial_get_rx_buffer_count()
 // NOTE: Not used except for debugging and ensuring no TX bottlenecks.
 uint8_t serial_get_tx_buffer_count()
 {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
   uint8_t ttail = serial_tx_buffer_tail; // Copy to limit multiple calls to volatile
   if (serial_tx_buffer_head >= ttail) { return(serial_tx_buffer_head-ttail); }
   return (TX_RING_BUFFER - (ttail-serial_tx_buffer_head));
@@ -89,7 +89,7 @@ void serial_init()
 
 // Writes one byte to the TX serial buffer. Called by main program.
 void serial_write(uint8_t data) {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
 
   // Calculate next head
   uint8_t next_head = serial_tx_buffer_head + 1;
@@ -111,22 +111,26 @@ void serial_write(uint8_t data) {
 
 
 // Data Register Empty Interrupt handler
+char ecmc_get_char_from_grbl_tx_buffer()
 //ISR(SERIAL_UDRE)
-//{
-//  uint8_t tail = serial_tx_buffer_tail; // Temporary serial_tx_buffer_tail (to optimize for volatile)
-//
-//  // Send a byte from the buffer
-//  UDR0 = serial_tx_buffer[tail];
-//
-//  // Update tail position
-//  tail++;
-//  if (tail == TX_RING_BUFFER) { tail = 0; }
-//
-//  serial_tx_buffer_tail = tail;
-//
-//  // Turn off Data Register Empty Interrupt to stop tx-streaming if this concludes the transfer
-//  if (tail == serial_tx_buffer_head) { UCSR0B &= ~(1 << UDRIE0); }
-//}
+{
+  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  uint8_t tail = serial_tx_buffer_tail; // Temporary serial_tx_buffer_tail (to optimize for volatile)
+  char tempChar=0;
+  // Send a byte from the buffer
+  
+  //UDR0 = serial_tx_buffer[tail];
+  tempChar =serial_tx_buffer[tail];
+  // Update tail position
+  tail++;
+  if (tail == TX_RING_BUFFER) { tail = 0; }
+
+  serial_tx_buffer_tail = tail;
+
+  // Turn off Data Register Empty Interrupt to stop tx-streaming if this concludes the transfer
+  //if (tail == serial_tx_buffer_head) { UCSR0B &= ~(1 << UDRIE0); }
+  return tempChar;
+}
 
 // Fetches the first byte in the serial read buffer. Called by main program.
 uint8_t serial_read()
@@ -212,7 +216,6 @@ void ecmc_write_command_serial(char* line) {
     ecmc_add_char_to_buffer(line[i]);
   }
 }
-
 
 void serial_reset_read_buffer()
 {

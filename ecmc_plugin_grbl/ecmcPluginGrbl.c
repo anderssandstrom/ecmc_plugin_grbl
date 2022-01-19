@@ -41,6 +41,17 @@ static int    alreadyLoaded   = 0;
 int initDone = 0;
 pthread_t tid;
 
+
+void *ecmc_grbl_client_simulation_thread(void *ptr) {
+  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  for(;;) {
+    while(serial_get_tx_buffer_count()==0) {
+      delay_ms(1);      
+    }
+    printf("%c",ecmc_get_char_from_grbl_tx_buffer());
+  }
+}
+
 // copied for grbl main.c
 void *ecmc_grbl_main_thread(void *ptr) {
   printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
@@ -127,17 +138,31 @@ int grblConstruct(char *configStr)
   // create SocketCAN object and register data callback
   lastConfStr = strdup(configStr);
 
+  // start grbl simulated client thread!
+  int err;
+
+  err = pthread_create(&(tid), NULL, *ecmc_grbl_client_simulation_thread, NULL);
+  if (err != 0) {
+    printf("\n Can't create thread :[%s]", strerror(err));
+    return 1;
+  }
+  else {
+    printf("\n grbl simulated client thread created successfully\n");
+  }
+  
   // start grbl main thread and wait for init done!
   printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
-  int err;
+  
   err = pthread_create(&(tid), NULL, *ecmc_grbl_main_thread, NULL);
   if (err != 0) {
-      printf("\n Can't create thread :[%s]", strerror(err));
-      return 1;
+    printf("\n Can't create thread :[%s]", strerror(err));
+    return 1;
   }
-  else
-      printf("\n grbl main thread created successfully\n");
+  else {
+    printf("\n grbl main thread created successfully\n");
+  }
   
+
   // whait for initDone!
   printf("Waiting for grbl init..");
   while(!initDone) {      
@@ -150,38 +175,38 @@ int grblConstruct(char *configStr)
   sleep(1);
 
   // test some commands
-  printf("Test command:G0X11\n");
+  printf("Test command:G0X10Y100\n");
   ecmc_write_command_serial("G0X10Y100\n");
-  printf("Test command:$J=X10.0Y-1.5\n");
-  ecmc_write_command_serial("$J=X10.0Y-1.5\n");
-  printf("Test command:#\n");
-  ecmc_write_command_serial("#\n");
-  printf("Test command:?\n");
-  ecmc_write_command_serial("?\n");
-  printf("Test command:G1X200Y100\n");
-  ecmc_write_command_serial("G1X200Y100\n");
+  //printf("Test command:$J=X10.0Y-1.5\n");
+  //ecmc_write_command_serial("$J=X10.0Y-1.5\0");
+  //printf("Test command:#\n");
+  //ecmc_write_command_serial("#\n");
+  //printf("Test command:?\n");
+  //ecmc_write_command_serial("?\0");
+  //printf("Test command:G1X200Y100\n");
+  //ecmc_write_command_serial("G1X200Y100\0");
   return 0;
 
-  printf("system_execute_line(G0 X11), %d \n ",system_execute_line("G0X11\0"));
-  printf("end\n");
-  printf("system_execute_line(G1X200Y100), %d \n",system_execute_line("G1X200Y100\0"));
-  printf("end\n");
-  printf("system_execute_line($$), %d \n",system_execute_line("$$\0"));
-  printf("end\n");
-  printf("system_execute_line($), %d \n",system_execute_line("$\0"));
-  printf("end\n");
-  printf("system_execute_line(#), %d \n",system_execute_line("#\0"));
-  printf("end\n");
-  printf("system_execute_line(?), %d \n",system_execute_line("?\0"));
-  printf("end\n");
-  printf("system_execute_line($J=X10.0Y-1.5), %d \n",system_execute_line("$J=X10.0Y-1.5\0"));
-  printf("end\n");
-  printf("gc_execute_line(G0 X100.25), %d \n",gc_execute_line("G0 X100.25\0"));
-  printf("end\n");
-  printf("gc_execute_line(G1X200Y100), %d \n",gc_execute_line("G1X200Y100\0"));
-  printf("end\n");
-  
-  return 0; //createSocketCAN(configStr,getEcmcSampleTimeMS());
+//  printf("system_execute_line(G0 X11), %d \n ",system_execute_line("G0X11\0"));
+//  printf("end\n");
+//  printf("system_execute_line(G1X200Y100), %d \n",system_execute_line("G1X200Y100\0"));
+//  printf("end\n");
+//  printf("system_execute_line($$), %d \n",system_execute_line("$$\0"));
+//  printf("end\n");
+//  printf("system_execute_line($), %d \n",system_execute_line("$\0"));
+//  printf("end\n");
+//  printf("system_execute_line(#), %d \n",system_execute_line("#\0"));
+//  printf("end\n");
+//  printf("system_execute_line(?), %d \n",system_execute_line("?\0"));
+//  printf("end\n");
+//  printf("system_execute_line($J=X10.0Y-1.5), %d \n",system_execute_line("$J=X10.0Y-1.5\0"));
+//  printf("end\n");
+//  printf("gc_execute_line(G0 X100.25), %d \n",gc_execute_line("G0 X100.25\0"));
+//  printf("end\n");
+//  printf("gc_execute_line(G1X200Y100), %d \n",gc_execute_line("G1X200Y100\0"));
+//  printf("end\n");
+//  
+//  return 0; //createSocketCAN(configStr,getEcmcSampleTimeMS());
 }
 
 /** Optional function.
