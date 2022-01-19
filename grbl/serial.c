@@ -114,7 +114,7 @@ void serial_write(uint8_t data) {
 char ecmc_get_char_from_grbl_tx_buffer()
 //ISR(SERIAL_UDRE)
 {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
   uint8_t tail = serial_tx_buffer_tail; // Temporary serial_tx_buffer_tail (to optimize for volatile)
   char tempChar=0;
   // Send a byte from the buffer

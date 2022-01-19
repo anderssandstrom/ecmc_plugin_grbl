@@ -177,8 +177,18 @@ int grblConstruct(char *configStr)
   // test some commands
   printf("Test command:G0X10Y100\n");
   ecmc_write_command_serial("G0X10Y100\n");
+  printf("Test command:G4P4\n");
+  ecmc_write_command_serial("G4P4\n");
   printf("Test command:G1X20Y200F20\n");
   ecmc_write_command_serial("G1X20Y200F20\n");
+  printf("Test command:G4P4\n");
+  ecmc_write_command_serial("G4P4\n");
+  printf("Test command:G2X40Y220R20\n");
+  ecmc_write_command_serial("G2X40Y220R20\n");
+  printf("Test command:$\n");
+  ecmc_write_command_serial("$\n");
+  
+
   //printf("Test command:$J=X10.0Y-1.5\n");
   //ecmc_write_command_serial("$J=X10.0Y-1.5\0");
   //printf("Test command:#\n");
