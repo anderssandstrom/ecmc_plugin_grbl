@@ -190,8 +190,8 @@ void limits_go_home(uint8_t cycle_mask)
 //    #else
 //      float fail_distance = (-DUAL_AXIS_HOMING_FAIL_AXIS_LENGTH_PERCENT/100.0)*settings.max_travel[X_AXIS];
 //    #endif
-//    fail_distance = min(fail_distance, DUAL_AXIS_HOMING_FAIL_DISTANCE_MAX);
-//    fail_distance = max(fail_distance, DUAL_AXIS_HOMING_FAIL_DISTANCE_MIN);
+//    fail_distance = min_grbl(fail_distance, DUAL_AXIS_HOMING_FAIL_DISTANCE_MAX);
+//    fail_distance = max_grbl(fail_distance, DUAL_AXIS_HOMING_FAIL_DISTANCE_MIN);
 //    int32_t dual_fail_distance = trunc(fail_distance*settings.steps_per_mm[DUAL_AXIS_SELECT]);
 //    // int32_t dual_fail_distance = trunc((DUAL_AXIS_HOMING_TRIGGER_FAIL_DISTANCE)*settings.steps_per_mm[DUAL_AXIS_SELECT]);
 //  #endif

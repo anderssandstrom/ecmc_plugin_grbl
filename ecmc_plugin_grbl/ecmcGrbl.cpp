@@ -3,7 +3,7 @@
 * ecmc is distributed subject to a Software License Agreement found
 * in file LICENSE that is included with this distribution. 
 *
-*  ecmcSocketCAN.cpp
+*  ecmcGrbl.cpp
 *
 *  Created on: Mar 22, 2020
 *      Author: anderssandstrom
@@ -15,103 +15,122 @@
 #define ECMC_IS_PLUGIN
 
 #include <sstream>
-#include "ecmcSocketCAN.h"
+#include "ecmcGrbl.h"
 #include "ecmcPluginClient.h"
 #include "ecmcAsynPortDriver.h"
 #include "ecmcAsynPortDriverUtils.h"
 #include "epicsThread.h"
+extern "C" {
+#include "grbl.h"
+}
+
+system_t sys;
+int32_t sys_position[N_AXIS];         // Real-time machine (aka home) position vector in steps.
+int32_t sys_probe_position[N_AXIS];   // Last probe position in machine coordinates and steps.
+volatile uint8_t sys_probe_state;     // Probing state value.  Used to coordinate the probing cycle with stepper ISR.
+volatile uint8_t sys_rt_exec_state;   // Global realtime executor bitflag variable for state management. See EXEC bitmasks.
+volatile uint8_t sys_rt_exec_alarm;   // Global realtime executor bitflag variable for setting various alarms.
+volatile uint8_t sys_rt_exec_motion_override; // Global realtime executor bitflag variable for motion-based overrides.
+volatile uint8_t sys_rt_exec_accessory_override; // Global realtime executor bitflag variable for spindle/coolant overrides.
+#ifdef DEBUG
+  volatile uint8_t sys_rt_exec_debug;
+#endif
 
 // Start worker for socket read()
 void f_worker_read(void *obj) {
   if(!obj) {
-    printf("%s/%s:%d: Error: Worker read thread ecmcSocketCAN object NULL..\n",
+    printf("%s/%s:%d: Error: Worker read thread ecmcGrbl object NULL..\n",
             __FILE__, __FUNCTION__, __LINE__);
     return;
   }
-  ecmcSocketCAN * canObj = (ecmcSocketCAN*)obj;
-  canObj->doReadWorker();
+  ecmcGrbl * grblObj = (ecmcGrbl*)obj;
+  grblObj->doReadWorker();
 }
 
 // Start worker for socket connect()
-void f_worker_connect(void *obj) {
+void f_worker_main(void *obj) {
   if(!obj) {
-    printf("%s/%s:%d: Error: Worker connect thread ecmcSocketCAN object NULL..\n",
+    printf("%s/%s:%d: Error: Worker main thread ecmcGrbl object NULL..\n",
             __FILE__, __FUNCTION__, __LINE__);
     return;
   }
-  ecmcSocketCAN * canObj = (ecmcSocketCAN*)obj;
-  canObj->doConnectWorker();
+  ecmcGrbl * grblObj = (ecmcGrbl*)obj;
+  grblObj->doMainWorker();
 }
 
-/** ecmc ecmcSocketCAN class
+/** ecmc ecmcGrbl class
  * This object can throw: 
- *    - bad_alloc
- *    - invalid_argument
- *    - runtime_error
 */
-ecmcSocketCAN::ecmcSocketCAN(char* configStr,
-                             char* portName,
-                             int exeSampleTimeMs) {
-  // Init
-  cfgCanIFStr_    = NULL;
-  cfgDbgMode_     = 0;
-  cfgAutoConnect_ = 1;
-  destructs_      = 0;
-  socketId_       = -1;
-  connected_      = 0;
-  writeBuffer_    = NULL;
-  deviceCounter_  = 0;
-  refreshNeeded_  = 0;
-  errorCode_      = 0;
-  masterDev_      = NULL;
-  for(int i = 0; i<ECMC_CAN_MAX_DEVICES;i++) {
-    devices_[i] = NULL;
-  }
+ecmcGrbl::ecmcGrbl(char* configStr,
+                   char* portName,
+                   double exeSampleTimeMs)
+         : asynPortDriver(portName,
+                   1, /* maxAddr */
+                   asynInt32Mask | asynFloat64Mask | asynFloat32ArrayMask |
+                   asynFloat64ArrayMask | asynEnumMask | asynDrvUserMask |
+                   asynOctetMask | asynInt8ArrayMask | asynInt16ArrayMask |
+                   asynInt32ArrayMask | asynUInt32DigitalMask, /* Interface mask */
+                   asynInt32Mask | asynFloat64Mask | asynFloat32ArrayMask |
+                   asynFloat64ArrayMask | asynEnumMask | asynDrvUserMask |
+                   asynOctetMask | asynInt8ArrayMask | asynInt16ArrayMask |
+                   asynInt32ArrayMask | asynUInt32DigitalMask, /* Interrupt mask */
+                   ASYN_CANBLOCK , /*NOT ASYN_MULTI_DEVICE*/
+                   1, /* Autoconnect */
+                   0, /* Default priority */
+                   0) /* Default stack size */
 
-  exeSampleTimeMs_ = exeSampleTimeMs;
-  
-  memset(&ifr_,0,sizeof(struct ifreq));
-  memset(&rxmsg_,0,sizeof(struct can_frame));
-  memset(&addr_,0,sizeof(struct sockaddr_can));
+                   {
+
+  // Init  
+  cfgDbgMode_       = 0;
+  destructs_        = 0;
+  connected_        = 0;  
+  errorCode_        = 0;
+  exeSampleTimeMs_  = exeSampleTimeMs;
+  cfgXAxisId_       = -1;
+  cfgYAxisId_       = -1;
+  cfgZAxisId_       = -1;
+  cfgSpindleAxisId_ = -1;
+  grblInitDone_     = 0;
 
   parseConfigStr(configStr); // Assigns all configs
-  // Check valid nfft
-  if(!cfgCanIFStr_ ) {
-    throw std::out_of_range("CAN inteface must be defined (can0, vcan0...).");
+  
+  //Check atleast one valid axis
+  if(cfgXAxisId_<0 && cfgXAxisId_<0 && cfgXAxisId_<0 && cfgSpindleAxisId_<0) {
+    throw std::out_of_range("No valid axis choosen.");
   }
 
   // Create worker thread for reading socket
-  std::string threadname = "ecmc." ECMC_PLUGIN_ASYN_PREFIX".read";
+  std::string threadname = "ecmc." ECMC_PLUGIN_ASYN_PREFIX ".read";
   if(epicsThreadCreate(threadname.c_str(), 0, 32768, f_worker_read, this) == NULL) {
     throw std::runtime_error("Error: Failed create worker thread for read().");
   }
 
   // Create worker thread for connecting socket
-  threadname = "ecmc." ECMC_PLUGIN_ASYN_PREFIX".connect";
-  if(epicsThreadCreate(threadname.c_str(), 0, 32768, f_worker_connect, this) == NULL) {
-    throw std::runtime_error("Error: Failed create worker thread for connect().");
+  threadname = "ecmc." ECMC_PLUGIN_ASYN_PREFIX ".main";
+  if(epicsThreadCreate(threadname.c_str(), 0, 32768, f_worker_main, this) == NULL) {
+    throw std::runtime_error("Error: Failed create worker thread for main().");
   }
 
-  if(cfgAutoConnect_) {
-    connectPrivate();
+  // wait for grblInitDone_!
+  printf("Waiting for grbl init..");
+  while(!grblInitDone_) {      
+    delay_ms(100);
+    printf(".");
   }
-  writeBuffer_ = new ecmcSocketCANWriteBuffer(socketId_, cfgDbgMode_);
-  initAsyn();
+  delay_ms(100);
+  printf("\n");
+  printf("\n grbl ready for commands!\n");
+  sleep(1);
+  testGrbl();
 }
 
-ecmcSocketCAN::~ecmcSocketCAN() {
+ecmcGrbl::~ecmcGrbl() {
   // kill worker
   destructs_ = 1;  // maybe need todo in other way..
-  doWriteEvent_.signal();
-  doConnectEvent_.signal();
-
-  for(int i = 0; i<ECMC_CAN_MAX_DEVICES;i++) {
-    delete devices_[i];
-  }
-
 }
 
-void ecmcSocketCAN::parseConfigStr(char *configStr) {
+void ecmcGrbl::parseConfigStr(char *configStr) {
 
   // check config parameters
   if (configStr && configStr[0]) {    
@@ -132,337 +151,158 @@ void ecmcSocketCAN::parseConfigStr(char *configStr) {
         cfgDbgMode_ = atoi(pThisOption);
       }
       
-      // ECMC_PLUGIN_CONNECT_OPTION_CMD (1/0)
-      if (!strncmp(pThisOption, ECMC_PLUGIN_CONNECT_OPTION_CMD, strlen(ECMC_PLUGIN_CONNECT_OPTION_CMD))) {
-        pThisOption += strlen(ECMC_PLUGIN_DBG_PRINT_OPTION_CMD);
-        cfgAutoConnect_ = atoi(pThisOption);
+      // ECMC_PLUGIN_X_AXIS_ID_OPTION_CMD (1..ECMC_MAX_AXES)
+      if (!strncmp(pThisOption, ECMC_PLUGIN_X_AXIS_ID_OPTION_CMD, strlen(ECMC_PLUGIN_X_AXIS_ID_OPTION_CMD))) {
+        pThisOption += strlen(ECMC_PLUGIN_X_AXIS_ID_OPTION_CMD);
+        cfgXAxisId_ = atoi(pThisOption);
       }
 
-      // ECMC_PLUGIN_IF_OPTION_CMD (Source string)
-      else if (!strncmp(pThisOption, ECMC_PLUGIN_IF_OPTION_CMD, strlen(ECMC_PLUGIN_IF_OPTION_CMD))) {
-        pThisOption += strlen(ECMC_PLUGIN_IF_OPTION_CMD);
-        cfgCanIFStr_=strdup(pThisOption);
+      // ECMC_PLUGIN_Y_AXIS_ID_OPTION_CMD (1..ECMC_MAX_AXES)
+      if (!strncmp(pThisOption, ECMC_PLUGIN_Y_AXIS_ID_OPTION_CMD, strlen(ECMC_PLUGIN_Y_AXIS_ID_OPTION_CMD))) {
+        pThisOption += strlen(ECMC_PLUGIN_Y_AXIS_ID_OPTION_CMD);
+        cfgYAxisId_ = atoi(pThisOption);
+      }
+
+      // ECMC_PLUGIN_Z_AXIS_ID_OPTION_CMD (1..ECMC_MAX_AXES)
+      if (!strncmp(pThisOption, ECMC_PLUGIN_Z_AXIS_ID_OPTION_CMD, strlen(ECMC_PLUGIN_Z_AXIS_ID_OPTION_CMD))) {
+        pThisOption += strlen(ECMC_PLUGIN_Z_AXIS_ID_OPTION_CMD);
+        cfgZAxisId_ = atoi(pThisOption);
+      }
+
+      // ECMC_PLUGIN_SPINDLE_AXIS_ID_OPTION_CMD (1..ECMC_MAX_AXES)
+      if (!strncmp(pThisOption, ECMC_PLUGIN_SPINDLE_AXIS_ID_OPTION_CMD, strlen(ECMC_PLUGIN_SPINDLE_AXIS_ID_OPTION_CMD))) {
+        pThisOption += strlen(ECMC_PLUGIN_SPINDLE_AXIS_ID_OPTION_CMD);
+        cfgSpindleAxisId_ = atoi(pThisOption);
       }
 
       pThisOption = pNextOption;
     }    
     free(pOptions);
   }
-  if(!cfgCanIFStr_) { 
-    throw std::invalid_argument( "CAN interface not defined.");
-  }
-}
-
-// For connect commands over asyn or plc. let worker connect
-void ecmcSocketCAN::connectExternal() {
-  if(!connected_) {
-    doConnectEvent_.signal(); // let worker start
-  }
-}
-
-void ecmcSocketCAN::connectPrivate() {
-
-	if((socketId_ = socket(PF_CAN, SOCK_RAW, CAN_RAW)) == -1) {
-    throw std::runtime_error( "Error while opening socket.");		
-		return;
-	}
-
-	strcpy(ifr_.ifr_name, cfgCanIFStr_);
-	ioctl(socketId_, SIOCGIFINDEX, &ifr_);
-	
-	addr_.can_family  = AF_CAN;
-	addr_.can_ifindex = ifr_.ifr_ifindex;
-
-	printf("%s at index %d\n", cfgCanIFStr_, ifr_.ifr_ifindex);
-
-	if(bind(socketId_, (struct sockaddr *)&addr_, sizeof(addr_)) == -1) {		
-    throw std::runtime_error( "Error in socket bind.");
-    return;
-	}
-  connected_ = 1;
-}
-
-int ecmcSocketCAN::getConnected() {
-  return connected_;
 }
 
 // Read socket worker
-void ecmcSocketCAN::doReadWorker() {
-
-  while(true) {
-    
-    if(destructs_) {
-      break;
+void ecmcGrbl::doReadWorker() {
+  // simulate serial connection here (need mutex)
+  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  for(;;) {
+    while(serial_get_tx_buffer_count()==0) {
+      delay_ms(1);      
     }
-
-    // Wait for new CAN frame 
-    int bytes = read(socketId_, &rxmsg_, sizeof(rxmsg_));
-    if(bytes == -1) {
-      errorCode_ = errno;      
-      printf("ecmcSocketCAN: read() fail with error %s.\n", strerror(errno));      
-      refreshNeeded_ = 1;
-      continue;
-    }
-
-    // forward all data to devices (including master)
-    for(int i = 0; i < deviceCounter_; i++){
-      devices_[i]->newRxFrame(&rxmsg_);
-    }
-
-    if(cfgDbgMode_) {
-      // Simulate candump printout
-      printf("r 0x%03X", rxmsg_.can_id);
-      printf(" [%d]", rxmsg_.can_dlc);
-      for(int i=0; i<rxmsg_.can_dlc; i++ ) {
-        printf(" 0x%02X", rxmsg_.data[i]);
-      }
-      printf("\n");
-    }
+    printf("%c",ecmc_get_char_from_grbl_tx_buffer());
   }
 }
 
-// Connect socket worker
-void ecmcSocketCAN::doConnectWorker() {
-
-  while(true) {
-    
-    if(destructs_) {
-      return;
-    }
-    doConnectEvent_.wait();
-    if(destructs_) {
-      return;
-    }
-    connectPrivate();
-  }
-}
-
-int ecmcSocketCAN::getlastWritesError() {
-  if(!writeBuffer_) { 
-    return ECMC_CAN_ERROR_WRITE_BUFFER_NULL;
-  }
-  return writeBuffer_->getlastWritesErrorAndReset();
-}
-
-int ecmcSocketCAN::addWriteCAN(uint32_t canId,
-                               uint8_t len,
-                               uint8_t data0,
-                               uint8_t data1,
-                               uint8_t data2,
-                               uint8_t data3,
-                               uint8_t data4,
-                               uint8_t data5,
-                               uint8_t data6,
-                               uint8_t data7) {
-
-  if(!writeBuffer_) { 
-    return ECMC_CAN_ERROR_WRITE_BUFFER_NULL;
-  }
-
-  writeBuffer_->addWriteCAN(canId,
-                            len,
-                            data0,
-                            data1,
-                            data2,
-                            data3,
-                            data4,
-                            data5,
-                            data6,
-                            data7);
-  return 0;
-}
+// Main grbl worker (copied from grbl main.c)
+void ecmcGrbl::doMainWorker() {
+  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
   
-void  ecmcSocketCAN::execute() {
+  // Initialize system upon power-up.
+  serial_init();             // Setup serial baud rate and interrupts
+  ecmc_init_file();          // create and clear file (simulated eeprom)
+  settings_restore(0b1111);  // restore all to defaults
+  settings_init();           // Load Grbl settings from EEPROM
+  stepper_init();            // Configure stepper pins and interrupt timers
+  system_init();             // Configure pinout pins and pin-change interrupt
+  memset(sys_position,0,sizeof(sys_position)); // Clear machine position.
+  //sei(); // Enable interrupts
+  // Initialize system state.
+  #ifdef FORCE_INITIALIZATION_ALARM
+    // Force Grbl into an ALARM state upon a power-cycle or hard reset.
+    sys.state = STATE_ALARM;
+  #else
+    sys.state = STATE_IDLE;
+  #endif
+  
+  // Check for power-up and set system alarm if homing is enabled to force homing cycle
+  // by setting Grbl's alarm state. Alarm locks out all g-code commands, including the
+  // startup scripts, but allows access to settings and internal commands. Only a homing
+  // cycle '$H' or kill alarm locks '$X' will disable the alarm.
+  // NOTE: The startup script will run after successful completion of the homing cycle, but
+  // not after disabling the alarm locks. Prevents motion startup blocks from crashing into
+  // things uncontrollably. Very bad.
+  #ifdef HOMING_INIT_LOCK
+    if (bit_istrue(settings.flags,BITFLAG_HOMING_ENABLE)) { sys.state = STATE_ALARM; }
+  #endif
+   // Grbl initialization loop upon power-up or a system abort. For the latter, all processes
+  // will return to this loop to be cleanly re-initialized.
+  for(;;) {
+    if(destructs_) {
+      return;
+    }
+    // Reset system variables.
+    uint8_t prior_state = sys.state;
+    memset(&sys, 0, sizeof(system_t)); // Clear system struct variable.
+    sys.state = prior_state;
+    sys.f_override = DEFAULT_FEED_OVERRIDE;  // Set to 100%
+    sys.r_override = DEFAULT_RAPID_OVERRIDE; // Set to 100%
+    sys.spindle_speed_ovr = DEFAULT_SPINDLE_SPEED_OVERRIDE; // Set to 100%
+		memset(sys_probe_position,0,sizeof(sys_probe_position)); // Clear probe position.
+    sys_probe_state = 0;
+    sys_rt_exec_state = 0;
+    sys_rt_exec_alarm = 0;
+    sys_rt_exec_motion_override = 0;
+    sys_rt_exec_accessory_override = 0;
 
-  for(int i = 0; i < deviceCounter_; i++){
-    devices_[i]->execute();
-  }
+    // Reset Grbl primary systems.
+    serial_reset_read_buffer(); // Clear serial read buffer
+    gc_init(); // Set g-code parser to default state
+    spindle_init();
+    coolant_init();
+    //limits_init();
+    probe_init();
+    plan_reset(); // Clear block buffer and planner variables
+    st_reset(); // Clear stepper subsystem variables.
 
-  int writeError=getlastWritesError();
-  if (writeError) {
-    errorCode_ = writeError;
-    refreshNeeded_ = 1;
+    // Sync cleared gcode and planner positions to current system position.
+    plan_sync_position();
+    gc_sync_position();
+
+    // Print welcome message. Indicates an initialization has occured at power-up or with a reset.
+    report_init_message();
+
+    // ready for commands through serial interface
+    grblInitDone_ = 1;
+    protocol_main_loop();
+    if(destructs_) {
+      return;
+    }
   }
-  refreshAsynParams();
-  return;
+}
+
+// grb realtime thread!!!  
+void  ecmcGrbl::grblRTexecute() {
+
 }
 
 // Avoid issues with std:to_string()
-std::string ecmcSocketCAN::to_string(int value) {
+std::string ecmcGrbl::to_string(int value) {
   std::ostringstream os;
   os << value;
   return os.str();
 }
 
-void ecmcSocketCAN::addMaster(uint32_t nodeId,
-                              const char* name,
-                              int lssSampleTimeMs,
-                              int syncSampleTimeMs,
-                              int heartSampleTimeMs) {
+void ecmcGrbl::testGrbl() {
 
-  if(masterDev_) {
-   throw std::runtime_error("Master already added.");
-  }
-  if(deviceCounter_ >= ECMC_CAN_MAX_DEVICES) {
-    throw std::out_of_range("Device array full.");
-  }
-  if(nodeId >= 128) {
-    throw std::out_of_range("Node id out of range.");
-  }
+  // test some commands
+  printf("Test command:$\n");
+  ecmc_write_command_serial("$\n");
+  sleep(1);
+  printf("Test command:G0X10Y100\n");
+  ecmc_write_command_serial("G0X10Y100\n");
+  sleep(1);
+  printf("Test command:$G\n");
+  ecmc_write_command_serial("$G\n");
+  sleep(1);
+  printf("Test command:G4P4\n");
+  ecmc_write_command_serial("G4P4\n");
+  printf("Test command:G1X20Y200F20\n");
+  ecmc_write_command_serial("G1X20Y200F20\n");
+  printf("Test command:G4P4\n");
+  ecmc_write_command_serial("G4P4\n");
+  printf("Test command:G2X40Y220R20\n");
+  ecmc_write_command_serial("G2X40Y220R20\n");
+  printf("Test command:$\n");
+  ecmc_write_command_serial("$\n");
 
-  if(lssSampleTimeMs <= 0) {
-    throw std::out_of_range("LSS sample time ms out of range.");
-  }
-
-  if(syncSampleTimeMs <= 0) {
-    throw std::out_of_range("Sync sample time ms out of range.");
-  }
-
-  if(heartSampleTimeMs <= 0) {
-    throw std::out_of_range("Heart sample time ms out of range.");
-  }
-
-  masterDev_ = new ecmcCANOpenMaster(writeBuffer_,
-                                     nodeId,
-                                     exeSampleTimeMs_,
-                                     lssSampleTimeMs,
-                                     syncSampleTimeMs,
-                                     heartSampleTimeMs,
-                                     name,
-                                     cfgDbgMode_);
-  // add as a normal device also for execute and rxframe
-  devices_[deviceCounter_] = masterDev_;
-  deviceCounter_++;
-}
-
-void ecmcSocketCAN::addDevice(uint32_t nodeId,
-                              const char* name,
-                              int heartTimeoutMs){
-  if(deviceCounter_ >= ECMC_CAN_MAX_DEVICES) {
-    throw std::out_of_range("Device array full.");
-  }
-  if(nodeId >= 128) {
-    throw std::out_of_range("Node id out of range.");
-  }
-
-  devices_[deviceCounter_] = new ecmcCANOpenDevice(writeBuffer_,nodeId,exeSampleTimeMs_,name,heartTimeoutMs,cfgDbgMode_);  
-  deviceCounter_++;
-}
-
-int ecmcSocketCAN::findDeviceWithNodeId(uint32_t nodeId) {
-  for(int i=0; i < deviceCounter_;i++) {
-    if(devices_[i]) {
-      if(devices_[i]->getNodeId() == nodeId) {
-         return i;
-      }
-    }
-  }
-  return -1;
-}
-
-void ecmcSocketCAN::addPDO(uint32_t nodeId,
-                           uint32_t cobId,
-                           ecmc_can_direction rw,
-                           uint32_t ODSize,
-                           int readTimeoutMs,
-                           int writeCycleMs,    //if <0 then write on demand.
-                           const char* name) {
-  int devId = findDeviceWithNodeId(nodeId);
-  if(devId < 0) {
-    throw std::out_of_range("Node id not found in any configured device.");
-  }
-
-  int errorCode = devices_[devId]->addPDO(cobId,
-                                          rw,
-                                          ODSize,
-                                          readTimeoutMs,
-                                          writeCycleMs,
-                                          name);
-  if(errorCode > 0) {
-    throw std::runtime_error("AddPDO() failed.");
-  }
-}
-              
-void ecmcSocketCAN::addSDO(uint32_t nodeId,
-                           uint32_t cobIdTx,    // 0x580 + CobId
-                           uint32_t cobIdRx,    // 0x600 + Cobid
-                           ecmc_can_direction rw,
-                           uint16_t ODIndex,    // Object dictionary index
-                           uint8_t ODSubIndex,  // Object dictionary subindex
-                           uint32_t ODSize,
-                           int readSampleTimeMs,
-                           const char* name) {
-
-  int devId = findDeviceWithNodeId(nodeId);
-  if(devId < 0) {
-    throw std::out_of_range("Node id not found in any configured device.");
-  }
-
-  int errorCode = devices_[devId]->addSDO(cobIdTx,
-                                          cobIdRx,
-                                          rw,
-                                          ODIndex,
-                                          ODSubIndex,
-                                          ODSize,
-                                          readSampleTimeMs,
-                                          name);
-  if(errorCode > 0) {
-    throw std::runtime_error("AddSDO() failed.");
-  }
-}
-
-void ecmcSocketCAN::initAsyn() {
-
-  ecmcAsynPortDriver *ecmcAsynPort = (ecmcAsynPortDriver *)getEcmcAsynPortDriver();
-  if(!ecmcAsynPort) {
-    printf("ERROR: ecmcAsynPort NULL.");
-    throw std::runtime_error( "ERROR: ecmcAsynPort NULL." );
-  }
- 
-  // Add resultdata "plugin.can.read.error"
-  std::string paramName = ECMC_PLUGIN_ASYN_PREFIX + std::string(".read.error");
-
-  errorParam_ = ecmcAsynPort->addNewAvailParam(
-                                          paramName.c_str(),     // name
-                                          asynParamInt32,        // asyn type 
-                                          (uint8_t*)&errorCode_, // pointer to data
-                                          sizeof(errorCode_),    // size of data
-                                          ECMC_EC_U32,           // ecmc data type
-                                          0);                    // die if fail
-
-  if(!errorParam_) {
-    printf("ERROR: Failed create asyn param for data.");
-    throw std::runtime_error( "ERROR: Failed create asyn param for: " + paramName);
-  }
-  errorParam_->setAllowWriteToEcmc(false);  // need to callback here
-  errorParam_->refreshParam(1); // read once into asyn param lib
-  ecmcAsynPort->callParamCallbacks(ECMC_ASYN_DEFAULT_LIST, ECMC_ASYN_DEFAULT_ADDR);
-
-  // Add resultdata "plugin.can.read.connected"
-  paramName = ECMC_PLUGIN_ASYN_PREFIX + std::string(".read.connected");
-
-  connectedParam_ = ecmcAsynPort->addNewAvailParam(
-                                          paramName.c_str(),     // name
-                                          asynParamInt32,        // asyn type 
-                                          (uint8_t*)&connected_, // pointer to data
-                                          sizeof(connected_),    // size of data
-                                          ECMC_EC_U32,           // ecmc data type
-                                          0);                    // die if fail
-
-  if(!connectedParam_) {
-    printf("ERROR: Failed create asyn param for connected.");
-    throw std::runtime_error( "ERROR: Failed create asyn param for: " + paramName);
-  }
-  connectedParam_->setAllowWriteToEcmc(false);  // need to callback here
-  connectedParam_->refreshParam(1); // read once into asyn param lib
-  ecmcAsynPort->callParamCallbacks(ECMC_ASYN_DEFAULT_LIST, ECMC_ASYN_DEFAULT_ADDR); 
-}
-
-// only refresh from "execute" thread
-void ecmcSocketCAN::refreshAsynParams() {
-  if(refreshNeeded_) {
-    connectedParam_->refreshParamRT(1); // read once into asyn param lib
-    errorParam_->refreshParamRT(1); // read once into asyn param lib
-  }
-  refreshNeeded_ = 0;
 }

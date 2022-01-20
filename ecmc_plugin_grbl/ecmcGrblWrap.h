@@ -11,7 +11,8 @@
 \*************************************************************************/
 #ifndef ECMC_GRBL_WRAP_H_
 #define ECMC_GRBL_WRAP_H_
-#include "ecmcSocketCANDefs.h"
+
+#include "ecmcGrblDefs.h"
 
 # ifdef __cplusplus
 extern "C" {
@@ -27,43 +28,14 @@ extern "C" {
  *
  *  \return 0 if success or otherwise an error code.\n
  */
-int createSocketCAN(char *configStr, int exeSampleTimeMs);
-
-/** \brief Connect to SocketCAN interface\n
- */
-
-int connectSocketCAN();
-
-/** \brief Connected to can interface\n
- */
-int getSocketCANConnectd();
-
-/** \brief Get last error from writes\n
-  */
-int getlastWritesError();
+int createGrbl(char *configStr, int exeSampleTimeMs);
 
 /** \brief execute from rt loop\n
   */
 int execute();
 
-/** \brief add CAN frame to write buffer
- */
-int  addWriteSocketCAN( double canId,
-                        double len,
-                        double data0,
-                        double data1,
-                        double data2,
-                        double data3,
-                        double data4,
-                        double data5,
-                        double data6,
-                        double data7);
-
-/** \brief Delete SocketCAN object\n
- *
- * Should be called when destructs.\n
- */
-void deleteSocketCAN();
+// Delete object
+void deleteGrbl();
 
 # ifdef __cplusplus
 }
