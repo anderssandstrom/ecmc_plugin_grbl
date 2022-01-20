@@ -21,7 +21,7 @@
 #ifndef jog_h
 #define jog_h
 
-#include "gcode.h"
+#include "grbl_gcode.h"
 
 // System motion line numbers must be zero.
 #define JOG_LINE_NUMBER 0
