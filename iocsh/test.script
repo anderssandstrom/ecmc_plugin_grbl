@@ -52,4 +52,6 @@ ecmcGrblAddCommand("$");
 ## PLC 0
 # $(SCRIPTEXEC) $(ecmccfg_DIR)loadPLCFile.cmd, "PLC_ID=0, SAMPLE_RATE_MS=1000,FILE=./plc/can.plc")
 
+$(SCRIPTEXEC) ($(ecmccfg_DIR)setAppMode.cmd)
+
 iocInit()

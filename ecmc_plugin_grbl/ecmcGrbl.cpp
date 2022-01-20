@@ -319,6 +319,15 @@ void ecmcGrbl::doMainWorker() {
 
 // grb realtime thread!!!  
 void  ecmcGrbl::grblRTexecute() {
+    printf("HEPP");
+    for(int i=0; i < 30; i++) {
+      if(!grblInitDone_) {
+        break;
+      }
+      ecmc_grbl_main_rt_thread();      
+    }
+    
+    printf("%s:%s:%d Positions(x,y,z)=%d,%d,%d..\n",__FILE__,__FUNCTION__,__LINE__,sys_position[X_AXIS], sys_position[Y_AXIS],sys_position[Z_AXIS] );
 
 }
 

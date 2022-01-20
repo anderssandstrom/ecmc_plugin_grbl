@@ -221,41 +221,42 @@ static bool stepperInterruptEnable = 0;
   are shown and defined in the above illustration.
 */
 
-void ecmc_grbl_main_rt_thread();
-pthread_t tid;
-
-void *ecmc_dummy_thread(void *ptr) {
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
-  
-  while (stepperInterruptEnable) {    
-    for(int i=0; i < 30; i++) {
-      if(!stepperInterruptEnable) {
-        break;
-      }
-      ecmc_grbl_main_rt_thread();      
-    }
-    
-    printf("%s:%s:%d Positions(x,y,z)=%d,%d,%d..\n",__FILE__,__FUNCTION__,__LINE__,sys_position[X_AXIS], sys_position[Y_AXIS],sys_position[Z_AXIS] );
-    delay_ms(1);
-  }
-  fflush(stdout);
-}
-
-void ecmc_start_dummy_thread()
-{
-    printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
-
-    int i = 0;
-    int err;
-
-    err = pthread_create(&(tid), NULL, *ecmc_dummy_thread, NULL);
-    if (err != 0)
-        printf("\ncan't create thread :[%s]", strerror(err));
-    else
-        printf("\n Thread created successfully\n");
-    i++;
-    return;
-}
+//void ecmc_grbl_main_rt_thread();
+//pthread_t tid;
+//
+//void *ecmc_dummy_thread(void *ptr) {
+//  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+//  
+//  while (stepperInterruptEnable) {    
+//    for(int i=0; i < 30; i++) {
+//      if(!stepperInterruptEnable) {
+//        break;
+//      }
+//      ecmc_grbl_main_rt_thread();      
+//    }
+//    
+//    printf("%s:%s:%d Positions(x,y,z)=%d,%d,%d..\n",__FILE__,__FUNCTION__,__LINE__,sys_position[X_AXIS], sys_position[Y_AXIS],sys_position[Z_AXIS] );
+//    delay_ms(1);
+//  }
+//  fflush(stdout);
+//}
+//
+//void ecmc_start_dummy_thread()
+//{
+//    printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+//
+//    int i = 0;
+//    int err;
+//
+//    err = pthread_create(&(tid), NULL, *ecmc_dummy_thread, NULL);
+//    if (err != 0)
+//        printf("\ncan't create thread :[%s]", strerror(err));
+//    else
+//        printf("\n Thread created successfully\n");
+//    i++;
+//    return;
+//}
+//
 
 // Stepper state initialization. Cycle should only start if the st.cycle_start flag is
 // enabled. Startup init and limits call this function but shouldn't start the cycle.
@@ -285,7 +286,7 @@ void st_wake_up()
   //TIMSK1 |= (1<<OCIE1A);
   stepperInterruptEnable = 1;
   //This should be linked to ecmc execute later
-  ecmc_start_dummy_thread();
+  //ecmc_start_dummy_thread();
 }
 
 

@@ -64,7 +64,6 @@ int execute() {
   return 0;
 }
 
-
 void deleteGrbl() {
   if(grbl) {
     delete (grbl);
