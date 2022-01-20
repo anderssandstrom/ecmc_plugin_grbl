@@ -47,56 +47,56 @@ char buffer[EEPROM_MEM_SIZE];
 /* Define to reduce code size. */
 //#define EEPROM_IGNORE_SELFPROG //!< Remove SPM flag polling.
 
-unsigned char ecmc_mem_to_file();
+//unsigned char ecmc_mem_to_file();
 // Init file
 void ecmc_init_file() {
   printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
   memset(&buffer[0],0,EEPROM_MEM_SIZE);
-  ecmc_mem_to_file();
+  //ecmc_mem_to_file();
 }
 
 // Read file to buffer[]
-unsigned char  ecmc_file_to_mem()
-{
-  //printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
-
-  FILE* fh = fopen(EEPROM_DUMMY_FILE, "rd");
-
-  if (fh == NULL)
-    {
-        printf("something went wrong and file could not be opened");
-        return 1;
-    }
-    unsigned char c = 0;    
-    for (int i = 0; i < EEPROM_MEM_SIZE ; i++) { 
-         // Get the characters
-        buffer[i] = fgetc(fh);
-    }
-   
-    fclose(fh);
-    return 0;
-}
+//unsigned char  ecmc_file_to_mem()
+//{
+//  //printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
+//
+//  FILE* fh = fopen(EEPROM_DUMMY_FILE, "rd");
+//
+//  if (fh == NULL)
+//    {
+//        printf("something went wrong and file could not be opened");
+//        return 1;
+//    }
+//    unsigned char c = 0;    
+//    for (int i = 0; i < EEPROM_MEM_SIZE ; i++) { 
+//         // Get the characters
+//        buffer[i] = fgetc(fh);
+//    }
+//   
+//    fclose(fh);
+//    return 0;
+//}
 
 // Write buffer[] to file
-unsigned char ecmc_mem_to_file()
-{
-//  printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
-
-  FILE* fh = fopen(EEPROM_DUMMY_FILE, "w");
-
-  if (fh == NULL)
-    {
-        printf("something went wrong and file could not be opened");
-        return 1;
-    }    
-    for (int i = 0; i < EEPROM_MEM_SIZE ; i++) { 
-         // Get the characters
-		fputc (buffer[i], fh);     
-    }
-   
-    fclose(fh);
-    return 0;
-}
+//unsigned char ecmc_mem_to_file()
+//{
+////  printf("%s:%s:%d EEPROM simulated by file..\n",__FILE__,__FUNCTION__,__LINE__);
+//
+//  FILE* fh = fopen(EEPROM_DUMMY_FILE, "w");
+//
+//  if (fh == NULL)
+//    {
+//        printf("something went wrong and file could not be opened");
+//        return 1;
+//    }    
+//    for (int i = 0; i < EEPROM_MEM_SIZE ; i++) { 
+//         // Get the characters
+//		fputc (buffer[i], fh);     
+//    }
+//   
+//    fclose(fh);
+//    return 0;
+//}
 
 
 /*! \brief  Read byte from EEPROM.
@@ -110,7 +110,7 @@ unsigned char ecmc_mem_to_file()
  */
 unsigned char eeprom_get_char( unsigned int addr )
 {
-  ecmc_file_to_mem();
+  //ecmc_file_to_mem();
   //printf("%s:%s:%d addr: %ud, value %d..\n",__FILE__,__FUNCTION__,__LINE__,addr,buffer[addr]);
 
   return buffer[addr];
@@ -142,9 +142,9 @@ void eeprom_put_char( unsigned int addr, unsigned char new_value )
 {
   //printf("%s:%s:%d addr: %ud, value %d..\n",__FILE__,__FUNCTION__,__LINE__,addr,new_value);
 
-  ecmc_file_to_mem();
+  //ecmc_file_to_mem();
   buffer[addr] = new_value;
-	ecmc_mem_to_file();
+	//ecmc_mem_to_file();
 
 	//char old_value; // Old EEPROM value.
 	//char diff_mask; // Difference mask, i.e. old value XOR new value.

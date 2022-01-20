@@ -30,6 +30,24 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILN
 epicsEnvUnset(ECMC_PLUGIN_FILNAME)
 epicsEnvUnset(ECMC_PLUGIN_CONFIG)
 
+ecmcGrblAddCommand("G0X10Y100");
+
+ecmcGrblAddCommand("$");
+  
+ecmcGrblAddCommand("G0X10Y100");
+    
+ecmcGrblAddCommand("$G");
+  
+ecmcGrblAddCommand("G4P4");
+  
+ecmcGrblAddCommand("G1X20Y200F20");
+  
+ecmcGrblAddCommand("G4P4");
+  
+ecmcGrblAddCommand("G2X40Y220R20");
+  
+ecmcGrblAddCommand("$");
+
 ##############################################################################
 ## PLC 0
 # $(SCRIPTEXEC) $(ecmccfg_DIR)loadPLCFile.cmd, "PLC_ID=0, SAMPLE_RATE_MS=1000,FILE=./plc/can.plc")

@@ -17,10 +17,12 @@
 #include "ecmcGrblDefs.h"
 
 #include "inttypes.h"
+#include <epicsMutex.h>
 #include <string>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <queue>
 #include <string.h>
 
 class ecmcGrbl : public asynPortDriver {
@@ -40,8 +42,11 @@ class ecmcGrbl : public asynPortDriver {
 
   void doReadWorker();
   void doMainWorker();
+  void doWriteWorker();
   void grblRTexecute();
+  void addCommand(std::string command);
 
+  
 
  private:
   void                  testGrbl();
@@ -57,6 +62,8 @@ class ecmcGrbl : public asynPortDriver {
   int                   errorCode_;
   double                exeSampleTimeMs_;
   int                   grblInitDone_;
+  std::queue<std::string> grblCommandBuffer_;
+  epicsMutexId          grblCommandBufferMutex_;
 };
 
 #endif  /* ECMC_GRBL_H_ */

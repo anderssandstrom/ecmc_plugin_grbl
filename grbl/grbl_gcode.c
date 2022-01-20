@@ -57,7 +57,6 @@ void gc_init()
 void gc_sync_position()
 {
   printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
-
   system_convert_array_steps_to_mpos(gc_state.position,sys_position);
 }
 

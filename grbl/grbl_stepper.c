@@ -234,6 +234,7 @@ void *ecmc_dummy_thread(void *ptr) {
       }
       ecmc_grbl_main_rt_thread();      
     }
+    
     printf("%s:%s:%d Positions(x,y,z)=%d,%d,%d..\n",__FILE__,__FUNCTION__,__LINE__,sys_position[X_AXIS], sys_position[Y_AXIS],sys_position[Z_AXIS] );
     delay_ms(1);
   }

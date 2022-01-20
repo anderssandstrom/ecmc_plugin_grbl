@@ -20,6 +20,7 @@
 #include "ecmcAsynPortDriver.h"
 #include "ecmcAsynPortDriverUtils.h"
 #include "epicsThread.h"
+
 extern "C" {
 #include "grbl.h"
 }
@@ -45,6 +46,17 @@ void f_worker_read(void *obj) {
   }
   ecmcGrbl * grblObj = (ecmcGrbl*)obj;
   grblObj->doReadWorker();
+}
+
+// Thread that writes commands to grbl
+void f_worker_write(void *obj) {
+  if(!obj) {
+    printf("%s/%s:%d: Error: Worker read thread ecmcGrbl object NULL..\n",
+            __FILE__, __FUNCTION__, __LINE__);
+    return;
+  }
+  ecmcGrbl * grblObj = (ecmcGrbl*)obj;
+  grblObj->doWriteWorker();
 }
 
 // Start worker for socket connect()
@@ -92,7 +104,12 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   cfgZAxisId_       = -1;
   cfgSpindleAxisId_ = -1;
   grblInitDone_     = 0;
+  
 
+  if(!(grblCommandBufferMutex_ = epicsMutexCreate())) {
+    throw std::runtime_error("Error: Failed create mutex thread for write().");
+  }
+  
   parseConfigStr(configStr); // Assigns all configs
   
   //Check atleast one valid axis
@@ -101,15 +118,21 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   }
 
   // Create worker thread for reading socket
-  std::string threadname = "ecmc." ECMC_PLUGIN_ASYN_PREFIX ".read";
+  std::string threadname = "ecmc.grbl.read";
   if(epicsThreadCreate(threadname.c_str(), 0, 32768, f_worker_read, this) == NULL) {
     throw std::runtime_error("Error: Failed create worker thread for read().");
   }
 
-  // Create worker thread for connecting socket
-  threadname = "ecmc." ECMC_PLUGIN_ASYN_PREFIX ".main";
+  // Create worker thread for main grbl loop
+  threadname = "ecmc.grbl.main";
   if(epicsThreadCreate(threadname.c_str(), 0, 32768, f_worker_main, this) == NULL) {
     throw std::runtime_error("Error: Failed create worker thread for main().");
+  }
+
+  // Create worker thread for write socket
+  threadname = "ecmc.grbl.write";
+  if(epicsThreadCreate(threadname.c_str(), 0, 32768, f_worker_write, this) == NULL) {
+    throw std::runtime_error("Error: Failed create worker thread for write().");
   }
 
   // wait for grblInitDone_!
@@ -119,9 +142,6 @@ ecmcGrbl::ecmcGrbl(char* configStr,
     printf(".");
   }
   delay_ms(100);
-  printf("\n");
-  printf("\n grbl ready for commands!\n");
-  sleep(1);
   testGrbl();
 }
 
@@ -190,6 +210,32 @@ void ecmcGrbl::doReadWorker() {
       delay_ms(1);      
     }
     printf("%c",ecmc_get_char_from_grbl_tx_buffer());
+  }
+}
+
+// Write socket worker
+void ecmcGrbl::doWriteWorker() {
+  // simulate serial connection here (need mutex)
+  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  for(;;) {
+    if(grblCommandBuffer_.size()>0) {
+      printf("%s:%s:%d: Command in buffer!!!\n",__FILE__,__FUNCTION__,__LINE__);
+      epicsMutexLock(grblCommandBufferMutex_);
+      std::string command = grblCommandBuffer_.front() + '\n';
+      grblCommandBuffer_.pop();
+      epicsMutexUnlock(grblCommandBufferMutex_);
+      printf("%s:%s:%d: Command length %d!!!\n",__FILE__,__FUNCTION__,__LINE__,strlen(command.c_str()));
+      printf("%s:%s:%d: Used bytes %d!!!\n",__FILE__,__FUNCTION__,__LINE__,serial_get_rx_buffer_available());
+      // wait for grbl
+      while(RX_BUFFER_SIZE-serial_get_rx_buffer_available()<=strlen(command.c_str())) {
+        delay_ms(1);
+      }
+      printf("%s:%s:%d: Writing!!\n",__FILE__,__FUNCTION__,__LINE__);
+      ecmc_write_command_serial(strdup(command.c_str()));
+    }
+    else {
+      delay_ms(5);
+    }
   }
 }
 
@@ -282,27 +328,35 @@ std::string ecmcGrbl::to_string(int value) {
   return os.str();
 }
 
+void ecmcGrbl::addCommand(std::string command) {
+  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  epicsMutexLock(grblCommandBufferMutex_);
+  grblCommandBuffer_.push(command.c_str());
+  epicsMutexUnlock(grblCommandBufferMutex_);
+  printf("%s:%s:%d: Buffer size %d\n",__FILE__,__FUNCTION__,__LINE__,grblCommandBuffer_.size());
+}
+
 void ecmcGrbl::testGrbl() {
 
   // test some commands
-  printf("Test command:$\n");
-  ecmc_write_command_serial("$\n");
-  sleep(1);
-  printf("Test command:G0X10Y100\n");
-  ecmc_write_command_serial("G0X10Y100\n");
-  sleep(1);
-  printf("Test command:$G\n");
-  ecmc_write_command_serial("$G\n");
-  sleep(1);
-  printf("Test command:G4P4\n");
-  ecmc_write_command_serial("G4P4\n");
-  printf("Test command:G1X20Y200F20\n");
-  ecmc_write_command_serial("G1X20Y200F20\n");
-  printf("Test command:G4P4\n");
-  ecmc_write_command_serial("G4P4\n");
-  printf("Test command:G2X40Y220R20\n");
-  ecmc_write_command_serial("G2X40Y220R20\n");
-  printf("Test command:$\n");
-  ecmc_write_command_serial("$\n");
+  //printf("Test command:$\n");
+  //ecmc_write_command_serial("$\n");
+  //sleep(1);
+  //printf("Test command:G0X10Y100\n");
+  //ecmc_write_command_serial("G0X10Y100\n");
+  //sleep(1);
+  //printf("Test command:$G\n");
+  //ecmc_write_command_serial("$G\n");
+  //sleep(1);
+  //printf("Test command:G4P4\n");
+  //ecmc_write_command_serial("G4P4\n");
+  //printf("Test command:G1X20Y200F20\n");
+  //ecmc_write_command_serial("G1X20Y200F20\n");
+  //printf("Test command:G4P4\n");
+  //ecmc_write_command_serial("G4P4\n");
+  //printf("Test command:G2X40Y220R20\n");
+  //ecmc_write_command_serial("G2X40Y220R20\n");
+  //printf("Test command:$\n");
+  //ecmc_write_command_serial("$\n");
 
 }

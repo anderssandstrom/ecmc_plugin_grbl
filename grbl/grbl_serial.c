@@ -215,6 +215,7 @@ void ecmc_write_command_serial(char* line) {
   for(int i=0; i<strlen(line);i++) {
     ecmc_add_char_to_buffer(line[i]);
   }
+  free(line);
 }
 
 void serial_reset_read_buffer()
