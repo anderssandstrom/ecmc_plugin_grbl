@@ -80,7 +80,6 @@ void grblDestruct(void)
  **/
 int grblRealtime(int ecmcError)
 {  
-  printf("ASDASDASDASDASdsadöjasjdalsdjlasdj\n");
   lastEcmcError = ecmcError;
   execute();
   return 0;

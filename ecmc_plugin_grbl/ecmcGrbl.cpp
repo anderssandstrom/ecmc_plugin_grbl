@@ -318,8 +318,7 @@ void ecmcGrbl::doMainWorker() {
 }
 
 // grb realtime thread!!!  
-void  ecmcGrbl::grblRTexecute() {
-    printf("HEPP");
+void  ecmcGrbl::grblRTexecute() {    
     for(int i=0; i < 30; i++) {
       if(!grblInitDone_) {
         break;
