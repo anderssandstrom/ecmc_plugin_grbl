@@ -20,7 +20,6 @@
 */
 
 #include "grbl.h"
-//#include "ecmcMotion.h"
 
 // Homing axis search distance multiplier. Computed by this value times the cycle travel.
 #ifndef HOMING_AXIS_SEARCH_SCALAR
@@ -37,6 +36,8 @@
   #define DUAL_AXIS_CHECK_TRIGGER_1   bit(1)
   #define DUAL_AXIS_CHECK_TRIGGER_2   bit(2)
 #endif
+
+
 
 void limits_init()
 {

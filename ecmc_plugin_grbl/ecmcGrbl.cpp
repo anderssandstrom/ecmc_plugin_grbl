@@ -248,8 +248,8 @@ void ecmcGrbl::doMainWorker() {
     serial_reset_read_buffer(); // Clear serial read buffer
     gc_init(); // Set g-code parser to default state
     spindle_init();
-    coolant_init();
-    //limits_init();
+    coolant_init();    
+    limits_init(); //Why is this function not working...
     probe_init();
     plan_reset(); // Clear block buffer and planner variables
     st_reset(); // Clear stepper subsystem variables.

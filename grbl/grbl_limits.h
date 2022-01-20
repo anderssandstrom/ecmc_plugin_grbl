@@ -19,9 +19,8 @@
   along with Grbl.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef limits_h
-#define limits_h
-
+#ifndef grbl_limits_h
+#define grbl_limits_h
 
 // Initialize the limits module
 void limits_init();
