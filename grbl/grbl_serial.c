@@ -37,7 +37,7 @@ volatile uint16_t serial_tx_buffer_tail = 0;
 uint16_t serial_get_rx_buffer_available()
 {
   //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
-  uint8_t rtail = serial_rx_buffer_tail; // Copy to limit multiple calls to volatile
+  uint16_t rtail = serial_rx_buffer_tail; // Copy to limit multiple calls to volatile
   if (serial_rx_buffer_head >= rtail) { return(RX_BUFFER_SIZE - (serial_rx_buffer_head-rtail)); }
   return((rtail-serial_rx_buffer_head-1));
 }
@@ -45,10 +45,10 @@ uint16_t serial_get_rx_buffer_available()
 
 // Returns the number of bytes used in the RX serial buffer.
 // NOTE: Deprecated. Not used unless classic status reports are enabled in config.h.
-uint8_t serial_get_rx_buffer_count()
+uint16_t serial_get_rx_buffer_count()
 {
   //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
-  uint8_t rtail = serial_rx_buffer_tail; // Copy to limit multiple calls to volatile
+  uint16_t rtail = serial_rx_buffer_tail; // Copy to limit multiple calls to volatile
   if (serial_rx_buffer_head >= rtail) { return(serial_rx_buffer_head-rtail); }
   return (RX_BUFFER_SIZE - (rtail-serial_rx_buffer_head));
 }
@@ -56,10 +56,10 @@ uint8_t serial_get_rx_buffer_count()
 
 // Returns the number of bytes used in the TX serial buffer.
 // NOTE: Not used except for debugging and ensuring no TX bottlenecks.
-uint8_t serial_get_tx_buffer_count()
+uint16_t serial_get_tx_buffer_count()
 {
   //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
-  uint8_t ttail = serial_tx_buffer_tail; // Copy to limit multiple calls to volatile
+  uint16_t ttail = serial_tx_buffer_tail; // Copy to limit multiple calls to volatile
   if (serial_tx_buffer_head >= ttail) { return(serial_tx_buffer_head-ttail); }
   return (TX_RING_BUFFER - (ttail-serial_tx_buffer_head));
 }
@@ -92,7 +92,7 @@ void serial_write(uint8_t data) {
   //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
 
   // Calculate next head
-  uint8_t next_head = serial_tx_buffer_head + 1;
+  uint16_t next_head = serial_tx_buffer_head + 1;
   if (next_head == TX_RING_BUFFER) { next_head = 0; }
 
   // Wait until there is space in the buffer
@@ -115,7 +115,7 @@ char ecmc_get_char_from_grbl_tx_buffer()
 //ISR(SERIAL_UDRE)
 {
   //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
-  uint8_t tail = serial_tx_buffer_tail; // Temporary serial_tx_buffer_tail (to optimize for volatile)
+  uint16_t tail = serial_tx_buffer_tail; // Temporary serial_tx_buffer_tail (to optimize for volatile)
   char tempChar=0;
   // Send a byte from the buffer
   
@@ -136,7 +136,7 @@ char ecmc_get_char_from_grbl_tx_buffer()
 uint8_t serial_read()
 {
   //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
-  uint8_t tail = serial_rx_buffer_tail; // Temporary serial_rx_buffer_tail (to optimize for volatile)
+  uint16_t tail = serial_rx_buffer_tail; // Temporary serial_rx_buffer_tail (to optimize for volatile)
   if (serial_rx_buffer_head == tail) {
     return SERIAL_NO_DATA;
   } else {
@@ -156,7 +156,7 @@ void ecmc_add_char_to_buffer(char data)
   printf("Adding %c to buffer %s\n",data,serial_rx_buffer);
 
   //uint8_t data = UDR0;
-  uint8_t next_head;
+  uint16_t next_head;
 
   // Pick off realtime command characters directly from the serial stream. These characters are
   // not passed into the main buffer, but these set system state flag bits for realtime execution.
