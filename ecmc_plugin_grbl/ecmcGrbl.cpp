@@ -225,13 +225,14 @@ void ecmcGrbl::doWriteWorker() {
       grblCommandBuffer_.pop();
       epicsMutexUnlock(grblCommandBufferMutex_);
       printf("%s:%s:%d: Command length %d!!!\n",__FILE__,__FUNCTION__,__LINE__,strlen(command.c_str()));
-      printf("%s:%s:%d: Used bytes %d!!!\n",__FILE__,__FUNCTION__,__LINE__,serial_get_rx_buffer_available());
+      printf("%s:%s:%d: Available bytes %d!!!\n",__FILE__,__FUNCTION__,__LINE__,serial_get_rx_buffer_available());
       // wait for grbl
-      while(RX_BUFFER_SIZE-serial_get_rx_buffer_available()<=strlen(command.c_str())) {
-        delay_ms(1);
+      ecmc_write_command_serial(strdup(command.c_str()));
+      while(serial_get_rx_buffer_available()<=strlen(command.c_str())) {
+        delay_ms(2);
       }
       printf("%s:%s:%d: Writing!!\n",__FILE__,__FUNCTION__,__LINE__);
-      ecmc_write_command_serial(strdup(command.c_str()));
+
     }
     else {
       delay_ms(5);

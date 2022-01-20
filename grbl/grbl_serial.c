@@ -25,16 +25,16 @@
 #define TX_RING_BUFFER (TX_BUFFER_SIZE+1)
 
 uint8_t serial_rx_buffer[RX_RING_BUFFER];
-uint8_t serial_rx_buffer_head = 0;
+uint16_t serial_rx_buffer_head = 0;
 volatile uint8_t serial_rx_buffer_tail = 0;
 
 uint8_t serial_tx_buffer[TX_RING_BUFFER];
-uint8_t serial_tx_buffer_head = 0;
-volatile uint8_t serial_tx_buffer_tail = 0;
+uint16_t serial_tx_buffer_head = 0;
+volatile uint16_t serial_tx_buffer_tail = 0;
 
 
 // Returns the number of bytes available in the RX serial buffer.
-uint8_t serial_get_rx_buffer_available()
+uint16_t serial_get_rx_buffer_available()
 {
   //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
   uint8_t rtail = serial_rx_buffer_tail; // Copy to limit multiple calls to volatile

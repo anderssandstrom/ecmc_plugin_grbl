@@ -64,6 +64,7 @@ class ecmcGrbl : public asynPortDriver {
   int                   grblInitDone_;
   std::queue<std::string> grblCommandBuffer_;
   epicsMutexId          grblCommandBufferMutex_;
+  bool                  firstCommandWritten_;
 };
 
 #endif  /* ECMC_GRBL_H_ */

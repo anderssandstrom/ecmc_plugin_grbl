@@ -56,7 +56,7 @@ uint8_t serial_read();
 void serial_reset_read_buffer();
 
 // Returns the number of bytes available in the RX serial buffer.
-uint8_t serial_get_rx_buffer_available();
+uint16_t serial_get_rx_buffer_available();
 
 // Returns the number of bytes used in the RX serial buffer.
 // NOTE: Deprecated. Not used unless classic status reports are enabled in config.h.
