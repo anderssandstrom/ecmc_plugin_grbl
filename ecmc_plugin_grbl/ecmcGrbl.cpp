@@ -20,6 +20,8 @@
 #include "ecmcAsynPortDriver.h"
 #include "ecmcAsynPortDriverUtils.h"
 #include "epicsThread.h"
+#include <time.h>
+
 
 extern "C" {
 #include "grbl.h"
@@ -316,6 +318,26 @@ void ecmcGrbl::doMainWorker() {
     }
   }
 }
+// buf needs to store 30 characters
+int timespec2str(char *buf, uint len, struct timespec *ts) {
+    int ret;
+    struct tm t;
+
+    tzset();
+    if (localtime_r(&(ts->tv_sec), &t) == NULL)
+        return 1;
+
+    ret = strftime(buf, len, "%F %T", &t);
+    if (ret == 0)
+        return 2;
+    len -= ret - 1;
+
+    ret = snprintf(&buf[strlen(buf)], len, ".%09ld", ts->tv_nsec);
+    if (ret >= len)
+        return 3;
+
+    return 0;
+}
 
 // grb realtime thread!!!  
 void  ecmcGrbl::grblRTexecute() {    
@@ -326,8 +348,22 @@ void  ecmcGrbl::grblRTexecute() {
       ecmc_grbl_main_rt_thread();      
     }
     
-    printf("%s:%s:%d Positions(x,y,z)=%d,%d,%d..\n",__FILE__,__FUNCTION__,__LINE__,sys_position[X_AXIS], sys_position[Y_AXIS],sys_position[Z_AXIS] );
+    struct timespec timeAbs_;
+    clock_gettime(CLOCK_REALTIME, &timeAbs_);
+    const uint TIME_FMT = strlen("2012-12-31 12:59:59.123456789") + 1;
+    char timestr[TIME_FMT];
 
+//    struct timespec ts, res;
+//    clock_getres(clk_id, &res);
+//    clock_gettime(clk_id, &ts);
+
+    timespec2str(timestr, sizeof(timestr), &timeAbs_);
+
+  //IOC_TEST:ec0-s4-EL7211-Enc-PosAct 2020-12-14 13:29:18.273839 -2.587392807  
+  //printf("%s:%s:%d Positions(x,y,z)=%d,%d,%d..\n",__FILE__,__FUNCTION__,__LINE__,sys_position[X_AXIS], sys_position[Y_AXIS],sys_position[Z_AXIS] );
+  printf("IOC_TEST:Axis-X-PosAct %s %d\n",timestr,sys_position[X_AXIS]);
+  printf("IOC_TEST:Axis-Y-PosAct %s %d\n",timestr,sys_position[Y_AXIS]);
+  printf("IOC_TEST:Axis-Z-PosAct %s %d\n",timestr,sys_position[Z_AXIS]);
 }
 
 // Avoid issues with std:to_string()

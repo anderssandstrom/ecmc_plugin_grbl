@@ -30,23 +30,29 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILN
 epicsEnvUnset(ECMC_PLUGIN_FILNAME)
 epicsEnvUnset(ECMC_PLUGIN_CONFIG)
 
-ecmcGrblAddCommand("G0X10Y100");
-
-ecmcGrblAddCommand("$");
-  
-ecmcGrblAddCommand("G0X10Y100");
-    
-ecmcGrblAddCommand("$G");
-  
-ecmcGrblAddCommand("G4P4");
-  
-ecmcGrblAddCommand("G1X20Y200F20");
-  
-ecmcGrblAddCommand("G4P4");
-  
-ecmcGrblAddCommand("G2X40Y220R20");
-  
-ecmcGrblAddCommand("$");
+ecmcGrblAddCommand("G1X0Y20F20");
+ecmcGrblAddCommand("G2X0Y-20R20");
+ecmcGrblAddCommand("G0X10Y10");
+ecmcGrblAddCommand("G4P1");
+ecmcGrblAddCommand("G1X10Y0F20");
+ecmcGrblAddCommand("G1X100Y100F20");
+ecmcGrblAddCommand("G1X0Y0F20");
+#
+#ecmcGrblAddCommand("$");
+#  
+#ecmcGrblAddCommand("G0X10Y100");
+#    
+#ecmcGrblAddCommand("$G");
+#  
+#ecmcGrblAddCommand("G4P1");
+#  
+#ecmcGrblAddCommand("G1X20Y20F20");
+#  
+#ecmcGrblAddCommand("G4P1");
+#  
+#ecmcGrblAddCommand("G2X40Y40R20");
+#  
+#ecmcGrblAddCommand("$");
 
 ##############################################################################
 ## PLC 0
