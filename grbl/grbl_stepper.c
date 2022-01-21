@@ -371,7 +371,7 @@ void ecmc_grbl_main_rt_thread()
 { 
   //printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
 
-  if (busy) { return; } // The busy-flag is used to avoid reentering this interrupt
+  if (busy || !stepperInterruptEnable) { return; } // The busy-flag is used to avoid reentering this interrupt
 
   // Set the direction pins a couple of nanoseconds before we step the steppers
   //DIRECTION_PORT = (DIRECTION_PORT & ~DIRECTION_MASK) | (st.dir_outbits & DIRECTION_MASK);
