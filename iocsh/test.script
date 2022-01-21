@@ -63,8 +63,10 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILN
 epicsEnvUnset(ECMC_PLUGIN_FILNAME)
 epicsEnvUnset(ECMC_PLUGIN_CONFIG)
 
-ecmcGrblAddCommand("G1X0Y20F20");
+ecmcGrblAddCommand("G1X20F20");
+
 #ecmcGrblAddCommand("G2X0Y-20R20");
+
 #ecmcGrblAddCommand("G0X10Y10");
 #ecmcGrblAddCommand("G4P1");
 #ecmcGrblAddCommand("G1X10Y0F10");

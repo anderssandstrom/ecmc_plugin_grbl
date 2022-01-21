@@ -109,7 +109,7 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   cfgAutoEnableAtStart_ = 0;
   autoEnableExecuted_   = 0;
   //grbl default rate 30khz..
-  grblExeCycles_        = 30000.0/(1/exeSampleTimeMs);
+  grblExeCycles_        = 30.0/(1/exeSampleTimeMs);
 
   if(!(grblCommandBufferMutex_ = epicsMutexCreate())) {
     throw std::runtime_error("Error: Failed create mutex thread for write().");
@@ -390,7 +390,7 @@ void  ecmcGrbl::grblRTexecute() {
   // write to ecmc
   if(cfgXAxisId_>=0) {
     if(grblInitDone_ && autoEnableExecuted_) {
-      printf("[X_AXIS]= %lf/%lf=%lf\n",double(sys_position[X_AXIS]),double(settings.steps_per_mm[X_AXIS]),double(sys_position[X_AXIS])/double(settings.steps_per_mm[X_AXIS]));
+      printf("[X_AXIS]= %lf/%lf=%lf, cycles %d\n",double(sys_position[X_AXIS]),double(settings.steps_per_mm[X_AXIS]),double(sys_position[X_AXIS])/double(settings.steps_per_mm[X_AXIS]),grblExeCycles_);
     }
     setAxisExtSetPos(cfgXAxisId_,double(sys_position[X_AXIS])/double(settings.steps_per_mm[X_AXIS]));
   }
