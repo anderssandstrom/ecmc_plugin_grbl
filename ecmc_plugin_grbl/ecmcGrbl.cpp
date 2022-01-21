@@ -389,9 +389,9 @@ void  ecmcGrbl::grblRTexecute() {
   }
   // write to ecmc
   if(cfgXAxisId_>=0) {
-    if(grblInitDone_ && autoEnableExecuted_) {
-      printf("[X_AXIS]= %lf/%lf=%lf, cycles %d\n",double(sys_position[X_AXIS]),double(settings.steps_per_mm[X_AXIS]),double(sys_position[X_AXIS])/double(settings.steps_per_mm[X_AXIS]),grblExeCycles_);
-    }
+//    if(grblInitDone_ && autoEnableExecuted_) {
+//      printf("[X_AXIS]= %lf/%lf=%lf, cycles %d\n",double(sys_position[X_AXIS]),double(settings.steps_per_mm[X_AXIS]),double(sys_position[X_AXIS])/double(settings.steps_per_mm[X_AXIS]),grblExeCycles_);
+//    }
     setAxisExtSetPos(cfgXAxisId_,double(sys_position[X_AXIS])/double(settings.steps_per_mm[X_AXIS]));
   }
   if(cfgYAxisId_>=0) {

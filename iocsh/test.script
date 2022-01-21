@@ -64,13 +64,15 @@ epicsEnvUnset(ECMC_PLUGIN_FILNAME)
 epicsEnvUnset(ECMC_PLUGIN_CONFIG)
 
 ecmcGrblAddCommand("G1X20Y20F20");
+ecmcGrblAddCommand("G4P1");
 ecmcGrblAddCommand("G2X0Y0R20");
-
-#ecmcGrblAddCommand("G0X10Y10");
-#ecmcGrblAddCommand("G4P1");
-#ecmcGrblAddCommand("G1X10Y0F10");
-#ecmcGrblAddCommand("G1X50Y50F10");
-#ecmcGrblAddCommand("G1X0Y0F10");
+ecmcGrblAddCommand("G0X10Y10");
+ecmcGrblAddCommand("G4P1");
+ecmcGrblAddCommand("G1X10Y0F10");
+ecmcGrblAddCommand("G4P1");
+ecmcGrblAddCommand("G1X50Y50F10");
+ecmcGrblAddCommand("G4P1");
+ecmcGrblAddCommand("G1X0Y0F10");
 #
 #ecmcGrblAddCommand("$");
 #  
@@ -91,6 +93,16 @@ ecmcGrblAddCommand("G2X0Y0R20");
 ##############################################################################
 ## PLC 0
 # $(SCRIPTEXEC) $(ecmccfg_DIR)loadPLCFile.cmd, "PLC_ID=0, SAMPLE_RATE_MS=1000,FILE=./plc/can.plc")
+
+##############################################################################
+############# Configure diagnostics:
+
+ecmcConfigOrDie "Cfg.EcSetDiagnostics(1)"
+ecmcConfigOrDie "Cfg.EcEnablePrintouts(0)"
+ecmcConfigOrDie "Cfg.EcSetDomainFailedCyclesLimit(100)"
+ecmcConfigOrDie "Cfg.SetDiagAxisIndex(1)"
+ecmcConfigOrDie "Cfg.SetDiagAxisFreq(2)"
+ecmcConfigOrDie "Cfg.SetDiagAxisEnable(0)"
 
 $(SCRIPTEXEC) ($(ecmccfg_DIR)setAppMode.cmd)
 
