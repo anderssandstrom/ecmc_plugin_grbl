@@ -51,12 +51,17 @@ class ecmcGrbl : public asynPortDriver {
  private:
   void                  testGrbl();
   void                  parseConfigStr(char *configStr);
+  void                  autoEnableAtStart();
+  bool                  getEcmcAxisEnabled(int axis_id);
+  bool                  getAllConfiguredAxisEnabled();
+
   static std::string    to_string(int value);
   int                   cfgDbgMode_;
   int                   cfgXAxisId_;
   int                   cfgYAxisId_;
   int                   cfgZAxisId_;
   int                   cfgSpindleAxisId_;
+  int                   cfgAutoEnableAtStart_; 
   int                   destructs_;
   int                   connected_;
   int                   errorCode_;
@@ -65,6 +70,8 @@ class ecmcGrbl : public asynPortDriver {
   std::queue<std::string> grblCommandBuffer_;
   epicsMutexId          grblCommandBufferMutex_;
   bool                  firstCommandWritten_;
+  int                   autoEnableExecuted_;
+  int                   grblExeCycles_;
 };
 
 #endif  /* ECMC_GRBL_H_ */

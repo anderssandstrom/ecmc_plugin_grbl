@@ -113,7 +113,13 @@ struct ecmcPluginData pluginDataDef = {
   // Description
   .desc = "grbl plugin for use with ecmc.",
   // Option description
-  .optionDesc = "\n    "ECMC_PLUGIN_DBG_PRINT_OPTION_CMD"<1/0>    : Enables/disables printouts from plugin, default = disabled (=0).\n",
+  .optionDesc = "\n    "ECMC_PLUGIN_DBG_PRINT_OPTION_CMD"<1/0>    : Enables/disables printouts from plugin, default = disabled (=0).\n"
+                "      "ECMC_PLUGIN_X_AXIS_ID_OPTION_CMD"<axis id>: Ecmc Axis id for use as grbl X axis, default = disabled (=-1).\n"
+                "      "ECMC_PLUGIN_Y_AXIS_ID_OPTION_CMD"<axis id>: Ecmc Axis id for use as grbl Y axis, default = disabled (=-1).\n"
+                "      "ECMC_PLUGIN_Z_AXIS_ID_OPTION_CMD"<axis id>: Ecmc Axis id for use as grbl Z axis, default = disabled (=-1).\n"
+                "      "ECMC_PLUGIN_SPINDLE_AXIS_ID_OPTION_CMD"<axis id>: Ecmc Axis id for use as grbl spindle axis, default = disabled (=-1).\n"
+                "      "ECMC_PLUGIN_AUTO_ENABLE_AT_START_OPTION_CMD"<1/0>: Auto enable the linked ecmc axes autmatically before start, default = disabled (=0).\n"  
+  ,
   // Plugin version
   .version = ECMC_EXAMPLE_PLUGIN_VERSION,
   // Optional construct func, called once at load. NULL if not definded.

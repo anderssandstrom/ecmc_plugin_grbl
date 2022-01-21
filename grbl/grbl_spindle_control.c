@@ -128,7 +128,7 @@ void spindle_stop()
   // and stepper ISR. Keep routine small and efficient.
   void spindle_set_speed(uint8_t pwm_value)
   {
-    printf("%s:%s:%d Not supported yet..\n",__FILE__,__FUNCTION__,__LINE__);
+//    printf("%s:%s:%d Not supported yet..\n",__FILE__,__FUNCTION__,__LINE__);
 
   //  SPINDLE_OCR_REGISTER = pwm_value; // Set PWM output level.
   //  #ifdef SPINDLE_ENABLE_OFF_WITH_ZERO_SPEED

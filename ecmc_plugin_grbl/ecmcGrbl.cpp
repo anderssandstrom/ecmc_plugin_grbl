@@ -20,7 +20,7 @@
 #include "ecmcAsynPortDriver.h"
 #include "ecmcAsynPortDriverUtils.h"
 #include "epicsThread.h"
-#include <time.h>
+#include "ecmcMotion.h"
 
 
 extern "C" {
@@ -96,17 +96,20 @@ ecmcGrbl::ecmcGrbl(char* configStr,
                    {
 
   // Init  
-  cfgDbgMode_       = 0;
-  destructs_        = 0;
-  connected_        = 0;  
-  errorCode_        = 0;
-  exeSampleTimeMs_  = exeSampleTimeMs;
-  cfgXAxisId_       = -1;
-  cfgYAxisId_       = -1;
-  cfgZAxisId_       = -1;
-  cfgSpindleAxisId_ = -1;
-  grblInitDone_     = 0;
-  
+  cfgDbgMode_           = 0;
+  destructs_            = 0;
+  connected_            = 0;  
+  errorCode_            = 0;
+  exeSampleTimeMs_      = exeSampleTimeMs;
+  cfgXAxisId_           = -1;
+  cfgYAxisId_           = -1;
+  cfgZAxisId_           = -1;
+  cfgSpindleAxisId_     = -1;
+  grblInitDone_         = 0;
+  cfgAutoEnableAtStart_ = 0;
+  autoEnableExecuted_   = 0;
+  //grbl default rate 30khz..
+  grblExeCycles_        = 30000.0/(1/exeSampleTimeMs);
 
   if(!(grblCommandBufferMutex_ = epicsMutexCreate())) {
     throw std::runtime_error("Error: Failed create mutex thread for write().");
@@ -114,6 +117,10 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   
   parseConfigStr(configStr); // Assigns all configs
   
+  // simulate auto enable
+  if(!cfgAutoEnableAtStart_) {
+    autoEnableExecuted_ = 1;
+  }
   //Check atleast one valid axis
   if(cfgXAxisId_<0 && cfgXAxisId_<0 && cfgXAxisId_<0 && cfgSpindleAxisId_<0) {
     throw std::out_of_range("No valid axis choosen.");
@@ -197,6 +204,12 @@ void ecmcGrbl::parseConfigStr(char *configStr) {
         cfgSpindleAxisId_ = atoi(pThisOption);
       }
 
+      // ECMC_PLUGIN_AUTO_ENABLE_AT_START_OPTION_CMD (1..ECMC_MAX_AXES)
+      if (!strncmp(pThisOption, ECMC_PLUGIN_AUTO_ENABLE_AT_START_OPTION_CMD, strlen(ECMC_PLUGIN_AUTO_ENABLE_AT_START_OPTION_CMD))) {
+        pThisOption += strlen(ECMC_PLUGIN_AUTO_ENABLE_AT_START_OPTION_CMD);
+        cfgAutoEnableAtStart_ = atoi(pThisOption);
+      }
+
       pThisOption = pNextOption;
     }    
     free(pOptions);
@@ -220,7 +233,7 @@ void ecmcGrbl::doWriteWorker() {
   // simulate serial connection here (need mutex)
   printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
   for(;;) {
-    if(grblCommandBuffer_.size()>0) {
+    if(grblCommandBuffer_.size()>0 && getEcmcEpicsIOCState()==16 && autoEnableExecuted_) {
       printf("%s:%s:%d: Command in buffer!!!\n",__FILE__,__FUNCTION__,__LINE__);
       epicsMutexLock(grblCommandBufferMutex_);
       std::string command = grblCommandBuffer_.front() + '\n';
@@ -318,52 +331,78 @@ void ecmcGrbl::doMainWorker() {
     }
   }
 }
-// buf needs to store 30 characters
-int timespec2str(char *buf, uint len, struct timespec *ts) {
-    int ret;
-    struct tm t;
 
-    tzset();
-    if (localtime_r(&(ts->tv_sec), &t) == NULL)
-        return 1;
+void  ecmcGrbl::autoEnableAtStart() {
+  
+  if(!cfgAutoEnableAtStart_ || autoEnableExecuted_ || getEcmcEpicsIOCState()!=16) { 
+    return;
+  }
+  
+  // write to ecmc
+  if(cfgXAxisId_>=0) {
+    setAxisEnable(cfgXAxisId_,1);
+  }
+  if(cfgYAxisId_>=0) {
+    setAxisEnable(cfgYAxisId_,1);
+  }
+  if(cfgZAxisId_>=0) {
+    setAxisEnable(cfgZAxisId_,1);
+  }
 
-    ret = strftime(buf, len, "%F %T", &t);
-    if (ret == 0)
-        return 2;
-    len -= ret - 1;
+  if(getAllConfiguredAxisEnabled()) {
+    autoEnableExecuted_ = 1;
+  }
+}
 
-    ret = snprintf(&buf[strlen(buf)], len, ".%09ld", ts->tv_nsec);
-    if (ret >= len)
-        return 3;
+bool  ecmcGrbl::getEcmcAxisEnabled(int axis) {
+  int ena=0;
+  getAxisEnabled(axis, &ena);
+  return ena;
+}
 
-    return 0;
+bool ecmcGrbl::getAllConfiguredAxisEnabled() {
+  int ena = 1;
+  if(cfgXAxisId_>=0 && ena) {
+    ena = getEcmcAxisEnabled(cfgXAxisId_);
+  }
+  if(cfgYAxisId_>=0 && ena) {
+    ena = getEcmcAxisEnabled(cfgYAxisId_);
+  }
+  if(cfgZAxisId_>=0 && ena) {
+    ena = getEcmcAxisEnabled(cfgZAxisId_);
+  }
+  if(cfgSpindleAxisId_>=0 && ena) {
+    ena = getEcmcAxisEnabled(cfgSpindleAxisId_);
+  }
+  return ena;
 }
 
 // grb realtime thread!!!  
-void  ecmcGrbl::grblRTexecute() {    
-    for(int i=0; i < 30; i++) {
-      if(!grblInitDone_) {
-        break;
-      }
-      ecmc_grbl_main_rt_thread();      
+void  ecmcGrbl::grblRTexecute() {
+  
+  autoEnableAtStart();
+
+  if(grblInitDone_ && autoEnableExecuted_) {
+    for(int i=0; i < grblExeCycles_; i++) {
+      ecmc_grbl_main_rt_thread();        
     }
-    
-    struct timespec timeAbs_;
-    clock_gettime(CLOCK_REALTIME, &timeAbs_);
-    const uint TIME_FMT = strlen("2012-12-31 12:59:59.123456789") + 1;
-    char timestr[TIME_FMT];
-
-//    struct timespec ts, res;
-//    clock_getres(clk_id, &res);
-//    clock_gettime(clk_id, &ts);
-
-    timespec2str(timestr, sizeof(timestr), &timeAbs_);
-
-  //IOC_TEST:ec0-s4-EL7211-Enc-PosAct 2020-12-14 13:29:18.273839 -2.587392807  
-  //printf("%s:%s:%d Positions(x,y,z)=%d,%d,%d..\n",__FILE__,__FUNCTION__,__LINE__,sys_position[X_AXIS], sys_position[Y_AXIS],sys_position[Z_AXIS] );
-  printf("IOC_TEST:Axis-X-PosAct %s %d\n",timestr,sys_position[X_AXIS]);
-  printf("IOC_TEST:Axis-Y-PosAct %s %d\n",timestr,sys_position[Y_AXIS]);
-  printf("IOC_TEST:Axis-Z-PosAct %s %d\n",timestr,sys_position[Z_AXIS]);
+  }
+  // write to ecmc
+  if(cfgXAxisId_>=0) {
+    if(grblInitDone_ && autoEnableExecuted_) {
+      printf("[X_AXIS]= %lf/%lf=%lf\n",double(sys_position[X_AXIS]),double(settings.steps_per_mm[X_AXIS]),double(sys_position[X_AXIS])/double(settings.steps_per_mm[X_AXIS]));
+    }
+    setAxisExtSetPos(cfgXAxisId_,double(sys_position[X_AXIS])/double(settings.steps_per_mm[X_AXIS]));
+  }
+  if(cfgYAxisId_>=0) {
+    setAxisExtSetPos(cfgYAxisId_,sys_position[Y_AXIS]/settings.steps_per_mm[Y_AXIS]);
+  }
+  if(cfgZAxisId_>=0) {
+    setAxisExtSetPos(cfgZAxisId_,sys_position[Z_AXIS]/settings.steps_per_mm[Z_AXIS]);
+  }
+//  if(cfgSpindleAxisId_>=0) {
+//    setAxisTargetVel(xxx);
+//  }
 }
 
 // Avoid issues with std:to_string()
