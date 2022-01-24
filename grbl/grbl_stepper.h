@@ -57,7 +57,7 @@ void st_update_plan_block_parameters();
 float st_get_realtime_rate();
 
 // main execution
-void ecmc_grbl_main_rt_thread();
+double ecmc_grbl_main_rt_thread();
 
 
 #endif

@@ -72,6 +72,7 @@ class ecmcGrbl : public asynPortDriver {
   bool                  firstCommandWritten_;
   int                   autoEnableExecuted_;
   int                   grblExeCycles_;
+  double timeToNextExeMs_;
 };
 
 #endif  /* ECMC_GRBL_H_ */

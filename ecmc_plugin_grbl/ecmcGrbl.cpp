@@ -108,6 +108,7 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   grblInitDone_         = 0;
   cfgAutoEnableAtStart_ = 0;
   autoEnableExecuted_   = 0;
+  timeToNextExeMs_      = 0;
   //grbl default rate 30khz..
   grblExeCycles_        = 30.0/(1/exeSampleTimeMs);
 
@@ -382,10 +383,14 @@ void  ecmcGrbl::grblRTexecute() {
   
   autoEnableAtStart();
 
+  double sampleRateMs =.0;
+
   if(grblInitDone_ && autoEnableExecuted_) {
-    for(int i=0; i < grblExeCycles_; i++) {
-      ecmc_grbl_main_rt_thread();        
+    while(timeToNextExeMs_ < exeSampleTimeMs_) {
+      sampleRateMs=ecmc_grbl_main_rt_thread();
+      timeToNextExeMs_ = timeToNextExeMs_ + sampleRateMs;
     }
+    timeToNextExeMs_-= exeSampleTimeMs_;
   }
   // write to ecmc
   if(cfgXAxisId_>=0) {

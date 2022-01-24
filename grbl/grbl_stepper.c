@@ -84,6 +84,7 @@ static st_block_t st_block_buffer[SEGMENT_BUFFER_SIZE-1];
 typedef struct {
   uint16_t n_step;           // Number of step events to be executed for this segment
   uint16_t cycles_per_tick;  // Step distance traveled per ISR tick, aka step rate.
+  double   ecmc_interrupt_time_ms;
   uint8_t  st_block_index;   // Stepper block data index. Uses this information to execute this segment.
   #ifdef ADAPTIVE_MULTI_AXIS_STEP_SMOOTHING
     uint8_t amass_level;    // Indicates AMASS level for the ISR to execute this segment
@@ -367,11 +368,12 @@ void st_go_idle()
 // with probing and homing cycles that require true real-time positions.
 
 // call from plugin execute
-void ecmc_grbl_main_rt_thread()
+// returns exe_time_rate_ms (need to downsample to ecmc rate)
+double ecmc_grbl_main_rt_thread()
 { 
   //printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
 
-  if (busy || !stepperInterruptEnable) { return; } // The busy-flag is used to avoid reentering this interrupt
+  if (busy || !stepperInterruptEnable) { return 0.0; } // The busy-flag is used to avoid reentering this interrupt
 
   // Set the direction pins a couple of nanoseconds before we step the steppers
   //DIRECTION_PORT = (DIRECTION_PORT & ~DIRECTION_MASK) | (st.dir_outbits & DIRECTION_MASK);
@@ -405,13 +407,18 @@ void ecmc_grbl_main_rt_thread()
   if (st.exec_segment == NULL) {
     // Anything in the buffer? If so, load and initialize next step segment.
     if (segment_buffer_head != segment_buffer_tail) {
+
       // Initialize new step segment and load number of steps to execute
       st.exec_segment = &segment_buffer[segment_buffer_tail];
-
-      #ifndef ADAPTIVE_MULTI_AXIS_STEP_SMOOTHING
-        // With AMASS is disabled, set timer prescaler for segments with slow step frequencies (< 250Hz).
-        TCCR1B = (TCCR1B & ~(0x07<<CS10)) | (st.exec_segment->prescaler<<CS10);
-      #endif
+      printf("New segment!!!\n");
+      printf("n_step %d, spindle_pwm %d, cycles_per_tick %lf, %lf\n", st.exec_segment->n_step, 
+                                                                      st.exec_segment->spindle_pwm,(double)st.exec_segment->cycles_per_tick/((double)F_CPU)*1000,
+                                                                      st.exec_segment->ecmc_interrupt_time_ms);
+      
+      //#ifndef ADAPTIVE_MULTI_AXIS_STEP_SMOOTHING
+      //  // With AMASS is disabled, set timer prescaler for segments with slow step frequencies (< 250Hz).
+      //  TCCR1B = (TCCR1B & ~(0x07<<CS10)) | (st.exec_segment->prescaler<<CS10);
+      //#endif
 
       // Initialize step segment timing per step and load number of steps to execute.
       //OCR1A = st.exec_segment->cycles_per_tick;
@@ -425,6 +432,12 @@ void ecmc_grbl_main_rt_thread()
         // Initialize Bresenham line and distance counters
         st.counter_x = st.counter_y = st.counter_z = (st.exec_block->step_event_count >> 1);
       }
+
+      //printf("X steps %d, sys_position %d, step_event_count %d\n", st.steps[X_AXIS],sys_position[X_AXIS],st.exec_block->step_event_count);
+      //printf("Y steps %d, sys_position %d, step_event_count %d\n", st.steps[Y_AXIS],sys_position[Y_AXIS],st.exec_block->step_event_count);
+      //printf("Z steps %d, sys_position %d, step_event_count %d\n", st.steps[Z_AXIS],sys_position[Z_AXIS],st.exec_block->step_event_count);
+
+
       st.dir_outbits = st.exec_block->direction_bits ^ dir_port_invert_mask;
       #ifdef ENABLE_DUAL_AXIS
         st.dir_outbits_dual = st.exec_block->direction_bits_dual ^ dir_port_invert_mask_dual;
@@ -451,11 +464,11 @@ void ecmc_grbl_main_rt_thread()
         if (st.exec_block->is_pwm_rate_adjusted) { spindle_set_speed(SPINDLE_PWM_OFF_VALUE); }
       #endif
       system_set_exec_state_flag(EXEC_CYCLE_STOP); // Flag main program for cycle end
-      return; // Nothing to do but exit.
+      return 0.0; // Nothing to do but exit.
     }
   }
 
-
+  printf("EXE\n");
   // Check probing state.
   if (sys_probe_state == PROBE_ACTIVE) { probe_state_monitor(); }
 
@@ -526,6 +539,11 @@ void ecmc_grbl_main_rt_thread()
     st.step_outbits_dual ^= step_port_invert_mask_dual;
   #endif
   busy = false;
+
+  if(!st.exec_segment) {
+    return 0.0;
+  }
+  return st.exec_segment->ecmc_interrupt_time_ms;
 }
 
 
@@ -824,6 +842,7 @@ void st_prep_buffer()
 			*/
 			prep.mm_complete = 0.0; // Default velocity profile complete at 0.0mm from end of block.
 			float inv_2_accel = 0.5/pl_block->acceleration;
+      //printf("pl_block->acceleration=%f\n",pl_block->acceleration);
 			if (sys.step_control & STEP_CONTROL_EXECUTE_HOLD) { // [Forced Deceleration to Zero Velocity]
 				// Compute velocity profile parameters for a feed hold in-progress. This profile overrides
 				// the planner block profile, enforcing a deceleration to zero speed.
@@ -1092,26 +1111,33 @@ void st_prep_buffer()
         cycles >>= prep_segment->amass_level;
         prep_segment->n_step <<= prep_segment->amass_level;
       }
+      
       if (cycles < (1UL << 16)) { prep_segment->cycles_per_tick = cycles; } // < 65536 (4.1ms @ 16MHz)
       else { prep_segment->cycles_per_tick = 0xffff; } // Just set the slowest speed possible.
+      prep_segment->ecmc_interrupt_time_ms = (double)prep_segment->cycles_per_tick/((double)F_CPU)*1000;
+
     #else
       // Compute step timing and timer prescalar for normal step generation.
       if (cycles < (1UL << 16)) { // < 65536  (4.1ms @ 16MHz)
         prep_segment->prescaler = 1; // prescaler: 0
         prep_segment->cycles_per_tick = cycles;
+        prep_segment->ecmc_interrupt_time_ms = (double)cycles/((double)F_CPU)*1000;
       } else if (cycles < (1UL << 19)) { // < 524288 (32.8ms@16MHz)
         prep_segment->prescaler = 2; // prescaler: 8
         prep_segment->cycles_per_tick = cycles >> 3;
+        prep_segment->ecmc_interrupt_time_ms = (double)cycles/((double)F_CPU)*1000;
       } else {
-        prep_segment->prescaler = 3; // prescaler: 64
+        prep_segment->prescaler = 3; // prescaler: 64        
         if (cycles < (1UL << 22)) { // < 4194304 (262ms@16MHz)
           prep_segment->cycles_per_tick =  cycles >> 6;
+          prep_segment->ecmc_interrupt_time_ms = (double)cycles/((double)F_CPU)*1000;
         } else { // Just set the slowest speed possible. (Around 4 step/sec.)
+          prep_segment->ecmc_interrupt_time_ms = (double)prep_segment->cycles_per_tick/((double)F_CPU)*1000;
           prep_segment->cycles_per_tick = 0xffff;
         }
       }
     #endif
-
+    // Added for ecmc
     // Segment complete! Increment segment buffer indices, so stepper ISR can immediately execute it.
     segment_buffer_head = segment_next_head;
     if ( ++segment_next_head == SEGMENT_BUFFER_SIZE ) { segment_next_head = 0; }
