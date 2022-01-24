@@ -383,14 +383,20 @@ void  ecmcGrbl::grblRTexecute() {
   
   autoEnableAtStart();
 
-  double sampleRateMs =0.0;
+  double sampleRateMs = 0.0;
 
   if(grblInitDone_ && autoEnableExecuted_) {
-    while(timeToNextExeMs_ < exeSampleTimeMs_ && sampleRateMs >= 0) {
-      sampleRateMs=ecmc_grbl_main_rt_thread();
-      timeToNextExeMs_ = timeToNextExeMs_ + sampleRateMs;
+    while(timeToNextExeMs_ < exeSampleTimeMs_ && sampleRateMs >= 0) {      
+      sampleRateMs = ecmc_grbl_main_rt_thread();
+      if(sampleRateMs > 0){
+        timeToNextExeMs_ += sampleRateMs;
+      } else {
+        timeToNextExeMs_ = 0;  // reset since no more steps..
+      }
     }
-    timeToNextExeMs_-= exeSampleTimeMs_;
+    if(sampleRateMs >= 0){
+      timeToNextExeMs_-= exeSampleTimeMs_;
+    }
   }
   // write to ecmc
   if(cfgXAxisId_>=0) {

@@ -410,10 +410,10 @@ double ecmc_grbl_main_rt_thread()
 
       // Initialize new step segment and load number of steps to execute
       st.exec_segment = &segment_buffer[segment_buffer_tail];
-      printf("New segment!!!\n");
-      printf("n_step %d, spindle_pwm %d, cycles_per_tick %lf, %lf\n", st.exec_segment->n_step, 
-                                                                      st.exec_segment->spindle_pwm,(double)st.exec_segment->cycles_per_tick/((double)F_CPU)*1000,
-                                                                      st.exec_segment->ecmc_interrupt_time_ms);
+      //printf("New segment!!!\n");
+      //printf("n_step %d, spindle_pwm %d, cycles_per_tick %lf, %lf\n", st.exec_segment->n_step, 
+      //                                                                st.exec_segment->spindle_pwm,(double)st.exec_segment->cycles_per_tick/((double)F_CPU)*1000,
+      //                                                                st.exec_segment->ecmc_interrupt_time_ms);
       
       //#ifndef ADAPTIVE_MULTI_AXIS_STEP_SMOOTHING
       //  // With AMASS is disabled, set timer prescaler for segments with slow step frequencies (< 250Hz).
@@ -457,7 +457,7 @@ double ecmc_grbl_main_rt_thread()
 
     } else {
       // Segment buffer empty. Shutdown.
-      printf("Segment buffer empty!!!!!!!!!!!!!!!!!!!!!");
+      //printf("Segment buffer empty!!!!!!!!!!!!!!!!!!!!!");
       st_go_idle();
       #ifdef VARIABLE_SPINDLE
         // Ensure pwm is set properly upon completion of rate-controlled motion.
@@ -468,7 +468,7 @@ double ecmc_grbl_main_rt_thread()
     }
   }
 
-  printf("EXE\n");
+  //printf("EXE\n");
   // Check probing state.
   if (sys_probe_state == PROBE_ACTIVE) { probe_state_monitor(); }
 
