@@ -46,15 +46,14 @@ class ecmcGrbl : public asynPortDriver {
   void grblRTexecute();
   void addCommand(std::string command);
 
-  
-
  private:
   void                  testGrbl();
   void                  parseConfigStr(char *configStr);
   void                  autoEnableAtStart();
   bool                  getEcmcAxisEnabled(int axis_id);
   bool                  getAllConfiguredAxisEnabled();
-
+  double                getEcmcAxisActPos(int axis);
+  void                  syncPositionIfNotEnabled();
   static std::string    to_string(int value);
   int                   cfgDbgMode_;
   int                   cfgXAxisId_;

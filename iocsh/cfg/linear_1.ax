@@ -13,7 +13,7 @@ epicsEnvSet("ECMC_MOD_TYPE",              "0")                         # For pos
 #Encoder
 epicsEnvSet("ECMC_ENC_SCALE_NUM"          "-60")
 epicsEnvSet("ECMC_ENC_SCALE_DENOM"        "2000")
-epicsEnvSet("ECMC_ENC_TYPE"               "0")                         # Type: 0=Incremental, 1=Absolute
+epicsEnvSet("ECMC_ENC_TYPE"               "1")                         # Type: 0=Incremental, 1=Absolute
 epicsEnvSet("ECMC_ENC_BITS"               "16")                        # Total bit count of encoder raw data
 epicsEnvSet("ECMC_ENC_ABS_BITS",          "0")                         # Absolute bit count (for absolute encoders) always least significant part of ECMC_ENC_BITS
 epicsEnvSet("ECMC_ENC_ABS_OFFSET"         "0")                         # Encoder offset in eng units (for absolute encoders)
@@ -42,7 +42,7 @@ epicsEnvSet("ECMC_EC_DRV_ALARM_2",        "ec0.s8.driveStatus01.14")      # Sync
 epicsEnvSet("ECMC_EC_DRV_WARNING",        "ec0.s8.driveStatus01.2")       # Warning
 
 #Trajectory
-epicsEnvSet("ECMC_TRAJ_TYPE"              "1")                         # Trapetz: 0. S-Curve: 1
+epicsEnvSet("ECMC_TRAJ_TYPE"              "0")                         # Trapetz: 0. S-Curve: 1
 epicsEnvSet("ECMC_VELO",                  "10.0")
 epicsEnvSet("ECMC_JOG_VEL",               "5")
 epicsEnvSet("ECMC_JAR",                   "0.0")                       # JAR defaults to VELO/ACCL

@@ -1,6 +1,7 @@
 ##############################################################################
-## Example: Demo of ecmc SocketCAN plugin
-## https://github.com/anderssandstrom/e3-ecmc_plugin_socketcan
+## Example: Demo of ecmc grbl g-code plugin
+## https://github.com/anderssandstrom/ecmc_plugin_grbl
+## https://github.com/anderssandstrom/e3-ecmc_plugin_grbl
 ##
 ## The plugin exposes:
 ##

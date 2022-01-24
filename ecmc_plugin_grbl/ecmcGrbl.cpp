@@ -330,6 +330,7 @@ void ecmcGrbl::doMainWorker() {
     if(destructs_) {
       return;
     }
+    delay_ms(1);
   }
 }
 
@@ -378,9 +379,43 @@ bool ecmcGrbl::getAllConfiguredAxisEnabled() {
   return ena;
 }
 
+double  ecmcGrbl::getEcmcAxisActPos(int axis) {
+  double pos=0;
+  getAxisEncPosAct(axis,
+                   &pos);
+  return pos;
+}
+
+void ecmcGrbl::syncPositionIfNotEnabled() {
+  bool sync = 0;
+  if(cfgXAxisId_>=0) {
+    if(!getEcmcAxisEnabled(cfgXAxisId_)) {
+      sys_position[X_AXIS] = (int32_t)(double(settings.steps_per_mm[X_AXIS])*getEcmcAxisActPos(cfgXAxisId_));
+      sync = 1;
+    }
+  }
+  if(cfgYAxisId_>=0) {
+    if(!getEcmcAxisEnabled(cfgYAxisId_)) {
+      sys_position[Y_AXIS] = (int32_t)(double(settings.steps_per_mm[Y_AXIS])*getEcmcAxisActPos(cfgYAxisId_));
+      sync = 1;
+    }
+  }
+  if(cfgZAxisId_>=0) {
+    if(!getEcmcAxisEnabled(cfgZAxisId_)) {
+      sys_position[Z_AXIS] = (int32_t)(double(settings.steps_per_mm[Z_AXIS])*getEcmcAxisActPos(cfgZAxisId_));
+      sync = 1;
+    }
+  }
+
+  if(sync) {
+    plan_sync_position();
+  }
+}
+
 // grb realtime thread!!!  
 void  ecmcGrbl::grblRTexecute() {
   
+  syncPositionIfNotEnabled();
   autoEnableAtStart();
 
   double sampleRateMs = 0.0;
@@ -415,6 +450,10 @@ void  ecmcGrbl::grblRTexecute() {
 //    setAxisTargetVel(xxx);
 //  }
 }
+
+//void ecmcGrbl::setExecute(int execute) {
+//  
+//}
 
 // Avoid issues with std:to_string()
 std::string ecmcGrbl::to_string(int value) {

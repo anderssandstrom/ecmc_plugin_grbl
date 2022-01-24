@@ -120,15 +120,15 @@ uint8_t gc_execute_line(char *line)
   else { char_counter = 0; }
 
   while (line[char_counter] != 0) { // Loop until no more g-code words in line.
-    printf("1\n");
+    //printf("1\n");
     // Import the next g-code word, expecting a letter followed by a value. Otherwise, error out.
     letter = line[char_counter];
-    printf("letter=%c\n", letter);
+    //printf("letter=%c\n", letter);
 
     if((letter < 'A') || (letter > 'Z')) { FAIL(STATUS_EXPECTED_COMMAND_LETTER); } // [Expected word letter]
     char_counter++;
     if (!read_float(line, &char_counter, &value)) { FAIL(STATUS_BAD_NUMBER_FORMAT); } // [Expected word value]
-    printf("value=%f\n", value);
+    //printf("value=%f\n", value);
     // Convert values to smaller uint8 significand and mantissa values for parsing this word.
     // NOTE: Mantissa is multiplied by 100 to catch non-integer command values. This is more
     // accurate than the NIST gcode requirement of x10 when used for commands, but not quite
@@ -138,8 +138,8 @@ uint8_t gc_execute_line(char *line)
     // Maybe update this later.
     int_value = trunc(value);
     mantissa =  round(100*(value - int_value)); // Compute mantissa for Gxx.x commands.
-    printf("int_value=%d\n", int_value);
-    printf("mantissa=%d\n", mantissa);
+    //printf("int_value=%d\n", int_value);
+    //printf("mantissa=%d\n", mantissa);
     // NOTE: Rounding must be used to catch small floating point errors.
 
     // Check if the g-code word is supported or errors due to modal group violations or has
@@ -175,7 +175,7 @@ uint8_t gc_execute_line(char *line)
             if (axis_command) { FAIL(STATUS_GCODE_AXIS_COMMAND_CONFLICT); } // [Axis word/command conflict]
             axis_command = AXIS_COMMAND_MOTION_MODE;
             // No break. Continues to next line.
-            printf("axis_command=%d\n", axis_command);
+            //printf("axis_command=%d\n", axis_command);
 
           case 80:
             word_bit = MODAL_GROUP_G1;
@@ -187,7 +187,7 @@ uint8_t gc_execute_line(char *line)
               gc_block.modal.motion += (mantissa/10)+100;
               mantissa = 0; // Set to zero to indicate valid non-integer G command.
             }
-            printf("here!!\n");
+            //printf("here!!\n");
             break;
           case 17: case 18: case 19:
             word_bit = MODAL_GROUP_G2;
@@ -244,13 +244,13 @@ uint8_t gc_execute_line(char *line)
             break;
           default: FAIL(STATUS_GCODE_UNSUPPORTED_COMMAND); // [Unsupported G command]
         }
-        printf("here 2!!\n");
+        //printf("here 2!!\n");
         if (mantissa > 0) { FAIL(STATUS_GCODE_COMMAND_VALUE_NOT_INTEGER); } // [Unsupported or invalid Gxx.x command]
         // Check for more than one command per modal group violations in the current block
         // NOTE: Variable 'word_bit' is always assigned, if the command is valid.
         if ( bit_istrue(command_words,bit(word_bit)) ) { FAIL(STATUS_GCODE_MODAL_GROUP_VIOLATION); }
         command_words |= bit(word_bit);
-        printf("here 3!!\n");
+        //printf("here 3!!\n");
         break;
 
       case 'M':
@@ -380,19 +380,19 @@ uint8_t gc_execute_line(char *line)
 
   // Determine implicit axis command conditions. Axis words have been passed, but no explicit axis
   // command has been sent. If so, set axis command to current motion mode.
-  printf("%s:%s:%d:axis_words=%d\n",__FILE__,__FUNCTION__,__LINE__,axis_words);
-  printf("%s:%s:%d:axis_command=%d\n",__FILE__,__FUNCTION__,__LINE__,axis_command);
+  //printf("%s:%s:%d:axis_words=%d\n",__FILE__,__FUNCTION__,__LINE__,axis_words);
+  //printf("%s:%s:%d:axis_command=%d\n",__FILE__,__FUNCTION__,__LINE__,axis_command);
   if (axis_words) {
     if (!axis_command) { axis_command = AXIS_COMMAND_MOTION_MODE; } // Assign implicit motion-mode
   }
 
-  printf("%s:%s:%d:axis_command=%d\n",__FILE__,__FUNCTION__,__LINE__,axis_command);
+  //printf("%s:%s:%d:axis_command=%d\n",__FILE__,__FUNCTION__,__LINE__,axis_command);
   // Check for valid line number N value.
   if (bit_istrue(value_words,bit(WORD_N))) {
     // Line number value cannot be less than zero (done) or greater than max line number.
-    if (gc_block.values.n > MAX_LINE_NUMBER) { FAIL(STATUS_GCODE_INVALID_LINE_NUMBER); } // [Exceeds max line number]
+//    if (gc_block.values.n > MAX_LINE_NUMBER) { FAIL(STATUS_GCODE_INVALID_LINE_NUMBER); } // [Exceeds max line number]
   }
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
   // bit_false(value_words,bit(WORD_N)); // NOTE: Single-meaning value word. Set at end of error-checking.
 
   // Track for unused words at the end of error-checking.
@@ -407,13 +407,13 @@ uint8_t gc_execute_line(char *line)
   // [2. Set feed rate mode ]: G93 F word missing with G1,G2/3 active, implicitly or explicitly. Feed rate
   //   is not defined after switching to G94 from G93.
   // NOTE: For jogging, ignore prior feed rate mode. Enforce G94 and check for required F word.
-  printf("%s:%s:%d:gc_parser_flags=%d\n",__FILE__,__FUNCTION__,__LINE__,gc_parser_flags);
+  //printf("%s:%s:%d:gc_parser_flags=%d\n",__FILE__,__FUNCTION__,__LINE__,gc_parser_flags);
 
   if (gc_parser_flags & GC_PARSER_JOG_MOTION) {
     if (bit_isfalse(value_words,bit(WORD_F))) { FAIL(STATUS_GCODE_UNDEFINED_FEED_RATE); }
     if (gc_block.modal.units == UNITS_MODE_INCHES) { gc_block.values.f *= MM_PER_INCH; }
   } else {
-    printf("%s:%s:%d:gc_block.modal.feed_rate=%d\n",__FILE__,__FUNCTION__,__LINE__,gc_block.modal.feed_rate);
+    //printf("%s:%s:%d:gc_block.modal.feed_rate=%d\n",__FILE__,__FUNCTION__,__LINE__,gc_block.modal.feed_rate);
 
     if (gc_block.modal.feed_rate == FEED_RATE_MODE_INVERSE_TIME) { // = G93
       // NOTE: G38 can also operate in inverse time, but is undefined as an error. Missing F word check added here.
@@ -440,7 +440,7 @@ uint8_t gc_execute_line(char *line)
         if (bit_istrue(value_words,bit(WORD_F))) {
           if (gc_block.modal.units == UNITS_MODE_INCHES) { gc_block.values.f *= MM_PER_INCH; }
         } else {
-          printf("%s:%s:%d:gc_state.feed_rate=%f\n",__FILE__,__FUNCTION__,__LINE__,gc_state.feed_rate);
+          //printf("%s:%s:%d:gc_state.feed_rate=%f\n",__FILE__,__FUNCTION__,__LINE__,gc_state.feed_rate);
 
           gc_block.values.f = gc_state.feed_rate; // Push last state feed rate
         }

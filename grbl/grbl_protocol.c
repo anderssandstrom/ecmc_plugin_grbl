@@ -151,6 +151,7 @@ void protocol_main_loop()
         }
 
       }
+      delay_us(100);
     }
 
     // If there are no more characters in the serial read buffer to be processed and executed,
