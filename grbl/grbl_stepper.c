@@ -373,7 +373,7 @@ double ecmc_grbl_main_rt_thread()
 { 
   //printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
 
-  if (busy || !stepperInterruptEnable) { return 0.0; } // The busy-flag is used to avoid reentering this interrupt
+  if (busy || !stepperInterruptEnable) { return -1.0; } // The busy-flag is used to avoid reentering this interrupt
 
   // Set the direction pins a couple of nanoseconds before we step the steppers
   //DIRECTION_PORT = (DIRECTION_PORT & ~DIRECTION_MASK) | (st.dir_outbits & DIRECTION_MASK);
@@ -464,7 +464,7 @@ double ecmc_grbl_main_rt_thread()
         if (st.exec_block->is_pwm_rate_adjusted) { spindle_set_speed(SPINDLE_PWM_OFF_VALUE); }
       #endif
       system_set_exec_state_flag(EXEC_CYCLE_STOP); // Flag main program for cycle end
-      return 0.0; // Nothing to do but exit.
+      return -1.0; // Nothing to do but exit.
     }
   }
 
@@ -541,7 +541,7 @@ double ecmc_grbl_main_rt_thread()
   busy = false;
 
   if(!st.exec_segment) {
-    return 0.0;
+    return -1.0;
   }
   return st.exec_segment->ecmc_interrupt_time_ms;
 }

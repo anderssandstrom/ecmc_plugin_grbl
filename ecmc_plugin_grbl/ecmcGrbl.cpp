@@ -383,10 +383,10 @@ void  ecmcGrbl::grblRTexecute() {
   
   autoEnableAtStart();
 
-  double sampleRateMs =.0;
+  double sampleRateMs =0.0;
 
   if(grblInitDone_ && autoEnableExecuted_) {
-    while(timeToNextExeMs_ < exeSampleTimeMs_) {
+    while(timeToNextExeMs_ < exeSampleTimeMs_ && sampleRateMs >= 0) {
       sampleRateMs=ecmc_grbl_main_rt_thread();
       timeToNextExeMs_ = timeToNextExeMs_ + sampleRateMs;
     }
