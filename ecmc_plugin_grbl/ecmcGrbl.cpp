@@ -269,7 +269,7 @@ void ecmcGrbl::doWriteWorker() {
       while(serial_get_rx_buffer_available() <= strlen(command.c_str())+1) {
         delay_ms(1);
       }
-      printf("Writing command: %s\n",command.c_str());
+      printf("Write command to grbl: %s\n",command.c_str());
       ecmc_write_command_serial(strdup(command.c_str()));      
       reply = "";
 
@@ -281,9 +281,10 @@ void ecmcGrbl::doWriteWorker() {
         char c = ecmc_get_char_from_grbl_tx_buffer();
         reply += c;
         if(c == '\n'&& reply.length() > 1) {
-          printf("Reply from grbl %s\n",reply.c_str());
+          printf("Reply from grbl: %s\n",reply.c_str());
+          //if not below strinsg then push messages.. how to handle?!
           //#define ECMC_PLUGIN_GRBL_GRBL_OK_STRING "ok"
-          //#define ECMC_PLUGIN_GRBL_GRBL_ERR_STRING "err"
+          //#define ECMC_PLUGIN_GRBL_GRBL_ERR_STRING "error"
           //Example "error:2"
           break;
         }
