@@ -39,6 +39,8 @@ volatile uint8_t sys_rt_exec_accessory_override; // Global realtime executor bit
   volatile uint8_t sys_rt_exec_debug;
 #endif
 
+int enableDebugPrintouts = 0;
+
 // Start worker for socket read()
 void f_worker_read(void *obj) {
   if(!obj) {
@@ -122,6 +124,10 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   if(!cfgAutoEnableAtStart_) {
     autoEnableExecuted_ = 1;
   }
+
+  // global varaible in grbl  
+  enableDebugPrintouts = cfgDbgMode_;
+
   //Check atleast one valid axis
   if(cfgXAxisId_<0 && cfgXAxisId_<0 && cfgXAxisId_<0 && cfgSpindleAxisId_<0) {
     throw std::out_of_range("No valid axis choosen.");

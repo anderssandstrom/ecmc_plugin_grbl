@@ -227,7 +227,7 @@ static bool stepperInterruptEnable = 0;
 void st_wake_up()
 {
 
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  PRINTF_DEBUG("");
   // Enable stepper drivers.
   //if (bit_istrue(settings.flags,BITFLAG_INVERT_ST_ENABLE)) { STEPPERS_DISABLE_PORT |= (1<<STEPPERS_DISABLE_BIT); }
   //else { STEPPERS_DISABLE_PORT &= ~(1<<STEPPERS_DISABLE_BIT); }
@@ -258,7 +258,7 @@ void st_wake_up()
 // Stepper shutdown
 void st_go_idle()
 {
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  PRINTF_DEBUG("");
 
   stepperInterruptEnable = 0;
 
@@ -334,7 +334,7 @@ void st_go_idle()
 // returns exe_time_rate_ms (need to downsample to ecmc rate)
 double ecmc_grbl_main_rt_thread()
 { 
-  //printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  //PRINTF_DEBUG("");
 
   if (busy || !stepperInterruptEnable) { return -1.0; } // The busy-flag is used to avoid reentering this interrupt
 
@@ -549,7 +549,7 @@ double ecmc_grbl_main_rt_thread()
 // Generates the step and direction port invert masks used in the Stepper Interrupt Driver.
 void st_generate_step_dir_invert_masks()
 {
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  PRINTF_DEBUG("");
 
   uint8_t idx;
   step_port_invert_mask = 0;
@@ -571,7 +571,7 @@ void st_generate_step_dir_invert_masks()
 // Reset and clear stepper subsystem variables
 void st_reset()
 {
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  PRINTF_DEBUG("");
 
   // Initialize stepper driver idle state.
   st_go_idle();
@@ -604,7 +604,7 @@ void st_reset()
 // Initialize and start the stepper motor subsystem
 void stepper_init()
 {
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  PRINTF_DEBUG("");
 
   // Configure step and direction interface pins
 //  STEP_DDR |= STEP_MASK;
@@ -638,7 +638,7 @@ void stepper_init()
 // Called by planner_recalculate() when the executing block is updated by the new plan.
 void st_update_plan_block_parameters()
 {
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  PRINTF_DEBUG("");
 
   if (pl_block != NULL) { // Ignore if at start of a new block.
     prep.recalculate_flag |= PREP_FLAG_RECALCULATE;
@@ -651,7 +651,7 @@ void st_update_plan_block_parameters()
 // Increments the step segment buffer block data ring buffer.
 static uint8_t st_next_block_index(uint8_t block_index)
 {
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  PRINTF_DEBUG("");
 
   block_index++;
   if ( block_index == (SEGMENT_BUFFER_SIZE-1) ) { return(0); }
@@ -712,7 +712,7 @@ static uint8_t st_next_block_index(uint8_t block_index)
 */
 void st_prep_buffer()
 {
-  //printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  //PRINTF_DEBUG("");
 
   // Block step prep buffer, while in a suspend state and there is no suspend motion to execute.
   if (bit_istrue(sys.step_control,STEP_CONTROL_END_MOTION)) { return; }
@@ -1143,7 +1143,7 @@ void st_prep_buffer()
 // divided by the ACCELERATION TICKS PER SECOND in seconds.
 float st_get_realtime_rate()
 {
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  PRINTF_DEBUG("");
 
   if (sys.state & (STATE_CYCLE | STATE_HOMING | STATE_HOLD | STATE_JOG | STATE_SAFETY_DOOR)){
     return prep.current_speed;

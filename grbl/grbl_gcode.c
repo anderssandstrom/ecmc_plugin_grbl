@@ -41,7 +41,7 @@ parser_block_t gc_block;
 
 void gc_init()
 {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
+  PRINTF_DEBUG(""); 
 
   memset(&gc_state, 0, sizeof(parser_state_t));
 
@@ -56,7 +56,7 @@ void gc_init()
 // limit pull-off routines.
 void gc_sync_position()
 {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
+  PRINTF_DEBUG("");
   system_convert_array_steps_to_mpos(gc_state.position,sys_position);
 }
 
@@ -68,7 +68,7 @@ void gc_sync_position()
 // coordinates, respectively.
 uint8_t gc_execute_line(char *line)
 {
-   printf("%s:%s:%d:%s\n",__FILE__,__FUNCTION__,__LINE__,line);  
+   PRINTF_DEBUG("");
 
   /* -------------------------------------------------------------------------------------
      STEP 1: Initialize parser block struct and copy current g-code state modes. The parser
@@ -345,7 +345,7 @@ uint8_t gc_execute_line(char *line)
         value_words |= bit(word_bit); // Flag to indicate parameter assigned.
      
     }
-    //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
+    //PRINTF_DEBUG("");
   }
   // Parsing complete!
 

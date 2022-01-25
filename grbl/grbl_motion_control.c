@@ -30,7 +30,7 @@
 // in the planner and to let backlash compensation or canned cycle integration simple and direct.
 void mc_line(float *target, plan_line_data_t *pl_data)
 {
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  PRINTF_DEBUG("");
 
   // If enabled, check for soft limit violations. Placed here all line motions are picked up
   // from everywhere in Grbl.
@@ -88,7 +88,7 @@ void mc_line(float *target, plan_line_data_t *pl_data)
 void mc_arc(float *target, plan_line_data_t *pl_data, float *position, float *offset, float radius,
   uint8_t axis_0, uint8_t axis_1, uint8_t axis_linear, uint8_t is_clockwise_arc)
 {
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  PRINTF_DEBUG("");
 
   float center_axis0 = position[axis_0] + offset[axis_0];
   float center_axis1 = position[axis_1] + offset[axis_1];
@@ -197,7 +197,7 @@ void mc_arc(float *target, plan_line_data_t *pl_data, float *position, float *of
 // Execute dwell in seconds.
 void mc_dwell(float seconds)
 {
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  PRINTF_DEBUG("");
 
   if (sys.state == STATE_CHECK_MODE) { return; }
   protocol_buffer_synchronize();
@@ -333,7 +333,7 @@ uint8_t mc_probe_cycle(float *target, plan_line_data_t *pl_data, uint8_t parser_
 #ifdef PARKING_ENABLE
   void mc_parking_motion(float *parking_target, plan_line_data_t *pl_data)
   {
-    printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+    PRINTF_DEBUG("");
 
     if (sys.abort) { return; } // Block during abort.
 
@@ -362,7 +362,7 @@ uint8_t mc_probe_cycle(float *target, plan_line_data_t *pl_data, uint8_t parser_
 #ifdef ENABLE_PARKING_OVERRIDE_CONTROL
   void mc_override_ctrl_update(uint8_t override_state)
   {
-    printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+    PRINTF_DEBUG("");
 
     // Finish all queued commands before altering override control state
     protocol_buffer_synchronize();
@@ -379,7 +379,7 @@ uint8_t mc_probe_cycle(float *target, plan_line_data_t *pl_data, uint8_t parser_
 // realtime abort command and hard limits. So, keep to a minimum.
 void mc_reset()
 {
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  PRINTF_DEBUG("");
 
   // Only this function can set the system reset. Helps prevent multiple kill calls.
   if (bit_isfalse(sys_rt_exec_state, EXEC_RESET)) {

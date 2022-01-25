@@ -216,8 +216,10 @@ void ecmc_write_command_serial(char* line) {
     ecmc_add_char_to_buffer(line[i]);    
   }
   ecmc_add_char_to_buffer('\n');
-  printf("Added: %s",line);
-  printf("to buffer: %s\n",serial_rx_buffer);
+  if(enableDebugPrintouts) {
+    printf("Added: %s",line);
+    printf("to buffer: %s\n",serial_rx_buffer);
+  }
   free(line);
 }
 

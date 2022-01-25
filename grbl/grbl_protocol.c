@@ -37,7 +37,7 @@ static void protocol_exec_rt_suspend();
 */
 void protocol_main_loop()
 {
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  PRINTF_DEBUG("");
 
   // Perform some machine checks to make sure everything is good to go.
   #ifdef CHECK_LIMITS_AT_INIT

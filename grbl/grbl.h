@@ -60,7 +60,14 @@
 #include "grbl_serial.h"
 #include "grbl_spindle_control.h"
 #include "grbl_stepper.h"
-#include "grbl_jog.h"
+#include "grbl_jog.h"  
+
+#define PRINTF_DEBUG(str)                                                     \
+  {                                                                           \
+    if (enableDebugPrintouts) {                                               \
+      printf("%s:%s:%d:%s\n",__FILE__,__FUNCTION__,__LINE__,str);             \
+    }                                                                         \
+  }                                                                           \
 
 // ---------------------------------------------------------------------------------------
 // COMPILE-TIME ERROR CHECKING OF DEFINE VALUES:

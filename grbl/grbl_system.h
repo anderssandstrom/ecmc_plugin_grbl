@@ -151,6 +151,7 @@ typedef struct {
 extern system_t sys;
 
 // NOTE: These position variables may need to be declared as volatiles, if problems arise.
+extern int enableDebugPrintouts;
 extern int32_t sys_position[N_AXIS];      // Real-time machine (aka home) position vector in steps.
 extern int32_t sys_probe_position[N_AXIS]; // Last probe position in machine coordinates and steps.
 
