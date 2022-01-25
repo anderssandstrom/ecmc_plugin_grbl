@@ -68,6 +68,7 @@ epicsEnvUnset(ECMC_PLUGIN_CONFIG)
 ecmcGrblAddCommand("G1X20Y20F180");
 ecmcGrblAddCommand("G2X0Y0R20");
 ecmcGrblAddCommand("G0X10Y10");
+ecmcGrblAddCommand("G2X0adadsdY0R20");
 ecmcGrblAddCommand("G1X0Y20");
 ecmcGrblAddCommand("G1X10Y0F360");
 ecmcGrblAddCommand("G4P1");

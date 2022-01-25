@@ -281,12 +281,16 @@ void ecmcGrbl::doWriteWorker() {
         char c = ecmc_get_char_from_grbl_tx_buffer();
         reply += c;
         if(c == '\n'&& reply.length() > 1) {
-          printf("Reply from grbl: %s\n",reply.c_str());
-          //if not below strinsg then push messages.. how to handle?!
-          //#define ECMC_PLUGIN_GRBL_GRBL_OK_STRING "ok"
-          //#define ECMC_PLUGIN_GRBL_GRBL_ERR_STRING "error"
-          //Example "error:2"
-          break;
+          if(reply.find(ECMC_PLUGIN_GRBL_GRBL_OK_STRING) != std::string::npos) {
+            printf("Reply OK from grbl: %s\n",reply.c_str());
+            break;
+          } else if(reply.find(ECMC_PLUGIN_GRBL_GRBL_ERR_STRING) != std::string::npos) {
+            printf("Reply ERROR from grbl: %s\n",reply.c_str());
+            break;
+          } else {
+            // lkeep waiting
+            printf("Non protocol value: %s\n",reply.c_str());
+          }
         }
       }
     }
