@@ -153,7 +153,7 @@ uint8_t serial_read()
 //ISR(SERIAL_RX)
 void ecmc_add_char_to_buffer(char data)
 {
-  printf("Adding %c to buffer %s\n",data,serial_rx_buffer);
+  //printf("Adding %c to buffer %s\n",data,serial_rx_buffer);
 
   //uint8_t data = UDR0;
   uint16_t next_head;
@@ -212,6 +212,8 @@ void ecmc_add_char_to_buffer(char data)
 
 // write direct to serial buffer
 void ecmc_write_command_serial(char* line) {
+  printf("Adding %s to buffer %s\n",line,serial_rx_buffer);
+
   for(int i=0; i<strlen(line);i++) {
     ecmc_add_char_to_buffer(line[i]);
   }

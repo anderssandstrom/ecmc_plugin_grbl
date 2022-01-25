@@ -345,7 +345,7 @@ uint8_t gc_execute_line(char *line)
         value_words |= bit(word_bit); // Flag to indicate parameter assigned.
      
     }
-    printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
+    //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
   }
   // Parsing complete!
 
