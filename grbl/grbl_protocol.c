@@ -79,7 +79,7 @@ void protocol_main_loop()
     delay_ms(1);
     while((c = serial_read()) != SERIAL_NO_DATA) {
       if ((c == '\n') || (c == '\r')) { // End of line reached
-        //printf("NEW_CHAR\n");
+        
         protocol_execute_realtime(); // Runtime command check point.
         if (sys.abort) { return; } // Bail to calling function upon system abort
 
@@ -109,7 +109,7 @@ void protocol_main_loop()
         // Reset tracking data for next line.
         line_flags = 0;
         char_counter = 0;
-
+        delay_us(100);
       } else {
 
         if (line_flags) {

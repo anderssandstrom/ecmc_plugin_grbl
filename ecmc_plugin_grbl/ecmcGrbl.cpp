@@ -151,8 +151,7 @@ ecmcGrbl::ecmcGrbl(char* configStr,
     delay_ms(100);
     printf(".");
   }
-  delay_ms(100);
-  testGrbl();
+  delay_ms(100);  
 }
 
 ecmcGrbl::~ecmcGrbl() {
@@ -235,20 +234,19 @@ void ecmcGrbl::doWriteWorker() {
   printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
   for(;;) {
     if(grblCommandBuffer_.size()>0 && getEcmcEpicsIOCState()==16 && autoEnableExecuted_) {
-      printf("%s:%s:%d: Command in buffer!!!\n",__FILE__,__FUNCTION__,__LINE__);
+      //printf("%s:%s:%d: Command in buffer!!!\n",__FILE__,__FUNCTION__,__LINE__);
       epicsMutexLock(grblCommandBufferMutex_);
-      std::string command = grblCommandBuffer_.front() + '\n';
+      std::string command = grblCommandBuffer_.front();
       grblCommandBuffer_.pop();
       epicsMutexUnlock(grblCommandBufferMutex_);
-      printf("%s:%s:%d: Command length %d!!!\n",__FILE__,__FUNCTION__,__LINE__,strlen(command.c_str()));
-      printf("%s:%s:%d: Available bytes %d!!!\n",__FILE__,__FUNCTION__,__LINE__,serial_get_rx_buffer_available());
-      // wait for grbl
-      ecmc_write_command_serial(strdup(command.c_str()));
-      while(serial_get_rx_buffer_available()<=strlen(command.c_str())) {
+      //printf("%s:%s:%d: Command length %d!!!\n",__FILE__,__FUNCTION__,__LINE__,strlen(command.c_str()));
+      //printf("%s:%s:%d: Available bytes %d!!!\n",__FILE__,__FUNCTION__,__LINE__,serial_get_rx_buffer_available());
+      // wait for grbl      
+      while(serial_get_rx_buffer_available() <= strlen(command.c_str())+1) {
         delay_ms(2);
       }
-      printf("%s:%s:%d: Writing!!\n",__FILE__,__FUNCTION__,__LINE__);
-
+      ecmc_write_command_serial(strdup(command.c_str()));
+      //printf("%s:%s:%d: Writing!!\n",__FILE__,__FUNCTION__,__LINE__);
     }
     else {
       delay_ms(5);
@@ -330,6 +328,7 @@ void ecmcGrbl::doMainWorker() {
     if(destructs_) {
       return;
     }
+    printf("********************after protocol_main_loop()********************************\n");
     delay_ms(1);
   }
 }
@@ -464,33 +463,8 @@ std::string ecmcGrbl::to_string(int value) {
 
 void ecmcGrbl::addCommand(std::string command) {
   printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
-  epicsMutexLock(grblCommandBufferMutex_);
+  epicsMutexLock(grblCommandBufferMutex_);  
   grblCommandBuffer_.push(command.c_str());
   epicsMutexUnlock(grblCommandBufferMutex_);
   printf("%s:%s:%d: Buffer size %d\n",__FILE__,__FUNCTION__,__LINE__,grblCommandBuffer_.size());
-}
-
-void ecmcGrbl::testGrbl() {
-
-  // test some commands
-  //printf("Test command:$\n");
-  //ecmc_write_command_serial("$\n");
-  //sleep(1);
-  //printf("Test command:G0X10Y100\n");
-  //ecmc_write_command_serial("G0X10Y100\n");
-  //sleep(1);
-  //printf("Test command:$G\n");
-  //ecmc_write_command_serial("$G\n");
-  //sleep(1);
-  //printf("Test command:G4P4\n");
-  //ecmc_write_command_serial("G4P4\n");
-  //printf("Test command:G1X20Y200F20\n");
-  //ecmc_write_command_serial("G1X20Y200F20\n");
-  //printf("Test command:G4P4\n");
-  //ecmc_write_command_serial("G4P4\n");
-  //printf("Test command:G2X40Y220R20\n");
-  //ecmc_write_command_serial("G2X40Y220R20\n");
-  //printf("Test command:$\n");
-  //ecmc_write_command_serial("$\n");
-
 }

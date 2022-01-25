@@ -1,9 +1,9 @@
 registerChannelProviderLocal firstTime true
 #
-# Start at "2022-W04-Jan25-0842-45-CET"
+# Start at "2022-W04-Jan25-1428-56-CET"
 #
 # Version information:
-# European Spallation Source ERIC : iocsh.bash (3.4.0-PID-25286)
+# European Spallation Source ERIC : iocsh.bash (3.4.0-PID-32644)
 #
 # --->--> snip -->--> 
 # Please Use Version and other environment variables
@@ -31,10 +31,10 @@ registerChannelProviderLocal firstTime true
 # --->--> snip -->--> 
 #
 # Set REQUIRE_IOC for its internal PVs
-epicsEnvSet REQUIRE_IOC "REQMOD:raspberrypi-25286"
+epicsEnvSet REQUIRE_IOC "REQMOD:raspberrypi-32644"
 #
 # Enable an exit subroutine for sotfioc
-dbLoadRecords "/home/pi/epics/base-7.0.5/db/softIocExit.db" "IOC=REQMOD:raspberrypi-25286"
+dbLoadRecords "/home/pi/epics/base-7.0.5/db/softIocExit.db" "IOC=REQMOD:raspberrypi-32644"
 #
 # Set E3_IOCSH_TOP for the absolute path where iocsh.bash is executed.
 epicsEnvSet E3_IOCSH_TOP "/home/pi/sources/e3-ecmc_plugin_grbl/ecmc_plugin_grbl-dev/iocsh"
@@ -262,17 +262,17 @@ epicsEnvUnset(ECMC_TRAJ_VELO_FILT_ENABLE)
 epicsEnvUnset(ECMC_TRAJ_SOURCE)
 epicsEnvSet("ECMC_EGU",               "mm")
 epicsEnvSet("ECMC_PREC",              3)
-epicsEnvSet("ECMC_AXISFIELDINIT",     "")                  # Extra field ini2022/01/25 08:42:45.921 
+epicsEnvSet("ECMC_AXISFIELDINIT",     "")                  # Extra field ini2022/01/25 14:28:57.051 
 ECMC Initializes.............
-2022/01/25 08:42:45.922 ESS Open Source EtherCAT Motion Control Epics Module2022/01/25 08:42:45.922 
+2022/01/25 14:28:57.052 ESS Open Source EtherCAT Motion Control Epics Module2022/01/25 14:28:57.052 
 Mode: Configuration
-2022/01/25 08:42:45.922 OK
-2022/01/25 08:42:45.922 OK
-2022/01/25 08:42:45.923 OK
-2022/01/25 08:42:45.926 OK
-2022/01/25 08:42:45.949 OK
-2022/01/25 08:42:45.949 OK
-2022/01/25 08:42:45.949 OK
+2022/01/25 14:28:57.052 OK
+2022/01/25 14:28:57.052 OK
+2022/01/25 14:28:57.053 OK
+2022/01/25 14:28:57.055 OK
+2022/01/25 14:28:57.076 OK
+2022/01/25 14:28:57.076 OK
+2022/01/25 14:28:57.076 OK
 t to motor record
 epicsEnvSet("ECMC_AXISCONFIG",        "")                  # Extra parameters to driver
 ############################################################
@@ -345,13 +345,13 @@ epicsEnvSet("HW_DESC",            "EK1100")
 epicsEnvSet("P_SCRIPT",           "mXsXXX")
 # add ${HW_DESC} to the bus at position ${SLAVE_ID}
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEK1100.cmd",1)
-iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEK1100.cmd" 2022/01/25 08:42:45.951 OK
-2022/01/25 08:42:45.952 OK
-2022/01/25 08:42:45.959 OK
-2022/01/25 08:42:45.960 OK
-2022/01/25 08:42:45.961 OK
-2022/01/25 08:42:45.961 OK
-2022/01/25 08:42:45.961 OK
+iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEK1100.cmd" 2022/01/25 14:28:57.078 OK
+2022/01/25 14:28:57.080 OK
+2022/01/25 14:28:57.087 OK
+2022/01/25 14:28:57.089 OK
+2022/01/25 14:28:57.089 OK
+2022/01/25 14:28:57.089 OK
+2022/01/25 14:28:57.090 OK
 "NELM=1"
 epicsEnvSet("ECMC_EC_HWTYPE"             "EK1100")
 epicsEnvSet("ECMC_EC_VENDOR_ID"          "0x2")
@@ -417,17 +417,17 @@ ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a00,0x6000,0x1,B1,bina
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a01,0x6010,0x1,B1,binaryInput02)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a02,0x6020,0x1,B1,binaryInput03)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a03,0x6030,0x1,B1,binaryInput04)"
-ecmcConfigOrDie "Cfg.EcAddEn2022/01/25 08:42:45.961 OK
-2022/01/25 08:42:45.961 OK
-2022/01/25 08:42:45.962 OK
-2022/01/25 08:42:45.962 OK
-2022/01/25 08:42:45.971 OK
-2022/01/25 08:42:45.973 OK
-2022/01/25 08:42:45.973 OK
-2022/01/25 08:42:45.973 OK
-2022/01/25 08:42:45.973 OK
-2022/01/25 08:42:45.974 OK
-2022/01/25 08:42:45.974 OK
+ecmcConfigOrDie "Cfg.EcAddEn2022/01/25 14:28:57.090 OK
+2022/01/25 14:28:57.090 OK
+2022/01/25 14:28:57.091 OK
+2022/01/25 14:28:57.091 OK
+2022/01/25 14:28:57.100 OK
+2022/01/25 14:28:57.102 OK
+2022/01/25 14:28:57.102 OK
+2022/01/25 14:28:57.103 OK
+2022/01/25 14:28:57.104 OK
+2022/01/25 14:28:57.105 OK
+2022/01/25 14:28:57.105 OK
 tryDT(1,0x2,0x03fa3052,2,0,0x1a04,0x6040,0x1,B1,binaryInput05)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a05,0x6050,0x1,B1,binaryInput06)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a06,0x6060,0x1,B1,binaryInput07)"
@@ -487,16 +487,16 @@ ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1602,0x7020,0x1,B1,bina
 ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1603,0x7030,0x1,B1,binaryOutput04)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1604,0x7040,0x1,B1,binaryOutput05)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1605,0x7050,0x1,B1,binaryOutput06)"
-ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1606,0x7060,0x1,B1,binaryOutp2022/01/25 08:42:45.974 OK
-2022/01/25 08:42:45.974 OK
-2022/01/25 08:42:45.984 OK
-2022/01/25 08:42:46.052 OK
-2022/01/25 08:42:46.132 14385
-2022/01/25 08:42:46.133 OK
-2022/01/25 08:42:46.133 OK
-2022/01/25 08:42:46.133 OK
-2022/01/25 08:42:46.133 OK
-2022/01/25 08:42:46.133 OK
+ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1606,0x7060,0x1,B1,binaryOutp2022/01/25 14:28:57.108 OK
+2022/01/25 14:28:57.109 OK
+2022/01/25 14:28:57.123 OK
+2022/01/25 14:28:57.212 OK
+2022/01/25 14:28:57.292 14385
+2022/01/25 14:28:57.293 OK
+2022/01/25 14:28:57.293 OK
+2022/01/25 14:28:57.293 OK
+2022/01/25 14:28:57.293 OK
+2022/01/25 14:28:57.293 OK
 ut07)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1607,0x7070,0x1,B1,binaryOutput08)"
 # deduce what the prefix should be
@@ -560,14 +560,14 @@ ecmcConfigOrDie "Cfg.EcAddEntryComplete(3,0x2,0x13ed3052,2,3,0x1a03,0x6010,0x00,
 ecmcConfigOrDie "Cfg.EcAddEntryComplete(3,0x2,0x13ed3052,2,3,0x1a03,0x6010,0x10,16,positionActual01)"
 ecmcConfigOrDie "Cfg.EcAddEntryComplete(3,0x2,0x13ed3052,2,3,0x1a03,0x6010,0x20,16,encoderLatchPostion01)"
 # deduce what the prefix should be
-ecmcFileExist("/home/pi/epics/base-7.0.5/re2022/01/25 08:42:46.141 OK
-2022/01/25 08:42:46.212 OK
-2022/01/25 08:42:46.292 14385
-2022/01/25 08:42:46.293 OK
-2022/01/25 08:42:46.293 OK
-2022/01/25 08:42:46.293 OK
-2022/01/25 08:42:46.293 OK
-2022/01/25 08:42:46.293 OK
+ecmcFileExist("/home/pi/epics/base-7.0.5/re2022/01/25 14:28:57.301 OK
+2022/01/25 14:28:57.372 OK
+2022/01/25 14:28:57.452 14385
+2022/01/25 14:28:57.453 OK
+2022/01/25 14:28:57.453 OK
+2022/01/25 14:28:57.453 OK
+2022/01/25 14:28:57.453 OK
+2022/01/25 14:28:57.453 OK
 quire/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd",1)
 iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd" "MASTER_ID=0,SLAVE_POS=3,HWTYPE=EL5101"
 #==============================================================================
@@ -628,9 +628,9 @@ ecmcConfigOrDie "Cfg.EcAddEntryComplete(4,0x2,0x13ed3052,2,3,0x1a03,0x6010,0x20,
 # deduce what the prefix should be
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd",1)
 iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd" "MASTER_ID=0,SLAVE_POS=4,HWTYPE=EL5101"
-#=======================================================================2022/01/25 08:42:46.301 OK
-2022/01/25 08:42:46.303 OK
-2022/01/25 08:42:46.303 OK
+#=======================================================================2022/01/25 14:28:57.461 OK
+2022/01/25 14:28:57.463 OK
+2022/01/25 14:28:57.463 OK
 =======
 # ecmcmXsXXX.cmd
 ecmcEpicsEnvSetCalc("sid", "4","%03d")
@@ -696,15 +696,15 @@ iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/apply
 ecmcFileExist(ecmcEL9505.substitutions,1,1)
 dbLoadTemplate(ecmcEL9505.substitutions,"ECMC_P=IOC_TEST:m0s005-,ECMC_G=IOC_TEST:m0s005,PORT=MC_CPU1,ADDR=0,TIMEOUT=1,MASTER_ID=0,SLAVE_POS=5,HWTYPE=EL9505,T_SMP_MS=10,TSE=-2,NELM=1")
 epicsEnvUnset(DEFAULT_SUBS)
-ecmcEpicsEnvSetCalcTernary(DEFAULT_SLAVE_PVS, "True", "",2022/01/25 08:42:46.311 OK
-2022/01/25 08:42:46.312 OK
-2022/01/25 08:42:46.313 OK
-2022/01/25 08:42:46.313 OK
-2022/01/25 08:42:46.313 OK
-2022/01/25 08:42:46.313 OK
-2022/01/25 08:42:46.313 OK
-2022/01/25 08:42:46.313 OK
-2022/01/25 08:42:46.313 OK
+ecmcEpicsEnvSetCalcTernary(DEFAULT_SLAVE_PVS, "True", "",2022/01/25 14:28:57.470 OK
+2022/01/25 14:28:57.472 OK
+2022/01/25 14:28:57.472 OK
+2022/01/25 14:28:57.473 OK
+2022/01/25 14:28:57.473 OK
+2022/01/25 14:28:57.473 OK
+2022/01/25 14:28:57.473 OK
+2022/01/25 14:28:57.473 OK
+2022/01/25 14:28:57.473 OK
 "#- ")
 iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/applyTemplate.cmd" "TEMPLATE_FILE=ecmcEcSlave.template,ECMC_P=IOC_TEST:m0s005-,ECMC_G=IOC_TEST:m0s005"
 #==============================================================================
@@ -764,21 +764,21 @@ dbLoadTemplate(ecmcEL1252.substitutions,"ECMC_P=IOC_TEST:m0s006-,ECMC_G=IOC_TEST
 epicsEnvUnset(DEFAULT_SUBS)
 ecmcEpicsEnvSetCalcTernary(DEFAULT_SLAVE_PVS, "True", "","#- ")
 iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/applyTemplate.cmd" "TEMPLATE_FILE=ecmcEcSlave.template,ECMC_P=IOC_TEST:m0s006-,ECMC_G=IOC_TEST:m0s006"
-#==================2022/01/25 08:42:46.323 OK
-2022/01/25 08:42:46.432 OK
-2022/01/25 08:42:46.512 12848
-2022/01/25 08:42:46.515 OK
-2022/01/25 08:42:46.516 OK
-2022/01/25 08:42:46.516 OK
-2022/01/25 08:42:46.516 OK
-2022/01/25 08:42:46.517 OK
-2022/01/25 08:42:46.517 OK
-2022/01/25 08:42:46.517 OK
-2022/01/25 08:42:46.518 OK
-2022/01/25 08:42:46.518 OK
-2022/01/25 08:42:46.518 OK
-2022/01/25 08:42:46.518 OK
-2022/01/25 08:42:46.519 OK
+#==================2022/01/25 14:28:57.484 OK
+2022/01/25 14:28:57.592 OK
+2022/01/25 14:28:57.702 12848
+2022/01/25 14:28:57.703 OK
+2022/01/25 14:28:57.703 OK
+2022/01/25 14:28:57.703 OK
+2022/01/25 14:28:57.703 OK
+2022/01/25 14:28:57.704 OK
+2022/01/25 14:28:57.704 OK
+2022/01/25 14:28:57.704 OK
+2022/01/25 14:28:57.704 OK
+2022/01/25 14:28:57.704 OK
+2022/01/25 14:28:57.704 OK
+2022/01/25 14:28:57.704 OK
+2022/01/25 14:28:57.704 OK
 ============================================================
 # applyTemplate.cmd
 ecmcFileExist(ecmcEcSlave.template,1,1)
@@ -842,12 +842,12 @@ ecmcEpicsEnvSetCalc("sid", "8","%03d")
 ecmcEpicsEnvSetCalc("mid", "0","%01d")
 epicsEnvSet("ECMC_G",            "IOC_TEST:m0s008")
 epicsEnvSet("ECMC_P",            "IOC_TEST:m0s008-")
-epicsE2022/01/25 08:42:46.540 OK
-2022/01/25 08:42:46.540 OK
-2022/01/25 08:42:46.540 OK
-2022/01/25 08:42:46.540 OK
-2022/01/25 08:42:46.540 OK
-2022/01/25 08:42:46.540 OK
+epicsE2022/01/25 14:28:57.713 OK
+2022/01/25 14:28:57.713 OK
+2022/01/25 14:28:57.713 OK
+2022/01/25 14:28:57.713 OK
+2022/01/25 14:28:57.714 OK
+2022/01/25 14:28:57.714 OK
 nvUnset(sid)
 epicsEnvUnset(mid)
 ecmcEpicsEnvSetCalcTernary(DEFAULT_SUBS, "True", "","#- ")
@@ -909,21 +909,21 @@ epicsEnvSet("ECMC_EC_SLAVE_NUM",  "9")
 epicsEnvSet("HW_DESC",            "EL7037")
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/addSlave.cmd",1)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/addSlave.cmd "SLAVE_ID=9, HW_DESC=EL7037, NELM=1"
-#==============================================================2022/01/25 08:42:46.543 OK
-2022/01/25 08:42:46.652 OK
-2022/01/25 08:42:46.752 12848
-2022/01/25 08:42:46.753 OK
-2022/01/25 08:42:46.753 OK
-2022/01/25 08:42:46.753 OK
-2022/01/25 08:42:46.754 OK
-2022/01/25 08:42:46.754 OK
-2022/01/25 08:42:46.754 OK
-2022/01/25 08:42:46.754 OK
-2022/01/25 08:42:46.754 OK
-2022/01/25 08:42:46.754 OK
-2022/01/25 08:42:46.754 OK
-2022/01/25 08:42:46.755 OK
-2022/01/25 08:42:46.755 OK
+#==============================================================2022/01/25 14:28:57.716 OK
+2022/01/25 14:28:57.852 OK
+2022/01/25 14:28:57.942 12848
+2022/01/25 14:28:57.943 OK
+2022/01/25 14:28:57.943 OK
+2022/01/25 14:28:57.943 OK
+2022/01/25 14:28:57.943 OK
+2022/01/25 14:28:57.944 OK
+2022/01/25 14:28:57.944 OK
+2022/01/25 14:28:57.944 OK
+2022/01/25 14:28:57.944 OK
+2022/01/25 14:28:57.944 OK
+2022/01/25 14:28:57.944 OK
+2022/01/25 14:28:57.944 OK
+2022/01/25 14:28:57.944 OK
 ================
 # addSlave.cmd
 epicsEnvSet("ECMC_EC_SLAVE_NUM",  "9")
@@ -987,21 +987,21 @@ epicsEnvUnset(DEFAULT_SLAVE_PVS)
 # increment SLAVE_ID
 ecmcEpicsEnvSetCalc("SLAVE_ID", "9+1","%d")
 # apply config ${CONFIG} for ${HW_DESC}
-e2022/01/25 08:42:46.764 OK
-2022/01/25 08:42:46.764 OK
-2022/01/25 08:42:46.764 OK
-2022/01/25 08:42:46.764 OK
-2022/01/25 08:42:46.764 OK
-2022/01/25 08:42:46.764 OK
-2022/01/25 08:42:46.765 OK
-2022/01/25 08:42:46.765 OK
-2022/01/25 08:42:46.765 OK
-2022/01/25 08:42:46.765 OK
-2022/01/25 08:42:46.765 OK
-2022/01/25 08:42:46.765 OK
-2022/01/25 08:42:46.765 OK
-2022/01/25 08:42:46.765 OK
-2022/01/25 08:42:46.765 OK
+e2022/01/25 14:28:57.953 OK
+2022/01/25 14:28:57.953 OK
+2022/01/25 14:28:57.953 OK
+2022/01/25 14:28:57.954 OK
+2022/01/25 14:28:57.954 OK
+2022/01/25 14:28:57.954 OK
+2022/01/25 14:28:57.954 OK
+2022/01/25 14:28:57.954 OK
+2022/01/25 14:28:57.954 OK
+2022/01/25 14:28:57.954 OK
+2022/01/25 14:28:57.954 OK
+2022/01/25 14:28:57.954 OK
+2022/01/25 14:28:57.954 OK
+2022/01/25 14:28:57.954 OK
+2022/01/25 14:28:57.954 OK
 cmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEL7037-Motor-Nanotec-ST4118L1804-B.cmd",1)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEL7037-Motor-Nanotec-ST4118L1804-B.cmd ""
 epicsEnvSet(I_MAX_MA_LOCAL,"1500")
@@ -1175,45 +1175,45 @@ epicsEnvUnset(ECMC_EXE_CMD)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/verifyOrDie.cmd "EXPR_STR='abs(600.0)<>0',SUCCESS_STR='ECMC_DRV_SCALE_NUM value OK == 600.0...',ERROR_STR='ECMC_DRV_SCALE_NUM == 0...'"
 #==============================================================================
 # verifyOrDie.cmd
-ecmcEpicsEnvSetCalcTe2022/01/25 08:42:46.775 OK
-2022/01/25 08:42:46.775 OK
-2022/01/25 08:42:46.775 OK
-2022/01/25 08:42:46.775 OK
-2022/01/25 08:42:46.777 OK
-2022/01/25 08:42:46.777 OK
-2022/01/25 08:42:46.777 OK
-2022/01/25 08:42:46.777 OK
-2022/01/25 08:42:46.777 OK
-2022/01/25 08:42:46.778 OK
-2022/01/25 08:42:46.778 OK
-2022/01/25 08:42:46.778 OK
-2022/01/25 08:42:46.778 OK
-2022/01/25 08:42:46.778 OK
-2022/01/25 08:42:46.778 OK
-2022/01/25 08:42:46.778 OK
-2022/01/25 08:42:46.778 OK
-2022/01/25 08:42:46.778 OK
-2022/01/25 08:42:46.778 OK
-2022/01/25 08:42:46.778 OK
-2022/01/25 08:42:46.778 OK
-2022/01/25 08:42:46.778 OK
-2022/01/25 08:42:46.779 OK
-2022/01/25 08:42:46.779 OK
-2022/01/25 08:42:46.779 OK
-2022/01/25 08:42:46.779 OK
-2022/01/25 08:42:46.779 OK
-2022/01/25 08:42:46.779 OK
-2022/01/25 08:42:46.779 OK
-2022/01/25 08:42:46.779 OK
-2022/01/25 08:42:46.779 OK
-2022/01/25 08:42:46.779 OK
-2022/01/25 08:42:46.779 OK
-2022/01/25 08:42:46.779 OK
-2022/01/25 08:42:46.779 OK
-2022/01/25 08:42:46.780 OK
-2022/01/25 08:42:46.780 OK
-2022/01/25 08:42:46.780 OK
-2022/01/25 08:42:46.780 OK
+ecmcEpicsEnvSetCalcTe2022/01/25 14:28:57.964 OK
+2022/01/25 14:28:57.964 OK
+2022/01/25 14:28:57.964 OK
+2022/01/25 14:28:57.964 OK
+2022/01/25 14:28:57.967 OK
+2022/01/25 14:28:57.967 OK
+2022/01/25 14:28:57.967 OK
+2022/01/25 14:28:57.967 OK
+2022/01/25 14:28:57.967 OK
+2022/01/25 14:28:57.967 OK
+2022/01/25 14:28:57.967 OK
+2022/01/25 14:28:57.967 OK
+2022/01/25 14:28:57.967 OK
+2022/01/25 14:28:57.967 OK
+2022/01/25 14:28:57.967 OK
+2022/01/25 14:28:57.967 OK
+2022/01/25 14:28:57.967 OK
+2022/01/25 14:28:57.968 OK
+2022/01/25 14:28:57.968 OK
+2022/01/25 14:28:57.968 OK
+2022/01/25 14:28:57.968 OK
+2022/01/25 14:28:57.968 OK
+2022/01/25 14:28:57.968 OK
+2022/01/25 14:28:57.968 OK
+2022/01/25 14:28:57.968 OK
+2022/01/25 14:28:57.968 OK
+2022/01/25 14:28:57.968 OK
+2022/01/25 14:28:57.968 OK
+2022/01/25 14:28:57.968 OK
+2022/01/25 14:28:57.968 OK
+2022/01/25 14:28:57.969 OK
+2022/01/25 14:28:57.969 OK
+2022/01/25 14:28:57.969 OK
+2022/01/25 14:28:57.969 OK
+2022/01/25 14:28:57.969 OK
+2022/01/25 14:28:57.969 OK
+2022/01/25 14:28:57.969 OK
+2022/01/25 14:28:57.969 OK
+2022/01/25 14:28:57.969 OK
 rnary(ECMC_EXE_CMD,"abs(600.0)<>0","# ECMC_DRV_SCALE_NUM value OK == 600.0...", "ecmcExit Error: ECMC_DRV_SCALE_NUM == 0...")
 # ECMC_DRV_SCALE_NUM value OK == 600.0...
 epicsEnvUnset(ECMC_EXE_CMD)
@@ -1276,44 +1276,44 @@ ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.velocitySetpoint01,"ax1.drv.velo
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(,"ax1.drv.position")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(,"ax1.drv.brake")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveControl01.2,"ax1.drv.reducetorque")"
-ecmcConf2022/01/25 08:42:46.780 OK
-2022/01/25 08:42:46.780 OK
-2022/01/25 08:42:46.780 OK
-2022/01/25 08:42:46.780 OK
-2022/01/25 08:42:46.780 OK
-2022/01/25 08:42:46.780 OK
-2022/01/25 08:42:46.780 OK
-2022/01/25 08:42:46.780 OK
-2022/01/25 08:42:46.780 OK
-2022/01/25 08:42:46.781 OK
-2022/01/25 08:42:46.781 OK
-2022/01/25 08:42:46.781 OK
-2022/01/25 08:42:46.781 OK
-2022/01/25 08:42:46.781 OK
-2022/01/25 08:42:46.781 OK
-2022/01/25 08:42:46.781 OK
-2022/01/25 08:42:46.781 OK
-2022/01/25 08:42:46.781 OK
-2022/01/25 08:42:46.781 OK
-2022/01/25 08:42:46.781 OK
-2022/01/25 08:42:46.781 OK
-2022/01/25 08:42:46.782 OK
-2022/01/25 08:42:46.782 OK
-2022/01/25 08:42:46.782 OK
-2022/01/25 08:42:46.782 OK
-2022/01/25 08:42:46.782 OK
-2022/01/25 08:42:46.782 OK
-2022/01/25 08:42:46.782 OK
-2022/01/25 08:42:46.782 OK
-2022/01/25 08:42:46.782 OK
-2022/01/25 08:42:46.782 OK
-2022/01/25 08:42:46.782 OK
-2022/01/25 08:42:46.783 ecmcMotorRecord:: setIntegerParam(1 motorPowerAutoOnOff_)=2
-2022/01/25 08:42:46.783 ecmcMotorRecord:: setDoubleParam(1 motorPowerOnDelay_)=6
-2022/01/25 08:42:46.783 ecmcMotorRecord:: setDoubleParam(1 motorPowerOffDelay_=-1
-2022/01/25 08:42:46.783 ecmcMotorRecord:: udateMotorLimitsRO(1) enabledHighAndLow=1 valid=1 fValueHigh=130 fValueLow=-20
-2022/01/25 08:42:46.783 ecmcMotorRecord:: connected(1)
-2022/01/25 08:42:46.783 ecmcMotorRecord:: initialPoll(1) status=0
+ecmcConf2022/01/25 14:28:57.969 OK
+2022/01/25 14:28:57.969 OK
+2022/01/25 14:28:57.969 OK
+2022/01/25 14:28:57.969 OK
+2022/01/25 14:28:57.969 OK
+2022/01/25 14:28:57.970 OK
+2022/01/25 14:28:57.970 OK
+2022/01/25 14:28:57.970 OK
+2022/01/25 14:28:57.970 OK
+2022/01/25 14:28:57.970 OK
+2022/01/25 14:28:57.970 OK
+2022/01/25 14:28:57.970 OK
+2022/01/25 14:28:57.970 OK
+2022/01/25 14:28:57.970 OK
+2022/01/25 14:28:57.970 OK
+2022/01/25 14:28:57.970 OK
+2022/01/25 14:28:57.970 OK
+2022/01/25 14:28:57.970 OK
+2022/01/25 14:28:57.971 OK
+2022/01/25 14:28:57.971 OK
+2022/01/25 14:28:57.971 OK
+2022/01/25 14:28:57.971 OK
+2022/01/25 14:28:57.971 OK
+2022/01/25 14:28:57.971 OK
+2022/01/25 14:28:57.971 OK
+2022/01/25 14:28:57.971 OK
+2022/01/25 14:28:57.971 OK
+2022/01/25 14:28:57.971 OK
+2022/01/25 14:28:57.971 OK
+2022/01/25 14:28:57.972 OK
+2022/01/25 14:28:57.972 OK
+2022/01/25 14:28:57.972 OK
+2022/01/25 14:28:57.972 ecmcMotorRecord:: setIntegerParam(1 motorPowerAutoOnOff_)=2
+2022/01/25 14:28:57.972 ecmcMotorRecord:: setDoubleParam(1 motorPowerOnDelay_)=6
+2022/01/25 14:28:57.972 ecmcMotorRecord:: setDoubleParam(1 motorPowerOffDelay_=-1
+2022/01/25 14:28:57.973 ecmcMotorRecord:: udateMotorLimitsRO(1) enabledHighAndLow=1 valid=1 fValueHigh=130 fValueLow=-20
+2022/01/25 14:28:57.973 ecmcMotorRecord:: connected(1)
+2022/01/25 14:28:57.973 ecmcMotorRecord:: initialPoll(1) status=0
 igOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveControl01.1,"ax1.drv.reset")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveStatus01.3,"ax1.drv.alarm0")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveStatus01.7,"ax1.drv.alarm1")"
@@ -1482,24 +1482,24 @@ epicsEnvSet("ECMC_AXIS_EXPR_LINE_2",           "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_3",           "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_4",           "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_5",           "")
-epicsEnvSet("ECMC_AXIS_EXPR_LINE_6",           2022/01/25 08:42:46.794 OK
-2022/01/25 08:42:46.794 OK
-2022/01/25 08:42:46.794 OK
-2022/01/25 08:42:46.794 OK
-2022/01/25 08:42:46.794 OK
-2022/01/25 08:42:46.794 OK
-2022/01/25 08:42:46.794 OK
-2022/01/25 08:42:46.794 OK
-2022/01/25 08:42:46.794 OK
-2022/01/25 08:42:46.795 OK
-2022/01/25 08:42:46.795 OK
-2022/01/25 08:42:46.795 OK
-2022/01/25 08:42:46.795 OK
-2022/01/25 08:42:46.795 OK
-2022/01/25 08:42:46.795 OK
-2022/01/25 08:42:46.795 OK
-2022/01/25 08:42:46.795 OK
-2022/01/25 08:42:46.795 OK
+epicsEnvSet("ECMC_AXIS_EXPR_LINE_6",           2022/01/25 14:28:57.983 OK
+2022/01/25 14:28:57.983 OK
+2022/01/25 14:28:57.983 OK
+2022/01/25 14:28:57.983 OK
+2022/01/25 14:28:57.983 OK
+2022/01/25 14:28:57.983 OK
+2022/01/25 14:28:57.983 OK
+2022/01/25 14:28:57.983 OK
+2022/01/25 14:28:57.983 OK
+2022/01/25 14:28:57.983 OK
+2022/01/25 14:28:57.984 OK
+2022/01/25 14:28:57.984 OK
+2022/01/25 14:28:57.984 OK
+2022/01/25 14:28:57.984 OK
+2022/01/25 14:28:57.984 OK
+2022/01/25 14:28:57.984 OK
+2022/01/25 14:28:57.984 OK
+2022/01/25 14:28:57.984 OK
 "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_7",           "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_8",           "")
@@ -1680,53 +1680,53 @@ epicsEnvUnset(ECMC_EXE_CMD)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/verifyOrDie.cmd "EXPR_STR='abs(32768.0)<>0',SUCCESS_STR='ECMC_DRV_SCALE_DENOM value OK == 32768.0...',ERROR_STR='ECMC_DRV_SCALE_DENOM == 0...'"
 #==============================================================================
 # verifyOrDie.cmd
-ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD,"abs(32768.0)<>0","# ECMC_DRV_SCALE_DENOM value2022/01/25 08:42:46.806 OK
-2022/01/25 08:42:46.806 OK
-2022/01/25 08:42:46.806 OK
-2022/01/25 08:42:46.806 OK
-2022/01/25 08:42:46.809 OK
-2022/01/25 08:42:46.809 OK
-2022/01/25 08:42:46.809 OK
-2022/01/25 08:42:46.809 OK
-2022/01/25 08:42:46.809 OK
-2022/01/25 08:42:46.809 OK
-2022/01/25 08:42:46.809 OK
-2022/01/25 08:42:46.809 OK
-2022/01/25 08:42:46.809 OK
-2022/01/25 08:42:46.809 OK
-2022/01/25 08:42:46.809 OK
-2022/01/25 08:42:46.810 OK
-2022/01/25 08:42:46.810 OK
-2022/01/25 08:42:46.810 OK
-2022/01/25 08:42:46.810 OK
-2022/01/25 08:42:46.810 OK
-2022/01/25 08:42:46.810 OK
-2022/01/25 08:42:46.810 OK
-2022/01/25 08:42:46.810 OK
-2022/01/25 08:42:46.810 OK
-2022/01/25 08:42:46.810 OK
-2022/01/25 08:42:46.810 OK
-2022/01/25 08:42:46.810 OK
-2022/01/25 08:42:46.810 OK
-2022/01/25 08:42:46.811 OK
-2022/01/25 08:42:46.811 OK
-2022/01/25 08:42:46.811 OK
-2022/01/25 08:42:46.811 OK
-2022/01/25 08:42:46.811 OK
-2022/01/25 08:42:46.811 OK
-2022/01/25 08:42:46.811 OK
-2022/01/25 08:42:46.811 OK
-2022/01/25 08:42:46.811 OK
-2022/01/25 08:42:46.811 OK
-2022/01/25 08:42:46.811 OK
-2022/01/25 08:42:46.811 OK
-2022/01/25 08:42:46.811 OK
-2022/01/25 08:42:46.811 OK
-2022/01/25 08:42:46.812 OK
-2022/01/25 08:42:46.812 OK
-2022/01/25 08:42:46.812 OK
-2022/01/25 08:42:46.812 OK
-2022/01/25 08:42:46.812 OK
+ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD,"abs(32768.0)<>0","# ECMC_DRV_SCALE_DENOM value2022/01/25 14:28:57.994 OK
+2022/01/25 14:28:57.994 OK
+2022/01/25 14:28:57.994 OK
+2022/01/25 14:28:57.994 OK
+2022/01/25 14:28:57.997 OK
+2022/01/25 14:28:57.997 OK
+2022/01/25 14:28:57.997 OK
+2022/01/25 14:28:57.997 OK
+2022/01/25 14:28:57.997 OK
+2022/01/25 14:28:57.997 OK
+2022/01/25 14:28:57.997 OK
+2022/01/25 14:28:57.997 OK
+2022/01/25 14:28:57.998 OK
+2022/01/25 14:28:57.998 OK
+2022/01/25 14:28:57.998 OK
+2022/01/25 14:28:57.998 OK
+2022/01/25 14:28:57.998 OK
+2022/01/25 14:28:57.998 OK
+2022/01/25 14:28:57.998 OK
+2022/01/25 14:28:57.998 OK
+2022/01/25 14:28:57.998 OK
+2022/01/25 14:28:57.998 OK
+2022/01/25 14:28:57.998 OK
+2022/01/25 14:28:57.998 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
+2022/01/25 14:28:57.999 OK
  OK == 32768.0...", "ecmcExit Error: ECMC_DRV_SCALE_DENOM == 0...")
 # ECMC_DRV_SCALE_DENOM value OK == 32768.0...
 epicsEnvUnset(ECMC_EXE_CMD)
@@ -1791,36 +1791,36 @@ ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s9.driveStatus01.2,"ax2.drv.warning
 ecmcConfigOrDie "Cfg.SetAxisDrvScaleDenom(2,32768.0)"
 ecmcConfigOrDie "Cfg.SetAxisDrvScaleNum(2,-600.0)"
 ecmcConfigOrDie "Cfg.SetAxisDrvBrakeOpenDelayTime(2,0)"
-ecmcConfigOrDie "Cfg.SetAxisDrvBr2022/01/25 08:42:46.812 OK
-2022/01/25 08:42:46.812 OK
-2022/01/25 08:42:46.812 OK
-2022/01/25 08:42:46.812 OK
-2022/01/25 08:42:46.812 OK
-2022/01/25 08:42:46.813 OK
-2022/01/25 08:42:46.813 OK
-2022/01/25 08:42:46.813 OK
-2022/01/25 08:42:46.813 OK
-2022/01/25 08:42:46.813 OK
-2022/01/25 08:42:46.813 OK
-2022/01/25 08:42:46.813 OK
-2022/01/25 08:42:46.813 OK
-2022/01/25 08:42:46.813 OK
-2022/01/25 08:42:46.813 OK
-2022/01/25 08:42:46.813 OK
-2022/01/25 08:42:46.813 OK
-2022/01/25 08:42:46.814 OK
-2022/01/25 08:42:46.814 OK
-2022/01/25 08:42:46.814 OK
-2022/01/25 08:42:46.814 OK
-2022/01/25 08:42:46.814 OK
-2022/01/25 08:42:46.814 OK
-2022/01/25 08:42:46.814 OK
-2022/01/25 08:42:46.815 ecmcMotorRecord:: setIntegerParam(2 motorPowerAutoOnOff_)=2
-2022/01/25 08:42:46.815 ecmcMotorRecord:: setDoubleParam(2 motorPowerOnDelay_)=6
-2022/01/25 08:42:46.815 ecmcMotorRecord:: setDoubleParam(2 motorPowerOffDelay_=-1
-2022/01/25 08:42:46.815 ecmcMotorRecord:: udateMotorLimitsRO(2) enabledHighAndLow=1 valid=1 fValueHigh=20 fValueLow=-130
-2022/01/25 08:42:46.815 ecmcMotorRecord:: connected(2)
-2022/01/25 08:42:46.815 ecmcMotorRecord:: initialPoll(2) status=0
+ecmcConfigOrDie "Cfg.SetAxisDrvBr2022/01/25 14:28:58.000 OK
+2022/01/25 14:28:58.000 OK
+2022/01/25 14:28:58.000 OK
+2022/01/25 14:28:58.000 OK
+2022/01/25 14:28:58.000 OK
+2022/01/25 14:28:58.000 OK
+2022/01/25 14:28:58.001 OK
+2022/01/25 14:28:58.001 OK
+2022/01/25 14:28:58.001 OK
+2022/01/25 14:28:58.001 OK
+2022/01/25 14:28:58.001 OK
+2022/01/25 14:28:58.001 OK
+2022/01/25 14:28:58.001 OK
+2022/01/25 14:28:58.001 OK
+2022/01/25 14:28:58.001 OK
+2022/01/25 14:28:58.001 OK
+2022/01/25 14:28:58.001 OK
+2022/01/25 14:28:58.001 OK
+2022/01/25 14:28:58.002 OK
+2022/01/25 14:28:58.002 OK
+2022/01/25 14:28:58.002 OK
+2022/01/25 14:28:58.002 OK
+2022/01/25 14:28:58.002 OK
+2022/01/25 14:28:58.002 OK
+2022/01/25 14:28:58.003 ecmcMotorRecord:: setIntegerParam(2 motorPowerAutoOnOff_)=2
+2022/01/25 14:28:58.003 ecmcMotorRecord:: setDoubleParam(2 motorPowerOnDelay_)=6
+2022/01/25 14:28:58.003 ecmcMotorRecord:: setDoubleParam(2 motorPowerOffDelay_=-1
+2022/01/25 14:28:58.003 ecmcMotorRecord:: udateMotorLimitsRO(2) enabledHighAndLow=1 valid=1 fValueHigh=20 fValueLow=-130
+2022/01/25 14:28:58.003 ecmcMotorRecord:: connected(2)
+2022/01/25 14:28:58.003 ecmcMotorRecord:: initialPoll(2) status=0
 akeCloseAheadTime(2,0)"
 ecmcConfigOrDie "Cfg.SetAxisSoftLimitPosBwd(2,-130)"
 ecmcConfigOrDie "Cfg.SetAxisEnableSoftLimitBwd(2,1)"
@@ -1901,8 +1901,8 @@ epicsEnvUnset(ECMC_ENC_BITS)
 epicsEnvUnset(ECMC_ENC_ABS_BITS)
 epicmacLib: macro ECMC_EXE_CMD is undefined (expanding string ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD, "'${ECMC_MODE=FULL}'='DAQ'","ecmcExit Error: ECMC started in DAQ mode. Motion not supported..","#-")${ECMC_EXE_CMD})
 macLib: macro ECMC_EXE_CMD is undefined (expanding string ${ECMC_EXE_CMD})
-2022/01/25 08:42:46.825 OK
-2022/01/25 08:42:46.826 OK
+2022/01/25 14:28:58.014 OK
+2022/01/25 14:28:58.014 OK
 sEnvUnset(ECMC_ENC_ABS_OFFSET)
 epicsEnvUnset(ECMC_ENC_VEL_FILTER_SIZE)
 epicsEnvUnset(ECMC_ENC_POS_FILTER_SIZE)
@@ -1994,22 +1994,22 @@ iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmc_a
 # ecmc_axis_sync.cmd
 ecmcConfigOrDie "Cfg.SetAxisAllowCommandsFromPLC(2,1)"
 ecmcConfigOrDie "Cfg.SetAxisPLCEnable(2,0)"
-e2022/01/25 08:42:46.826 OK
-2022/01/25 08:42:46.826 OK
-2022/01/25 08:42:46.826 OK
-2022/01/25 08:42:46.826 OK
-2022/01/25 08:42:46.826 OK
-2022/01/25 08:42:46.826 OK
-2022/01/25 08:42:46.826 OK
-2022/01/25 08:42:46.826 OK
-2022/01/25 08:42:46.826 OK
-2022/01/25 08:42:46.826 OK
-2022/01/25 08:42:46.826 OK
-2022/01/25 08:42:46.827 OK
-2022/01/25 08:42:46.827 OK
-2022/01/25 08:42:46.827 OK
-2022/01/25 08:42:46.827 OK
-2022/01/25 08:42:46.827 OK
+e2022/01/25 14:28:58.014 OK
+2022/01/25 14:28:58.014 OK
+2022/01/25 14:28:58.014 OK
+2022/01/25 14:28:58.014 OK
+2022/01/25 14:28:58.014 OK
+2022/01/25 14:28:58.014 OK
+2022/01/25 14:28:58.014 OK
+2022/01/25 14:28:58.014 OK
+2022/01/25 14:28:58.015 OK
+2022/01/25 14:28:58.015 OK
+2022/01/25 14:28:58.015 OK
+2022/01/25 14:28:58.015 OK
+2022/01/25 14:28:58.015 OK
+2022/01/25 14:28:58.015 OK
+2022/01/25 14:28:58.015 OK
+2022/01/25 14:28:58.015 OK
 cmcConfigOrDie "Cfg.AppendAxisPLCExpr(2)=var a:=1|"
 ecmcConfigOrDie "Cfg.AppendAxisPLCExpr(2)="
 ecmcConfigOrDie "Cfg.AppendAxisPLCExpr(2)="
@@ -2068,8 +2068,8 @@ iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/loadPl
 #==============================================================================
 # loadPlugin.cmd
 ecmcConfigOrDie "Cfg.LoadPlugin(0,/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmc_plugin_grbl/develop/lib/linux-arm/libecmc_plugin_grbl.so,DBG_PRINT=1;X_AXIS=1;Y_AXIS=2;AUTO_ENABLE=1;)"
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doReadWorker:223
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doMainWorker:261
+../ecmc_plugin_grbl/ecmcGrbl.cpp:doReadWorker:222
+../ecmc_plugin_grbl/ecmcGrbl.cpp:doMainWorker:259
 ../grbl/grbl_serial.c:serial_init:70:
 ../grbl/grbl_eeprom.c:ecmc_init_file:53
 ../grbl/grbl_settings.c:settings_restore:132 settings_restore complete!!!..
@@ -2079,14 +2079,48 @@ ecmcConfigOrDie "Cfg.LoadPlugin(0,/home/pi/epics/base-7.0.5/require/3.4.0/siteMo
 ../grbl/grbl_gcode.c:gc_init:44:
 ../grbl/grbl_eeprom.c:memcpy_from_eeprom_with_checksum:215 EEPROM simulated by file..
 ../grbl/grbl_spindle_control.c:spindle_init:31 Not supported yet..
-../grbl/grbl_coolant_contro2022/01/25 08:42:47.032 OK
-2022/01/25 08:42:47.033 OK
+../grbl/grbl_coolant_contro2022/01/25 14:28:58.221 OK
+2022/01/25 14:28:58.222 OK
+test.script line 70: Command //ecmcGrblAddCommand not found.
+test.script line 71: Command //ecmcGrblAddCommand not found.
+test.script line 72: Command //ecmcGrblAddCommand not found.
+test.script line 73: Command //ecmcGrblAddCommand not found.
+test.script line 74: Command //ecmcGrblAddCommand not found.
+test.script line 75: Command //ecmcGrblAddCommand not found.
+test.script line 76: Command //ecmcGrblAddCommand not found.
+test.script line 77: Command //ecmcGrblAddCommand not found.
+test.script line 78: Command //ecmcGrblAddCommand not found.
+test.script line 79: Command //ecmcGrblAddCommand not found.
+test.script line 80: Command //ecmcGrblAddCommand not found.
+test.script line 81: Command //ecmcGrblAddCommand not found.
+test.script line 82: Command //ecmcGrblAddCommand not found.
+test.script line 83: Command //ecmcGrblAddCommand not found.
+test.script line 84: Command //ecmcGrblAddCommand not found.
+test.script line 85: Command //ecmcGrblAddCommand not found.
+test.script line 86: Command //ecmcGrblAddCommand not found.
+test.script line 87: Command //ecmcGrblAddCommand not found.
+test.script line 88: Command //ecmcGrblAddCommand not found.
+test.script line 89: Command //ecmcGrblAddCommand not found.
+test.script line 90: Command //ecmcGrblAddCommand not found.
+test.script line 91: Command //ecmcGrblAddCommand not found.
+test.script line 92: Command //ecmcGrblAddCommand not found.
+test.script line 93: Command //ecmcGrblAddCommand not found.
+test.script line 94: Command //ecmcGrblAddCommand not found.
+test.script line 95: Command //ecmcGrblAddCommand not found.
+test.script line 96: Command //ecmcGrblAddCommand not found.
+test.script line 97: Command //ecmcGrblAddCommand not found.
+test.script line 98: Command //ecmcGrblAddCommand not found.
+test.script line 99: Command //ecmcGrblAddCommand not found.
+test.script line 100: Command //ecmcGrblAddCommand not found.
+test.script line 101: Command //ecmcGrblAddCommand not found.
+test.script line 102: Command //ecmcGrblAddCommand not found.
+test.script line 103: Command //ecmcGrblAddCommand not found.
 l.c:coolant_init:25 Not supported yet..
 ../grbl/grbl_limits.c:limits_init:44 Not supported yet..
 ../grbl/grbl_probe.c:probe_init:31 Not supported yet..
 ../grbl/grbl_stepper.c:st_reset:574
 ../grbl/grbl_stepper.c:st_go_idle:261
-Waiting for grbl init..../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:235
+Waiting for grbl init..../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:234
 ../grbl/grbl_stepper.c:st_generate_step_dir_invert_masks:552
 ../grbl/grbl_gcode.c:gc_sync_position:59:
 ../grbl/grbl_protocol.c:protocol_main_loop:40
@@ -2117,389 +2151,238 @@ Plugin info:
      max plc funcs     = 64
      max plc func args = 10
      max plc consts    = 64
-  Construct func       = @0xb5014f98
-  Enter realtime func  = @0xb5014f40
-  Exit realtime func   = @0xb5014f48
-  Realtime func        = @0xb5014f88
-  Destruct func        = @0xb5014f60
-  dlhandle             = @0x152df40
+  Construct func       = @0xb4e20df8
+  Enter realtime func  = @0xb4e20da0
+  Exit realtime func   = @0xb4e20da8
+  Realtime func        = @0xb4e20de8
+  Destruct func        = @0xb4e20dc0
+  dlhandle             = @0x91d168
   Plc functions:
     funcs[00]:
       Name       = "grbl_connect();"
       Desc       = double grbl_connect() : Connect to grbl interface (from config str).
       Arg count  = 0
-      func       = @0xb5014f50
+      func       = @0xb4e20db0
   Plc constants:
 
 epicsEnvUnset(ECMC_PLUGIN_REPORT);
 epicsEnvUnset(ECMC_PLUGIN_FILNAME)
 epicsEnvUnset(ECMC_PLUGIN_CONFIG)
 ecmcGrblAddCommand("G1X20Y20F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 1
+../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:465:
+../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:469: Buffer size 1
 ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 2
+../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:465:
+../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:469: Buffer size 2
 ecmcGrblAddCommand("G2X0Y0R20");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 3
-ecmcGrblAddCommand("G0X10Y10");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 4
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 5
-ecmcGrblAddCommand("G1X10Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 6
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 7
-ecmcGrblAddCommand("G1X50Y50F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 8
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 9
-ecmcGrblAddCommand("G1X0Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 10
-ecmcGrblAddCommand("G1X20Y20F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 11
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 12
-ecmcGrblAddCommand("G2X0Y0R20");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 13
-ecmcGrblAddCommand("G0X10Y10");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 14
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 15
-ecmcGrblAddCommand("G1X10Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 16
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 17
-ecmcGrblAddCommand("G1X50Y50F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 18
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 19
-ecmcGrblAddCommand("G1X0Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 20
-ecmcGrblAddCommand("G1X20Y20F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 21
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 22
-ecmcGrblAddCommand("G2X0Y0R20");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 23
-ecmcGrblAddCommand("G0X10Y10");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 24
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 25
-ecmcGrblAddCommand("G1X10Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 26
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 27
-ecmcGrblAddCommand("G1X50Y50F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 28
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 29
-ecmcGrblAddCommand("G1X0Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 30
-ecmcGrblAddCommand("G1X20Y20F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 31
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 32
-ecmcGrblAddCommand("G2X0Y0R20");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 33
-ecmcGrblAddCommand("G0X10Y10");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 34
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 35
-ecmcGrblAddCommand("G1X10Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 36
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 37
-ecmcGrblAddCommand("G1X50Y50F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 38
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 39
-ecmcGrblAddCommand("G1X0Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 40
-ecmcGrblAddCommand("G1X20Y20F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 41
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 42
-ecmcGrblAddCommand("G2X0Y0R20");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 43
-ecmcGrblAddCommand("G0X10Y10");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 44
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 45
-ecmcGrblAddCommand("G1X10Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 46
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 47
-ecmcGrblAddCommand("G1X50Y50F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 48
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 49
-ecmcGrblAddCommand("G1X0Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 50
-ecmcGrblAddCommand("G1X20Y20F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 51
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 52
-ecmcGrblAddCommand("G2X0Y0R20");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 53
-ecmcGrblAddCommand("G0X10Y10");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 54
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 55
-ecmcGrblAddCommand("G1X10Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 56
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 57
-ecmcGrblAddCommand("G1X50Y50F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 58
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 59
-ecmcGrblAddCommand("G1X0Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 60
-ecmcGrblAddCommand("G1X20Y20F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 61
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 62
-ecmcGrblAddCommand("G2X0Y0R20");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 63
-ecmcGrblAddCommand("G0X10Y10");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 64
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 65
-ecmcGrblAddCommand("G1X10Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 66
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 67
-ecmcGrblAddCommand("G1X50Y50F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 68
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 69
-ecmcGrblAddCommand("G1X0Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 70
-ecmcGrblAddCommand("G1X20Y20F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 71
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 72
-ecmcGrblAddCommand("G2X0Y0R20");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 73
-ecmcGrblAddCommand("G0X10Y10");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 74
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 75
-ecmcGrblAddCommand("G1X10Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 76
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 77
-ecmcGrblAddCommand("G1X50Y50F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 78
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 79
-ecmcGrblAddCommand("G1X0Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 80
-ecmcGrblAddCommand("G1X20Y20F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 81
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 82
-ecmcGrblAddCommand("G2X0Y0R20");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 83
-ecmcGrblAddCommand("G0X10Y10");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 84
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 85
-ecmcGrblAddCommand("G1X10Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 86
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 87
-ecmcGrblAddCommand("G1X50Y50F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 88
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 89
-ecmcGrblAddCommand("G1X0Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 90
-ecmcGrblAddCommand("G1X20Y20F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 91
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 92
-ecmcGrblAddCommand("G2X0Y0R20");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 93
-ecmcGrblAddCommand("G0X10Y10");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 94
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 95
-ecmcGrblAddCommand("G1X10Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer siz2022/01/25 08:42:47.035 OK
-2022/01/25 08:42:47.035 OK
-2022/01/25 08:42:47.035 OK
-2022/01/25 08:42:47.035 OK
-2022/01/25 08:42:47.035 OK
-2022/01/25 08:42:47.035 OK
-e 96
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 97
-ecmcGrblAddCommand("G1X50Y50F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 98
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 99
-ecmcGrblAddCommand("G1X0Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 100
-ecmcGrblAddCommand("G1X20Y20F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 101
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 102
-ecmcGrblAddCommand("G2X0Y0R20");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 103
-ecmcGrblAddCommand("G0X10Y10");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 104
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 105
-ecmcGrblAddCommand("G1X10Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 106
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 107
-ecmcGrblAddCommand("G1X50Y50F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 108
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 109
-ecmcGrblAddCommand("G1X0Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 110
-ecmcGrblAddCommand("G1X20Y20F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 111
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 112
-ecmcGrblAddCommand("G2X0Y0R20");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 113
-ecmcGrblAddCommand("G0X10Y10");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 114
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 115
-ecmcGrblAddCommand("G1X10Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 116
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 117
-ecmcGrblAddCommand("G1X50Y50F180");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 118
-ecmcGrblAddCommand("G4P1");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 119
-ecmcGrblAddCommand("G1X0Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:466:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:470: Buffer size 120
+../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:465:
+../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:469: Buffer size 3
+//ecmcGrblAddCommand("G0X10Y10");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X10Y0F360");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X50Y50F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X0Y0F360");
+//ecmcGrblAddCommand("G1X20Y20F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G2X0Y0R20");
+//ecmcGrblAddCommand("G0X10Y10");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X10Y0F360");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X50Y50F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X0Y0F360");
+//ecmcGrblAddCommand("G1X20Y20F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G2X0Y0R20");
+//ecmcGrblAddCommand("G0X10Y10");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X10Y0F360");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X50Y50F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X0Y0F360");
+//ecmcGrblAddCommand("G1X20Y20F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G2X0Y0R20");
+//ecmcGrblAddCommand("G0X10Y10");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X10Y0F360");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("Gtest.script line 104: Command //ecmcGrblAddCommand not found.
+test.script line 105: Command //ecmcGrblAddCommand not found.
+test.script line 106: Command //ecmcGrblAddCommand not found.
+test.script line 107: Command //ecmcGrblAddCommand not found.
+test.script line 108: Command //ecmcGrblAddCommand not found.
+test.script line 109: Command //ecmcGrblAddCommand not found.
+test.script line 110: Command //ecmcGrblAddCommand not found.
+test.script line 111: Command //ecmcGrblAddCommand not found.
+test.script line 112: Command //ecmcGrblAddCommand not found.
+test.script line 113: Command //ecmcGrblAddCommand not found.
+test.script line 114: Command //ecmcGrblAddCommand not found.
+test.script line 115: Command //ecmcGrblAddCommand not found.
+test.script line 116: Command //ecmcGrblAddCommand not found.
+test.script line 117: Command //ecmcGrblAddCommand not found.
+test.script line 118: Command //ecmcGrblAddCommand not found.
+test.script line 119: Command //ecmcGrblAddCommand not found.
+test.script line 120: Command //ecmcGrblAddCommand not found.
+test.script line 121: Command //ecmcGrblAddCommand not found.
+test.script line 122: Command //ecmcGrblAddCommand not found.
+test.script line 123: Command //ecmcGrblAddCommand not found.
+test.script line 124: Command //ecmcGrblAddCommand not found.
+test.script line 125: Command //ecmcGrblAddCommand not found.
+test.script line 126: Command //ecmcGrblAddCommand not found.
+test.script line 127: Command //ecmcGrblAddCommand not found.
+test.script line 128: Command //ecmcGrblAddCommand not found.
+test.script line 129: Command //ecmcGrblAddCommand not found.
+test.script line 130: Command //ecmcGrblAddCommand not found.
+test.script line 131: Command //ecmcGrblAddCommand not found.
+test.script line 132: Command //ecmcGrblAddCommand not found.
+test.script line 133: Command //ecmcGrblAddCommand not found.
+test.script line 134: Command //ecmcGrblAddCommand not found.
+test.script line 135: Command //ecmcGrblAddCommand not found.
+test.script line 136: Command //ecmcGrblAddCommand not found.
+test.script line 137: Command //ecmcGrblAddCommand not found.
+test.script line 138: Command //ecmcGrblAddCommand not found.
+test.script line 139: Command //ecmcGrblAddCommand not found.
+test.script line 140: Command //ecmcGrblAddCommand not found.
+test.script line 141: Command //ecmcGrblAddCommand not found.
+test.script line 142: Command //ecmcGrblAddCommand not found.
+test.script line 143: Command //ecmcGrblAddCommand not found.
+test.script line 144: Command //ecmcGrblAddCommand not found.
+test.script line 145: Command //ecmcGrblAddCommand not found.
+test.script line 146: Command //ecmcGrblAddCommand not found.
+test.script line 147: Command //ecmcGrblAddCommand not found.
+test.script line 148: Command //ecmcGrblAddCommand not found.
+test.script line 149: Command //ecmcGrblAddCommand not found.
+test.script line 150: Command //ecmcGrblAddCommand not found.
+test.script line 151: Command //ecmcGrblAddCommand not found.
+test.script line 152: Command //ecmcGrblAddCommand not found.
+test.script line 153: Command //ecmcGrblAddCommand not found.
+test.script line 154: Command //ecmcGrblAddCommand not found.
+test.script line 155: Command //ecmcGrblAddCommand not found.
+test.script line 156: Command //ecmcGrblAddCommand not found.
+test.script line 157: Command //ecmcGrblAddCommand not found.
+test.script line 158: Command //ecmcGrblAddCommand not found.
+test.script line 159: Command //ecmcGrblAddCommand not found.
+test.script line 160: Command //ecmcGrblAddCommand not found.
+test.script line 161: Command //ecmcGrblAddCommand not found.
+test.script line 162: Command //ecmcGrblAddCommand not found.
+test.script line 163: Command //ecmcGrblAddCommand not found.
+test.script line 164: Command //ecmcGrblAddCommand not found.
+test.script line 165: Command //ecmcGrblAddCommand not found.
+test.script line 166: Command //ecmcGrblAddCommand not found.
+test.script line 167: Command //ecmcGrblAddCommand not found.
+test.script line 168: Command //ecmcGrblAddCommand not found.
+test.script line 169: Command //ecmcGrblAddCommand not found.
+test.script line 170: Command //ecmcGrblAddCommand not found.
+test.script line 171: Command //ecmcGrblAddCommand not found.
+test.script line 172: Command //ecmcGrblAddCommand not found.
+test.script line 173: Command //ecmcGrblAddCommand not found.
+test.script line 174: Command //ecmcGrblAddCommand not found.
+test.script line 175: Command //ecmcGrblAddCommand not found.
+test.script line 176: Command //ecmcGrblAddCommand not found.
+test.script line 177: Command //ecmcGrblAddCommand not found.
+test.script line 178: Command //ecmcGrblAddCommand not found.
+test.script line 179: Command //ecmcGrblAddCommand not found.
+test.script line 180: Command //ecmcGrblAddCommand not found.
+test.script line 181: Command //ecmcGrblAddCommand not found.
+test.script line 182: Command //ecmcGrblAddCommand not found.
+test.script line 183: Command //ecmcGrblAddCommand not found.
+test.script line 184: Command //ecmcGrblAddCommand not found.
+test.script line 185: Command //ecmcGrblAddCommand not found.
+test.script line 186: Command //ecmcGrblAddCommand not found.
+2022/01/25 14:28:58.228 OK
+2022/01/25 14:28:58.229 OK
+2022/01/25 14:28:58.229 OK
+2022/01/25 14:28:58.229 OK
+2022/01/25 14:28:58.229 OK
+2022/01/25 14:28:58.229 OK
+1X50Y50F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X0Y0F360");
+//ecmcGrblAddCommand("G1X20Y20F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G2X0Y0R20");
+//ecmcGrblAddCommand("G0X10Y10");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X10Y0F360");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X50Y50F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X0Y0F360");
+//ecmcGrblAddCommand("G1X20Y20F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G2X0Y0R20");
+//ecmcGrblAddCommand("G0X10Y10");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X10Y0F360");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X50Y50F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X0Y0F360");
+//ecmcGrblAddCommand("G1X20Y20F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G2X0Y0R20");
+//ecmcGrblAddCommand("G0X10Y10");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X10Y0F360");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X50Y50F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X0Y0F360");
+//ecmcGrblAddCommand("G1X20Y20F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G2X0Y0R20");
+//ecmcGrblAddCommand("G0X10Y10");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X10Y0F360");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X50Y50F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X0Y0F360");
+//ecmcGrblAddCommand("G1X20Y20F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G2X0Y0R20");
+//ecmcGrblAddCommand("G0X10Y10");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X10Y0F360");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X50Y50F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X0Y0F360");
+//ecmcGrblAddCommand("G1X20Y20F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G2X0Y0R20");
+//ecmcGrblAddCommand("G0X10Y10");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X10Y0F360");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X50Y50F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X0Y0F360");
+//ecmcGrblAddCommand("G1X20Y20F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G2X0Y0R20");
+//ecmcGrblAddCommand("G0X10Y10");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X10Y0F360");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X50Y50F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X0Y0F360");
+//ecmcGrblAddCommand("G1X20Y20F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G2X0Y0R20");
+//ecmcGrblAddCommand("G0X10Y10");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X10Y0F360");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X50Y50F180");
+//ecmcGrblAddCommand("G4P1");
+//ecmcGrblAddCommand("G1X0Y0F360");
 ##############################################################################
 ## PLC 0
 # $(SCRIPTEXEC) $(ecmccfg_DIR)loadPLCFile.cmd, "PLC_ID=0, SAMPLE_RATE_MS=1000,FILE=./plc/can.plc")
@@ -2511,87 +2394,7 @@ ecmcConfigOrDie "Cfg.EcSetDomainFailedCyclesLimit(100)"
 ecmcConfigOrDie "Cfg.SetDiagAxisIndex(1)"
 ecmcConfigOrDie "Cfg.SetDiagAxisFreq(2)"
 ecmcConfigOrDie "Cfg.SetDiagAxisEnable(0)"
-iocshLoad (/home/pi/epics/2022/01/25 08:42:47.039 INFO: Locking memory
-2022/01/25 08:42:47.140 ../devEcmcSup/motion/ecmcMonitor.cpp/checkLimits:501: ERROR_MON_BOTH_LIMIT_INTERLOCK (0x14c10).
-2022/01/25 08:42:47.140 ../devEcmcSup/motion/ecmcAxisReal.cpp/execute:185: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315).
-2022/01/25 08:42:47.140 ../devEcmcSup/motion/ecmcMonitor.cpp/checkLimits:501: ERROR_MON_BOTH_LIMIT_INTERLOCK (0x14c10).
-2022/01/25 08:42:47.140 ../devEcmcSup/motion/ecmcAxisReal.cpp/execute:185: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 0: Not operational (0x24011).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 1: Not operational (0x24011).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 2: Not operational (0x24011).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 3: Not operational (0x24011).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 4: Not operational (0x24011).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 5: Not operational (0x24011).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 6: Not operational (0x24011).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 8: Not operational (0x24011).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 9: Not operational (0x24011).
-2022/01/25 08:42:47.140 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/25 08:42:47.161 Starting up EtherCAT bus: 0 second(s). Max wait time 30 second(s).
-2022/01/25 08:42:47.322 ecmcMotorRecord:: poll(1) homed=1
-2022/01/25 08:42:47.322 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000108
-2022/01/25 08:42:47.322 ecmcMotorRecord:: poll(1) bError=1 drvlocal.statusBinData.onChangeData.error=0x14315
-2022/01/25 08:42:47.322 ecmcMotorRecord:: sErrorMessage(1)="ERROR_AXIS_HARDWARE_STATUS_NOT_OK"
-2022/01/25 08:42:47.322 ecmcMotorRecord:: poll(1) callParamCallbacksUpdateError Error=1 old=-1 ErrID=0x14315 old=0x0 Warn=0 nCmd=0 old=0 txt=E: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315)
-2022/01/25 08:42:47.323 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000019
-2022/01/25 08:42:47.323 ecmcMotorRecord:: poll(2) bError=1 drvlocal.statusBinData.onChangeData.error=0x14315
-2022/01/25 08:42:47.324 ecmcMotorRecord:: sErrorMessage(2)="ERROR_AXIS_HARDWARE_STATUS_NOT_OK"
-2022/01/25 08:42:47.324 ecmcMotorRecord:: poll(2) callParamCallbacksUpdateError Error=1 old=-1 ErrID=0x14315 old=0x0 Warn=0 nCmd=0 old=0 txt=E: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315)
-2022/01/25 08:42:47.524 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000019
-2022/01/25 08:42:47.524 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000012
-2022/01/25 08:42:47.724 ecmcMotorRecord:: poll(1) LLS=0
-2022/01/25 08:42:47.724 ecmcMotorRecord:: poll(1) HLS=0
-2022/01/25 08:42:47.724 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000105
-2022/01/25 08:42:47.724 ecmcMotorRecord:: poll(2) LLS=0
-2022/01/25 08:42:47.724 ecmcMotorRecord:: poll(2) HLS=0
-2022/01/25 08:42:47.724 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000055
-2022/01/25 08:42:47.925 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64999 fPos=0 fActPosition=16.08 time=0.000042
-2022/01/25 08:42:47.925 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64276 fPos=0 fActPosition=-37.77 time=0.000008
-2022/01/25 08:42:48.085 ../devEcmcSup/motion/ecmcDriveBase.cpp/readEntries:328: WARNING (axis 1): Drive hardware in warning state.
-2022/01/25 08:42:48.125 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64999 fPos=0 fActPosition=16.08 time=0.000013
-2022/01/25 08:42:48.125 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64276 fPos=0 fActPosition=-37.77 time=0.000007
-2022/01/25 08:42:48.161 Starting up EtherCAT bus: 1 second(s). Max wait time 30 second(s).
-2022/01/25 08:42:48.325 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64999 fPos=0 fActPosition=16.08 time=0.000012
-2022/01/25 08:42:48.325 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64276 fPos=0 fActPosition=-37.77 time=0.000009
-2022/01/25 08:42:48.382 ../devEcmcSup/motion/ecmcDriveBase.cpp/readEntries:328: WARNING (axis 2): Drive hardware in warning state.
-2022/01/25 08:42:48.525 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64999 fPos=0 fActPosition=16.08 time=0.000013
-2022/01/25 08:42:48.525 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64276 fPos=0 fActPosition=-37.77 time=0.000008
-2022/01/25 08:42:48.643 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
-2022/01/25 08:42:48.643 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
-2022/01/25 08:42:48.644 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
-2022/01/25 08:42:48.644 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
-2022/01/25 08:42:48.644 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
-2022/01/25 08:42:48.725 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64999 fPos=0 fActPosition=16.08 time=0.000013
-2022/01/25 08:42:48.725 ecmcMotorRecord:: poll(1) bError=0 drvlocal.statusBinData.onChangeData.error=0x0
-2022/01/25 08:42:48.725 ecmcMotorRecord:: poll(1) callParamCallbacksUpdateError Error=0 old=1 ErrID=0x0 old=0x14315 Warn=0 nCmd=0 old=0 txt=NULL
-2022/01/25 08:42:48.726 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64276 fPos=0 fActPosition=0 time=0.000009
-2022/01/25 08:42:48.726 ecmcMotorRecord:: poll(2) bError=0 drvlocal.statusBinData.onChangeData.error=0x0
-2022/01/25 08:42:48.726 ecmcMotorRecord:: poll(2) callParamCallbacksUpdateError Error=4 old=1 ErrID=0x0 old=0x14315 Warn=0 nCmd=0 old=0 txt=NULL
-2022/01/25 08:42:48.926 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64999 fPos=0 fActPosition=16.08 time=0.000010
-2022/01/25 08:42:48.926 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64276 fPos=0 fActPosition=0 time=0.000007
-2022/01/25 08:42:49.126 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64999 fPos=0 fActPosition=16.08 time=0.000030
-2022/01/25 08:42:49.126 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64276 fPos=0 fActPosition=0 time=0.000012
-2022/01/25 08:42:49.326 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64999 fPos=0 fActPosition=16.08 time=0.000020
-2022/01/25 08:42:49.326 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64276 fPos=0 fActPosition=0 time=0.000012
-2022/01/25 08:42:49.527 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64999 fPos=0 fActPosition=16.08 time=0.000127
-2022/01/25 08:42:49.527 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64276 fPos=0 fActPosition=0 time=0.000012
-2022/01/25 08:42:49.727 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64999 fPos=0 fActPosition=16.08 time=0.000012
-2022/01/25 08:42:49.727 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64276 fPos=0 fActPosition=0 time=0.000006
-2022/01/25 08:42:49.927 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64999 fPos=0 fActPosition=16.08 time=0.000012
-2022/01/25 08:42:49.927 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64276 fPos=0 fActPosition=0 time=0.000009
-2022/01/25 08:42:50.127 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64999 fPos=0 fActPosition=16.08 time=0.000012
-2022/01/25 08:42:50.127 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64276 fPos=0 fActPosition=0 time=0.000006
-2022/01/25 08:42:50.161 EtherCAT bus started!
-2022/01/25 08:42:50.161 OK
-Starting iocInit
-base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/setAppMode.cmd)
+iocshLoad (/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/setAppMode.cmd)
 #==============================================================================
 # setAppMode.cmd
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/general.cmd",1)
@@ -2604,7 +2407,87 @@ dbLoadRecords("ecmcGeneral.db","P=IOC_TEST:,PORT=MC_CPU1,ADDR=0,TIMEOUT=1,T_SMP_
 # ecmcReport <level> or asynReport <level>
 # ecmcReport 3
 # ecmcGrepParam <pattern>
-# List all ecmc params for ethercat slave 2:
+# List all ecm2022/01/25 14:28:58.237 INFO: Locking memory
+2022/01/25 14:28:58.337 ../devEcmcSup/motion/ecmcMonitor.cpp/checkLimits:501: ERROR_MON_BOTH_LIMIT_INTERLOCK (0x14c10).
+2022/01/25 14:28:58.337 ../devEcmcSup/motion/ecmcAxisReal.cpp/execute:185: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315).
+2022/01/25 14:28:58.337 ../devEcmcSup/motion/ecmcMonitor.cpp/checkLimits:501: ERROR_MON_BOTH_LIMIT_INTERLOCK (0x14c10).
+2022/01/25 14:28:58.337 ../devEcmcSup/motion/ecmcAxisReal.cpp/execute:185: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315).
+2022/01/25 14:28:58.337 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 0: Not operational (0x24011).
+2022/01/25 14:28:58.337 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/25 14:28:58.337 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 1: Not operational (0x24011).
+2022/01/25 14:28:58.338 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/25 14:28:58.338 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 2: Not operational (0x24011).
+2022/01/25 14:28:58.338 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/25 14:28:58.338 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 3: Not operational (0x24011).
+2022/01/25 14:28:58.338 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/25 14:28:58.338 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 4: Not operational (0x24011).
+2022/01/25 14:28:58.338 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/25 14:28:58.338 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 5: Not operational (0x24011).
+2022/01/25 14:28:58.338 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/25 14:28:58.338 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 6: Not operational (0x24011).
+2022/01/25 14:28:58.338 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/25 14:28:58.338 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 8: Not operational (0x24011).
+2022/01/25 14:28:58.338 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/25 14:28:58.338 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 9: Not operational (0x24011).
+2022/01/25 14:28:58.338 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/25 14:28:58.415 Starting up EtherCAT bus: 0 second(s). Max wait time 30 second(s).
+2022/01/25 14:28:58.452 ecmcMotorRecord:: poll(1) homed=1
+2022/01/25 14:28:58.452 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000066
+2022/01/25 14:28:58.452 ecmcMotorRecord:: poll(1) bError=1 drvlocal.statusBinData.onChangeData.error=0x14315
+2022/01/25 14:28:58.452 ecmcMotorRecord:: sErrorMessage(1)="ERROR_AXIS_HARDWARE_STATUS_NOT_OK"
+2022/01/25 14:28:58.452 ecmcMotorRecord:: poll(1) callParamCallbacksUpdateError Error=1 old=-1 ErrID=0x14315 old=0x0 Warn=0 nCmd=0 old=0 txt=E: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315)
+2022/01/25 14:28:58.452 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000010
+2022/01/25 14:28:58.452 ecmcMotorRecord:: poll(2) bError=1 drvlocal.statusBinData.onChangeData.error=0x14315
+2022/01/25 14:28:58.452 ecmcMotorRecord:: sErrorMessage(2)="ERROR_AXIS_HARDWARE_STATUS_NOT_OK"
+2022/01/25 14:28:58.453 ecmcMotorRecord:: poll(2) callParamCallbacksUpdateError Error=1 old=-1 ErrID=0x14315 old=0x0 Warn=0 nCmd=0 old=0 txt=E: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315)
+2022/01/25 14:28:58.653 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000012
+2022/01/25 14:28:58.653 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000006
+2022/01/25 14:28:58.853 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000012
+2022/01/25 14:28:58.853 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000006
+2022/01/25 14:28:59.053 ecmcMotorRecord:: poll(1) LLS=0
+2022/01/25 14:28:59.053 ecmcMotorRecord:: poll(1) HLS=0
+2022/01/25 14:28:59.053 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=1360 fPos=0 fActPosition=-40.8 time=0.000219
+2022/01/25 14:28:59.053 ecmcMotorRecord:: poll(2) LLS=0
+2022/01/25 14:28:59.053 ecmcMotorRecord:: poll(2) HLS=0
+2022/01/25 14:28:59.053 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64610 fPos=0 fActPosition=-27.75 time=0.000089
+2022/01/25 14:28:59.254 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=1360 fPos=0 fActPosition=-40.8 time=0.000013
+2022/01/25 14:28:59.254 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64610 fPos=0 fActPosition=-27.75 time=0.000007
+2022/01/25 14:28:59.273 ../devEcmcSup/motion/ecmcDriveBase.cpp/readEntries:328: WARNING (axis 1): Drive hardware in warning state.
+2022/01/25 14:28:59.415 Starting up EtherCAT bus: 1 second(s). Max wait time 30 second(s).
+2022/01/25 14:28:59.454 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=1360 fPos=0 fActPosition=-40.8 time=0.000013
+2022/01/25 14:28:59.454 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64610 fPos=0 fActPosition=-27.75 time=0.000007
+2022/01/25 14:28:59.505 ../devEcmcSup/motion/ecmcDriveBase.cpp/readEntries:328: WARNING (axis 2): Drive hardware in warning state.
+2022/01/25 14:28:59.654 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=1360 fPos=0 fActPosition=-40.8 time=0.000032
+2022/01/25 14:28:59.654 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64610 fPos=0 fActPosition=-27.75 time=0.000011
+2022/01/25 14:28:59.841 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
+2022/01/25 14:28:59.841 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
+2022/01/25 14:28:59.841 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
+2022/01/25 14:28:59.841 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
+2022/01/25 14:28:59.841 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
+2022/01/25 14:28:59.854 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=1360 fPos=0 fActPosition=-40.8 time=0.000013
+2022/01/25 14:28:59.854 ecmcMotorRecord:: poll(1) bError=0 drvlocal.statusBinData.onChangeData.error=0x0
+2022/01/25 14:28:59.854 ecmcMotorRecord:: poll(1) callParamCallbacksUpdateError Error=0 old=1 ErrID=0x0 old=0x14315 Warn=0 nCmd=0 old=0 txt=NULL
+2022/01/25 14:28:59.854 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64610 fPos=0 fActPosition=0 time=0.000008
+2022/01/25 14:28:59.854 ecmcMotorRecord:: poll(2) bError=0 drvlocal.statusBinData.onChangeData.error=0x0
+2022/01/25 14:28:59.855 ecmcMotorRecord:: poll(2) callParamCallbacksUpdateError Error=4 old=1 ErrID=0x0 old=0x14315 Warn=0 nCmd=0 old=0 txt=NULL
+2022/01/25 14:29:00.055 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=1360 fPos=0 fActPosition=-40.8 time=0.000012
+2022/01/25 14:29:00.055 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64610 fPos=0 fActPosition=0 time=0.000008
+2022/01/25 14:29:00.255 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=1360 fPos=0 fActPosition=-40.8 time=0.000013
+2022/01/25 14:29:00.255 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64610 fPos=0 fActPosition=0 time=0.000006
+2022/01/25 14:29:00.455 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=1360 fPos=0 fActPosition=-40.8 time=0.000012
+2022/01/25 14:29:00.455 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64610 fPos=0 fActPosition=0 time=0.000007
+2022/01/25 14:29:00.655 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=1360 fPos=0 fActPosition=-40.8 time=0.000022
+2022/01/25 14:29:00.655 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64610 fPos=0 fActPosition=0 time=0.000012
+2022/01/25 14:29:00.856 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=1360 fPos=0 fActPosition=-40.8 time=0.000022
+2022/01/25 14:29:00.856 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64610 fPos=0 fActPosition=0 time=0.000010
+2022/01/25 14:29:01.056 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=1360 fPos=0 fActPosition=-40.8 time=0.000021
+2022/01/25 14:29:01.056 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64610 fPos=0 fActPosition=0 time=0.000078
+2022/01/25 14:29:01.256 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=1360 fPos=0 fActPosition=-40.8 time=0.000020
+2022/01/25 14:29:01.256 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=64610 fPos=0 fActPosition=0 time=0.000011
+2022/01/25 14:29:01.416 EtherCAT bus started!
+2022/01/25 14:29:01.416 OK
+Starting iocInit
+c params for ethercat slave 2:
 # ecmcGrepParam *s2*
 #
 ecmcEpicsEnvSetCalcTernary(ECMC_MASTER_CMD, "0>=0", "","#- ")
@@ -2624,658 +2507,64 @@ ECATtimestamp aSubRecord: IOC_TEST:m0s006-BI01-TimeFallTS
 ECATtimestamp aSubRecord: IOC_TEST:m0s006-BI02-TimeRiseTS
 ECATtimestamp aSubRecord: IOC_TEST:m0s006-BI02-TimeFallTS
 iocRun: All initialization complete
-2022/01/25 08:42:50.497 [devMotorAsyn.c:439  IOC_TEST:Axis1] init_record IOC_TEST:Axis1 position=16.080000 encoderPos=16.080000 velocity=0.000000 MSTAstatus=0x4d00 flagsValue=0x3f flagsWritten=0x3f pmr->mflg=0x0
-2022/01/25 08:42:50.497 [devMotorAsyn.c:185  IOC_TEST:Axis1] init_controller IOC_TEST:Axis1 set encoder ratio=1.000000 status=0
-2022/01/25 08:42:50.497 [devMotorAsyn.c:266  IOC_TEST:Axis1] update_soft_limits IOC_TEST:Axis1 RawHLM_RO=130.000000 RawLLM_RO=-20.000000 valid=1 DHLM_RO=130.000000 DLLM_RO=-20.000000
-2022/01/25 08:42:50.497 [motorDevSup.c:327  IOC_TEST:Axis1] PositionRestoreNeeded IOC_TEST:Axis1 rstm=2 dval=0.000000 drbv=16.080000 pmr->rdbd=0.100000 rdbd=0.100000 pmr->mres=0.030000 pmr->mflg=0x3f dval_non_zero_pos_near_zero=0 ret=0
-2022/01/25 08:42:50.497 [motorRecord.cc:782  IOC_TEST:Axis1] init_re_init start neverPolled=0 stat=17 nsta=0
-2022/01/25 08:42:50.497 [motorRecord.cc:720  IOC_TEST:Axis1] enforceMinRetryDeadband spdb=0.100000 rdbd=0.100000 mres=0.030000
-2022/01/25 08:42:50.497 [motorRecord.cc:4484 IOC_TEST:Axis1] pmr->dhlm=130 softLimitRO=130
-2022/01/25 08:42:50.497 [motorRecord.cc:4545 IOC_TEST:Axis1] pmr->dllm=-20 softLimitRO=-20
-2022/01/25 08:42:50.497 [motorRecord.cc:833  IOC_TEST:Axis1] init_re_init  end dval=16.080000 drbv=16.080000 rdbd=0.100000 spdb=0.100000
-2022/01/25 08:42:50.497 [motorRecord.cc:968  IOC_TEST:Axis1] init_record process_reason="callbackdata + soft limits" dval=16.080000 drbv=16.080000 rdbd=0.100000 spdb=0.100000 stat=0 msta=0x4d00 neverPolled=0
-2022/01/25 08:42:50.497 [devMotorAsyn.c:439  IOC_TEST:Axis2] init_record IOC_TEST:Axis2 position=0.000000 encoderPos=0.000000 velocity=0.000000 MSTAstatus=0x0f00 flagsValue=0x3f flagsWritten=0x3f pmr->mflg=0x0
-2022/01/25 08:42:50.498 [devMotorAsyn.c:185  IOC_TEST:Axis2] init_controller IOC_TEST:Axis2 set encoder ratio=1.000000 status=0
-2022/01/25 08:42:50.498 [devMotorAsyn.c:266  IOC_TEST:Axis2] update_soft_limits IOC_TEST:Axis2 RawHLM_RO=20.000000 RawLLM_RO=-130.000000 valid=1 DHLM_RO=20.000000 DLLM_RO=-130.000000
-2022/01/25 08:42:50.498 [motorDevSup.c:327  IOC_TEST:Axis2] PositionRestoreNeeded IOC_TEST:Axis2 rstm=2 dval=0.000000 drbv=0.000000 pmr->rdbd=0.100000 rdbd=0.100000 pmr->mres=0.030000 pmr->mflg=0x3f dval_non_zero_pos_near_zero=0 ret=0
-2022/01/25 08:42:50.498 [motorRecord.cc:782  IOC_TEST:Axis2] init_re_init start neverPolled=0 stat=17 nsta=0
-2022/01/25 08:42:50.498 [motorRecord.cc:720  IOC_TEST:Axis2] enforceMinRetryDeadband spdb=0.100000 rdbd=0.100000 mres=0.030000
-2022/01/25 08:42:50.498 [motorRecord.cc:4484 IOC_TEST:Axis2] pmr->dhlm=20 softLimitRO=20
-2022/01/25 08:42:50.498 [motorRecord.cc:4545 IOC_TEST:Axis2] pmr->dllm=-130 softLimitRO=-130
-2022/01/25 08:42:50.498 [motorRecord.cc:833  IOC_TEST:Axis2] init_re_init  end dval=0.000000 drbv=0.000000 rdbd=0.100000 spdb=0.100000
-2022/01/25 08:42:50.498 [motorRecord.cc:968  IOC_TEST:Axis2] init_record process_reason="callbackdata + soft limits" dval=0.000000 drbv=0.000000 rdbd=0.100000 spdb=0.100000 stat=0 msta=0xf00 neverPolled=0
+2022/01/25 14:29:01.783 [devMotorAsyn.c:439  IOC_TEST:Axis1] init_record IOC_TEST:Axis1 position=-40.800000 encoderPos=-40.800000 velocity=0.000000 MSTAstatus=0x4d00 flagsValue=0x3f flagsWritten=0x3f pmr->mflg=0x0
+2022/01/25 14:29:01.783 [devMotorAsyn.c:185  IOC_TEST:Axis1] init_controller IOC_TEST:Axis1 set encoder ratio=1.000000 status=0
+2022/01/25 14:29:01.783 [devMotorAsyn.c:266  IOC_TEST:Axis1] update_soft_limits IOC_TEST:Axis1 RawHLM_RO=130.000000 RawLLM_RO=-20.000000 valid=1 DHLM_RO=130.000000 DLLM_RO=-20.000000
+2022/01/25 14:29:01.784 [motorDevSup.c:327  IOC_TEST:Axis1] PositionRestoreNeeded IOC_TEST:Axis1 rstm=2 dval=0.000000 drbv=-40.800000 pmr->rdbd=0.100000 rdbd=0.100000 pmr->mres=0.030000 pmr->mflg=0x3f dval_non_zero_pos_near_zero=0 ret=0
+2022/01/25 14:29:01.784 [motorRecord.cc:782  IOC_TEST:Axis1] init_re_init start neverPolled=0 stat=17 nsta=0
+2022/01/25 14:29:01.784 [motorRecord.cc:720  IOC_TEST:Axis1] enforceMinRetryDeadband spdb=0.100000 rdbd=0.100000 mres=0.030000
+2022/01/25 14:29:01.784 [motorRecord.cc:4484 IOC_TEST:Axis1] pmr->dhlm=130 softLimitRO=130
+2022/01/25 14:29:01.784 [motorRecord.cc:4545 IOC_TEST:Axis1] pmr->dllm=-20 softLimitRO=-20
+2022/01/25 14:29:01.784 [motorRecord.cc:833  IOC_TEST:Axis1] init_re_init  end dval=-40.800000 drbv=-40.800000 rdbd=0.100000 spdb=0.100000
+2022/01/25 14:29:01.784 [motorRecord.cc:968  IOC_TEST:Axis1] init_record process_reason="callbackdata + soft limits" dval=-40.800000 drbv=-40.800000 rdbd=0.100000 spdb=0.100000 stat=0 msta=0x4d00 neverPolled=0
+2022/01/25 14:29:01.784 [devMotorAsyn.c:439  IOC_TEST:Axis2] init_record IOC_TEST:Axis2 position=0.000000 encoderPos=0.000000 velocity=0.000000 MSTAstatus=0x0f00 flagsValue=0x3f flagsWritten=0x3f pmr->mflg=0x0
+2022/01/25 14:29:01.784 [devMotorAsyn.c:185  IOC_TEST:Axis2] init_controller IOC_TEST:Axis2 set encoder ratio=1.000000 status=0
+2022/01/25 14:29:01.784 [devMotorAsyn.c:266  IOC_TEST:Axis2] update_soft_limits IOC_TEST:Axis2 RawHLM_RO=20.000000 RawLLM_RO=-130.000000 valid=1 DHLM_RO=20.000000 DLLM_RO=-130.000000
+2022/01/25 14:29:01.784 [motorDevSup.c:327  IOC_TEST:Axis2] PositionRestoreNeeded IOC_TEST:Axis2 rstm=2 dval=0.000000 drbv=0.000000 pmr->rdbd=0.100000 rdbd=0.100000 pmr->mres=0.030000 pmr->mflg=0x3f dval_non_zero_pos_near_zero=0 ret=0
+2022/01/25 14:29:01.784 [motorRecord.cc:782  IOC_TEST:Axis2] init_re_init start neverPolled=0 stat=17 nsta=0
+2022/01/25 14:29:01.784 [motorRecord.cc:720  IOC_TEST:Axis2] enforceMinRetryDeadband spdb=0.100000 rdbd=0.100000 mres=0.030000
+2022/01/25 14:29:01.784 [motorRecord.cc:4484 IOC_TEST:Axis2] pmr->dhlm=20 softLimitRO=20
+2022/01/25 14:29:01.784 [motorRecord.cc:4545 IOC_TEST:Axis2] pmr->dllm=-130 softLimitRO=-130
+2022/01/25 14:29:01.784 [motorRecord.cc:833  IOC_TEST:Axis2] init_re_init  end dval=0.000000 drbv=0.000000 rdbd=0.100000 spdb=0.100000
+2022/01/25 14:29:01.784 [motorRecord.cc:968  IOC_TEST:Axis2] init_record process_reason="callbackdata + soft limits" dval=0.000000 drbv=0.000000 rdbd=0.100000 spdb=0.100000 stat=0 msta=0xf00 neverPolled=0
 dbpf IOC_TEST:Axis1.SPAM 0
 DBF_SHORT:          0 = 0x0   
 dbpf IOC_TEST:Axis2.SPAM 0
 DBF_SHORT:          0 = 0x0   
 # Set the IOC Prompt String One 
-epicsEnvSet IOCSH_PS1 "raspberrypi-25286 > "
+epicsEnvSet IOCSH_PS1 "raspberrypi-32644 > "
 #
-raspberrypi-25286 > ../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 13!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 128!!!
-Adding G1X20Y20F180
- to buffer 
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 5!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 115!!!
-Adding G4P1
- to buffer G1X20Y20F180
+raspberrypi-32644 > Added: G1X20Y20F180to buffer: G1X20Y20F180
 
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 10!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 110!!!
-Adding G2X0Y0R20
- to buffer G1X20Y20F180
+Added: G4P1to buffer: G1X20Y20F180
 G4P1
 
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 9!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 100!!!
-Adding G0X10Y10
- to buffer G1X20Y20F180
-G4P1
-G2X0Y0R20
-
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 5!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 91!!!
-Adding G4P1
- to buffer G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 12!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 86!!!
-Adding G1X10Y0F360
- to buffer G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 5!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 74!!!
-Adding G4P1
- to buffer G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0F360
-
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 13!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 69!!!
-Adding G1X50Y50F180
- to buffer G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0F360
-G4P1
-
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 5!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 56!!!
-Adding G4P1
- to buffer G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0F360
-G4P1
-G1X50Y50F180
-
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 11!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 51!!!
-Adding G1X0Y0F360
- to buffer G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0F360
-G4P1
-G1X50Y50F180
-G4P1
-
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 13!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 40!!!
-Adding G1X20Y20F180
- to buffer G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0F360
-G4P1
-G1X50Y50F180
-G4P1
-G1X0Y0F360
-
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 5!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 27!!!
-Adding G4P1
- to buffer G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0F360
-G4P1
-G1X50Y50F180
-G4P1
-G1X0Y0F360
-G1X20Y20F180
-
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 10!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 22!!!
-Adding G2X0Y0R20
- to buffer G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0F360
-G4P1
-G1X50Y50F180
-G4P1
-G1X0Y0F360
-G1X20Y20F180
-G4P1
-
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 9!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 12!!!
-Adding G0X10Y10
- to buffer G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0F360
-G4P1
-G1X50Y50F180
-G4P1
-G1X0Y0F360
-G1X20Y20F180
+Added: G2X0Y0R20to buffer: G1X20Y20F180
 G4P1
 G2X0Y0R20
 
 ../grbl/grbl_gcode.c:gc_execute_line:71:G1X20Y20F180
 ../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_gcode.c:gc_execute_line:71:G4P1
+../grbl/grbl_motion_control.c:mc_dwell:200
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_stepper.c:st_wake_up:230
 ok
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 5!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 18!!!
-Adding G4P1
- to buffer G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0F360
-G4P1
-G1X50Y50F180
-G4P1
-G1X0Y0F360
-G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
 
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 12!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 13!!!
-Adding G1X10Y0F360
- to buffer 
-1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0F360
-G4P1
-G1X50Y50F180
-G4P1
-G1X0Y0F360
-G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-../grbl/grbl_gcode.c:gc_execute_line:71:G4P1
-../grbl/grbl_motion_control.c:mc_dwell:200
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_wake_up:230
+raspberrypi-32644 > 
+raspberrypi-32644 > 
+raspberrypi-32644 > 
+raspberrypi-32644 > 
+raspberrypi-32644 > 
+raspberrypi-32644 > 
+raspberrypi-32644 > 
+raspberrypi-32644 > 
+raspberrypi-32644 > 
+raspberrypi-32644 > 
+raspberrypi-32644 > 
+raspberrypi-32644 > ../grbl/grbl_stepper.c:st_go_idle:261
 
-raspberrypi-25286 > ../grbl/grbl_stepper.c:st_go_idle:261
-ok
-../grbl/grbl_gcode.c:gc_execute_line:71:G2X0Y0R20
-../grbl/grbl_motion_control.c:mc_arc:91
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_update_plan_block_parameters:641
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_wake_up:230
-../grbl/grbl_motion_control.c:mc_line:33
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 5!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 14!!!
-Adding G4P1
- to buffer 
-G1X10Y0F360
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0F360
-G4P1
-G1X50Y50F180
-G4P1
-G1X0Y0F360
-G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 13!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 9!!!
-Adding G1X50Y50F180
- to buffer 
-G1X10Y0F360
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0F360
-G4P1
-G1X50Y50F180
-G4P1
-G1X0Y0F360
-G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-ok
-../grbl/grbl_gcode.c:gc_execute_line:71:G0X10Y10
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_gcode.c:gc_execute_line:71:G4P1
-../grbl/grbl_motion_control.c:mc_dwell:200
-ok
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 5!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 14!!!
-Adding G4P1
- to buffer 
-G1X10Y0F360
-G4P1
-G1X50Y50F
-G0X10Y10
-G4P1
-G1X10Y0F360
-G4P1
-G1X50Y50F180
-G4P1
-G1X0Y0F360
-G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 11!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 9!!!
-Adding G1X0Y0F360
- to buffer 
-G1X10Y0F360
-G4P1
-G1X50Y50FG4P1
-0Y10
-G4P1
-G1X10Y0F360
-G4P1
-G1X50Y50F180
-G4P1
-G1X0Y0F360
-G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_go_idle:261
-ok
-../grbl/grbl_gcode.c:gc_execute_line:71:G1X10Y0F360
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_gcode.c:gc_execute_line:71:G4P1
-../grbl/grbl_motion_control.c:mc_dwell:200
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_wake_up:230
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-ok
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 13!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 17!!!
-Adding G1X20Y20F180
- to buffer 
-G1X10Y0F360
-G4P1
-G1X50Y50FG4P1
-G1X0Y0F36
-G1X10Y0F360
-G4P1
-G1X50Y50F180
-G4P1
-G1X0Y0F360
-G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-../grbl/grbl_stepper.c:st_go_idle:261
-ok
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 5!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 15!!!
-Adding G4P1
- to buffer 
-G1X10Y0F360
-G4P1
-G1X50Y50FG4P1
-G1X0Y0F36G1X20Y20F180
-G4P1
-G1X50Y50F180
-G4P1
-G1X0Y0F360
-G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 10!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 10!!!
-Adding G2X0Y0R20
- to buffer 
-G1X10Y0F360
-G4P1
-G1X50Y50FG4P1
-G1X0Y0F36G1X20Y20F180
-G4P1
-G1X50Y50F180
-G4P1
-G1X0Y0F360
-G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-../grbl/grbl_gcode.c:gc_execute_line:71:G1X50Y50F180
-../grbl/grbl_motion_control.c:mc_line:33
-ok
-../grbl/grbl_gcode.c:gc_execute_line:71:G4P1
-../grbl/grbl_motion_control.c:mc_dwell:200
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_wake_up:230
-
-raspberrypi-25286 > ../grbl/grbl_stepper.c:st_go_idle:261
-ok
-../grbl/grbl_gcode.c:gc_execute_line:71:G1X0Y0F360
-../grbl/grbl_motion_control.c:mc_line:33
-ok
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 9!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 21!!!
-Adding G0X10Y10
- to buffer 
-G1X10Y0F360
-G4P1
-G1X50Y50FG4P1
-G1X0Y0F36G1X20Y20F180
-G4P1
-G2X0Y0R20
-80
-G4P1
-G1X0Y0F360
-G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 5!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 12!!!
-Adding G4P1
- to buffer 
-G1X10Y0F360
-G4P1
-G1X50Y50FG4P1
-G1X0Y0F36G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-1X0Y0F360
-G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 12!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 7!!!
-Adding G1X10Y0F360
- to buffer 
-G1X10Y0F360
-G4P1
-G1X50Y50FG4P1
-G1X0Y0F36G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-F360
-G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-../grbl/grbl_gcode.c:gc_execute_line:71:G1X20Y20F180
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_update_plan_block_parameters:641
-../grbl/grbl_gcode.c:gc_execute_line:71:G4P1
-../grbl/grbl_motion_control.c:mc_dwell:200
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_wake_up:230
-ok
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 5!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 15!!!
-Adding G4P1
- to buffer 
-G1X10Y0F360
-G4P1
-G1X50Y50FG4P1
-G1X0Y0F36G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 13!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 10!!!
-Adding G1X50Y50F180
- to buffer 
-G1X10Y0F360
-G4P1
-G1X50Y50FG4P1
-G1X0Y0F36G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0G4P1
-0F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-../grbl/grbl_stepper.c:st_next_block_index:654
-
-raspberrypi-25286 > 
-raspberrypi-25286 > 
-raspberrypi-25286 > 
-raspberrypi-25286 > ../grbl/grbl_stepper.c:st_go_idle:261
-ok
+raspberrypi-32644 > ok
 ../grbl/grbl_gcode.c:gc_execute_line:71:G2X0Y0R20
 ../grbl/grbl_motion_control.c:mc_arc:91
 ../grbl/grbl_motion_control.c:mc_line:33
@@ -3307,126 +2596,80 @@ ok
 ../grbl/grbl_stepper.c:st_next_block_index:654
 ../grbl/grbl_motion_control.c:mc_line:33
 ../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_next_block_index:654
-ok
-../grbl/grbl_gcode.c:gc_execute_line:71:G0X10Y10
-../grbl/grbl_motion_control.c:mc_line:33
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 5!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 19!!!
-Adding G4P1
- to buffer 
-G1X10Y0F360
-G4P1
-G1X50Y50FG4P1
-G1X0Y0F36G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0G4P1
-G1X50Y50F1
-G2X0Y0R20
-G0X10Y10
-G4P1
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 11!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 14!!!
-Adding G1X0Y0F360
- to buffer 
-G1X10Y0F360
-G4P1
-G1X50Y50FG4P1
-G1X0Y0F36G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0G4P1
-G1X50Y50F1G4P1
-Y0R20
-G0X10Y10
-G4P1
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_gcode.c:gc_execute_line:71:G4P1
-../grbl/grbl_motion_control.c:mc_dwell:200
-ok
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_next_block_index:654
+
+raspberrypi-32644 > ../grbl/grbl_motion_control.c:mc_line:33
 ../grbl/grbl_stepper.c:st_next_block_index:654
 
-raspberrypi-25286 > ../grbl/grbl_stepper.c:st_next_block_index:654
+raspberrypi-32644 > ../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+
+raspberrypi-32644 > ../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_motion_control.c:mc_line:33
+../grbl/grbl_stepper.c:st_next_block_index:654
+ok
+../grbl/grbl_stepper.c:st_next_block_index:654
+../grbl/grbl_stepper.c:st_next_block_index:654
 ../grbl/grbl_stepper.c:st_next_block_index:654
 ../grbl/grbl_stepper.c:st_next_block_index:654
 ../grbl/grbl_stepper.c:st_next_block_index:654
@@ -3434,197 +2677,8 @@ raspberrypi-25286 > ../grbl/grbl_stepper.c:st_next_block_index:654
 ../grbl/grbl_stepper.c:st_next_block_index:654
 ../grbl/grbl_stepper.c:st_next_block_index:654
 
-raspberrypi-25286 > ../grbl/grbl_stepper.c:st_next_block_index:654
+raspberrypi-32644 > ../grbl/grbl_stepper.c:st_next_block_index:654
 ../grbl/grbl_stepper.c:st_next_block_index:654
 ../grbl/grbl_stepper.c:st_next_block_index:654
 
-raspberrypi-25286 > 
-raspberrypi-25286 > 
-raspberrypi-25286 > 
-raspberrypi-25286 > 
-raspberrypi-25286 > ../grbl/grbl_stepper.c:st_go_idle:261
-
-raspberrypi-25286 > ../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 13!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 12!!!
-Adding G1X20Y20F180
- to buffer 
-G1X10Y0F360
-G4P1
-G1X50Y50FG4P1
-G1X0Y0F36G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0G4P1
-G1X50Y50F1G4P1
-G1X0Y0F360
-Y10
-G4P1
-ok
-../grbl/grbl_gcode.c:gc_execute_line:71:G1X10Y0F360
-../grbl/grbl_motion_control.c:mc_line:33
-ok
-../grbl/grbl_gcode.c:gc_execute_line:71:G4P1
-../grbl/grbl_motion_control.c:mc_dwell:200
-../grbl/grbl_stepper.c:st_next_block_index:654
-../grbl/grbl_stepper.c:st_wake_up:230
-
-raspberrypi-25286 > 
-raspberrypi-25286 > 
-raspberrypi-25286 > 
-raspberrypi-25286 > 
-raspberrypi-25286 > ../grbl/grbl_stepper.c:st_go_idle:261
-ok
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 5!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 22!!!
-Adding G4P1
- to buffer F18010Y0F360
-G4P1
-G1X50Y50FG4P1
-G1X0Y0F36G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0G4P1
-G1X50Y50F1G4P1
-G1X0Y0F360
-G1X20Y20
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 10!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 17!!!
-Adding G2X0Y0R20
- to buffer F180G4P1
-360
-G4P1
-G1X50Y50FG4P1
-G1X0Y0F36G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0G4P1
-G1X50Y50F1G4P1
-G1X0Y0F360
-G1X20Y20
-../grbl/grbl_gcode.c:gc_execute_line:71:G1X50Y50FG4P1
-error:2
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 9!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 24!!!
-Adding G0X10Y10
- to buffer F180G4P1
-G2X0Y0R20
-1X50Y50FG4P1
-G1X0Y0F36G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0G4P1
-G1X50Y50F1G4P1
-G1X0Y0F360
-G1X20Y20
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 5!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 15!!!
-Adding G4P1
- to buffer F180G4P1
-G2X0Y0R20
-G0X10Y10
-4P1
-G1X0Y0F36G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0G4P1
-G1X50Y50F1G4P1
-G1X0Y0F360
-G1X20Y20
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 12!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 10!!!
-Adding G1X10Y0F360
- to buffer F180G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-1X0Y0F36G1X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0G4P1
-G1X50Y50F1G4P1
-G1X0Y0F360
-G1X20Y20
-../grbl/grbl_gcode.c:gc_execute_line:71:G1X0Y0F36G1X20Y20F180
-error:24
-../grbl/grbl_gcode.c:gc_execute_line:71:G4P1
-../grbl/grbl_motion_control.c:mc_dwell:200
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 5!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 15!!!
-Adding G4P1
- to buffer F180G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0F36X20Y20F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0G4P1
-G1X50Y50F1G4P1
-G1X0Y0F360
-G1X20Y20
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:250: Writing!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:238: Command in buffer!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:243: Command length 13!!!
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:244: Available bytes 10!!!
-Adding G1X50Y50F180
- to buffer F180G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0F36G4P1
-0F180
-G4P1
-G2X0Y0R20
-G0X10Y10
-G4P1
-G1X10Y0G4P1
-G1X50Y50F1G4P1
-G1X0Y0F360
-G1X20Y20
-ok
-../grbl/grbl_gcode.c:gc_execute_line:71:G2X0Y0R20
-../grbl/grbl_motion_control.c:mc_arc:91
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_stepper.c:st_update_plan_block_parameters:641
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:33
-../grbl/grbl_motion_control.c:mc_line:3
+raspberrypi-32644 > 
