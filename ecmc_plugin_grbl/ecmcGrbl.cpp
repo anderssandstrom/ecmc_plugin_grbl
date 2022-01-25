@@ -27,6 +27,7 @@ extern "C" {
 #include "grbl.h"
 }
 
+int enableDebugPrintouts = 0;
 system_t sys;
 int32_t sys_position[N_AXIS];         // Real-time machine (aka home) position vector in steps.
 int32_t sys_probe_position[N_AXIS];   // Last probe position in machine coordinates and steps.
@@ -38,8 +39,6 @@ volatile uint8_t sys_rt_exec_accessory_override; // Global realtime executor bit
 #ifdef DEBUG
   volatile uint8_t sys_rt_exec_debug;
 #endif
-
-int enableDebugPrintouts = 0;
 
 // Start worker for socket read()
 void f_worker_read(void *obj) {
@@ -227,18 +226,37 @@ void ecmcGrbl::doReadWorker() {
   // simulate serial connection here (need mutex)
   printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
   for(;;) {
-    while(serial_get_tx_buffer_count()==0) {
-      delay_ms(1);      
-    }
-    printf("%c",ecmc_get_char_from_grbl_tx_buffer());
+    //while(serial_get_tx_buffer_count()==0) {
+    //  delay_ms(1);      
+    //}
+    //printf("%c",ecmc_get_char_from_grbl_tx_buffer());
+    delay_ms(100);
   }
 }
 
 // Write socket worker
 void ecmcGrbl::doWriteWorker() {
   // simulate serial connection here (need mutex)
+  std::string reply = "";
   printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  
+  // Wait for grbl startup string before send comamnds"['$' for help]" 
+  // basically flush buffer
   for(;;) {
+    while(serial_get_tx_buffer_count()==0) {
+      delay_ms(1);
+    }
+    char c = ecmc_get_char_from_grbl_tx_buffer();
+    reply += c;
+    if(c == '\n' && 
+       reply.find(ECMC_PLUGIN_GRBL_GRBL_STARTUP_STRING) != std::string::npos ) {
+       printf("GRBL READY FOR COMMANDS: %s\n",reply.c_str());
+       break;
+    }
+  }
+  
+  // GRBL ready, now we can send comamnds
+  for(;;) {  
     if(grblCommandBuffer_.size()>0 && getEcmcEpicsIOCState()==16 && autoEnableExecuted_) {
       //printf("%s:%s:%d: Command in buffer!!!\n",__FILE__,__FUNCTION__,__LINE__);
       epicsMutexLock(grblCommandBufferMutex_);
@@ -247,12 +265,29 @@ void ecmcGrbl::doWriteWorker() {
       epicsMutexUnlock(grblCommandBufferMutex_);
       //printf("%s:%s:%d: Command length %d!!!\n",__FILE__,__FUNCTION__,__LINE__,strlen(command.c_str()));
       //printf("%s:%s:%d: Available bytes %d!!!\n",__FILE__,__FUNCTION__,__LINE__,serial_get_rx_buffer_available());
-      // wait for grbl      
+      // wait for grbl            
       while(serial_get_rx_buffer_available() <= strlen(command.c_str())+1) {
-        delay_ms(2);
+        delay_ms(1);
       }
-      ecmc_write_command_serial(strdup(command.c_str()));
-      //printf("%s:%s:%d: Writing!!\n",__FILE__,__FUNCTION__,__LINE__);
+      printf("Writing command: %s\n",command.c_str());
+      ecmc_write_command_serial(strdup(command.c_str()));      
+      reply = "";
+
+      // Wait for reply!
+      for(;;) {
+        while(serial_get_tx_buffer_count()==0) {
+          delay_ms(1);      
+        }
+        char c = ecmc_get_char_from_grbl_tx_buffer();
+        reply += c;
+        if(c == '\n'&& reply.length() > 1) {
+          printf("Reply from grbl %s\n",reply.c_str());
+          //#define ECMC_PLUGIN_GRBL_GRBL_OK_STRING "ok"
+          //#define ECMC_PLUGIN_GRBL_GRBL_ERR_STRING "err"
+          //Example "error:2"
+          break;
+        }
+      }
     }
     else {
       delay_ms(5);

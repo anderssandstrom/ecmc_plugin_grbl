@@ -24,5 +24,8 @@
 #define ECMC_PLUGIN_ASYN_PREFIX          "plugin.grbl"
 
 #define ECMC_PLUGIN_GRBL_GENERAL_ERROR_CODE 1
+#define ECMC_PLUGIN_GRBL_GRBL_STARTUP_STRING "for help]"
+#define ECMC_PLUGIN_GRBL_GRBL_OK_STRING "ok"
+#define ECMC_PLUGIN_GRBL_GRBL_ERR_STRING "err"
 
 #endif  /* ECMC_GRBL_DEFS_H_ */
