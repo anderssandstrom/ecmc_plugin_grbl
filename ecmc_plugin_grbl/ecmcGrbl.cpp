@@ -258,13 +258,10 @@ void ecmcGrbl::doWriteWorker() {
   // GRBL ready, now we can send comamnds
   for(;;) {  
     if(grblCommandBuffer_.size()>0 && getEcmcEpicsIOCState()==16 && autoEnableExecuted_) {
-      //printf("%s:%s:%d: Command in buffer!!!\n",__FILE__,__FUNCTION__,__LINE__);
       epicsMutexLock(grblCommandBufferMutex_);
       std::string command = grblCommandBuffer_.front();
       grblCommandBuffer_.pop();
       epicsMutexUnlock(grblCommandBufferMutex_);
-      //printf("%s:%s:%d: Command length %d!!!\n",__FILE__,__FUNCTION__,__LINE__,strlen(command.c_str()));
-      //printf("%s:%s:%d: Available bytes %d!!!\n",__FILE__,__FUNCTION__,__LINE__,serial_get_rx_buffer_available());
       // wait for grbl            
       while(serial_get_rx_buffer_available() <= strlen(command.c_str())+1) {
         delay_ms(1);
@@ -282,14 +279,15 @@ void ecmcGrbl::doWriteWorker() {
         reply += c;
         if(c == '\n'&& reply.length() > 1) {
           if(reply.find(ECMC_PLUGIN_GRBL_GRBL_OK_STRING) != std::string::npos) {
-            printf("Reply OK from grbl: %s\n",reply.c_str());
+            printf("GRBL Reply: OK: %s\n",reply.c_str());
             break;
           } else if(reply.find(ECMC_PLUGIN_GRBL_GRBL_ERR_STRING) != std::string::npos) {
-            printf("Reply ERROR from grbl: %s\n",reply.c_str());
+            printf("GRBL Reply: ERROR: %s\n",reply.c_str());
+
             break;
           } else {
-            // lkeep waiting
-            printf("Non protocol value: %s\n",reply.c_str());
+            // keep waiting
+            printf("GRBL Reply: Non protocol: %s\n",reply.c_str());
           }
         }
       }
