@@ -1,2 +1,15 @@
 
 println('GRBL busy:', grbl_get_busy());
+
+static.state;
+
+if(not(grbl_get_busy())) {
+  println('Retrigger g-code!!');
+  grbl_set_execute(0);
+  grbl_set_execute(1);
+  static.state:=1;
+};
+
+
+
+
