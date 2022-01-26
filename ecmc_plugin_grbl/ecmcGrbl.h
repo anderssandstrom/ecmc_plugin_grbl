@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <queue>
+#include <vector>
 #include <string.h>
 
 class ecmcGrbl : public asynPortDriver {
@@ -43,7 +43,8 @@ class ecmcGrbl : public asynPortDriver {
   void doReadWorker();
   void doMainWorker();
   void doWriteWorker();
-  void grblRTexecute();
+  int  enterRT();
+  int  grblRTexecute(int ecmcError);
   void addCommand(std::string command);
 
  private:
@@ -65,11 +66,12 @@ class ecmcGrbl : public asynPortDriver {
   int                   errorCode_;
   double                exeSampleTimeMs_;
   int                   grblInitDone_;
-  std::queue<std::string> grblCommandBuffer_;
+  std::vector<std::string> grblCommandBuffer_;
+  int                   grblCommandBufferIndex_;
   epicsMutexId          grblCommandBufferMutex_;
   bool                  firstCommandWritten_;
   int                   autoEnableExecuted_;
-  int                   grblExeCycles_;
+  int                   grblExeCycles_;  
   double timeToNextExeMs_;
 };
 

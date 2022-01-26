@@ -81,15 +81,14 @@ void grblDestruct(void)
 int grblRealtime(int ecmcError)
 {  
   lastEcmcError = ecmcError;
-  execute();
-  return 0;
+  return realtime(ecmcError);
 }
 
 /** Link to data source here since all sources should be availabe at this stage
  *  (for example ecmc PLC variables are defined only at enter of realtime)
  **/
 int grblEnterRT(){
-  return 0;
+  return enterRT();
 }
 
 /** Optional function.

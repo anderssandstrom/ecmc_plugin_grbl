@@ -57,9 +57,16 @@ int createGrbl(char* configStr, int exeSampleTimeMs) {
   return 0;
 }
 
-int execute() {
+int enterRT() {
   if(grbl){
-    grbl->grblRTexecute();
+    return grbl->enterRT();
+  }
+  return 0;
+}
+
+int realtime(int ecmcError) {
+  if(grbl){
+    return grbl->grblRTexecute(ecmcError);
   }
   return 0;
 }

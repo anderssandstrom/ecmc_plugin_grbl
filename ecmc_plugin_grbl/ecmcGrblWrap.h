@@ -30,9 +30,13 @@ extern "C" {
  */
 int createGrbl(char *configStr, int exeSampleTimeMs);
 
+/** \brief prepare for RT\n
+  */
+int enterRT();
+
 /** \brief execute from rt loop\n
   */
-int execute();
+int realtime(int ecmcError);
 
 // Delete object
 void deleteGrbl();

@@ -109,9 +109,9 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   grblInitDone_         = 0;
   cfgAutoEnableAtStart_ = 0;
   autoEnableExecuted_   = 0;
-  timeToNextExeMs_      = 0;
-  //grbl default rate 30khz..
-  grblExeCycles_        = 30.0/(1/exeSampleTimeMs);
+  timeToNextExeMs_      = 0;  
+  grblCommandBufferIndex_ = 0;
+  grblCommandBuffer_.clear();
 
   if(!(grblCommandBufferMutex_ = epicsMutexCreate())) {
     throw std::runtime_error("Error: Failed create mutex thread for write().");
@@ -256,11 +256,11 @@ void ecmcGrbl::doWriteWorker() {
   }
   
   // GRBL ready, now we can send comamnds
-  for(;;) {  
-    if(grblCommandBuffer_.size()>0 && getEcmcEpicsIOCState()==16 && autoEnableExecuted_) {
+  for(;;) {
+    if(grblCommandBuffer_.size() > grblCommandBufferIndex_ && getEcmcEpicsIOCState()==16 && autoEnableExecuted_) {
       epicsMutexLock(grblCommandBufferMutex_);
-      std::string command = grblCommandBuffer_.front();
-      grblCommandBuffer_.pop();
+      std::string command = grblCommandBuffer_[grblCommandBufferIndex_];
+      
       epicsMutexUnlock(grblCommandBufferMutex_);
       // wait for grbl            
       while(serial_get_rx_buffer_available() <= strlen(command.c_str())+1) {
@@ -269,7 +269,7 @@ void ecmcGrbl::doWriteWorker() {
       printf("Write command to grbl: %s\n",command.c_str());
       ecmc_write_command_serial(strdup(command.c_str()));      
       reply = "";
-
+      grblCommandBufferIndex_++;
       // Wait for reply!
       for(;;) {
         while(serial_get_tx_buffer_count()==0) {
@@ -282,11 +282,12 @@ void ecmcGrbl::doWriteWorker() {
             printf("GRBL Reply: OK: %s\n",reply.c_str());
             break;
           } else if(reply.find(ECMC_PLUGIN_GRBL_GRBL_ERR_STRING) != std::string::npos) {
-            printf("GRBL Reply: ERROR: %s\n",reply.c_str());
-
+            printf("GRBL Reply: ERROR: %s (%s)\n",reply.c_str(),command.c_str());
+            errorCode_ = ECMC_PLUGIN_GRBL_COMMAND_ERROR_CODE;
+            // Stop Motion here!!
             break;
           } else {
-            // keep waiting
+            // keep waiting (no break)
             printf("GRBL Reply: Non protocol: %s\n",reply.c_str());
           }
         }
@@ -455,9 +456,19 @@ void ecmcGrbl::syncPositionIfNotEnabled() {
   }
 }
 
+// prepare for rt here  
+int  ecmcGrbl::enterRT() {
+  return 0;
+}
+
 // grb realtime thread!!!  
-void  ecmcGrbl::grblRTexecute() {
+int  ecmcGrbl::grblRTexecute(int ecmcError) {
   
+  if(ecmcError) {
+    //Stop motion here!!!
+    return errorCode_;
+  }
+
   syncPositionIfNotEnabled();
   autoEnableAtStart();
 
@@ -478,9 +489,6 @@ void  ecmcGrbl::grblRTexecute() {
   }
   // write to ecmc
   if(cfgXAxisId_>=0) {
-//    if(grblInitDone_ && autoEnableExecuted_) {
-//      printf("[X_AXIS]= %lf/%lf=%lf, cycles %d\n",double(sys_position[X_AXIS]),double(settings.steps_per_mm[X_AXIS]),double(sys_position[X_AXIS])/double(settings.steps_per_mm[X_AXIS]),grblExeCycles_);
-//    }
     setAxisExtSetPos(cfgXAxisId_,double(sys_position[X_AXIS])/double(settings.steps_per_mm[X_AXIS]));
   }
   if(cfgYAxisId_>=0) {
@@ -492,6 +500,7 @@ void  ecmcGrbl::grblRTexecute() {
 //  if(cfgSpindleAxisId_>=0) {
 //    setAxisTargetVel(xxx);
 //  }
+  return errorCode_;
 }
 
 //void ecmcGrbl::setExecute(int execute) {
@@ -508,7 +517,7 @@ std::string ecmcGrbl::to_string(int value) {
 void ecmcGrbl::addCommand(std::string command) {
   printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
   epicsMutexLock(grblCommandBufferMutex_);  
-  grblCommandBuffer_.push(command.c_str());
+  grblCommandBuffer_.push_back(command.c_str());
   epicsMutexUnlock(grblCommandBufferMutex_);
   printf("%s:%s:%d: Buffer size %d\n",__FILE__,__FUNCTION__,__LINE__,grblCommandBuffer_.size());
 }
