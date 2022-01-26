@@ -43,8 +43,8 @@ volatile uint8_t sys_rt_exec_accessory_override; // Global realtime executor bit
 // Start worker for socket read()
 void f_worker_read(void *obj) {
   if(!obj) {
-    printf("%s/%s:%d: Error: Worker read thread ecmcGrbl object NULL..\n",
-            __FILE__, __FUNCTION__, __LINE__);
+      printf("%s/%s:%d: Error: Worker read thread ecmcGrbl object NULL..\n",
+              __FILE__, __FUNCTION__, __LINE__);
     return;
   }
   ecmcGrbl * grblObj = (ecmcGrbl*)obj;
@@ -98,9 +98,15 @@ ecmcGrbl::ecmcGrbl(char* configStr,
 
   // Init  
   cfgDbgMode_           = 0;
+  cfgAutoStart_         = 0;
   destructs_            = 0;
-  connected_            = 0;  
+  executeCmd_           = 0;
+  resetCmd_             = 0;
+  haltCmd_              = 0;
+  resumeCmd_            = 0;
   errorCode_            = 0;
+  ecmcError_            = 0;
+  errorCodeOld_         = 0;
   exeSampleTimeMs_      = exeSampleTimeMs;
   cfgXAxisId_           = -1;
   cfgYAxisId_           = -1;
@@ -124,6 +130,11 @@ ecmcGrbl::ecmcGrbl(char* configStr,
     autoEnableExecuted_ = 1;
   }
 
+  // auto execute
+  if(cfgAutoStart_) {
+    executeCmd_ = 1;
+  }
+
   // global varaible in grbl  
   enableDebugPrintouts = cfgDbgMode_;
 
@@ -132,14 +143,14 @@ ecmcGrbl::ecmcGrbl(char* configStr,
     throw std::out_of_range("No valid axis choosen.");
   }
 
-  // Create worker thread for reading socket
-  std::string threadname = "ecmc.grbl.read";
-  if(epicsThreadCreate(threadname.c_str(), 0, 32768, f_worker_read, this) == NULL) {
-    throw std::runtime_error("Error: Failed create worker thread for read().");
-  }
+  //// Create worker thread for reading socket
+  //std::string threadname = "ecmc.grbl.read";
+  //if(epicsThreadCreate(threadname.c_str(), 0, 32768, f_worker_read, this) == NULL) {
+  //  throw std::runtime_error("Error: Failed create worker thread for read().");
+  //}
 
   // Create worker thread for main grbl loop
-  threadname = "ecmc.grbl.main";
+  std::string threadname = "ecmc.grbl.main";
   if(epicsThreadCreate(threadname.c_str(), 0, 32768, f_worker_main, this) == NULL) {
     throw std::runtime_error("Error: Failed create worker thread for main().");
   }
@@ -209,10 +220,16 @@ void ecmcGrbl::parseConfigStr(char *configStr) {
         cfgSpindleAxisId_ = atoi(pThisOption);
       }
 
-      // ECMC_PLUGIN_AUTO_ENABLE_AT_START_OPTION_CMD (1..ECMC_MAX_AXES)
+      // ECMC_PLUGIN_AUTO_ENABLE_AT_START_OPTION_CMD
       if (!strncmp(pThisOption, ECMC_PLUGIN_AUTO_ENABLE_AT_START_OPTION_CMD, strlen(ECMC_PLUGIN_AUTO_ENABLE_AT_START_OPTION_CMD))) {
         pThisOption += strlen(ECMC_PLUGIN_AUTO_ENABLE_AT_START_OPTION_CMD);
         cfgAutoEnableAtStart_ = atoi(pThisOption);
+      }
+
+      // ECMC_PLUGIN_AUTO_START_OPTION_CMD
+      if (!strncmp(pThisOption, ECMC_PLUGIN_AUTO_START_OPTION_CMD, strlen(ECMC_PLUGIN_AUTO_START_OPTION_CMD))) {
+        pThisOption += strlen(ECMC_PLUGIN_AUTO_START_OPTION_CMD);
+        cfgAutoStart_ = atoi(pThisOption);
       }
 
       pThisOption = pNextOption;
@@ -223,22 +240,26 @@ void ecmcGrbl::parseConfigStr(char *configStr) {
 
 // Read socket worker
 void ecmcGrbl::doReadWorker() {
-  // simulate serial connection here (need mutex)
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
-  for(;;) {
-    //while(serial_get_tx_buffer_count()==0) {
-    //  delay_ms(1);      
-    //}
-    //printf("%c",ecmc_get_char_from_grbl_tx_buffer());
-    delay_ms(100);
-  }
+//  // simulate serial connection here (need mutex)
+//  if(cfgDbgMode_){
+//    printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+//  }
+//  for(;;) {
+//    //while(serial_get_tx_buffer_count()==0) {
+//    //  delay_ms(1);      
+//    //}
+//    //printf("%c",ecmc_get_char_from_grbl_tx_buffer());
+//    delay_ms(100);
+//  }
 }
 
 // Write socket worker
 void ecmcGrbl::doWriteWorker() {
   // simulate serial connection here (need mutex)
   std::string reply = "";
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  if(cfgDbgMode_){
+    printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  }
   
   // Wait for grbl startup string before send comamnds"['$' for help]" 
   // basically flush buffer
@@ -249,15 +270,21 @@ void ecmcGrbl::doWriteWorker() {
     char c = ecmc_get_char_from_grbl_tx_buffer();
     reply += c;
     if(c == '\n' && 
-       reply.find(ECMC_PLUGIN_GRBL_GRBL_STARTUP_STRING) != std::string::npos ) {
-       printf("GRBL READY FOR COMMANDS: %s\n",reply.c_str());
-       break;
+      reply.find(ECMC_PLUGIN_GRBL_GRBL_STARTUP_STRING) != std::string::npos ) {
+      if(cfgDbgMode_){
+        printf("GRBL READY FOR COMMANDS: %s\n",reply.c_str());
+      }
+      break;
     }
   }
   
   // GRBL ready, now we can send comamnds
   for(;;) {
-    if(grblCommandBuffer_.size() > grblCommandBufferIndex_ && getEcmcEpicsIOCState()==16 && autoEnableExecuted_) {
+    if( (grblCommandBuffer_.size() > grblCommandBufferIndex_) && 
+        getEcmcEpicsIOCState()==16 && 
+        autoEnableExecuted_ && 
+        executeCmd_) {
+
       epicsMutexLock(grblCommandBufferMutex_);
       std::string command = grblCommandBuffer_[grblCommandBufferIndex_];
       
@@ -266,10 +293,13 @@ void ecmcGrbl::doWriteWorker() {
       while(serial_get_rx_buffer_available() <= strlen(command.c_str())+1) {
         delay_ms(1);
       }
-      printf("Write command to grbl: %s\n",command.c_str());
+      if(cfgDbgMode_){
+        printf("Write command to grbl (command[%d] = %s)\n",
+               grblCommandBufferIndex_,
+               command.c_str());
+      }
       ecmc_write_command_serial(strdup(command.c_str()));      
-      reply = "";
-      grblCommandBufferIndex_++;
+      reply = "";      
       // Wait for reply!
       for(;;) {
         while(serial_get_tx_buffer_count()==0) {
@@ -278,20 +308,31 @@ void ecmcGrbl::doWriteWorker() {
         char c = ecmc_get_char_from_grbl_tx_buffer();
         reply += c;
         if(c == '\n'&& reply.length() > 1) {
-          if(reply.find(ECMC_PLUGIN_GRBL_GRBL_OK_STRING) != std::string::npos) {
-            printf("GRBL Reply: OK: %s\n",reply.c_str());
+          if(reply.find(ECMC_PLUGIN_GRBL_GRBL_OK_STRING) != std::string::npos) {            
+            if(cfgDbgMode_){
+              printf("GRBL Reply: OK (command[%d] = %s)\n",
+                     grblCommandBufferIndex_,
+                     command.c_str());
+            }
             break;
           } else if(reply.find(ECMC_PLUGIN_GRBL_GRBL_ERR_STRING) != std::string::npos) {
-            printf("GRBL Reply: ERROR: %s (%s)\n",reply.c_str(),command.c_str());
+            if(cfgDbgMode_){
+              printf("GRBL Reply: ERROR (command[%d] = %s)\n",
+                      grblCommandBufferIndex_,
+                      command.c_str());
+            }
             errorCode_ = ECMC_PLUGIN_GRBL_COMMAND_ERROR_CODE;
             // Stop Motion here!!
             break;
           } else {
             // keep waiting (no break)
-            printf("GRBL Reply: Non protocol: %s\n",reply.c_str());
+            if(cfgDbgMode_){
+              printf("GRBL Reply: Non protocol related: %s\n",reply.c_str());
+            }
           }
         }
       }
+      grblCommandBufferIndex_++;
     }
     else {
       delay_ms(5);
@@ -301,7 +342,9 @@ void ecmcGrbl::doWriteWorker() {
 
 // Main grbl worker (copied from grbl main.c)
 void ecmcGrbl::doMainWorker() {
-  printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  if(cfgDbgMode_){
+    printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
+  }
   
   // Initialize system upon power-up.
   serial_init();             // Setup serial baud rate and interrupts
@@ -373,36 +416,28 @@ void ecmcGrbl::doMainWorker() {
     if(destructs_) {
       return;
     }
-    printf("********************after protocol_main_loop()********************************\n");
+    if(cfgDbgMode_){
+      printf("********************after protocol_main_loop()********************************\n");
+    }
     delay_ms(1);
   }
 }
 
-void  ecmcGrbl::autoEnableAtStart() {
+void  ecmcGrbl::autoEnableAxisAtStart(int ecmcAxisId) {
   
   if(!cfgAutoEnableAtStart_ || autoEnableExecuted_ || getEcmcEpicsIOCState()!=16) { 
     return;
   }
   
   // write to ecmc
-  if(cfgXAxisId_>=0) {
-    setAxisEnable(cfgXAxisId_,1);
-  }
-  if(cfgYAxisId_>=0) {
-    setAxisEnable(cfgYAxisId_,1);
-  }
-  if(cfgZAxisId_>=0) {
-    setAxisEnable(cfgZAxisId_,1);
-  }
-
-  if(getAllConfiguredAxisEnabled()) {
-    autoEnableExecuted_ = 1;
-  }
+  if(ecmcAxisId>=0) {
+    setAxisEnable(ecmcAxisId,1);
+  }    
 }
 
-bool  ecmcGrbl::getEcmcAxisEnabled(int axis) {
+bool  ecmcGrbl::getEcmcAxisEnabled(int ecmcAxisId) {
   int ena=0;
-  getAxisEnabled(axis, &ena);
+  getAxisEnabled(ecmcAxisId, &ena);
   return ena;
 }
 
@@ -430,50 +465,71 @@ double  ecmcGrbl::getEcmcAxisActPos(int axis) {
   return pos;
 }
 
-void ecmcGrbl::syncPositionIfNotEnabled() {
+void ecmcGrbl::preExeAxes() {
+  preExeAxis(cfgXAxisId_,X_AXIS);
+  preExeAxis(cfgYAxisId_,Y_AXIS);
+  preExeAxis(cfgZAxisId_,Z_AXIS);
+  //spindle
+  autoEnableAxisAtStart(cfgSpindleAxisId_);
+  if(getAllConfiguredAxisEnabled()) {
+    autoEnableExecuted_ = 1;
+  }
+}
+
+void ecmcGrbl::preExeAxis(int ecmcAxisId, int grblAxisId) {
+  syncAxisPositionIfNotEnabled(ecmcAxisId, grblAxisId);
+  autoEnableAxisAtStart(ecmcAxisId);
+}
+
+void ecmcGrbl::syncAxisPositionIfNotEnabled(int ecmcAxisId, int grblAxisId) {
+  // sync positions when not enabled
   bool sync = 0;
-  if(cfgXAxisId_>=0) {
-    if(!getEcmcAxisEnabled(cfgXAxisId_)) {
-      sys_position[X_AXIS] = (int32_t)(double(settings.steps_per_mm[X_AXIS])*getEcmcAxisActPos(cfgXAxisId_));
-      sync = 1;
-    }
-  }
-  if(cfgYAxisId_>=0) {
-    if(!getEcmcAxisEnabled(cfgYAxisId_)) {
-      sys_position[Y_AXIS] = (int32_t)(double(settings.steps_per_mm[Y_AXIS])*getEcmcAxisActPos(cfgYAxisId_));
-      sync = 1;
-    }
-  }
-  if(cfgZAxisId_>=0) {
-    if(!getEcmcAxisEnabled(cfgZAxisId_)) {
-      sys_position[Z_AXIS] = (int32_t)(double(settings.steps_per_mm[Z_AXIS])*getEcmcAxisActPos(cfgZAxisId_));
-      sync = 1;
-    }
+  if(ecmcAxisId<0) {
+    return;
   }
 
+  if(!getEcmcAxisEnabled(ecmcAxisId)) {
+    sys_position[grblAxisId] = (int32_t)(double(settings.steps_per_mm[grblAxisId])*getEcmcAxisActPos(ecmcAxisId));
+    sync = 1;
+  }
+  
   if(sync) {
     plan_sync_position();
+    gc_sync_position();
   }
 }
 
 // prepare for rt here  
-int  ecmcGrbl::enterRT() {
+int ecmcGrbl::enterRT() {
   return 0;
 }
 
 // grb realtime thread!!!  
 int  ecmcGrbl::grblRTexecute(int ecmcError) {
   
-  if(ecmcError) {
-    //Stop motion here!!!
+  if(getEcmcEpicsIOCState()!=16) {
+    return 0;
+  }
+
+  if((ecmcError_ == 0 && ecmcError>0) || (errorCode_>0 && errorCodeOld_ == 0)) {
+    setHalt(0);
+    setHalt(1);
+    setReset(0); 
+    setReset(1);
+    setExecute(0);
+    printf("Error encountered: ecmc 0x%x, plugin 0x%x\n",ecmcError,errorCode_);
+    ecmcError_ = ecmcError;
+    errorCodeOld_ = errorCode_;
     return errorCode_;
   }
 
-  syncPositionIfNotEnabled();
-  autoEnableAtStart();
+  ecmcError_ = ecmcError;
+  errorCodeOld_ = errorCode_;
 
+  //auto enable, sync positions
+  preExeAxes();
+  
   double sampleRateMs = 0.0;
-
   if(grblInitDone_ && autoEnableExecuted_) {
     while(timeToNextExeMs_ < exeSampleTimeMs_ && sampleRateMs >= 0) {      
       sampleRateMs = ecmc_grbl_main_rt_thread();
@@ -487,25 +543,59 @@ int  ecmcGrbl::grblRTexecute(int ecmcError) {
       timeToNextExeMs_-= exeSampleTimeMs_;
     }
   }
-  // write to ecmc
-  if(cfgXAxisId_>=0) {
-    setAxisExtSetPos(cfgXAxisId_,double(sys_position[X_AXIS])/double(settings.steps_per_mm[X_AXIS]));
-  }
-  if(cfgYAxisId_>=0) {
-    setAxisExtSetPos(cfgYAxisId_,sys_position[Y_AXIS]/settings.steps_per_mm[Y_AXIS]);
-  }
-  if(cfgZAxisId_>=0) {
-    setAxisExtSetPos(cfgZAxisId_,sys_position[Z_AXIS]/settings.steps_per_mm[Z_AXIS]);
-  }
-//  if(cfgSpindleAxisId_>=0) {
-//    setAxisTargetVel(xxx);
-//  }
+
+  //update setpoints
+  postExeAxes();
   return errorCode_;
 }
 
-//void ecmcGrbl::setExecute(int execute) {
-//  
-//}
+void ecmcGrbl::postExeAxis(int ecmcAxisId, int grblAxisId) {
+  if(ecmcAxisId>=0) {
+    setAxisExtSetPos(ecmcAxisId,double(sys_position[grblAxisId])/double(settings.steps_per_mm[grblAxisId]));
+  }
+}
+
+void ecmcGrbl::postExeAxes() {
+  postExeAxis(cfgXAxisId_,X_AXIS);
+  postExeAxis(cfgYAxisId_,Y_AXIS);
+  postExeAxis(cfgZAxisId_,Z_AXIS);
+  //  if(cfgSpindleAxisId_>=0) {
+  //    setAxisTargetVel(xxx);
+  //  }
+}
+
+// trigg start of g-code
+int ecmcGrbl::setExecute(int exe) {
+  if(!executeCmd_ && exe) {
+    //
+  }
+  executeCmd_ = exe;
+  return 0;
+}
+
+int ecmcGrbl::setHalt(int halt) {
+  if(!haltCmd_ && halt) {
+    //suspend with a "CMD_FEED_HOLD" command maybe?
+  }
+  haltCmd_ = halt;
+  return 0;
+}
+
+int ecmcGrbl::setResume(int resume) {
+  if(!resumeCmd_ && resume) {
+    //hepp
+  }
+  resumeCmd_ = resume;
+  return 0;
+}
+
+int ecmcGrbl::setReset(int reset) {
+  if(!resetCmd_ && reset) {
+    mc_reset();
+  }
+  resetCmd_ = reset;
+  return 0;
+}
 
 // Avoid issues with std:to_string()
 std::string ecmcGrbl::to_string(int value) {
@@ -515,9 +605,13 @@ std::string ecmcGrbl::to_string(int value) {
 }
 
 void ecmcGrbl::addCommand(std::string command) {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  if(cfgDbgMode_){
+    printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  }
   epicsMutexLock(grblCommandBufferMutex_);  
   grblCommandBuffer_.push_back(command.c_str());
   epicsMutexUnlock(grblCommandBufferMutex_);
-  printf("%s:%s:%d: Buffer size %d\n",__FILE__,__FUNCTION__,__LINE__,grblCommandBuffer_.size());
+  if(cfgDbgMode_){
+    printf("%s:%s:%d: Buffer size %d\n",__FILE__,__FUNCTION__,__LINE__,grblCommandBuffer_.size());
+  }
 }

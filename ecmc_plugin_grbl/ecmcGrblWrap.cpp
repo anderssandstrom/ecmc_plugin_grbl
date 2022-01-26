@@ -71,6 +71,34 @@ int realtime(int ecmcError) {
   return 0;
 }
 
+int setExecute(int exe) {
+  if(grbl){
+    return grbl->setExecute(exe);
+  }
+  return 0;
+}
+
+int setHalt(int halt) {
+  if(grbl){
+    return grbl->setHalt(halt);
+  }
+  return 0;
+}
+
+int setResume(int resume) {
+  if(grbl){
+    return grbl->setResume(resume);
+  }
+  return 0;
+}
+
+int setReset(int reset) {
+  if(grbl){
+    return grbl->setReset(reset);
+  }
+  return 0;
+}
+
 void deleteGrbl() {
   if(grbl) {
     delete (grbl);

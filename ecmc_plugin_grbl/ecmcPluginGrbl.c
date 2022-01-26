@@ -98,9 +98,25 @@ int grblEnterRT(){
 int grblExitRT(void){
   return 0;
 }
-// Plc function for connect to can
-double grbl_connect() {
-  return 0;
+
+// Plc function for execute grbl code
+double grbl_set_execute(double exe) {
+  return setExecute((int)exe);
+}
+
+// Plc function for halt grbl
+double grbl_mc_halt(double halt) {
+  return setHalt((int)halt);
+}
+
+// Plc function for resume grbl
+double grbl_mc_resume(double halt) {
+  return setResume((int)halt);
+}
+
+// Plc function for reset grbl
+double grbl_mc_reset(double halt) {
+  return setReset((int)halt);
 }
 
 // Register data for plugin so ecmc know what to use
@@ -117,7 +133,8 @@ struct ecmcPluginData pluginDataDef = {
                 "      "ECMC_PLUGIN_Y_AXIS_ID_OPTION_CMD"<axis id>: Ecmc Axis id for use as grbl Y axis, default = disabled (=-1).\n"
                 "      "ECMC_PLUGIN_Z_AXIS_ID_OPTION_CMD"<axis id>: Ecmc Axis id for use as grbl Z axis, default = disabled (=-1).\n"
                 "      "ECMC_PLUGIN_SPINDLE_AXIS_ID_OPTION_CMD"<axis id>: Ecmc Axis id for use as grbl spindle axis, default = disabled (=-1).\n"
-                "      "ECMC_PLUGIN_AUTO_ENABLE_AT_START_OPTION_CMD"<1/0>: Auto enable the linked ecmc axes autmatically before start, default = disabled (=0).\n"  
+                "      "ECMC_PLUGIN_AUTO_ENABLE_AT_START_OPTION_CMD"<1/0>: Auto enable the linked ecmc axes autmatically before start, default = disabled (=0).\n"
+                "      "ECMC_PLUGIN_AUTO_START_OPTION_CMD"<1/0>: Auto start g-code at ecmc start, default = disabled (=0).\n"
   ,
   // Plugin version
   .version = ECMC_EXAMPLE_PLUGIN_VERSION,
@@ -133,17 +150,17 @@ struct ecmcPluginData pluginDataDef = {
   .realtimeExitFnc = grblExitRT,
   // PLC funcs
   .funcs[0] =
-      { /*----can_connect----*/
+      { /*----grbl_set_execute----*/
         // Function name (this is the name you use in ecmc plc-code)
-        .funcName = "grbl_connect",
+        .funcName = "grbl_set_execute",
         // Function description
-        .funcDesc = "double grbl_connect() : Connect to grbl interface (from config str).",
+        .funcDesc = "double grbl_set_execute(<exe>) :  Trigg execution of loaded g-code at positive edge of <exe>",
         /**
         * 7 different prototypes allowed (only doubles since reg in plc).
         * Only funcArg${argCount} func shall be assigned the rest set to NULL.
         **/
-        .funcArg0 = grbl_connect,
-        .funcArg1 = NULL,
+        .funcArg0 = NULL,
+        .funcArg1 = grbl_set_execute,
         .funcArg2 = NULL,
         .funcArg3 = NULL,
         .funcArg4 = NULL,
@@ -155,7 +172,76 @@ struct ecmcPluginData pluginDataDef = {
         .funcArg10 = NULL,
         .funcGenericObj = NULL,
       },
-  .funcs[1] = {0},  // last element set all to zero..
+  .funcs[1] =
+      { /*----can_connect----*/
+        // Function name (this is the name you use in ecmc plc-code)
+        .funcName = "grbl_mc_halt",
+        // Function description
+        .funcDesc = "double grbl_mc_halt(<halt>) :  Halt grbl motion at positive edge of <halt>",
+        /**
+        * 7 different prototypes allowed (only doubles since reg in plc).
+        * Only funcArg${argCount} func shall be assigned the rest set to NULL.
+        **/
+        .funcArg0 = NULL,
+        .funcArg1 = grbl_mc_halt,
+        .funcArg2 = NULL,
+        .funcArg3 = NULL,
+        .funcArg4 = NULL,
+        .funcArg5 = NULL,
+        .funcArg6 = NULL,
+        .funcArg7 = NULL,
+        .funcArg8 = NULL,
+        .funcArg9 = NULL,
+        .funcArg10 = NULL,
+        .funcGenericObj = NULL,
+      },
+  .funcs[2] =
+      { /*----grbl_mc_resume----*/
+        // Function name (this is the name you use in ecmc plc-code)
+        .funcName = "grbl_mc_resume",
+        // Function description
+        .funcDesc = "double grbl_mc_resume(<resume>) : Resume halted grbl motion at positive edge of <resume>",
+        /**
+        * 7 different prototypes allowed (only doubles since reg in plc).
+        * Only funcArg${argCount} func shall be assigned the rest set to NULL.
+        **/
+        .funcArg0 = NULL,
+        .funcArg1 = grbl_mc_resume,
+        .funcArg2 = NULL,
+        .funcArg3 = NULL,
+        .funcArg4 = NULL,
+        .funcArg5 = NULL,
+        .funcArg6 = NULL,
+        .funcArg7 = NULL,
+        .funcArg8 = NULL,
+        .funcArg9 = NULL,
+        .funcArg10 = NULL,
+        .funcGenericObj = NULL,
+      },
+  .funcs[3] =
+      { /*----can_connect----*/
+        // Function name (this is the name you use in ecmc plc-code)
+        .funcName = "grbl_mc_reset",
+        // Function description
+        .funcDesc = "double grbl_mc_reset(<reset>) :  Reset grbl at positive edge of <reset>",
+        /**
+        * 7 different prototypes allowed (only doubles since reg in plc).
+        * Only funcArg${argCount} func shall be assigned the rest set to NULL.
+        **/
+        .funcArg0 = NULL,
+        .funcArg1 = grbl_mc_reset,
+        .funcArg2 = NULL,
+        .funcArg3 = NULL,
+        .funcArg4 = NULL,
+        .funcArg5 = NULL,
+        .funcArg6 = NULL,
+        .funcArg7 = NULL,
+        .funcArg8 = NULL,
+        .funcArg9 = NULL,
+        .funcArg10 = NULL,
+        .funcGenericObj = NULL,
+      },
+  .funcs[4] = {0},  // last element set all to zero..
   // PLC consts
   .consts[0] = {0}, // last element set all to zero..
 };

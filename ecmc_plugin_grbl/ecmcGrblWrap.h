@@ -34,9 +34,25 @@ int createGrbl(char *configStr, int exeSampleTimeMs);
   */
 int enterRT();
 
-/** \brief execute from rt loop\n
+/** \brief rt loop\n
   */
 int realtime(int ecmcError);
+
+/** \brief execute g-code\n
+  */
+int setExecute(int exe);
+
+/** \brief halt motion\n
+  */
+int setHalt(int halt);
+
+/** \brief resume grbl\n
+  */
+int setResume(int resume);
+
+/** \brief reset grbl\n
+  */
+int setReset(int reset);
 
 // Delete object
 void deleteGrbl();

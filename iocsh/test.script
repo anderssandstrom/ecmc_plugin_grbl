@@ -59,7 +59,7 @@ epicsEnvSet("PLUGIN_VER" ,"develop")
 require ecmc_plugin_grbl $(PLUGIN_VER)
 
 epicsEnvSet(ECMC_PLUGIN_FILNAME,"/home/pi/epics/base-7.0.5/require/${E3_REQUIRE_VERSION}/siteMods/ecmc_plugin_grbl/$(PLUGIN_VER)/lib/${EPICS_HOST_ARCH=linux-x86_64}/libecmc_plugin_grbl.so")
-epicsEnvSet(ECMC_PLUGIN_CONFIG,"DBG_PRINT=0;X_AXIS=1;Y_AXIS=2;AUTO_ENABLE=1;") # Only one option implemented in this plugin
+epicsEnvSet(ECMC_PLUGIN_CONFIG,"DBG_PRINT=1;X_AXIS=1;Y_AXIS=2;AUTO_ENABLE=1;AUTO_START=1;") # Only one option implemented in this plugin
 ${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILNAME},CONFIG='${ECMC_PLUGIN_CONFIG}', REPORT=1"
 epicsEnvUnset(ECMC_PLUGIN_FILNAME)
 epicsEnvUnset(ECMC_PLUGIN_CONFIG)
@@ -68,32 +68,14 @@ epicsEnvUnset(ECMC_PLUGIN_CONFIG)
 ecmcGrblAddCommand("G1X20Y20F180");
 ecmcGrblAddCommand("G2X0Y0R20");
 ecmcGrblAddCommand("G0X10Y10");
-#ecmcGrblAddCommand("G2X0adadsdY0R20");
-ecmcGrblAddCommand("G1X0Y20");
-ecmcGrblAddCommand("G1X10Y0F360");
-ecmcGrblAddCommand("G4P1");
-ecmcGrblAddCommand("G1X50Y50F180");
-ecmcGrblAddCommand("G4P1");
-ecmcGrblAddCommand("G1X0Y0F360");
-ecmcGrblAddCommand("G1X20Y20F180");
-ecmcGrblAddCommand("G2X0Y0R20");
-ecmcGrblAddCommand("G0X10Y10");
-ecmcGrblAddCommand("G1X0Y20");
-ecmcGrblAddCommand("G1X10Y0F360");
-ecmcGrblAddCommand("G4P1");
-ecmcGrblAddCommand("G1X50Y50F180");
-ecmcGrblAddCommand("G4P1");
-ecmcGrblAddCommand("G1X0Y0F360");
-ecmcGrblAddCommand("G1X20Y20F180");
-ecmcGrblAddCommand("G2X0Y0R20");
-ecmcGrblAddCommand("G0X10Y10");
-ecmcGrblAddCommand("G1X0Y20");
-ecmcGrblAddCommand("G1X10Y0F360");
-ecmcGrblAddCommand("G4P1");
-ecmcGrblAddCommand("G1X50Y50F180");
-ecmcGrblAddCommand("G4P1");
-ecmcGrblAddCommand("G1X0Y0F360");
+ecmcGrblAddCommand("G2X0adadsdY0R20");
+ecmcGrblAddCommand("G1X0Y0");
 
+#ecmcGrblAddCommand("G1X0Y20");
+#ecmcGrblAddCommand("G1X10Y0F360");
+#ecmcGrblAddCommand("G4P1");
+#ecmcGrblAddCommand("G1X50Y50F180");
+#ecmcGrblAddCommand("G1X0Y0");
 
 ##############################################################################
 ## PLC 0
@@ -114,7 +96,7 @@ $(SCRIPTEXEC) ($(ecmccfg_DIR)setAppMode.cmd)
 #asynSetTraceMask(MC_CPU1, -1, 0x41)
 # Note need to test 0x21 later..
 #asynSetTraceMask(MC_CPU1, -1, 0x21)
-asynSetTraceMask(MC_CPU1, -1, 0x41)
+asynSetTraceMask(MC_CPU1, -1, 0x0)
 iocInit()
 
 dbpf $(IOC):Axis1.SPAM 0

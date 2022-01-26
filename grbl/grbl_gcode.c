@@ -56,7 +56,7 @@ void gc_init()
 // limit pull-off routines.
 void gc_sync_position()
 {
-  PRINTF_DEBUG("");
+  //PRINTF_DEBUG("");
   system_convert_array_steps_to_mpos(gc_state.position,sys_position);
 }
 
