@@ -27,7 +27,10 @@ extern "C" {
 #include "grbl.h"
 }
 
+// Global vars
 int enableDebugPrintouts = 0;
+int stepperInterruptEnable = 0;
+
 system_t sys;
 int32_t sys_position[N_AXIS];         // Real-time machine (aka home) position vector in steps.
 int32_t sys_probe_position[N_AXIS];   // Last probe position in machine coordinates and steps.
@@ -115,7 +118,8 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   grblInitDone_         = 0;
   cfgAutoEnableAtStart_ = 0;
   autoEnableExecuted_   = 0;
-  timeToNextExeMs_      = 0;  
+  timeToNextExeMs_      = 0;
+  writerBusy_           = 0;
   grblCommandBufferIndex_ = 0;
   grblCommandBuffer_.clear();
 
@@ -132,7 +136,7 @@ ecmcGrbl::ecmcGrbl(char* configStr,
 
   // auto execute
   if(cfgAutoStart_) {
-    executeCmd_ = 1;
+    setExecute(1);
   }
 
   // global varaible in grbl  
@@ -265,7 +269,7 @@ void ecmcGrbl::doWriteWorker() {
   // basically flush buffer
   for(;;) {
     while(serial_get_tx_buffer_count()==0) {
-      delay_ms(1);
+      delay_ms(2);
     }
     char c = ecmc_get_char_from_grbl_tx_buffer();
     reply += c;
@@ -277,18 +281,21 @@ void ecmcGrbl::doWriteWorker() {
       break;
     }
   }
-  
+
+  // wait for epics state && auto enable at start
+  while(getEcmcEpicsIOCState()!=16 || !autoEnableExecuted_) {
+    delay_ms(2);
+  }
+
   // GRBL ready, now we can send comamnds
   for(;;) {
-    if( (grblCommandBuffer_.size() > grblCommandBufferIndex_) && 
-        getEcmcEpicsIOCState()==16 && 
-        autoEnableExecuted_ && 
-        executeCmd_) {
-
-      epicsMutexLock(grblCommandBufferMutex_);
-      std::string command = grblCommandBuffer_[grblCommandBufferIndex_];
+    if( (grblCommandBuffer_.size() > grblCommandBufferIndex_) &&         
+        executeCmd_) {              
       
+      epicsMutexLock(grblCommandBufferMutex_);
+      std::string command = grblCommandBuffer_[grblCommandBufferIndex_];      
       epicsMutexUnlock(grblCommandBufferMutex_);
+
       // wait for grbl            
       while(serial_get_rx_buffer_available() <= strlen(command.c_str())+1) {
         delay_ms(1);
@@ -298,8 +305,10 @@ void ecmcGrbl::doWriteWorker() {
                grblCommandBufferIndex_,
                command.c_str());
       }
-      ecmc_write_command_serial(strdup(command.c_str()));      
-      reply = "";      
+      
+      ecmc_write_command_serial(strdup(command.c_str()));
+      reply = "";
+
       // Wait for reply!
       for(;;) {
         while(serial_get_tx_buffer_count()==0) {
@@ -315,6 +324,7 @@ void ecmcGrbl::doWriteWorker() {
                      command.c_str());
             }
             break;
+
           } else if(reply.find(ECMC_PLUGIN_GRBL_GRBL_ERR_STRING) != std::string::npos) {
             if(cfgDbgMode_){
               printf("GRBL Reply: ERROR (command[%d] = %s)\n",
@@ -322,19 +332,38 @@ void ecmcGrbl::doWriteWorker() {
                       command.c_str());
             }
             errorCode_ = ECMC_PLUGIN_GRBL_COMMAND_ERROR_CODE;
-            // Stop Motion here!!
+            // stop motion
+            setExecute(0);            
+            setReset(1);
+            setReset(0);
+            break; 
+
+          } else if(reply.find(ECMC_PLUGIN_GRBL_GRBL_STARTUP_STRING) != std::string::npos ) {
+            if(cfgDbgMode_){
+              printf("GRBL READY FOR COMMANDS: %s\n",reply.c_str());
+            }
+            // system has reset
+            setExecute(0);
             break;
+
           } else {
-            // keep waiting (no break)
+            // keep waiting (no break)            
             if(cfgDbgMode_){
               printf("GRBL Reply: Non protocol related: %s\n",reply.c_str());
+
             }
           }
         }
       }
+      // All rows written
+      //if(grblCommandBufferIndex_ == grblCommandBuffer_.size()) {
+      //  writerBusy_ = 0;
+      //}
       grblCommandBufferIndex_++;
     }
     else {
+      writerBusy_ = 0;
+      // Wait for right condition to start
       delay_ms(5);
     }
   }
@@ -511,15 +540,20 @@ int  ecmcGrbl::grblRTexecute(int ecmcError) {
     return 0;
   }
 
-  if((ecmcError_ == 0 && ecmcError>0) || (errorCode_>0 && errorCodeOld_ == 0)) {
+  if((ecmcError_ == 0 && ecmcError>0) || (errorCode_>0 && errorCodeOld_ == 0)) {    
     setHalt(0);
     setHalt(1);
-    setReset(0); 
-    setReset(1);
+    if(ecmcError != errorCode_) {  // ecmc error the reset
+      if(ecmcError>0 && ecmcError_ == 0) {
+        setReset(0);
+        setReset(1);
+      }
+    }
     setExecute(0);
     printf("Error encountered: ecmc 0x%x, plugin 0x%x\n",ecmcError,errorCode_);
     ecmcError_ = ecmcError;
     errorCodeOld_ = errorCode_;
+  
     return errorCode_;
   }
 
@@ -566,8 +600,12 @@ void ecmcGrbl::postExeAxes() {
 
 // trigg start of g-code
 int ecmcGrbl::setExecute(int exe) {
+  if(!exe) {
+    writerBusy_ = 0;
+  }
   if(!executeCmd_ && exe) {
-    //
+    grblCommandBufferIndex_ = 0;
+    writerBusy_ = 1;
   }
   executeCmd_ = exe;
   return 0;
@@ -575,7 +613,7 @@ int ecmcGrbl::setExecute(int exe) {
 
 int ecmcGrbl::setHalt(int halt) {
   if(!haltCmd_ && halt) {
-    //suspend with a "CMD_FEED_HOLD" command maybe?
+    system_set_exec_state_flag(EXEC_FEED_HOLD);
   }
   haltCmd_ = halt;
   return 0;
@@ -583,7 +621,7 @@ int ecmcGrbl::setHalt(int halt) {
 
 int ecmcGrbl::setResume(int resume) {
   if(!resumeCmd_ && resume) {
-    //hepp
+   system_set_exec_state_flag(EXEC_CYCLE_START);
   }
   resumeCmd_ = resume;
   return 0;
@@ -593,8 +631,12 @@ int ecmcGrbl::setReset(int reset) {
   if(!resetCmd_ && reset) {
     mc_reset();
   }
-  resetCmd_ = reset;
+  resetCmd_ = reset;  
   return 0;
+}
+
+int ecmcGrbl::getBusy() {
+  return getEcmcEpicsIOCState()!=16 || writerBusy_ || stepperInterruptEnable;
 }
 
 // Avoid issues with std:to_string()

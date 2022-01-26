@@ -119,6 +119,12 @@ double grbl_mc_reset(double halt) {
   return setReset((int)halt);
 }
 
+
+// Plc function for reset grbl
+double grbl_get_busy() {
+  return getBusy();
+}
+
 // Register data for plugin so ecmc know what to use
 struct ecmcPluginData pluginDataDef = {
   // Allways use ECMC_PLUG_VERSION_MAGIC
@@ -173,7 +179,7 @@ struct ecmcPluginData pluginDataDef = {
         .funcGenericObj = NULL,
       },
   .funcs[1] =
-      { /*----can_connect----*/
+      { /*----grbl_mc_halt----*/
         // Function name (this is the name you use in ecmc plc-code)
         .funcName = "grbl_mc_halt",
         // Function description
@@ -219,7 +225,7 @@ struct ecmcPluginData pluginDataDef = {
         .funcGenericObj = NULL,
       },
   .funcs[3] =
-      { /*----can_connect----*/
+      { /*----grbl_mc_reset----*/
         // Function name (this is the name you use in ecmc plc-code)
         .funcName = "grbl_mc_reset",
         // Function description
@@ -241,7 +247,31 @@ struct ecmcPluginData pluginDataDef = {
         .funcArg10 = NULL,
         .funcGenericObj = NULL,
       },
-  .funcs[4] = {0},  // last element set all to zero..
+  .funcs[4] =
+      { /*----can_connect----*/
+        // Function name (this is the name you use in ecmc plc-code)
+        .funcName = "grbl_get_busy",
+        // Function description
+        .funcDesc = "double grbl_get_busy() :  Get grbl system busy",
+        /**
+        * 7 different prototypes allowed (only doubles since reg in plc).
+        * Only funcArg${argCount} func shall be assigned the rest set to NULL.
+        **/
+        .funcArg0 = grbl_get_busy,
+        .funcArg1 = NULL,
+        .funcArg2 = NULL,
+        .funcArg3 = NULL,
+        .funcArg4 = NULL,
+        .funcArg5 = NULL,
+        .funcArg6 = NULL,
+        .funcArg7 = NULL,
+        .funcArg8 = NULL,
+        .funcArg9 = NULL,
+        .funcArg10 = NULL,
+        .funcGenericObj = NULL,
+      },
+
+  .funcs[5] = {0},  // last element set all to zero..
   // PLC consts
   .consts[0] = {0}, // last element set all to zero..
 };

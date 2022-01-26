@@ -181,8 +181,6 @@ typedef struct {
 } st_prep_t;
 static st_prep_t prep;
 
-static bool stepperInterruptEnable = 0;
-
 
 /*    BLOCK VELOCITY PROFILE DEFINITION
           __________________________

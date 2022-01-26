@@ -54,6 +54,10 @@ int setResume(int resume);
   */
 int setReset(int reset);
 
+/** \brief get grbl busy\n
+  */
+int getBusy();
+
 // Delete object
 void deleteGrbl();
 

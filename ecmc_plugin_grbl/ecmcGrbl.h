@@ -50,6 +50,7 @@ class ecmcGrbl : public asynPortDriver {
   int                      setHalt(int halt);
   int                      setResume(int resume);
   int                      setReset(int reset);
+  int                      getBusy();
  private:
   void                     parseConfigStr(char *configStr);
   void                     preExeAxes();
@@ -86,6 +87,7 @@ class ecmcGrbl : public asynPortDriver {
   int                      autoEnableExecuted_;
   int                      grblExeCycles_;  
   double                   timeToNextExeMs_;
+  bool                     writerBusy_;
 };
 
 #endif  /* ECMC_GRBL_H_ */

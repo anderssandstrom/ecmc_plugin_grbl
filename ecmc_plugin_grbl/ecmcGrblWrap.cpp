@@ -92,6 +92,13 @@ int setResume(int resume) {
   return 0;
 }
 
+int getBusy() {
+  if(grbl){
+    return grbl->getBusy();
+  }
+  return 0;
+}
+
 int setReset(int reset) {
   if(grbl){
     return grbl->setReset(reset);
