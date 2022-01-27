@@ -75,8 +75,7 @@ void protocol_main_loop()
   uint8_t c;
   for (;;) {
     // Process one line of incoming serial data, as the data becomes available. Performs an
-    // initial filtering by removing spaces and comments and capitalizing all letters.
-    delay_ms(1);
+    // initial filtering by removing spaces and comments and capitalizing all letters.    
     while((c = serial_read()) != SERIAL_NO_DATA) {
       if ((c == '\n') || (c == '\r')) { // End of line reached
         
@@ -153,7 +152,7 @@ void protocol_main_loop()
       }
       delay_us(100);
     }
-
+    delay_ms(2);
     // If there are no more characters in the serial read buffer to be processed and executed,
     // this indicates that g-code streaming has either filled the planner buffer or has
     // completed. In either case, auto-cycle start, if enabled, any queued moves.
