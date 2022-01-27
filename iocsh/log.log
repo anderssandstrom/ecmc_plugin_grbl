@@ -1,9 +1,9 @@
 registerChannelProviderLocal firstTime true
 #
-# Start at "2022-W04-Jan27-1614-56-CET"
+# Start at "2022-W04-Jan27-1722-31-CET"
 #
 # Version information:
-# European Spallation Source ERIC : iocsh.bash (3.4.0-PID-28403)
+# European Spallation Source ERIC : iocsh.bash (3.4.0-PID-1795)
 #
 # --->--> snip -->--> 
 # Please Use Version and other environment variables
@@ -31,10 +31,10 @@ registerChannelProviderLocal firstTime true
 # --->--> snip -->--> 
 #
 # Set REQUIRE_IOC for its internal PVs
-epicsEnvSet REQUIRE_IOC "REQMOD:raspberrypi-28403"
+epicsEnvSet REQUIRE_IOC "REQMOD:raspberrypi-1795"
 #
 # Enable an exit subroutine for sotfioc
-dbLoadRecords "/home/pi/epics/base-7.0.5/db/softIocExit.db" "IOC=REQMOD:raspberrypi-28403"
+dbLoadRecords "/home/pi/epics/base-7.0.5/db/softIocExit.db" "IOC=REQMOD:raspberrypi-1795"
 #
 # Set E3_IOCSH_TOP for the absolute path where iocsh.bash is executed.
 epicsEnvSet E3_IOCSH_TOP "/home/pi/sources/e3-ecmc_plugin_grbl/ecmc_plugin_grbl-dev/iocsh"
@@ -262,18 +262,18 @@ epicsEnvUnset(ECMC_TRAJ_VELO_FILT_ENABLE)
 epicsEnvUnset(ECMC_TRAJ_SOURCE)
 epicsEnvSet("ECMC_EGU",               "mm")
 epicsEnvSet("ECMC_PREC",              3)
-epicsEnvSet("ECMC_AXISFIELDINIT",     "")                  # Extra field ini2022/01/27 16:14:57.353 
+epicsEnvSet("ECMC_AXISFIELDINIT",     "")                  # Extra field init t2022/01/27 17:22:32.066 
 ECMC Initializes.............
-2022/01/27 16:14:57.353 ESS Open Source EtherCAT Motion Control Epics Module2022/01/27 16:14:57.353 
+2022/01/27 17:22:32.066 ESS Open Source EtherCAT Motion Control Epics Module2022/01/27 17:22:32.067 
 Mode: Configuration
-2022/01/27 16:14:57.353 OK
-2022/01/27 16:14:57.353 OK
-2022/01/27 16:14:57.354 OK
-2022/01/27 16:14:58.066 OK
-2022/01/27 16:14:58.096 OK
-2022/01/27 16:14:58.096 OK
-2022/01/27 16:14:58.098 OK
-t to motor record
+2022/01/27 17:22:32.067 OK
+2022/01/27 17:22:32.067 OK
+2022/01/27 17:22:32.068 OK
+2022/01/27 17:22:32.071 OK
+2022/01/27 17:22:32.091 OK
+2022/01/27 17:22:32.092 OK
+2022/01/27 17:22:32.092 OK
+o motor record
 epicsEnvSet("ECMC_AXISCONFIG",        "")                  # Extra parameters to driver
 ############################################################
 ############# ASYN Configuration:
@@ -345,14 +345,14 @@ epicsEnvSet("HW_DESC",            "EK1100")
 epicsEnvSet("P_SCRIPT",           "mXsXXX")
 # add ${HW_DESC} to the bus at position ${SLAVE_ID}
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEK1100.cmd",1)
-iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEK1100.cmd" 2022/01/27 16:14:58.102 OK
-2022/01/27 16:14:58.104 OK
-2022/01/27 16:14:58.115 OK
-2022/01/27 16:14:58.117 OK
-2022/01/27 16:14:58.117 OK
-2022/01/27 16:14:58.117 OK
-2022/01/27 16:14:58.118 OK
-"NELM=1"
+iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEK1100.cmd" "NE2022/01/27 17:22:32.096 OK
+2022/01/27 17:22:32.097 OK
+2022/01/27 17:22:32.105 OK
+2022/01/27 17:22:32.107 OK
+2022/01/27 17:22:32.108 OK
+2022/01/27 17:22:32.108 OK
+2022/01/27 17:22:32.109 OK
+LM=1"
 epicsEnvSet("ECMC_EC_HWTYPE"             "EK1100")
 epicsEnvSet("ECMC_EC_VENDOR_ID"          "0x2")
 epicsEnvSet("ECMC_EC_PRODUCT_ID"         "0x044c2c52")
@@ -417,18 +417,18 @@ ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a00,0x6000,0x1,B1,bina
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a01,0x6010,0x1,B1,binaryInput02)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a02,0x6020,0x1,B1,binaryInput03)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a03,0x6030,0x1,B1,binaryInput04)"
-ecmcConfigOrDie "Cfg.EcAddEn2022/01/27 16:14:58.118 OK
-2022/01/27 16:14:58.118 OK
-2022/01/27 16:14:58.118 OK
-2022/01/27 16:14:58.118 OK
-2022/01/27 16:14:58.131 OK
-2022/01/27 16:14:58.134 OK
-2022/01/27 16:14:58.134 OK
-2022/01/27 16:14:58.135 OK
-2022/01/27 16:14:58.135 OK
-2022/01/27 16:14:58.135 OK
-2022/01/27 16:14:58.136 OK
-tryDT(1,0x2,0x03fa3052,2,0,0x1a04,0x6040,0x1,B1,binaryInput05)"
+ecmcConfigOrDie "Cfg.EcAddEntry2022/01/27 17:22:32.110 OK
+2022/01/27 17:22:32.111 OK
+2022/01/27 17:22:32.111 OK
+2022/01/27 17:22:32.112 OK
+2022/01/27 17:22:32.122 OK
+2022/01/27 17:22:32.123 OK
+2022/01/27 17:22:32.124 OK
+2022/01/27 17:22:32.124 OK
+2022/01/27 17:22:32.125 OK
+2022/01/27 17:22:32.125 OK
+2022/01/27 17:22:32.126 OK
+DT(1,0x2,0x03fa3052,2,0,0x1a04,0x6040,0x1,B1,binaryInput05)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a05,0x6050,0x1,B1,binaryInput06)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a06,0x6060,0x1,B1,binaryInput07)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a07,0x6070,0x1,B1,binaryInput08)"
@@ -487,17 +487,17 @@ ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1602,0x7020,0x1,B1,bina
 ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1603,0x7030,0x1,B1,binaryOutput04)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1604,0x7040,0x1,B1,binaryOutput05)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1605,0x7050,0x1,B1,binaryOutput06)"
-ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1606,0x7060,0x1,B1,binaryOutp2022/01/27 16:14:58.136 OK
-2022/01/27 16:14:58.136 OK
-2022/01/27 16:14:58.150 OK
-2022/01/27 16:14:58.432 OK
-2022/01/27 16:14:58.512 14385
-2022/01/27 16:14:58.513 OK
-2022/01/27 16:14:58.513 OK
-2022/01/27 16:14:58.513 OK
-2022/01/27 16:14:58.513 OK
-2022/01/27 16:14:58.513 OK
-ut07)"
+ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1606,0x7060,0x1,B1,binaryOutput02022/01/27 17:22:32.127 OK
+2022/01/27 17:22:32.127 OK
+2022/01/27 17:22:32.139 OK
+2022/01/27 17:22:32.222 OK
+2022/01/27 17:22:32.302 14385
+2022/01/27 17:22:32.303 OK
+2022/01/27 17:22:32.304 OK
+2022/01/27 17:22:32.304 OK
+2022/01/27 17:22:32.305 OK
+2022/01/27 17:22:32.305 OK
+7)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1607,0x7070,0x1,B1,binaryOutput08)"
 # deduce what the prefix should be
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd",1)
@@ -560,15 +560,15 @@ ecmcConfigOrDie "Cfg.EcAddEntryComplete(3,0x2,0x13ed3052,2,3,0x1a03,0x6010,0x00,
 ecmcConfigOrDie "Cfg.EcAddEntryComplete(3,0x2,0x13ed3052,2,3,0x1a03,0x6010,0x10,16,positionActual01)"
 ecmcConfigOrDie "Cfg.EcAddEntryComplete(3,0x2,0x13ed3052,2,3,0x1a03,0x6010,0x20,16,encoderLatchPostion01)"
 # deduce what the prefix should be
-ecmcFileExist("/home/pi/epics/base-7.0.5/re2022/01/27 16:14:58.521 OK
-2022/01/27 16:14:58.612 OK
-2022/01/27 16:14:58.722 14385
-2022/01/27 16:14:58.723 OK
-2022/01/27 16:14:58.723 OK
-2022/01/27 16:14:58.723 OK
-2022/01/27 16:14:58.723 OK
-2022/01/27 16:14:58.723 OK
-quire/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd",1)
+ecmcFileExist("/home/pi/epics/base-7.0.5/requi2022/01/27 17:22:32.321 OK
+2022/01/27 17:22:32.402 OK
+2022/01/27 17:22:32.482 14385
+2022/01/27 17:22:32.484 OK
+2022/01/27 17:22:32.484 OK
+2022/01/27 17:22:32.485 OK
+2022/01/27 17:22:32.485 OK
+2022/01/27 17:22:32.485 OK
+re/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd",1)
 iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd" "MASTER_ID=0,SLAVE_POS=3,HWTYPE=EL5101"
 #==============================================================================
 # ecmcmXsXXX.cmd
@@ -628,10 +628,10 @@ ecmcConfigOrDie "Cfg.EcAddEntryComplete(4,0x2,0x13ed3052,2,3,0x1a03,0x6010,0x20,
 # deduce what the prefix should be
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd",1)
 iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd" "MASTER_ID=0,SLAVE_POS=4,HWTYPE=EL5101"
-#=======================================================================2022/01/27 16:14:58.731 OK
-2022/01/27 16:14:58.732 OK
-2022/01/27 16:14:58.733 OK
-=======
+#==========================================================================2022/01/27 17:22:32.500 OK
+2022/01/27 17:22:32.502 OK
+2022/01/27 17:22:32.503 OK
+====
 # ecmcmXsXXX.cmd
 ecmcEpicsEnvSetCalc("sid", "4","%03d")
 ecmcEpicsEnvSetCalc("mid", "0","%01d")
@@ -696,16 +696,16 @@ iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/apply
 ecmcFileExist(ecmcEL9505.substitutions,1,1)
 dbLoadTemplate(ecmcEL9505.substitutions,"ECMC_P=IOC_TEST:m0s005-,ECMC_G=IOC_TEST:m0s005,PORT=MC_CPU1,ADDR=0,TIMEOUT=1,MASTER_ID=0,SLAVE_POS=5,HWTYPE=EL9505,T_SMP_MS=10,TSE=-2,NELM=1")
 epicsEnvUnset(DEFAULT_SUBS)
-ecmcEpicsEnvSetCalcTernary(DEFAULT_SLAVE_PVS, "True", "",2022/01/27 16:14:58.741 OK
-2022/01/27 16:14:58.742 OK
-2022/01/27 16:14:58.742 OK
-2022/01/27 16:14:58.743 OK
-2022/01/27 16:14:58.743 OK
-2022/01/27 16:14:58.743 OK
-2022/01/27 16:14:58.743 OK
-2022/01/27 16:14:58.743 OK
-2022/01/27 16:14:58.743 OK
-"#- ")
+ecmcEpicsEnvSetCalcTernary(DEFAULT_SLAVE_PVS, "True", "","#-2022/01/27 17:22:32.518 OK
+2022/01/27 17:22:32.520 OK
+2022/01/27 17:22:32.521 OK
+2022/01/27 17:22:32.521 OK
+2022/01/27 17:22:32.521 OK
+2022/01/27 17:22:32.521 OK
+2022/01/27 17:22:32.521 OK
+2022/01/27 17:22:32.522 OK
+2022/01/27 17:22:32.522 OK
+ ")
 iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/applyTemplate.cmd" "TEMPLATE_FILE=ecmcEcSlave.template,ECMC_P=IOC_TEST:m0s005-,ECMC_G=IOC_TEST:m0s005"
 #==============================================================================
 # applyTemplate.cmd
@@ -764,22 +764,22 @@ dbLoadTemplate(ecmcEL1252.substitutions,"ECMC_P=IOC_TEST:m0s006-,ECMC_G=IOC_TEST
 epicsEnvUnset(DEFAULT_SUBS)
 ecmcEpicsEnvSetCalcTernary(DEFAULT_SLAVE_PVS, "True", "","#- ")
 iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/applyTemplate.cmd" "TEMPLATE_FILE=ecmcEcSlave.template,ECMC_P=IOC_TEST:m0s006-,ECMC_G=IOC_TEST:m0s006"
-#==================2022/01/27 16:14:58.753 OK
-2022/01/27 16:14:58.892 OK
-2022/01/27 16:14:58.972 12848
-2022/01/27 16:14:58.974 OK
-2022/01/27 16:14:58.974 OK
-2022/01/27 16:14:58.974 OK
-2022/01/27 16:14:58.975 OK
-2022/01/27 16:14:58.975 OK
-2022/01/27 16:14:58.975 OK
-2022/01/27 16:14:58.975 OK
-2022/01/27 16:14:58.976 OK
-2022/01/27 16:14:58.976 OK
-2022/01/27 16:14:58.976 OK
-2022/01/27 16:14:58.976 OK
-2022/01/27 16:14:58.976 OK
-============================================================
+#=====================2022/01/27 17:22:32.538 OK
+2022/01/27 17:22:32.642 OK
+2022/01/27 17:22:32.722 12848
+2022/01/27 17:22:32.724 OK
+2022/01/27 17:22:32.724 OK
+2022/01/27 17:22:32.724 OK
+2022/01/27 17:22:32.725 OK
+2022/01/27 17:22:32.725 OK
+2022/01/27 17:22:32.725 OK
+2022/01/27 17:22:32.725 OK
+2022/01/27 17:22:32.725 OK
+2022/01/27 17:22:32.725 OK
+2022/01/27 17:22:32.725 OK
+2022/01/27 17:22:32.725 OK
+2022/01/27 17:22:32.726 OK
+=========================================================
 # applyTemplate.cmd
 ecmcFileExist(ecmcEcSlave.template,1,1)
 dbLoadRecords("ecmcEcSlave.template", "ECMC_P=IOC_TEST:m0s006-,ECMC_G=IOC_TEST:m0s006,PORT=MC_CPU1,ADDR=0,TIMEOUT=1,MASTER_ID=0,SLAVE_POS=6,HWTYPE=EL1252,T_SMP_MS=10,TSE=-2,")
@@ -842,13 +842,13 @@ ecmcEpicsEnvSetCalc("sid", "8","%03d")
 ecmcEpicsEnvSetCalc("mid", "0","%01d")
 epicsEnvSet("ECMC_G",            "IOC_TEST:m0s008")
 epicsEnvSet("ECMC_P",            "IOC_TEST:m0s008-")
-epicsE2022/01/27 16:14:58.991 OK
-2022/01/27 16:14:58.991 OK
-2022/01/27 16:14:58.991 OK
-2022/01/27 16:14:58.991 OK
-2022/01/27 16:14:58.991 OK
-2022/01/27 16:14:58.993 OK
-nvUnset(sid)
+epicsEnvU2022/01/27 17:22:32.739 OK
+2022/01/27 17:22:32.739 OK
+2022/01/27 17:22:32.739 OK
+2022/01/27 17:22:32.739 OK
+2022/01/27 17:22:32.740 OK
+2022/01/27 17:22:32.740 OK
+nset(sid)
 epicsEnvUnset(mid)
 ecmcEpicsEnvSetCalcTernary(DEFAULT_SUBS, "True", "","#- ")
 iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/applySubstitutions.cmd" "SUBST_FILE=ecmcEL7037.substitutions,ECMC_P=IOC_TEST:m0s008-"
@@ -909,22 +909,22 @@ epicsEnvSet("ECMC_EC_SLAVE_NUM",  "9")
 epicsEnvSet("HW_DESC",            "EL7037")
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/addSlave.cmd",1)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/addSlave.cmd "SLAVE_ID=9, HW_DESC=EL7037, NELM=1"
-#==============================================================2022/01/27 16:14:58.997 OK
-2022/01/27 16:14:59.112 OK
-2022/01/27 16:14:59.192 12848
-2022/01/27 16:14:59.194 OK
-2022/01/27 16:14:59.194 OK
-2022/01/27 16:14:59.194 OK
-2022/01/27 16:14:59.195 OK
-2022/01/27 16:14:59.195 OK
-2022/01/27 16:14:59.195 OK
-2022/01/27 16:14:59.195 OK
-2022/01/27 16:14:59.195 OK
-2022/01/27 16:14:59.196 OK
-2022/01/27 16:14:59.196 OK
-2022/01/27 16:14:59.196 OK
-2022/01/27 16:14:59.196 OK
-================
+#=================================================================2022/01/27 17:22:32.743 OK
+2022/01/27 17:22:32.862 OK
+2022/01/27 17:22:32.942 12848
+2022/01/27 17:22:32.944 OK
+2022/01/27 17:22:32.944 OK
+2022/01/27 17:22:32.944 OK
+2022/01/27 17:22:32.944 OK
+2022/01/27 17:22:32.945 OK
+2022/01/27 17:22:32.945 OK
+2022/01/27 17:22:32.945 OK
+2022/01/27 17:22:32.945 OK
+2022/01/27 17:22:32.945 OK
+2022/01/27 17:22:32.945 OK
+2022/01/27 17:22:32.945 OK
+2022/01/27 17:22:32.945 OK
+=============
 # addSlave.cmd
 epicsEnvSet("ECMC_EC_SLAVE_NUM",  "9")
 epicsEnvSet("HW_DESC",            "EL7037")
@@ -987,22 +987,22 @@ epicsEnvUnset(DEFAULT_SLAVE_PVS)
 # increment SLAVE_ID
 ecmcEpicsEnvSetCalc("SLAVE_ID", "9+1","%d")
 # apply config ${CONFIG} for ${HW_DESC}
-e2022/01/27 16:14:59.209 OK
-2022/01/27 16:14:59.209 OK
-2022/01/27 16:14:59.209 OK
-2022/01/27 16:14:59.209 OK
-2022/01/27 16:14:59.209 OK
-2022/01/27 16:14:59.210 OK
-2022/01/27 16:14:59.210 OK
-2022/01/27 16:14:59.210 OK
-2022/01/27 16:14:59.210 OK
-2022/01/27 16:14:59.211 OK
-2022/01/27 16:14:59.211 OK
-2022/01/27 16:14:59.211 OK
-2022/01/27 16:14:59.211 OK
-2022/01/27 16:14:59.211 OK
-2022/01/27 16:14:59.211 OK
-cmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEL7037-Motor-Nanotec-ST4118L1804-B.cmd",1)
+ecmc2022/01/27 17:22:32.958 OK
+2022/01/27 17:22:32.958 OK
+2022/01/27 17:22:32.958 OK
+2022/01/27 17:22:32.958 OK
+2022/01/27 17:22:32.958 OK
+2022/01/27 17:22:32.958 OK
+2022/01/27 17:22:32.959 OK
+2022/01/27 17:22:32.959 OK
+2022/01/27 17:22:32.959 OK
+2022/01/27 17:22:32.959 OK
+2022/01/27 17:22:32.959 OK
+2022/01/27 17:22:32.959 OK
+2022/01/27 17:22:32.959 OK
+2022/01/27 17:22:32.959 OK
+2022/01/27 17:22:32.959 OK
+FileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEL7037-Motor-Nanotec-ST4118L1804-B.cmd",1)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEL7037-Motor-Nanotec-ST4118L1804-B.cmd ""
 epicsEnvSet(I_MAX_MA_LOCAL,"1500")
 epicsEnvSet(I_RUN_MA_LOCAL,1000)
@@ -1175,46 +1175,46 @@ epicsEnvUnset(ECMC_EXE_CMD)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/verifyOrDie.cmd "EXPR_STR='abs(600.0)<>0',SUCCESS_STR='ECMC_DRV_SCALE_NUM value OK == 600.0...',ERROR_STR='ECMC_DRV_SCALE_NUM == 0...'"
 #==============================================================================
 # verifyOrDie.cmd
-ecmcEpicsEnvSetCalcTe2022/01/27 16:14:59.225 OK
-2022/01/27 16:14:59.225 OK
-2022/01/27 16:14:59.225 OK
-2022/01/27 16:14:59.225 OK
-2022/01/27 16:14:59.228 OK
-2022/01/27 16:14:59.228 OK
-2022/01/27 16:14:59.228 OK
-2022/01/27 16:14:59.229 OK
-2022/01/27 16:14:59.229 OK
-2022/01/27 16:14:59.229 OK
-2022/01/27 16:14:59.229 OK
-2022/01/27 16:14:59.229 OK
-2022/01/27 16:14:59.229 OK
-2022/01/27 16:14:59.229 OK
-2022/01/27 16:14:59.229 OK
-2022/01/27 16:14:59.229 OK
-2022/01/27 16:14:59.229 OK
-2022/01/27 16:14:59.229 OK
-2022/01/27 16:14:59.229 OK
-2022/01/27 16:14:59.230 OK
-2022/01/27 16:14:59.230 OK
-2022/01/27 16:14:59.230 OK
-2022/01/27 16:14:59.230 OK
-2022/01/27 16:14:59.230 OK
-2022/01/27 16:14:59.230 OK
-2022/01/27 16:14:59.230 OK
-2022/01/27 16:14:59.230 OK
-2022/01/27 16:14:59.230 OK
-2022/01/27 16:14:59.230 OK
-2022/01/27 16:14:59.230 OK
-2022/01/27 16:14:59.230 OK
-2022/01/27 16:14:59.231 OK
-2022/01/27 16:14:59.231 OK
-2022/01/27 16:14:59.231 OK
-2022/01/27 16:14:59.231 OK
-2022/01/27 16:14:59.231 OK
-2022/01/27 16:14:59.231 OK
-2022/01/27 16:14:59.231 OK
-2022/01/27 16:14:59.231 OK
-rnary(ECMC_EXE_CMD,"abs(600.0)<>0","# ECMC_DRV_SCALE_NUM value OK == 600.0...", "ecmcExit Error: ECMC_DRV_SCALE_NUM == 0...")
+ecmcEpicsEnvSetCalcTerna2022/01/27 17:22:32.974 OK
+2022/01/27 17:22:32.974 OK
+2022/01/27 17:22:32.975 OK
+2022/01/27 17:22:32.975 OK
+2022/01/27 17:22:32.980 OK
+2022/01/27 17:22:32.980 OK
+2022/01/27 17:22:32.980 OK
+2022/01/27 17:22:32.980 OK
+2022/01/27 17:22:32.980 OK
+2022/01/27 17:22:32.981 OK
+2022/01/27 17:22:32.981 OK
+2022/01/27 17:22:32.981 OK
+2022/01/27 17:22:32.981 OK
+2022/01/27 17:22:32.981 OK
+2022/01/27 17:22:32.981 OK
+2022/01/27 17:22:32.981 OK
+2022/01/27 17:22:32.981 OK
+2022/01/27 17:22:32.981 OK
+2022/01/27 17:22:32.981 OK
+2022/01/27 17:22:32.981 OK
+2022/01/27 17:22:32.982 OK
+2022/01/27 17:22:32.982 OK
+2022/01/27 17:22:32.982 OK
+2022/01/27 17:22:32.982 OK
+2022/01/27 17:22:32.982 OK
+2022/01/27 17:22:32.982 OK
+2022/01/27 17:22:32.982 OK
+2022/01/27 17:22:32.982 OK
+2022/01/27 17:22:32.982 OK
+2022/01/27 17:22:32.983 OK
+2022/01/27 17:22:32.983 OK
+2022/01/27 17:22:32.983 OK
+2022/01/27 17:22:32.983 OK
+2022/01/27 17:22:32.983 OK
+2022/01/27 17:22:32.983 OK
+2022/01/27 17:22:32.983 OK
+2022/01/27 17:22:32.983 OK
+2022/01/27 17:22:32.983 OK
+2022/01/27 17:22:32.983 OK
+ry(ECMC_EXE_CMD,"abs(600.0)<>0","# ECMC_DRV_SCALE_NUM value OK == 600.0...", "ecmcExit Error: ECMC_DRV_SCALE_NUM == 0...")
 # ECMC_DRV_SCALE_NUM value OK == 600.0...
 epicsEnvUnset(ECMC_EXE_CMD)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/verifyOrDie.cmd "EXPR_STR='abs(32768.0)<>0',SUCCESS_STR='ECMC_DRV_SCALE_DENOM value OK == 32768.0...',ERROR_STR='ECMC_DRV_SCALE_DENOM == 0...'"
@@ -1276,45 +1276,45 @@ ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.velocitySetpoint01,"ax1.drv.velo
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(,"ax1.drv.position")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(,"ax1.drv.brake")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveControl01.2,"ax1.drv.reducetorque")"
-ecmcConf2022/01/27 16:14:59.231 OK
-2022/01/27 16:14:59.231 OK
-2022/01/27 16:14:59.231 OK
-2022/01/27 16:14:59.231 OK
-2022/01/27 16:14:59.231 OK
-2022/01/27 16:14:59.232 OK
-2022/01/27 16:14:59.232 OK
-2022/01/27 16:14:59.232 OK
-2022/01/27 16:14:59.232 OK
-2022/01/27 16:14:59.232 OK
-2022/01/27 16:14:59.232 OK
-2022/01/27 16:14:59.232 OK
-2022/01/27 16:14:59.232 OK
-2022/01/27 16:14:59.233 OK
-2022/01/27 16:14:59.233 OK
-2022/01/27 16:14:59.233 OK
-2022/01/27 16:14:59.233 OK
-2022/01/27 16:14:59.233 OK
-2022/01/27 16:14:59.233 OK
-2022/01/27 16:14:59.234 OK
-2022/01/27 16:14:59.234 OK
-2022/01/27 16:14:59.234 OK
-2022/01/27 16:14:59.234 OK
-2022/01/27 16:14:59.234 OK
-2022/01/27 16:14:59.234 OK
-2022/01/27 16:14:59.234 OK
-2022/01/27 16:14:59.234 OK
-2022/01/27 16:14:59.234 OK
-2022/01/27 16:14:59.234 OK
-2022/01/27 16:14:59.235 OK
-2022/01/27 16:14:59.235 OK
-2022/01/27 16:14:59.235 OK
-2022/01/27 16:14:59.235 ecmcMotorRecord:: setIntegerParam(1 motorPowerAutoOnOff_)=2
-2022/01/27 16:14:59.235 ecmcMotorRecord:: setDoubleParam(1 motorPowerOnDelay_)=6
-2022/01/27 16:14:59.235 ecmcMotorRecord:: setDoubleParam(1 motorPowerOffDelay_=-1
-2022/01/27 16:14:59.236 ecmcMotorRecord:: udateMotorLimitsRO(1) enabledHighAndLow=1 valid=1 fValueHigh=130 fValueLow=-20
-2022/01/27 16:14:59.236 ecmcMotorRecord:: connected(1)
-2022/01/27 16:14:59.236 ecmcMotorRecord:: initialPoll(1) status=0
-igOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveControl01.1,"ax1.drv.reset")"
+ecmcConfigO2022/01/27 17:22:32.983 OK
+2022/01/27 17:22:32.983 OK
+2022/01/27 17:22:32.983 OK
+2022/01/27 17:22:32.984 OK
+2022/01/27 17:22:32.984 OK
+2022/01/27 17:22:32.984 OK
+2022/01/27 17:22:32.984 OK
+2022/01/27 17:22:32.984 OK
+2022/01/27 17:22:32.984 OK
+2022/01/27 17:22:32.984 OK
+2022/01/27 17:22:32.984 OK
+2022/01/27 17:22:32.984 OK
+2022/01/27 17:22:32.984 OK
+2022/01/27 17:22:32.985 OK
+2022/01/27 17:22:32.985 OK
+2022/01/27 17:22:32.985 OK
+2022/01/27 17:22:32.985 OK
+2022/01/27 17:22:32.985 OK
+2022/01/27 17:22:32.985 OK
+2022/01/27 17:22:32.985 OK
+2022/01/27 17:22:32.985 OK
+2022/01/27 17:22:32.985 OK
+2022/01/27 17:22:32.985 OK
+2022/01/27 17:22:32.985 OK
+2022/01/27 17:22:32.986 OK
+2022/01/27 17:22:32.986 OK
+2022/01/27 17:22:32.986 OK
+2022/01/27 17:22:32.986 OK
+2022/01/27 17:22:32.986 OK
+2022/01/27 17:22:32.986 OK
+2022/01/27 17:22:32.986 OK
+2022/01/27 17:22:32.986 OK
+2022/01/27 17:22:32.987 ecmcMotorRecord:: setIntegerParam(1 motorPowerAutoOnOff_)=2
+2022/01/27 17:22:32.987 ecmcMotorRecord:: setDoubleParam(1 motorPowerOnDelay_)=6
+2022/01/27 17:22:32.987 ecmcMotorRecord:: setDoubleParam(1 motorPowerOffDelay_=-1
+2022/01/27 17:22:32.987 ecmcMotorRecord:: udateMotorLimitsRO(1) enabledHighAndLow=1 valid=1 fValueHigh=130 fValueLow=-20
+2022/01/27 17:22:32.988 ecmcMotorRecord:: connected(1)
+2022/01/27 17:22:32.988 ecmcMotorRecord:: initialPoll(1) status=0
+rDie "Cfg.LinkEcEntryToObject(ec0.s8.driveControl01.1,"ax1.drv.reset")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveStatus01.3,"ax1.drv.alarm0")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveStatus01.7,"ax1.drv.alarm1")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveStatus01.14,"ax1.drv.alarm2")"
@@ -1381,10 +1381,10 @@ epicsEnvUnset(ECMC_EC_AXIS_HEALTH)
 epicsEnvUnset(ECMC_MOD_RANGE)
 epicsEnvUnset(ECMC_MOD_TYPE)
 epicsEnvUnset(ECMC_EMERG_DECEL)
-epicsEnvUnset(ECMC_VELO)macLib: macro ECMC_EXE_CMD is undefined (expanding string ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD, "'${ECMC_MODE=FULL}'='DAQ'","ecmcExit Error: ECMC started in DAQ mode. Motion not supported..","#-")${ECMC_EXE_CMD})
+epicsEnvUnset(ECMC_VELO)
+epmacLib: macro ECMC_EXE_CMD is undefined (expanding string ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD, "'${ECMC_MODE=FULL}'='DAQ'","ecmcExit Error: ECMC started in DAQ mode. Motion not supported..","#-")${ECMC_EXE_CMD})
 macLib: macro ECMC_EXE_CMD is undefined (expanding string ${ECMC_EXE_CMD})
-
-epicsEnvUnset(ECMC_ACCL)
+icsEnvUnset(ECMC_ACCL)
 epicsEnvUnset(ECMC_ACCS_EGU_PER_S2)
 epicsEnvUnset(ECMC_HOME_VEL_TO)
 epicsEnvUnset(ECMC_HOME_VEL_FRM)
@@ -1482,25 +1482,25 @@ epicsEnvSet("ECMC_AXIS_EXPR_LINE_2",           "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_3",           "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_4",           "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_5",           "")
-epicsEnvSet("ECMC_AXIS_EXPR_LINE_6",           2022/01/27 16:14:59.255 OK
-2022/01/27 16:14:59.255 OK
-2022/01/27 16:14:59.255 OK
-2022/01/27 16:14:59.255 OK
-2022/01/27 16:14:59.255 OK
-2022/01/27 16:14:59.255 OK
-2022/01/27 16:14:59.256 OK
-2022/01/27 16:14:59.256 OK
-2022/01/27 16:14:59.256 OK
-2022/01/27 16:14:59.256 OK
-2022/01/27 16:14:59.256 OK
-2022/01/27 16:14:59.256 OK
-2022/01/27 16:14:59.256 OK
-2022/01/27 16:14:59.259 OK
-2022/01/27 16:14:59.259 OK
-2022/01/27 16:14:59.261 OK
-2022/01/27 16:14:59.261 OK
-2022/01/27 16:14:59.261 OK
-"")
+epicsEnvSet("ECMC_AXIS_EXPR_LINE_6",           "")2022/01/27 17:22:33.000 OK
+2022/01/27 17:22:33.000 OK
+2022/01/27 17:22:33.000 OK
+2022/01/27 17:22:33.000 OK
+2022/01/27 17:22:33.001 OK
+2022/01/27 17:22:33.001 OK
+2022/01/27 17:22:33.001 OK
+2022/01/27 17:22:33.001 OK
+2022/01/27 17:22:33.001 OK
+2022/01/27 17:22:33.001 OK
+2022/01/27 17:22:33.001 OK
+2022/01/27 17:22:33.001 OK
+2022/01/27 17:22:33.001 OK
+2022/01/27 17:22:33.001 OK
+2022/01/27 17:22:33.001 OK
+2022/01/27 17:22:33.002 OK
+2022/01/27 17:22:33.002 OK
+2022/01/27 17:22:33.002 OK
+
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_7",           "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_8",           "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_9",           "")
@@ -1680,54 +1680,54 @@ epicsEnvUnset(ECMC_EXE_CMD)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/verifyOrDie.cmd "EXPR_STR='abs(32768.0)<>0',SUCCESS_STR='ECMC_DRV_SCALE_DENOM value OK == 32768.0...',ERROR_STR='ECMC_DRV_SCALE_DENOM == 0...'"
 #==============================================================================
 # verifyOrDie.cmd
-ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD,"abs(32768.0)<>0","# ECMC_DRV_SCALE_DENOM value2022/01/27 16:14:59.283 OK
-2022/01/27 16:14:59.283 OK
-2022/01/27 16:14:59.283 OK
-2022/01/27 16:14:59.283 OK
-2022/01/27 16:14:59.288 OK
-2022/01/27 16:14:59.289 OK
-2022/01/27 16:14:59.289 OK
-2022/01/27 16:14:59.289 OK
-2022/01/27 16:14:59.289 OK
-2022/01/27 16:14:59.289 OK
-2022/01/27 16:14:59.289 OK
-2022/01/27 16:14:59.290 OK
-2022/01/27 16:14:59.290 OK
-2022/01/27 16:14:59.290 OK
-2022/01/27 16:14:59.290 OK
-2022/01/27 16:14:59.290 OK
-2022/01/27 16:14:59.291 OK
-2022/01/27 16:14:59.291 OK
-2022/01/27 16:14:59.291 OK
-2022/01/27 16:14:59.291 OK
-2022/01/27 16:14:59.291 OK
-2022/01/27 16:14:59.291 OK
-2022/01/27 16:14:59.291 OK
-2022/01/27 16:14:59.292 OK
-2022/01/27 16:14:59.292 OK
-2022/01/27 16:14:59.292 OK
-2022/01/27 16:14:59.293 OK
-2022/01/27 16:14:59.293 OK
-2022/01/27 16:14:59.293 OK
-2022/01/27 16:14:59.293 OK
-2022/01/27 16:14:59.293 OK
-2022/01/27 16:14:59.293 OK
-2022/01/27 16:14:59.293 OK
-2022/01/27 16:14:59.293 OK
-2022/01/27 16:14:59.294 OK
-2022/01/27 16:14:59.294 OK
-2022/01/27 16:14:59.294 OK
-2022/01/27 16:14:59.294 OK
-2022/01/27 16:14:59.295 OK
-2022/01/27 16:14:59.295 OK
-2022/01/27 16:14:59.297 OK
-2022/01/27 16:14:59.297 OK
-2022/01/27 16:14:59.298 OK
-2022/01/27 16:14:59.298 OK
-2022/01/27 16:14:59.298 OK
-2022/01/27 16:14:59.298 OK
-2022/01/27 16:14:59.298 OK
- OK == 32768.0...", "ecmcExit Error: ECMC_DRV_SCALE_DENOM == 0...")
+ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD,"abs(32768.0)<>0","# ECMC_DRV_SCALE_DENOM value OK2022/01/27 17:22:33.017 OK
+2022/01/27 17:22:33.017 OK
+2022/01/27 17:22:33.017 OK
+2022/01/27 17:22:33.017 OK
+2022/01/27 17:22:33.022 OK
+2022/01/27 17:22:33.022 OK
+2022/01/27 17:22:33.022 OK
+2022/01/27 17:22:33.022 OK
+2022/01/27 17:22:33.023 OK
+2022/01/27 17:22:33.024 OK
+2022/01/27 17:22:33.024 OK
+2022/01/27 17:22:33.024 OK
+2022/01/27 17:22:33.024 OK
+2022/01/27 17:22:33.025 OK
+2022/01/27 17:22:33.025 OK
+2022/01/27 17:22:33.025 OK
+2022/01/27 17:22:33.025 OK
+2022/01/27 17:22:33.025 OK
+2022/01/27 17:22:33.025 OK
+2022/01/27 17:22:33.025 OK
+2022/01/27 17:22:33.025 OK
+2022/01/27 17:22:33.025 OK
+2022/01/27 17:22:33.026 OK
+2022/01/27 17:22:33.026 OK
+2022/01/27 17:22:33.026 OK
+2022/01/27 17:22:33.026 OK
+2022/01/27 17:22:33.026 OK
+2022/01/27 17:22:33.026 OK
+2022/01/27 17:22:33.026 OK
+2022/01/27 17:22:33.026 OK
+2022/01/27 17:22:33.026 OK
+2022/01/27 17:22:33.026 OK
+2022/01/27 17:22:33.026 OK
+2022/01/27 17:22:33.026 OK
+2022/01/27 17:22:33.026 OK
+2022/01/27 17:22:33.027 OK
+2022/01/27 17:22:33.027 OK
+2022/01/27 17:22:33.027 OK
+2022/01/27 17:22:33.027 OK
+2022/01/27 17:22:33.027 OK
+2022/01/27 17:22:33.027 OK
+2022/01/27 17:22:33.027 OK
+2022/01/27 17:22:33.027 OK
+2022/01/27 17:22:33.027 OK
+2022/01/27 17:22:33.027 OK
+2022/01/27 17:22:33.027 OK
+2022/01/27 17:22:33.027 OK
+ == 32768.0...", "ecmcExit Error: ECMC_DRV_SCALE_DENOM == 0...")
 # ECMC_DRV_SCALE_DENOM value OK == 32768.0...
 epicsEnvUnset(ECMC_EXE_CMD)
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/issueWarning.cmd",1)
@@ -1791,37 +1791,37 @@ ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s9.driveStatus01.2,"ax2.drv.warning
 ecmcConfigOrDie "Cfg.SetAxisDrvScaleDenom(2,32768.0)"
 ecmcConfigOrDie "Cfg.SetAxisDrvScaleNum(2,-600.0)"
 ecmcConfigOrDie "Cfg.SetAxisDrvBrakeOpenDelayTime(2,0)"
-ecmcConfigOrDie "Cfg.SetAxisDrvBr2022/01/27 16:14:59.298 OK
-2022/01/27 16:14:59.299 OK
-2022/01/27 16:14:59.299 OK
-2022/01/27 16:14:59.299 OK
-2022/01/27 16:14:59.299 OK
-2022/01/27 16:14:59.299 OK
-2022/01/27 16:14:59.299 OK
-2022/01/27 16:14:59.299 OK
-2022/01/27 16:14:59.300 OK
-2022/01/27 16:14:59.300 OK
-2022/01/27 16:14:59.300 OK
-2022/01/27 16:14:59.300 OK
-2022/01/27 16:14:59.300 OK
-2022/01/27 16:14:59.300 OK
-2022/01/27 16:14:59.301 OK
-2022/01/27 16:14:59.301 OK
-2022/01/27 16:14:59.301 OK
-2022/01/27 16:14:59.301 OK
-2022/01/27 16:14:59.301 OK
-2022/01/27 16:14:59.301 OK
-2022/01/27 16:14:59.301 OK
-2022/01/27 16:14:59.302 OK
-2022/01/27 16:14:59.302 OK
-2022/01/27 16:14:59.302 OK
-2022/01/27 16:14:59.303 ecmcMotorRecord:: setIntegerParam(2 motorPowerAutoOnOff_)=2
-2022/01/27 16:14:59.303 ecmcMotorRecord:: setDoubleParam(2 motorPowerOnDelay_)=6
-2022/01/27 16:14:59.303 ecmcMotorRecord:: setDoubleParam(2 motorPowerOffDelay_=-1
-2022/01/27 16:14:59.303 ecmcMotorRecord:: udateMotorLimitsRO(2) enabledHighAndLow=1 valid=1 fValueHigh=20 fValueLow=-130
-2022/01/27 16:14:59.303 ecmcMotorRecord:: connected(2)
-2022/01/27 16:14:59.303 ecmcMotorRecord:: initialPoll(2) status=0
-akeCloseAheadTime(2,0)"
+ecmcConfigOrDie "Cfg.SetAxisDrvBrake2022/01/27 17:22:33.028 OK
+2022/01/27 17:22:33.028 OK
+2022/01/27 17:22:33.028 OK
+2022/01/27 17:22:33.028 OK
+2022/01/27 17:22:33.028 OK
+2022/01/27 17:22:33.028 OK
+2022/01/27 17:22:33.028 OK
+2022/01/27 17:22:33.028 OK
+2022/01/27 17:22:33.028 OK
+2022/01/27 17:22:33.028 OK
+2022/01/27 17:22:33.028 OK
+2022/01/27 17:22:33.028 OK
+2022/01/27 17:22:33.029 OK
+2022/01/27 17:22:33.029 OK
+2022/01/27 17:22:33.029 OK
+2022/01/27 17:22:33.029 OK
+2022/01/27 17:22:33.029 OK
+2022/01/27 17:22:33.029 OK
+2022/01/27 17:22:33.029 OK
+2022/01/27 17:22:33.029 OK
+2022/01/27 17:22:33.029 OK
+2022/01/27 17:22:33.029 OK
+2022/01/27 17:22:33.029 OK
+2022/01/27 17:22:33.030 OK
+2022/01/27 17:22:33.030 ecmcMotorRecord:: setIntegerParam(2 motorPowerAutoOnOff_)=2
+2022/01/27 17:22:33.030 ecmcMotorRecord:: setDoubleParam(2 motorPowerOnDelay_)=6
+2022/01/27 17:22:33.030 ecmcMotorRecord:: setDoubleParam(2 motorPowerOffDelay_=-1
+2022/01/27 17:22:33.031 ecmcMotorRecord:: udateMotorLimitsRO(2) enabledHighAndLow=1 valid=1 fValueHigh=20 fValueLow=-130
+2022/01/27 17:22:33.031 ecmcMotorRecord:: connected(2)
+2022/01/27 17:22:33.031 ecmcMotorRecord:: initialPoll(2) status=0
+CloseAheadTime(2,0)"
 ecmcConfigOrDie "Cfg.SetAxisSoftLimitPosBwd(2,-130)"
 ecmcConfigOrDie "Cfg.SetAxisEnableSoftLimitBwd(2,1)"
 ecmcConfigOrDie "Cfg.SetAxisSoftLimitPosFwd(2,20)"
@@ -1899,11 +1899,11 @@ epicsEnvUnset(ECMC_ENC_SCALE_NUM)
 epicsEnvUnset(ECMC_ENC_TYPE)
 epicsEnvUnset(ECMC_ENC_BITS)
 epicsEnvUnset(ECMC_ENC_ABS_BITS)
-epicmacLib: macro ECMC_EXE_CMD is undefined (expanding string ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD, "'${ECMC_MODE=FULL}'='DAQ'","ecmcExit Error: ECMC started in DAQ mode. Motion not supported..","#-")${ECMC_EXE_CMD})
+epicsEnmacLib: macro ECMC_EXE_CMD is undefined (expanding string ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD, "'${ECMC_MODE=FULL}'='DAQ'","ecmcExit Error: ECMC started in DAQ mode. Motion not supported..","#-")${ECMC_EXE_CMD})
 macLib: macro ECMC_EXE_CMD is undefined (expanding string ${ECMC_EXE_CMD})
-2022/01/27 16:14:59.324 OK
-2022/01/27 16:14:59.324 OK
-sEnvUnset(ECMC_ENC_ABS_OFFSET)
+2022/01/27 17:22:33.044 OK
+2022/01/27 17:22:33.044 OK
+vUnset(ECMC_ENC_ABS_OFFSET)
 epicsEnvUnset(ECMC_ENC_VEL_FILTER_SIZE)
 epicsEnvUnset(ECMC_ENC_POS_FILTER_SIZE)
 epicsEnvUnset(ECMC_ENC_POS_FILTER_ENABLE)
@@ -1994,23 +1994,23 @@ iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmc_a
 # ecmc_axis_sync.cmd
 ecmcConfigOrDie "Cfg.SetAxisAllowCommandsFromPLC(2,1)"
 ecmcConfigOrDie "Cfg.SetAxisPLCEnable(2,0)"
-e2022/01/27 16:14:59.324 OK
-2022/01/27 16:14:59.325 OK
-2022/01/27 16:14:59.325 OK
-2022/01/27 16:14:59.325 OK
-2022/01/27 16:14:59.325 OK
-2022/01/27 16:14:59.325 OK
-2022/01/27 16:14:59.325 OK
-2022/01/27 16:14:59.325 OK
-2022/01/27 16:14:59.325 OK
-2022/01/27 16:14:59.326 OK
-2022/01/27 16:14:59.326 OK
-2022/01/27 16:14:59.326 OK
-2022/01/27 16:14:59.326 OK
-2022/01/27 16:14:59.326 OK
-2022/01/27 16:14:59.326 OK
-2022/01/27 16:14:59.326 OK
-cmcConfigOrDie "Cfg.AppendAxisPLCExpr(2)=var a:=1|"
+ecmc2022/01/27 17:22:33.044 OK
+2022/01/27 17:22:33.044 OK
+2022/01/27 17:22:33.044 OK
+2022/01/27 17:22:33.044 OK
+2022/01/27 17:22:33.044 OK
+2022/01/27 17:22:33.044 OK
+2022/01/27 17:22:33.045 OK
+2022/01/27 17:22:33.045 OK
+2022/01/27 17:22:33.045 OK
+2022/01/27 17:22:33.045 OK
+2022/01/27 17:22:33.045 OK
+2022/01/27 17:22:33.045 OK
+2022/01/27 17:22:33.045 OK
+2022/01/27 17:22:33.045 OK
+2022/01/27 17:22:33.045 OK
+2022/01/27 17:22:33.046 OK
+ConfigOrDie "Cfg.AppendAxisPLCExpr(2)=var a:=1|"
 ecmcConfigOrDie "Cfg.AppendAxisPLCExpr(2)="
 ecmcConfigOrDie "Cfg.AppendAxisPLCExpr(2)="
 ecmcConfigOrDie "Cfg.AppendAxisPLCExpr(2)="
@@ -2078,9 +2078,9 @@ ecmcConfigOrDie "Cfg.LoadPlugin(0,/home/pi/epics/base-7.0.5/require/3.4.0/siteMo
 ../grbl/grbl_gcode.c:gc_init:44:
 ../grbl/grbl_eeprom.c:memcpy_from_eeprom_with_checksum:215 EEPROM simulated by file..
 ../grbl/grbl_spindle_control.c:spindle_init:31 Not supported yet..
-../grbl/grbl_coolant_control.c:coolan2022/01/27 16:14:59.538 OK
-2022/01/27 16:14:59.539 OK
-t_init:25 Not supported yet..
+../grbl/grbl_coolant_control.c:coolant_i2022/01/27 17:22:33.259 OK
+2022/01/27 17:22:33.260 OK
+nit:25 Not supported yet..
 ../grbl/grbl_limits.c:limits_init:44 Not supported yet..
 ../grbl/grbl_probe.c:probe_init:31 Not supported yet..
 ../grbl/grbl_stepper.c:st_reset:572:
@@ -2122,7 +2122,7 @@ Plugin info:
   Exit realtime func   = @0xb4e1d978
   Realtime func        = @0xb4e1d9a8
   Destruct func        = @0xb4e1d980
-  dlhandle             = @0x18b01a8
+  dlhandle             = @0x5fb908
   Plc functions:
     funcs[00]:
       Name       = "grbl_set_execute(arg0);"
@@ -2169,61 +2169,1806 @@ ecmcGrblAddCommand("G1X0Y0F360");
 #ecmcGrblAddCommand("G4P1");
 #ecmcGrblAddCommand("G1X50Y50F180");
 #ecmcGrblAddCommand("G1X0Y0");
-##################################################################2022/01/27 16:14:59.539 OK
-2022/01/27 16:14:59.539 OK
-2022/01/27 16:14:59.540 OK
-2022/01/27 16:14:59.540 OK
-2022/01/27 16:14:59.540 OK
-2022/01/27 16:14:59.540 OK
-2022/01/27 16:14:59.546 INFO: Locking memory
-2022/01/27 16:14:59.645 ../devEcmcSup/motion/ecmcMonitor.cpp/checkLimits:501: ERROR_MON_BOTH_LIMIT_INTERLOCK (0x14c10).
-2022/01/27 16:14:59.646 ../devEcmcSup/motion/ecmcAxisReal.cpp/execute:185: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315).
-2022/01/27 16:14:59.646 ../devEcmcSup/motion/ecmcMonitor.cpp/checkLimits:501: ERROR_MON_BOTH_LIMIT_INTERLOCK (0x14c10).
-2022/01/27 16:14:59.646 ../devEcmcSup/motion/ecmcAxisReal.cpp/execute:185: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 0: Not operational (0x24011).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 1: Not operational (0x24011).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 2: Not operational (0x24011).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 3: Not operational (0x24011).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 4: Not operational (0x24011).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 5: Not operational (0x24011).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 6: Not operational (0x24011).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 8: Not operational (0x24011).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 9: Not operational (0x24011).
-2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 16:14:59.704 Starting up EtherCAT bus: 0 second(s). Max wait time 30 second(s).
-2022/01/27 16:14:59.753 ecmcMotorRecord:: poll(1) homed=1
-2022/01/27 16:14:59.753 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000119
-2022/01/27 16:14:59.753 ecmcMotorRecord:: poll(1) bError=1 drvlocal.statusBinData.onChangeData.error=0x14315
-2022/01/27 16:14:59.753 ecmcMotorRecord:: sErrorMessage(1)="ERROR_AXIS_HARDWARE_STATUS_NOT_OK"
-2022/01/27 16:14:59.753 ecmcMotorRecord:: poll(1) callParamCallbacksUpdateError Error=1 old=-1 ErrID=0x14315 old=0x0 Warn=0 nCmd=0 old=0 txt=E: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315)
-2022/01/27 16:14:59.754 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000026
-2022/01/27 16:14:59.754 ecmcMotorRecord:: poll(2) bError=1 drvlocal.statusBinData.onChangeData.error=0x14315
-2022/01/27 16:14:59.754 ecmcMotorRecord:: sErrorMessage(2)="ERROR_AXIS_HARDWARE_STATUS_NOT_OK"
-2022/01/27 16:14:59.754 ecmcMotorRecord:: poll(2) callParamCallbacksUpdateError Error=1 old=-1 ErrID=0x14315 old=0x0 Warn=0 nCmd=0 old=0 txt=E: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315)
-2022/01/27 16:14:59.954 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000063
-2022/01/27 16:14:59.954 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000006
-2022/01/27 16:15:00.155 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000021
-2022/01/27 16:15:00.155 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000018
-2022/01/27 16:15:00.355 ecmcMotorRecord:: poll(1) LLS=0
-2022/01/27 16:15:00.355 ecmcMotorRecord:: poll(1) HLS=0
-2022/01/27 16:15:00.355 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000082
-2022/01/27 16:15:00.355 ecmcMotorRecord:: poll(2) LLS=0
-2022/01/27 16:15:00.355 ecmcMotorRecord:: poll(2) HLS=0
-2022/01/27 16:15:00.355 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000071
-2022/01/27 16:15:00.555 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000012
-2022/01/27 16:15:00.555 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63758 fPos=0 fActPosition=-53.31 time=0.000008
-2022/01/27 16:15:00.705 Starting up EtherCAT bus: 1 second(s). Max wait time 30 second(s).
-2022/01/27 16:15:00.750 ../devEcmcSup/motion/ecmcDriveBase.cpp/readEntries:328: WARNING (axis 1): Drive hardware in warning state.
-2022/01/27 16:15:00.755 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000011
-2022/01/27 16:15:00.755 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63758 fPos=0 fActPosition=-53.31 time=0.000008
-2022/01/27 16:15:00.956 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000009
-2022/01/27 16:15:00.956 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63758 fPos=0 fActPosition=-53.31 time=0.000005
-2022/01/27 16:15:01.053 ../devEcmcSup/motion/ecmcDriveBase.cpp/readEntries:328: WARNING (axis 2): Drive hardware in warning state.
+######################################################################
+#
+# Test of GRBL plugin for g-code parsing
+#  
+
+println('GRBL busy:', grbl_get_busy());
+
+if(not(grbl_get_busy())) {
+  println('Retrigger g-code!!');
+  grbl_set_execute(0);
+  grbl_set_execute(1);  
+};
+2022/01/27 17:22:33.291 OK
+2022/01/27 17:22:33.291 OK
+2022/01/27 17:22:33.302 OK
+2022/01/27 17:22:33.302 OK
+2022/01/27 17:22:33.302 OK
+2022/01/27 17:22:33.302 OK
+2022/01/27 17:22:33.302 OK
+2022/01/27 17:22:33.302 OK
+2022/01/27 17:22:33.308 INFO: Locking memory
+2022/01/27 17:22:33.408 ../devEcmcSup/motion/ecmcMonitor.cpp/checkLimits:501: ERROR_MON_BOTH_LIMIT_INTERLOCK (0x14c10).
+2022/01/27 17:22:33.408 ../devEcmcSup/motion/ecmcAxisReal.cpp/execute:185: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315).
+2022/01/27 17:22:33.408 ../devEcmcSup/motion/ecmcMonitor.cpp/checkLimits:501: ERROR_MON_BOTH_LIMIT_INTERLOCK (0x14c10).
+2022/01/27 17:22:33.408 ../devEcmcSup/motion/ecmcAxisReal.cpp/execute:185: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315).
+2022/01/27 17:22:33.408 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 0: Not operational (0x24011).
+2022/01/27 17:22:33.409 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 17:22:33.409 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 1: Not operational (0x24011).
+2022/01/27 17:22:33.409 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 17:22:33.409 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 2: Not operational (0x24011).
+2022/01/27 17:22:33.409 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 17:22:33.409 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 3: Not operational (0x24011).
+2022/01/27 17:22:33.409 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 17:22:33.409 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 4: Not operational (0x24011).
+2022/01/27 17:22:33.409 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 17:22:33.409 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 5: Not operational (0x24011).
+2022/01/27 17:22:33.409 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 17:22:33.409 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 6: Not operational (0x24011).
+2022/01/27 17:22:33.409 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 17:22:33.409 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 8: Not operational (0x24011).
+2022/01/27 17:22:33.409 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 17:22:33.409 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 9: Not operational (0x24011).
+2022/01/27 17:22:33.409 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 17:22:33.438 Starting up EtherCAT bus: 0 second(s). Max wait time 30 second(s).
+2022/01/27 17:22:33.466 ecmcMotorRecord:: poll(1) homed=1
+2022/01/27 17:22:33.466 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000109
+2022/01/27 17:22:33.466 ecmcMotorRecord:: poll(1) bError=1 drvlocal.statusBinData.onChangeData.error=0x14315
+2022/01/27 17:22:33.466 ecmcMotorRecord:: sErrorMessage(1)="ERROR_AXIS_HARDWARE_STATUS_NOT_OK"
+2022/01/27 17:22:33.466 ecmcMotorRecord:: poll(1) callParamCallbacksUpdateError Error=1 old=-1 ErrID=0x14315 old=0x0 Warn=0 nCmd=0 old=0 txt=E: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315)
+2022/01/27 17:22:33.467 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000008
+2022/01/27 17:22:33.467 ecmcMotorRecord:: poll(2) bError=1 drvlocal.statusBinData.onChangeData.error=0x14315
+2022/01/27 17:22:33.467 ecmcMotorRecord:: sErrorMessage(2)="ERROR_AXIS_HARDWARE_STATUS_NOT_OK"
+2022/01/27 17:22:33.467 ecmcMotorRecord:: poll(2) callParamCallbacksUpdateError Error=1 old=-1 ErrID=0x14315 old=0x0 Warn=0 nCmd=0 old=0 txt=E: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315)
+2022/01/27 17:22:33.667 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000013
+2022/01/27 17:22:33.667 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000103
+2022/01/27 17:22:33.867 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000016
+2022/01/27 17:22:33.868 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000008
+2022/01/27 17:22:34.068 ecmcMotorRecord:: poll(1) LLS=0
+2022/01/27 17:22:34.068 ecmcMotorRecord:: poll(1) HLS=0
+2022/01/27 17:22:34.068 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000091
+2022/01/27 17:22:34.068 ecmcMotorRecord:: poll(2) LLS=0
+2022/01/27 17:22:34.068 ecmcMotorRecord:: poll(2) HLS=0
+2022/01/27 17:22:34.068 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000038
+2022/01/27 17:22:34.268 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000012
+2022/01/27 17:22:34.268 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=-65.22 time=0.000007
+2022/01/27 17:22:34.438 Starting up EtherCAT bus: 1 second(s). Max wait time 30 second(s).
+2022/01/27 17:22:34.468 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000013
+2022/01/27 17:22:34.468 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=-65.22 time=0.000042
+2022/01/27 17:22:34.496 ../devEcmcSup/motion/ecmcDriveBase.cpp/readEntries:328: WARNING (axis 1): Drive hardware in warning state.
+2022/01/27 17:22:34.668 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000012
+2022/01/27 17:22:34.668 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=-65.22 time=0.000006
+2022/01/27 17:22:34.765 ../devEcmcSup/motion/ecmcDriveBase.cpp/readEntries:328: WARNING (axis 2): Drive hardware in warning state.
+2022/01/27 17:22:34.869 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000012
+2022/01/27 17:22:34.869 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=-65.22 time=0.000006
+2022/01/27 17:22:34.912 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
+2022/01/27 17:22:34.912 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
+2022/01/27 17:22:34.912 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
+2022/01/27 17:22:34.912 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
+2022/01/27 17:22:34.912 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
+2022/01/27 17:22:35.069 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000012
+2022/01/27 17:22:35.069 ecmcMotorRecord:: poll(1) bError=0 drvlocal.statusBinData.onChangeData.error=0x0
+2022/01/27 17:22:35.069 ecmcMotorRecord:: poll(1) callParamCallbacksUpdateError Error=0 old=1 ErrID=0x0 old=0x14315 Warn=0 nCmd=0 old=0 txt=NULL
+2022/01/27 17:22:35.069 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000006
+2022/01/27 17:22:35.069 ecmcMotorRecord:: poll(2) bError=0 drvlocal.statusBinData.onChangeData.error=0x0
+2022/01/27 17:22:35.069 ecmcMotorRecord:: poll(2) callParamCallbacksUpdateError Error=4 old=1 ErrID=0x0 old=0x14315 Warn=0 nCmd=0 old=0 txt=NULL
+2022/01/27 17:22:35.269 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000012
+2022/01/27 17:22:35.269 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000067
+2022/01/27 17:22:35.469 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000021
+2022/01/27 17:22:35.470 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000011
+2022/01/27 17:22:35.670 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000015
+2022/01/27 17:22:35.670 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000007
+2022/01/27 17:22:35.870 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000031
+2022/01/27 17:22:35.870 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000012
+2022/01/27 17:22:36.070 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000012
+2022/01/27 17:22:36.070 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000006
+2022/01/27 17:22:36.270 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000013
+2022/01/27 17:22:36.271 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000006
+2022/01/27 17:22:36.438 EtherCAT bus started!
+2022/01/27 17:22:36.439 OK
+2022/01/27 17:22:36.439 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAtIocBuild (0). Allow callbacks: true.
+Starting iocInit
+2022/01/27 17:22:36.439 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAtBeginning (1). Allow callbacks: true.
+2022/01/27 17:22:36.454 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterCallbackInit (2). Allow callbacks: true.
+2022/01/27 17:22:36.460 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterCaLinkInit (3). Allow callbacks: true.
+2022/01/27 17:22:36.460 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterInitDrvSup (4). Allow callbacks: true.
+2022/01/27 17:22:36.460 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterInitRecSup (5). Allow callbacks: true.
+2022/01/27 17:22:36.464 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterInitDevSup (6). Allow callbacks: true.
+2022/01/27 17:22:36.469 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s3.positionActual01 linked to record (asyn reason 1).
+2022/01/27 17:22:36.469 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s3.encoderLatchPostion01 linked to record (asyn reason 2).
+2022/01/27 17:22:36.469 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s3.encoderControl01 linked to record (asyn reason 3).
+2022/01/27 17:22:36.470 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s3.encoderValue01 linked to record (asyn reason 4).
+2022/01/27 17:22:36.470 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s4.positionActual01 linked to record (asyn reason 5).
+2022/01/27 17:22:36.471 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s4.encoderLatchPostion01 linked to record (asyn reason 6).
+2022/01/27 17:22:36.471 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000013
+2022/01/27 17:22:36.471 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000006
+2022/01/27 17:22:36.471 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s4.encoderControl01 linked to record (asyn reason 7).
+2022/01/27 17:22:36.471 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s4.encoderValue01 linked to record (asyn reason 8).
+2022/01/27 17:22:36.472 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.timestampLatchPositive01 linked to record (asyn reason 9).
+2022/01/27 17:22:36.472 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.timestampLatchNegative01 linked to record (asyn reason 10).
+2022/01/27 17:22:36.472 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.timestampLatchPositive02 linked to record (asyn reason 11).
+2022/01/27 17:22:36.473 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.timestampLatchNegative02 linked to record (asyn reason 12).
+2022/01/27 17:22:36.473 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.driveControl01 linked to record (asyn reason 13).
+2022/01/27 17:22:36.473 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.velocitySetpoint01 linked to record (asyn reason 14).
+2022/01/27 17:22:36.474 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.positionActual01 linked to record (asyn reason 15).
+2022/01/27 17:22:36.475 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.encoderLatchPostion01 linked to record (asyn reason 16).
+2022/01/27 17:22:36.475 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.encoderControl01 linked to record (asyn reason 17).
+2022/01/27 17:22:36.476 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.encoderValue01 linked to record (asyn reason 18).
+2022/01/27 17:22:36.476 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.driveControl01 linked to record (asyn reason 19).
+2022/01/27 17:22:36.477 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.velocitySetpoint01 linked to record (asyn reason 20).
+2022/01/27 17:22:36.477 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.positionActual01 linked to record (asyn reason 21).
+2022/01/27 17:22:36.478 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.encoderLatchPostion01 linked to record (asyn reason 22).
+2022/01/27 17:22:36.479 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.encoderControl01 linked to record (asyn reason 23).
+2022/01/27 17:22:36.479 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.encoderValue01 linked to record (asyn reason 24).
+2022/01/27 17:22:36.480 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.actpos linked to record (asyn reason 25).
+2022/01/27 17:22:36.481 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.setpos linked to record (asyn reason 26).
+2022/01/27 17:22:36.481 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.poserr linked to record (asyn reason 27).
+2022/01/27 17:22:36.482 ecmcAsynPortDriver:drvUserCreate: Parameter plcs.ax1.plc.error linked to record (asyn reason 28).
+2022/01/27 17:22:36.483 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.actpos linked to record (asyn reason 29).
+2022/01/27 17:22:36.484 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.setpos linked to record (asyn reason 30).
+2022/01/27 17:22:36.485 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.poserr linked to record (asyn reason 31).
+2022/01/27 17:22:36.486 ecmcAsynPortDriver:drvUserCreate: Parameter plcs.ax2.plc.error linked to record (asyn reason 32).
+2022/01/27 17:22:36.487 ecmcAsynPortDriver:drvUserCreate: Parameter plcs.plc0.scantime linked to record (asyn reason 33).
+2022/01/27 17:22:36.488 ecmcAsynPortDriver:drvUserCreate: Parameter plcs.plc0.error linked to record (asyn reason 34).
+2022/01/27 17:22:36.488 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.appmode linked to record (asyn reason 35).
+2022/01/27 17:22:36.490 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.error.id linked to record (asyn reason 36).
+2022/01/27 17:22:36.491 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.thread.latency.min linked to record (asyn reason 37).
+2022/01/27 17:22:36.492 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.thread.latency.max linked to record (asyn reason 38).
+2022/01/27 17:22:36.493 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.thread.period.min linked to record (asyn reason 39).
+2022/01/27 17:22:36.494 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.thread.period.max linked to record (asyn reason 40).
+2022/01/27 17:22:36.496 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.thread.execute.min linked to record (asyn reason 41).
+2022/01/27 17:22:36.497 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.thread.execute.max linked to record (asyn reason 42).
+2022/01/27 17:22:36.498 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.thread.send.min linked to record (asyn reason 43).
+2022/01/27 17:22:36.500 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.thread.send.max linked to record (asyn reason 44).
+2022/01/27 17:22:36.502 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.binaryInput01 linked to record (asyn reason 45).
+2022/01/27 17:22:36.512 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.binaryInput02 linked to record (asyn reason 46).
+2022/01/27 17:22:36.514 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.binaryInput03 linked to record (asyn reason 47).
+2022/01/27 17:22:36.517 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.binaryInput04 linked to record (asyn reason 48).
+2022/01/27 17:22:36.523 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.binaryInput05 linked to record (asyn reason 49).
+2022/01/27 17:22:36.526 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.binaryInput06 linked to record (asyn reason 50).
+2022/01/27 17:22:36.529 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.binaryInput07 linked to record (asyn reason 51).
+2022/01/27 17:22:36.532 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.binaryInput08 linked to record (asyn reason 52).
+2022/01/27 17:22:36.535 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.binaryOutput01 linked to record (asyn reason 53).
+2022/01/27 17:22:36.539 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.binaryOutput02 linked to record (asyn reason 54).
+2022/01/27 17:22:36.543 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.binaryOutput03 linked to record (asyn reason 55).
+2022/01/27 17:22:36.548 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.binaryOutput04 linked to record (asyn reason 56).
+2022/01/27 17:22:36.553 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.binaryOutput05 linked to record (asyn reason 57).
+2022/01/27 17:22:36.557 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.binaryOutput06 linked to record (asyn reason 58).
+2022/01/27 17:22:36.560 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.binaryOutput07 linked to record (asyn reason 59).
+2022/01/27 17:22:36.563 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.binaryOutput08 linked to record (asyn reason 60).
+2022/01/27 17:22:36.566 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s5.powerOk01 linked to record (asyn reason 61).
+2022/01/27 17:22:36.570 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s5.overload01 linked to record (asyn reason 62).
+2022/01/27 17:22:36.574 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.binaryInput01 linked to record (asyn reason 63).
+2022/01/27 17:22:36.578 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.binaryInput02 linked to record (asyn reason 64).
+2022/01/27 17:22:36.583 ecmcAsynPortDriver:drvUserCreate: Parameter plcs.ax1.plc.enable linked to record (asyn reason 65).
+2022/01/27 17:22:36.589 ecmcAsynPortDriver:drvUserCreate: Parameter plcs.ax1.plc.firstscan linked to record (asyn reason 66).
+2022/01/27 17:22:36.596 ecmcAsynPortDriver:drvUserCreate: Parameter plcs.ax2.plc.enable linked to record (asyn reason 67).
+2022/01/27 17:22:36.601 ecmcAsynPortDriver:drvUserCreate: Parameter plcs.ax2.plc.firstscan linked to record (asyn reason 68).
+2022/01/27 17:22:36.606 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.ok linked to record (asyn reason 69).
+2022/01/27 17:22:36.610 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.diagnostic linked to record (asyn reason 70).
+2022/01/27 17:22:36.613 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.plc.expression linked to record (asyn reason 71).
+2022/01/27 17:22:36.615 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.diagnostic linked to record (asyn reason 72).
+2022/01/27 17:22:36.617 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.plc.expression linked to record (asyn reason 73).
+2022/01/27 17:22:36.620 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.error.msg linked to record (asyn reason 74).
+2022/01/27 17:22:36.622 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.updated linked to record (asyn reason 75).
+2022/01/27 17:22:36.625 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.command linked to record (asyn reason 76).
+2022/01/27 17:22:36.632 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.command linked to record (asyn reason 77).
+########
+## PLC 0
+iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/loadPLCFile.cmd, "PLC_ID=0, SAMPLE_RATE_MS=100,FILE=./plc/grbl.plc")
+#==============================================================================
+# loadPLCFile.cmd
+epicsEnvSet("ECMC_PLC_ID",              "0")
+ecmcEpicsEnvSetCalc(ECMC_PLC_RATE_, "1000/1000", "%f")
+epicsEnvSet("ECMC_PLC_SAMPLE_RATE_MS",  "100")
+ecmcEpicsEnvSetCalcTernary(ECMC_PLC_SAMPLE_RATE_MS, "100>0", "100","1.000000")
+epicsEnvUnset(ECMC_PLC_RATE_) # clean up, temp variable
+epicsEnvSet("ECMC_TMP_FILE",            "/tmp/PLC0.plc")
+ecmcFileExist("./plc/grbl.plc",1)
+system "msi -V -M 'EMPTY' -o /tmp/PLC0.plc ./plc/grbl.plc"
+ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD, 1=1,"", "#-"  )
+########### Parsed PLC file:
+system "cat /tmp/PLC0.plc"
+############ PLC file end
+#
+epicsEnvUnset(ECMC_EXE_CMD)
+ecmcFileExist("/tmp/PLC0.plc",1)
+ecmcConfigOrDie "Cfg.CreatePLC(0,100)"
+ecmcConfigOrDie "Cfg.LoadPLCFile(0,/tmp/PLC0.plc)"
+system "rm -f /tmp/PLC0.plc"
+ecmcFileExist(ecmcPlc.substitutions,1,1)
+ecmcEpicsEnvSetCalc(ECMC_PLC_ID_2_CHARS, "0", "%02d")
+dbLoadTemplate(ecmcPlc.substitutions, "PORT=MC_CPU1,A=0,Index=0,Name=IOC_TEST:,Index2Char=00,T_SMP_MS=10")
+epicsEnvUnset(ECMC_PLC_ID_2_CHARS)
+##############################################################################
+############# Configure diagnostics:
+ecmcConfigOrDie "Cfg.EcSetDiagnostics(1)"
+ecmcConfigOrDie "Cfg.EcEnablePrintouts(0)"
+ecmcConfigOrDie "Cfg.EcSetDomainFailedCyclesLimit(100)"
+ecmcConfigOrDie "Cfg.SetDiagAxisIndex(1)"
+ecmcConfigOrDie "Cfg.SetDiagAxisFreq(2)"
+ecmcConfigOrDie "Cfg.SetDiagAxisEnable(0)"
+iocshLoad (/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/setAppMode.cmd)
+#==============================================================================
+# setAppMode.cmd
+ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/general.cmd",1)
+iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/general.cmd
+#==============================================================================
+# general.cmd
+ecmcFileExist("ecmcGeneral.db",1,1)
+dbLoadRecords("ecmcGeneral.db","P=IOC_TEST:,PORT=MC_CPU1,ADDR=0,TIMEOUT=1,T_SMP_MS=10,TSE=-2,ECMC_PROC_HOOK=")
+# Examples of commands for info:
+# ecmcReport <level> or asynReport <level>
+# ecmcReport 3
+# ecmcGrepParam <pattern>
+# List all ecmc params for ethercat slave 2:
+# ecmcGrepParam *s2*
+#
+ecmcEpicsEnvSetCalcTernary(ECMC_MASTER_CMD, "0>=0", "","#- ")
+ ecmcFileExist("ecmcEc.db",1,1)
+ dbLoadRecords("ecmcEc.db","P=IOC_TEST:,PORT=MC_CPU1,ADDR=0,TIMEOUT=1,MASTER_ID=0,T_SMP_MS=10,TSE=-2")
+ecmcConfigOrDie "Cfg.SetAppMode(1)"
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+#asynSetTraceMask(MC_CPU1, -1, 0x41)
+# Note need to test 0x21 later..
+#asynSetTraceMask(MC_CPU1, -1, 0x21)
+asynSetTraceMask(MC_CPU1, -1, 0x41)
+iocInit()
+############################################################################
+## EPICS R7.0.5-E3-7.0.5-patch
+## Rev. 2021-05-05T19:45+0200
+############################################################################
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+ECATtimestamp aSubRecord: IOC_TEST:m0s006-BI01-TimeRiseTS
+ECATtimestamp aSubRecord: IOC_TEST:m0s006-BI01-TimeFallTS
+ECATtimestamp aSubRecord: IOC_TEST:m0s006-BI02-TimeRiseTS
+ECATtimestamp aSubRecord: IOC_TEST:m0s006-BI02-TimeFallTS
+2022/01/27 17:22:36.639 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s0.ONE linked to record (asyn reason 78).
+2022/01/27 17:22:36.642 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s0.ZERO linked to record (asyn reason 79).
+2022/01/27 17:22:36.645 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.ONE linked to record (asyn reason 80).
+2022/01/27 17:22:36.648 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.ZERO linked to record (asyn reason 81).
+2022/01/27 17:22:36.651 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.ONE linked to record (asyn reason 82).
+2022/01/27 17:22:36.655 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.ZERO linked to record (asyn reason 83).
+2022/01/27 17:22:36.658 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s3.ONE linked to record (asyn reason 84).
+2022/01/27 17:22:36.661 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s3.ZERO linked to record (asyn reason 85).
+2022/01/27 17:22:36.664 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s4.ONE linked to record (asyn reason 86).
+2022/01/27 17:22:36.666 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s4.ZERO linked to record (asyn reason 87).
+2022/01/27 17:22:36.669 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s5.ONE linked to record (asyn reason 88).
+2022/01/27 17:22:36.671 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000039
+2022/01/27 17:22:36.671 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000175
+2022/01/27 17:22:36.673 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s5.ZERO linked to record (asyn reason 89).
+2022/01/27 17:22:36.676 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.ONE linked to record (asyn reason 90).
+2022/01/27 17:22:36.679 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.ZERO linked to record (asyn reason 91).
+2022/01/27 17:22:36.682 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.ONE linked to record (asyn reason 92).
+2022/01/27 17:22:36.685 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.ZERO linked to record (asyn reason 93).
+2022/01/27 17:22:36.688 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.ONE linked to record (asyn reason 94).
+2022/01/27 17:22:36.694 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.ZERO linked to record (asyn reason 95).
+2022/01/27 17:22:36.698 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.cmddata linked to record (asyn reason 96).
+2022/01/27 17:22:36.702 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.cmddata linked to record (asyn reason 97).
+2022/01/27 17:22:36.705 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s0.slavestatus linked to record (asyn reason 98).
+2022/01/27 17:22:36.708 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.slavestatus linked to record (asyn reason 99).
+2022/01/27 17:22:36.711 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.slavestatus linked to record (asyn reason 100).
+2022/01/27 17:22:36.715 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s3.slavestatus linked to record (asyn reason 101).
+2022/01/27 17:22:36.718 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s4.slavestatus linked to record (asyn reason 102).
+2022/01/27 17:22:36.722 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s5.slavestatus linked to record (asyn reason 103).
+2022/01/27 17:22:36.725 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.slavestatus linked to record (asyn reason 104).
+2022/01/27 17:22:36.728 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.slavestatus linked to record (asyn reason 105).
+2022/01/27 17:22:36.732 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.slavestatus linked to record (asyn reason 106).
+2022/01/27 17:22:36.736 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.status linked to record (asyn reason 107).
+2022/01/27 17:22:36.739 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.errorid linked to record (asyn reason 108).
+2022/01/27 17:22:36.742 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.status linked to record (asyn reason 109).
+2022/01/27 17:22:36.745 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.errorid linked to record (asyn reason 110).
+2022/01/27 17:22:36.748 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.masterstatus linked to record (asyn reason 111).
+2022/01/27 17:22:36.751 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.slavecounter linked to record (asyn reason 112).
+2022/01/27 17:22:36.755 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.memmapcounter linked to record (asyn reason 113).
+2022/01/27 17:22:36.759 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.domainfailcountertotal linked to record (asyn reason 114).
+2022/01/27 17:22:36.765 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.entrycounter linked to record (asyn reason 115).
+2022/01/27 17:22:36.769 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.domainstatus linked to record (asyn reason 116).
+2022/01/27 17:22:36.773 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.control linked to record (asyn reason 117).
+2022/01/27 17:22:36.776 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.control linked to record (asyn reason 118).
+2022/01/27 17:22:36.779 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s3.encoderStatus01 linked to record (asyn reason 119).
+2022/01/27 17:22:36.782 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s4.encoderStatus01 linked to record (asyn reason 120).
+2022/01/27 17:22:36.786 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.status01 linked to record (asyn reason 121).
+2022/01/27 17:22:36.789 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.status02 linked to record (asyn reason 122).
+2022/01/27 17:22:36.793 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.driveStatus01 linked to record (asyn reason 123).
+2022/01/27 17:22:36.796 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.encoderStatus01 linked to record (asyn reason 124).
+2022/01/27 17:22:36.801 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.driveStatus01 linked to record (asyn reason 125).
+2022/01/27 17:22:36.805 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.encoderStatus01 linked to record (asyn reason 126).
+2022/01/27 17:22:36.857 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.targpos linked to record (asyn reason 127).
+2022/01/27 17:22:36.871 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.targvelo linked to record (asyn reason 128).
+2022/01/27 17:22:36.871 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000012
+2022/01/27 17:22:36.872 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000008
+2022/01/27 17:22:36.877 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.targpos linked to record (asyn reason 129).
+2022/01/27 17:22:36.881 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.targvelo linked to record (asyn reason 130).
+2022/01/27 17:22:36.895 ecmcAsynPortDriver:drvUserCreate: Parameter plcs.plc0.enable linked to record (asyn reason 131).
+2022/01/27 17:22:36.900 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.error.reset linked to record (asyn reason 132).
+2022/01/27 17:22:36.905 ecmcMotorRecord:: setIntegerParam(1 motorUpdateStatus_)=0
+2022/01/27 17:22:36.905 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000008
+2022/01/27 17:22:36.905 ecmcMotorRecord:: setIntegerParam(2 motorUpdateStatus_)=0
+2022/01/27 17:22:36.905 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000009
+2022/01/27 17:22:36.964 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterInitDatabase (7). Allow callbacks: true.
+2022/01/27 17:22:36.964 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterFinishDevSup (8). Allow callbacks: true.
+2022/01/27 17:22:37.072 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000011
+2022/01/27 17:22:37.072 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000006
+2022/01/27 17:22:37.272 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000011
+2022/01/27 17:22:37.272 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000007
+2022/01/27 17:22:37.472 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000056
+2022/01/27 17:22:37.472 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000200
+2022/01/27 17:22:37.501 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterScanInit (9). Allow callbacks: true.
+2022/01/27 17:22:37.510 ecmcMotorRecord:: setIntegerParam(1 HomProc_)=3 motorNotHomedProblem=0
+2022/01/27 17:22:37.510 ecmcMotorRecord:: setIntegerParam(2 HomProc_)=3 motorNotHomedProblem=0
+2022/01/27 17:22:37.512 ecmcMotorRecord:: setDoubleParam(1 HomPos_)=0.000000
+2022/01/27 17:22:37.512 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterInitialProcess (10). Allow callbacks: true.
+2022/01/27 17:22:37.512 ecmcMotorRecord:: setDoubleParam(2 HomPos_)=0.000000
+2022/01/27 17:22:37.523 ecmcAsynPortDriver:getEpicsState: EPICS state: Unknown state (11). Allow callbacks: true.
+2022/01/27 17:22:37.523 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterIocBuilt (12). Allow callbacks: true.
+2022/01/27 17:22:37.559 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAtIocRun (13). Allow callbacks: true.
+2022/01/27 17:22:37.559 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterDatabaseRunning (14). Allow callbacks: true.
+2022/01/27 17:22:37.560 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterInterruptAccept (28). Allow callbacks: true.
+2022/01/27 17:22:37.560 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterCaServerRunning (15). Allow callbacks: true.
+2022/01/27 17:22:37.560 ecmcAsynPortDriver:getEpicsState: EPICS state: Unknown state (29). Allow callbacks: true.
+iocRun: All initialization complete
+2022/01/27 17:22:37.606 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterIocRunning (16). Allow callbacks: true.
+2022/01/27 17:22:37.610 ../devEcmcSup/motion/ecmcDriveBase.cpp/readEntries:336: INFO (axis 1): Drive hardware warning state cleared.
+2022/01/27 17:22:37.610 ../devEcmcSup/motion/ecmcDriveBase.cpp/readEntries:336: INFO (axis 2): Drive hardware warning state cleared.
+2022/01/27 17:22:37.673 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000013
+2022/01/27 17:22:37.673 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000006
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+2022/01/27 17:22:36.904 [devMotorAsyn.c:439  IOC_TEST:Axis1] init_record IOC_TEST:Axis1 position=0.000000 encoderPos=0.000000 velocity=0.000000 MSTAstatus=0x4d00 flagsValue=0x3f flagsWritten=0x3f pmr->mflg=0x0
+2022/01/27 17:22:36.904 [devMotorAsyn.c:185  IOC_TEST:Axis1] init_controller IOC_TEST:Axis1 set encoder ratio=1.000000 status=0
+2022/01/27 17:22:36.905 [devMotorAsyn.c:266  IOC_TEST:Axis1] update_soft_limits IOC_TEST:Axis1 RawHLM_RO=130.000000 RawLLM_RO=-20.000000 valid=1 DHLM_RO=130.000000 DLLM_RO=-20.000000
+2022/01/27 17:22:36.905 [motorDevSup.c:327  IOC_TEST:Axis1] PositionRestoreNeeded IOC_TEST:Axis1 rstm=2 dval=0.000000 drbv=0.000000 pmr->rdbd=0.100000 rdbd=0.100000 pmr->mres=0.030000 pmr->mflg=0x3f dval_non_zero_pos_near_zero=0 ret=0
+2022/01/27 17:22:36.905 [motorRecord.cc:782  IOC_TEST:Axis1] init_re_init start neverPolled=0 stat=17 nsta=0
+2022/01/27 17:22:36.905 [motorRecord.cc:720  IOC_TEST:Axis1] enforceMinRetryDeadband spdb=0.100000 rdbd=0.100000 mres=0.030000
+2022/01/27 17:22:36.905 [motorRecord.cc:4484 IOC_TEST:Axis1] pmr->dhlm=130 softLimitRO=130
+2022/01/27 17:22:36.905 [motorRecord.cc:4545 IOC_TEST:Axis1] pmr->dllm=-20 softLimitRO=-20
+2022/01/27 17:22:36.905 [motorRecord.cc:833  IOC_TEST:Axis1] init_re_init  end dval=0.000000 drbv=0.000000 rdbd=0.100000 spdb=0.100000
+2022/01/27 17:22:36.905 [motorRecord.cc:968  IOC_TEST:Axis1] init_record process_reason="callbackdata + soft limits" dval=0.000000 drbv=0.000000 rdbd=0.100000 spdb=0.100000 stat=0 msta=0x4d00 neverPolled=0
+2022/01/27 17:22:36.905 [devMotorAsyn.c:439  IOC_TEST:Axis2] init_record IOC_TEST:Axis2 position=0.000000 encoderPos=0.000000 velocity=0.000000 MSTAstatus=0x0f00 flagsValue=0x3f flagsWritten=0x3f pmr->mflg=0x0
+2022/01/27 17:22:36.905 [devMotorAsyn.c:185  IOC_TEST:Axis2] init_controller IOC_TEST:Axis2 set encoder ratio=1.000000 status=0
+2022/01/27 17:22:36.905 [devMotorAsyn.c:266  IOC_TEST:Axis2] update_soft_limits IOC_TEST:Axis2 RawHLM_RO=20.000000 RawLLM_RO=-130.000000 valid=1 DHLM_RO=20.000000 DLLM_RO=-130.000000
+2022/01/27 17:22:36.905 [motorDevSup.c:327  IOC_TEST:Axis2] PositionRestoreNeeded IOC_TEST:Axis2 rstm=2 dval=0.000000 drbv=0.000000 pmr->rdbd=0.100000 rdbd=0.100000 pmr->mres=0.030000 pmr->mflg=0x3f dval_non_zero_pos_near_zero=0 ret=0
+2022/01/27 17:22:36.905 [motorRecord.cc:782  IOC_TEST:Axis2] init_re_init start neverPolled=0 stat=17 nsta=0
+2022/01/27 17:22:36.905 [motorRecord.cc:720  IOC_TEST:Axis2] enforceMinRetryDeadband spdb=0.100000 rdbd=0.100000 mres=0.030000
+2022/01/27 17:22:36.905 [motorRecord.cc:4484 IOC_TEST:Axis2] pmr->dhlm=20 softLimitRO=20
+2022/01/27 17:22:36.905 [motorRecord.cc:4545 IOC_TEST:Axis2] pmr->dllm=-130 softLimitRO=-130
+2022/01/27 17:22:36.905 [motorRecord.cc:833  IOC_TEST:Axis2] init_re_init  end dval=0.000000 drbv=0.000000 rdbd=0.100000 spdb=0.100000
+2022/01/27 17:22:36.905 [motorRecord.cc:968  IOC_TEST:Axis2] init_record process_reason="callbackdata + soft limits" dval=0.000000 drbv=0.000000 rdbd=0.100000 spdb=0.100000 stat=0 msta=0xf00 neverPolled=0
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+dbpf IOC_TEST:Axis1.SPAM 0
+DBF_SHORT:          0 = 0x0   
+dbpf IOC_TEST:Axis2.SPAM 0
+DBF_SHORT:          0 = 0x0   
+# Set the IOC Prompt String One 
+epicsEnvSet IOCSH_PS1 "raspberrypi-1795 > "
+#
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+raspberrypi-1795 > 2022/01/27 17:22:37.873 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000028
+2022/01/27 17:22:37.873 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000016
+2022/01/27 17:22:38.073 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65535 fPos=0.016 fActPosition=0 time=0.000028
+2022/01/27 17:22:38.074 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63361 fPos=0.016 fActPosition=0 time=0.000018
+2022/01/27 17:22:38.275 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65524 fPos=0.316 fActPosition=0.33 time=0.000457
+2022/01/27 17:22:38.275 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63371 fPos=0.316 fActPosition=0.3 time=0.000023
+2022/01/27 17:22:38.476 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65502 fPos=0.984 fActPosition=0.99 time=0.000755
+2022/01/27 17:22:38.477 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63394 fPos=0.988 fActPosition=0.99 time=0.000023
+2022/01/27 17:22:38.677 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65475 fPos=1.788 fActPosition=1.8 time=0.000013
+2022/01/27 17:22:38.677 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63421 fPos=1.788 fActPosition=1.8 time=0.000008
+2022/01/27 17:22:38.878 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65449 fPos=2.592 fActPosition=2.58 time=0.000138
+2022/01/27 17:22:38.878 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63448 fPos=2.592 fActPosition=2.61 time=0.000021
+2022/01/27 17:22:39.079 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65421 fPos=3.396 fActPosition=3.42 time=0.000293
+2022/01/27 17:22:39.079 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63474 fPos=3.396 fActPosition=3.39 time=0.000013
+2022/01/27 17:22:39.279 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65395 fPos=4.196 fActPosition=4.2 time=0.000018
+2022/01/27 17:22:39.280 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63501 fPos=4.2 fActPosition=4.2 time=0.000015
+2022/01/27 17:22:39.480 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65368 fPos=5 fActPosition=5.01 time=0.000033
+2022/01/27 17:22:39.481 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63528 fPos=5.004 fActPosition=5.01 time=0.000602
+2022/01/27 17:22:39.682 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65341 fPos=5.808 fActPosition=5.82 time=0.000014
+2022/01/27 17:22:39.682 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63555 fPos=5.808 fActPosition=5.82 time=0.000009
+2022/01/27 17:22:39.882 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65315 fPos=6.608 fActPosition=6.6 time=0.000027
+2022/01/27 17:22:39.883 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63581 fPos=6.612 fActPosition=6.6 time=0.000206
+2022/01/27 17:22:40.083 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65288 fPos=7.412 fActPosition=7.41 time=0.000013
+2022/01/27 17:22:40.083 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63609 fPos=7.412 fActPosition=7.44 time=0.000006
+2022/01/27 17:22:40.283 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65261 fPos=8.22 fActPosition=8.22 time=0.000011
+2022/01/27 17:22:40.283 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63635 fPos=8.22 fActPosition=8.22 time=0.000007
+2022/01/27 17:22:40.484 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65234 fPos=9.016 fActPosition=9.03 time=0.000012
+2022/01/27 17:22:40.484 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63662 fPos=9.016 fActPosition=9.03 time=0.000008
+2022/01/27 17:22:40.685 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65208 fPos=9.82 fActPosition=9.81 time=0.000515
+2022/01/27 17:22:40.686 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63689 fPos=9.828 fActPosition=9.84 time=0.000613
+2022/01/27 17:22:40.887 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65180 fPos=10.628 fActPosition=10.65 time=0.000015
+2022/01/27 17:22:40.887 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63715 fPos=10.628 fActPosition=10.62 time=0.000010
+2022/01/27 17:22:41.087 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65154 fPos=11.428 fActPosition=11.43 time=0.000021
+2022/01/27 17:22:41.087 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63742 fPos=11.432 fActPosition=11.43 time=0.000174
+2022/01/27 17:22:41.288 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65127 fPos=12.232 fActPosition=12.24 time=0.000026
+2022/01/27 17:22:41.288 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63769 fPos=12.232 fActPosition=12.24 time=0.000016
+2022/01/27 17:22:41.489 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65100 fPos=13.036 fActPosition=13.05 time=0.000017
+2022/01/27 17:22:41.489 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63795 fPos=13.036 fActPosition=13.02 time=0.000027
+2022/01/27 17:22:41.690 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65074 fPos=13.84 fActPosition=13.83 time=0.000437
+2022/01/27 17:22:41.690 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63823 fPos=13.84 fActPosition=13.86 time=0.000024
+2022/01/27 17:22:41.891 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65047 fPos=14.644 fActPosition=14.64 time=0.000275
+2022/01/27 17:22:41.892 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63850 fPos=14.648 fActPosition=14.67 time=0.000409
+2022/01/27 17:22:42.092 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65020 fPos=15.448 fActPosition=15.45 time=0.000018
+2022/01/27 17:22:42.092 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63876 fPos=15.452 fActPosition=15.45 time=0.000046
+2022/01/27 17:22:42.293 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64993 fPos=16.252 fActPosition=16.26 time=0.000011
+2022/01/27 17:22:42.293 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63903 fPos=16.252 fActPosition=16.26 time=0.000008
+2022/01/27 17:22:42.493 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64966 fPos=17.052 fActPosition=17.07 time=0.000016
+2022/01/27 17:22:42.493 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63930 fPos=17.056 fActPosition=17.07 time=0.000093
+2022/01/27 17:22:42.694 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64939 fPos=17.856 fActPosition=17.88 time=0.000011
+2022/01/27 17:22:42.694 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63956 fPos=17.856 fActPosition=17.85 time=0.000007
+2022/01/27 17:22:42.894 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64913 fPos=18.656 fActPosition=18.66 time=0.000012
+2022/01/27 17:22:42.894 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63983 fPos=18.66 fActPosition=18.66 time=0.000056
+2022/01/27 17:22:43.095 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64887 fPos=19.428 fActPosition=19.44 time=0.000012
+2022/01/27 17:22:43.095 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64009 fPos=19.428 fActPosition=19.44 time=0.000007
+2022/01/27 17:22:43.295 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64872 fPos=19.892 fActPosition=19.89 time=0.000034
+2022/01/27 17:22:43.296 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64025 fPos=19.896 fActPosition=19.92 time=0.000508
+2022/01/27 17:22:43.497 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64868 fPos=19.98 fActPosition=20.01 time=0.000021
+2022/01/27 17:22:43.497 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64028 fPos=19.98 fActPosition=20.01 time=0.000015
+2022/01/27 17:22:43.697 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64879 fPos=19.672 fActPosition=19.68 time=0.000236
+2022/01/27 17:22:43.698 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64017 fPos=19.672 fActPosition=19.68 time=0.000014
+2022/01/27 17:22:43.898 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64902 fPos=18.996 fActPosition=18.99 time=0.000029
+2022/01/27 17:22:43.899 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63994 fPos=18.992 fActPosition=18.99 time=0.000150
+2022/01/27 17:22:44.099 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64929 fPos=18.196 fActPosition=18.18 time=0.000013
+2022/01/27 17:22:44.100 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63967 fPos=18.188 fActPosition=18.18 time=0.000237
+2022/01/27 17:22:44.300 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64955 fPos=17.392 fActPosition=17.4 time=0.000016
+2022/01/27 17:22:44.300 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63940 fPos=17.392 fActPosition=17.37 time=0.000008
+2022/01/27 17:22:44.501 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64982 fPos=16.588 fActPosition=16.59 time=0.000300
+2022/01/27 17:22:44.501 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63914 fPos=16.588 fActPosition=16.59 time=0.000014
+2022/01/27 17:22:44.701 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65009 fPos=15.788 fActPosition=15.78 time=0.000017
+2022/01/27 17:22:44.702 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63887 fPos=15.784 fActPosition=15.78 time=0.000016
+2022/01/27 17:22:44.902 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65036 fPos=14.984 fActPosition=14.97 time=0.000021
+2022/01/27 17:22:44.902 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63860 fPos=14.984 fActPosition=14.97 time=0.000020
+2022/01/27 17:22:45.103 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65063 fPos=14.18 fActPosition=14.16 time=0.000036
+2022/01/27 17:22:45.104 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63834 fPos=14.176 fActPosition=14.19 time=0.000268
+2022/01/27 17:22:45.304 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65090 fPos=13.376 fActPosition=13.35 time=0.000014
+2022/01/27 17:22:45.304 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63807 fPos=13.372 fActPosition=13.38 time=0.000080
+2022/01/27 17:22:45.505 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65116 fPos=12.572 fActPosition=12.57 time=0.000016
+2022/01/27 17:22:45.505 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63780 fPos=12.572 fActPosition=12.57 time=0.000011
+2022/01/27 17:22:45.706 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65143 fPos=11.768 fActPosition=11.76 time=0.000337
+2022/01/27 17:22:45.706 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63753 fPos=11.768 fActPosition=11.76 time=0.000013
+2022/01/27 17:22:45.906 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65170 fPos=10.968 fActPosition=10.95 time=0.000019
+2022/01/27 17:22:45.907 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63726 fPos=10.964 fActPosition=10.95 time=0.000118
+2022/01/27 17:22:46.107 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65196 fPos=10.164 fActPosition=10.17 time=0.000027
+2022/01/27 17:22:46.108 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63699 fPos=10.16 fActPosition=10.14 time=0.000370
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL: INFO: Write command (command[0] = G1X20Y20F360)
+Added: G1X20Y20F360to buffer: G1X20Y20F360
+
+../grbl/grbl_gcode.c:gc_execute_line:71:
+../grbl/grbl_motion_control.c:mc_line:33:
+GRBL: INFO: Reply OK (command[0] = G1X20Y20F360)
+GRBL: INFO: Write command (command[1] = G1X0Y0F360)
+Added: G1X0Y0F360to buffer: G1X20Y20F360
+G1X0Y0F360
+
+../grbl/grbl_stepper.c:st_next_block_index:652:
+../grbl/grbl_stepper.c:st_wake_up:228:
+../grbl/grbl_gcode.c:gc_execute_line:71:
+../grbl/grbl_motion_control.c:mc_line:33:
+../grbl/grbl_stepper.c:st_update_plan_block_parameters:639:
+GRBL: INFO: Reply OK (command[1] = G1X0Y0F360)
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+../grbl/grbl_stepper.c:st_next_block_index:652:
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+
+raspberrypi-1795 > 2022/01/27 17:22:46.308 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65223 fPos=9.36 fActPosition=9.36 time=0.000026
+2022/01/27 17:22:46.309 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63673 fPos=9.356 fActPosition=9.36 time=0.000120
+2022/01/27 17:22:46.509 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65250 fPos=8.556 fActPosition=8.55 time=0.000025
+2022/01/27 17:22:46.510 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63646 fPos=8.552 fActPosition=8.55 time=0.000110
+2022/01/27 17:22:46.710 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65277 fPos=7.748 fActPosition=7.74 time=0.000032
+2022/01/27 17:22:46.711 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63619 fPos=7.748 fActPosition=7.74 time=0.000577
+2022/01/27 17:22:46.912 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65304 fPos=6.944 fActPosition=6.93 time=0.000020
+2022/01/27 17:22:46.912 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63592 fPos=6.944 fActPosition=6.93 time=0.000011
+2022/01/27 17:22:47.113 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65331 fPos=6.136 fActPosition=6.12 time=0.000415
+2022/01/27 17:22:47.113 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63565 fPos=6.136 fActPosition=6.12 time=0.000023
+2022/01/27 17:22:47.314 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65357 fPos=5.332 fActPosition=5.34 time=0.000066
+2022/01/27 17:22:47.315 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63538 fPos=5.332 fActPosition=5.31 time=0.000282
+2022/01/27 17:22:47.515 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65384 fPos=4.528 fActPosition=4.53 time=0.000022
+2022/01/27 17:22:47.516 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63512 fPos=4.524 fActPosition=4.53 time=0.000392
+2022/01/27 17:22:47.716 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65411 fPos=3.728 fActPosition=3.72 time=0.000021
+2022/01/27 17:22:47.717 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63485 fPos=3.72 fActPosition=3.72 time=0.000128
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+
+raspberrypi-1795 > 2022/01/27 17:22:47.917 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65437 fPos=2.924 fActPosition=2.94 time=0.000017
+2022/01/27 17:22:47.917 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63458 fPos=2.924 fActPosition=2.91 time=0.000011
+2022/01/27 17:22:48.118 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65464 fPos=2.12 fActPosition=2.13 time=0.000380
+2022/01/27 17:22:48.118 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63432 fPos=2.12 fActPosition=2.13 time=0.000016
+2022/01/27 17:22:48.319 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65491 fPos=1.316 fActPosition=1.32 time=0.000053
+2022/01/27 17:22:48.319 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63405 fPos=1.316 fActPosition=1.32 time=0.000016
+2022/01/27 17:22:48.520 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65517 fPos=0.548 fActPosition=0.54 time=0.000070
+2022/01/27 17:22:48.520 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63379 fPos=0.548 fActPosition=0.54 time=0.000014
+2022/01/27 17:22:48.720 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65532 fPos=0.096 fActPosition=0.09 time=0.000024
+2022/01/27 17:22:48.721 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63364 fPos=0.096 fActPosition=0.09 time=0.000189
+2022/01/27 17:22:48.921 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000012
+2022/01/27 17:22:48.921 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000007
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+../grbl/grbl_stepper.c:st_go_idle:259:
+GRBL busy:   0.00000
+Retrigger g-code!!
+GRBL: INFO: Write command (command[0] = G1X20Y20F360)
+Added: G1X20Y20F360to buffer: G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+
+../grbl/grbl_gcode.c:gc_execute_line:71:
+../grbl/grbl_motion_control.c:mc_line:33:
+GRBL: INFO: Reply OK (command[0] = G1X20Y20F360)
+GRBL: INFO: Write command (command[1] = G1X0Y0F360)
+Added: G1X0Y0F360to buffer: G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+
+../grbl/grbl_stepper.c:st_next_block_index:652:
+../grbl/grbl_stepper.c:st_wake_up:228:
+../grbl/grbl_gcode.c:gc_execute_line:71:
+../grbl/grbl_motion_control.c:mc_line:33:
+../grbl/grbl_stepper.c:st_update_plan_block_parameters:639:
+GRBL: INFO: Reply OK (command[1] = G1X0Y0F360)
+
+raspberrypi-1795 > 2022/01/27 17:22:49.121 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65528 fPos=0.212 fActPosition=0.21 time=0.000013
+2022/01/27 17:22:49.121 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63368 fPos=0.216 fActPosition=0.21 time=0.000009
+2022/01/27 17:22:49.322 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65509 fPos=0.792 fActPosition=0.78 time=0.000010
+2022/01/27 17:22:49.322 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63388 fPos=0.792 fActPosition=0.81 time=0.000006
+2022/01/27 17:22:49.522 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65481 fPos=1.592 fActPosition=1.62 time=0.000015
+2022/01/27 17:22:49.522 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63414 fPos=1.6 fActPosition=1.59 time=0.000027
+2022/01/27 17:22:49.723 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65455 fPos=2.396 fActPosition=2.4 time=0.000022
+2022/01/27 17:22:49.723 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63441 fPos=2.396 fActPosition=2.4 time=0.000025
+2022/01/27 17:22:49.924 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65428 fPos=3.2 fActPosition=3.21 time=0.000353
+2022/01/27 17:22:49.925 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63469 fPos=3.204 fActPosition=3.24 time=0.000297
+2022/01/27 17:22:50.125 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65401 fPos=4.004 fActPosition=4.02 time=0.000029
+2022/01/27 17:22:50.126 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63495 fPos=4.008 fActPosition=4.02 time=0.000249
+2022/01/27 17:22:50.326 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65375 fPos=4.812 fActPosition=4.8 time=0.000147
+2022/01/27 17:22:50.327 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63522 fPos=4.812 fActPosition=4.83 time=0.000010
+2022/01/27 17:22:50.527 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65348 fPos=5.612 fActPosition=5.61 time=0.000025
+2022/01/27 17:22:50.528 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63549 fPos=5.616 fActPosition=5.64 time=0.000035
+2022/01/27 17:22:50.728 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65321 fPos=6.416 fActPosition=6.42 time=0.000038
+2022/01/27 17:22:50.729 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63575 fPos=6.42 fActPosition=6.42 time=0.000182
+2022/01/27 17:22:50.929 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65294 fPos=7.22 fActPosition=7.23 time=0.000012
+2022/01/27 17:22:50.929 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63602 fPos=7.22 fActPosition=7.23 time=0.000008
+2022/01/27 17:22:51.129 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65267 fPos=8.024 fActPosition=8.04 time=0.000031
+2022/01/27 17:22:51.130 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63629 fPos=8.024 fActPosition=8.04 time=0.000010
+2022/01/27 17:22:51.330 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65240 fPos=8.824 fActPosition=8.85 time=0.000021
+2022/01/27 17:22:51.331 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63655 fPos=8.828 fActPosition=8.82 time=0.000614
+2022/01/27 17:22:51.531 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65214 fPos=9.632 fActPosition=9.63 time=0.000039
+2022/01/27 17:22:51.532 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63682 fPos=9.632 fActPosition=9.63 time=0.000014
+2022/01/27 17:22:51.732 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65187 fPos=10.432 fActPosition=10.44 time=0.000025
+2022/01/27 17:22:51.733 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63709 fPos=10.436 fActPosition=10.44 time=0.000355
+2022/01/27 17:22:51.933 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65160 fPos=11.236 fActPosition=11.25 time=0.000029
+2022/01/27 17:22:51.934 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63736 fPos=11.24 fActPosition=11.25 time=0.000014
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+
+raspberrypi-1795 > 2022/01/27 17:22:52.134 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65134 fPos=12.04 fActPosition=12.03 time=0.000012
+2022/01/27 17:22:52.134 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63762 fPos=12.04 fActPosition=12.03 time=0.000008
+2022/01/27 17:22:52.334 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65107 fPos=12.844 fActPosition=12.84 time=0.000010
+2022/01/27 17:22:52.335 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63789 fPos=12.844 fActPosition=12.84 time=0.000009
+2022/01/27 17:22:52.535 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65080 fPos=13.648 fActPosition=13.65 time=0.000014
+2022/01/27 17:22:52.535 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63816 fPos=13.648 fActPosition=13.65 time=0.000011
+2022/01/27 17:22:52.736 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65053 fPos=14.452 fActPosition=14.46 time=0.000239
+2022/01/27 17:22:52.736 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63843 fPos=14.452 fActPosition=14.46 time=0.000016
+2022/01/27 17:22:52.936 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65027 fPos=15.252 fActPosition=15.24 time=0.000127
+2022/01/27 17:22:52.937 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63870 fPos=15.252 fActPosition=15.27 time=0.000008
+2022/01/27 17:22:53.137 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64999 fPos=16.052 fActPosition=16.08 time=0.000011
+2022/01/27 17:22:53.137 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63896 fPos=16.052 fActPosition=16.05 time=0.000008
+2022/01/27 17:22:53.338 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64973 fPos=16.856 fActPosition=16.86 time=0.000458
+2022/01/27 17:22:53.338 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63923 fPos=16.856 fActPosition=16.86 time=0.000021
+2022/01/27 17:22:53.539 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64946 fPos=17.66 fActPosition=17.67 time=0.000012
+2022/01/27 17:22:53.539 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63950 fPos=17.66 fActPosition=17.67 time=0.000009
+2022/01/27 17:22:53.739 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64919 fPos=18.46 fActPosition=18.48 time=0.000018
+2022/01/27 17:22:53.740 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63976 fPos=18.464 fActPosition=18.45 time=0.000284
+2022/01/27 17:22:53.940 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64893 fPos=19.26 fActPosition=19.26 time=0.000026
+2022/01/27 17:22:53.941 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64004 fPos=19.264 fActPosition=19.29 time=0.000456
+2022/01/27 17:22:54.141 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64874 fPos=19.816 fActPosition=19.83 time=0.000023
+2022/01/27 17:22:54.142 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64022 fPos=19.816 fActPosition=19.83 time=0.000013
+2022/01/27 17:22:54.342 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64868 fPos=20 fActPosition=20.01 time=0.000019
+2022/01/27 17:22:54.343 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64028 fPos=20 fActPosition=20.01 time=0.000166
+2022/01/27 17:22:54.543 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64875 fPos=19.78 fActPosition=19.8 time=0.000032
+2022/01/27 17:22:54.544 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64020 fPos=19.776 fActPosition=19.77 time=0.000236
+2022/01/27 17:22:54.744 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64895 fPos=19.192 fActPosition=19.2 time=0.000023
+2022/01/27 17:22:54.745 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64000 fPos=19.188 fActPosition=19.17 time=0.000023
+2022/01/27 17:22:54.945 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64922 fPos=18.388 fActPosition=18.39 time=0.000015
+2022/01/27 17:22:54.946 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63974 fPos=18.384 fActPosition=18.39 time=0.000299
+2022/01/27 17:22:55.146 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64949 fPos=17.584 fActPosition=17.58 time=0.000036
+2022/01/27 17:22:55.147 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63947 fPos=17.58 fActPosition=17.58 time=0.000178
+2022/01/27 17:22:55.348 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64976 fPos=16.776 fActPosition=16.77 time=0.000300
+2022/01/27 17:22:55.348 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63920 fPos=16.776 fActPosition=16.77 time=0.000012
+2022/01/27 17:22:55.549 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65003 fPos=15.972 fActPosition=15.96 time=0.000226
+2022/01/27 17:22:55.549 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63893 fPos=15.972 fActPosition=15.96 time=0.000015
+2022/01/27 17:22:55.749 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65030 fPos=15.172 fActPosition=15.15 time=0.000015
+2022/01/27 17:22:55.749 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63867 fPos=15.168 fActPosition=15.18 time=0.000009
+2022/01/27 17:22:55.950 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65056 fPos=14.368 fActPosition=14.37 time=0.000017
+2022/01/27 17:22:55.950 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63839 fPos=14.368 fActPosition=14.34 time=0.000013
+2022/01/27 17:22:56.150 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65083 fPos=13.564 fActPosition=13.56 time=0.000019
+2022/01/27 17:22:56.151 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63813 fPos=13.564 fActPosition=13.56 time=0.000165
+2022/01/27 17:22:56.351 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65110 fPos=12.76 fActPosition=12.75 time=0.000017
+2022/01/27 17:22:56.352 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63786 fPos=12.756 fActPosition=12.75 time=0.000208
+2022/01/27 17:22:56.552 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65136 fPos=11.96 fActPosition=11.97 time=0.000027
+2022/01/27 17:22:56.553 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63759 fPos=11.952 fActPosition=11.94 time=0.000324
+2022/01/27 17:22:56.753 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65163 fPos=11.156 fActPosition=11.16 time=0.000017
+2022/01/27 17:22:56.753 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63733 fPos=11.156 fActPosition=11.16 time=0.000010
+2022/01/27 17:22:56.954 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65190 fPos=10.352 fActPosition=10.35 time=0.000028
+2022/01/27 17:22:56.954 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63706 fPos=10.352 fActPosition=10.35 time=0.000026
+2022/01/27 17:22:57.155 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65217 fPos=9.548 fActPosition=9.54 time=0.000332
+2022/01/27 17:22:57.155 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63679 fPos=9.548 fActPosition=9.54 time=0.000013
+2022/01/27 17:22:57.355 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65243 fPos=8.748 fActPosition=8.76 time=0.000033
+2022/01/27 17:22:57.356 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63652 fPos=8.744 fActPosition=8.73 time=0.000150
+2022/01/27 17:22:57.556 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65271 fPos=7.944 fActPosition=7.92 time=0.000033
+2022/01/27 17:22:57.557 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63626 fPos=7.94 fActPosition=7.95 time=0.000014
+2022/01/27 17:22:57.757 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65297 fPos=7.14 fActPosition=7.14 time=0.000027
+2022/01/27 17:22:57.758 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63598 fPos=7.136 fActPosition=7.11 time=0.000344
+2022/01/27 17:22:57.958 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65324 fPos=6.336 fActPosition=6.33 time=0.000016
+2022/01/27 17:22:57.958 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63572 fPos=6.332 fActPosition=6.33 time=0.000153
+2022/01/27 17:22:58.159 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65351 fPos=5.532 fActPosition=5.52 time=0.000015
+2022/01/27 17:22:58.159 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63545 fPos=5.532 fActPosition=5.52 time=0.000008
+2022/01/27 17:22:58.359 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65377 fPos=4.732 fActPosition=4.74 time=0.000015
+2022/01/27 17:22:58.359 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63518 fPos=4.728 fActPosition=4.71 time=0.000051
+2022/01/27 17:22:58.560 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65404 fPos=3.928 fActPosition=3.93 time=0.000018
+2022/01/27 17:22:58.560 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63492 fPos=3.928 fActPosition=3.93 time=0.000012
+2022/01/27 17:22:58.760 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65431 fPos=3.124 fActPosition=3.12 time=0.000015
+2022/01/27 17:22:58.761 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63465 fPos=3.124 fActPosition=3.12 time=0.000146
+2022/01/27 17:22:58.961 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65458 fPos=2.32 fActPosition=2.31 time=0.000012
+2022/01/27 17:22:58.961 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63438 fPos=2.32 fActPosition=2.31 time=0.000008
+2022/01/27 17:22:59.161 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65485 fPos=1.516 fActPosition=1.5 time=0.000136
+2022/01/27 17:22:59.162 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63412 fPos=1.516 fActPosition=1.53 time=0.000009
+2022/01/27 17:22:59.362 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65511 fPos=0.724 fActPosition=0.72 time=0.000014
+2022/01/27 17:22:59.362 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63385 fPos=0.724 fActPosition=0.72 time=0.000009
+2022/01/27 17:22:59.562 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65530 fPos=0.18 fActPosition=0.15 time=0.000092
+2022/01/27 17:22:59.563 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63367 fPos=0.18 fActPosition=0.18 time=0.000009
+2022/01/27 17:22:59.775 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.011664
+2022/01/27 17:22:59.775 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63361 fPos=0 fActPosition=0 time=0.000013
+2022/01/27 17:22:59.975 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65532 fPos=0.128 fActPosition=0.09 time=0.000100
+2022/01/27 17:22:59.976 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63365 fPos=0.128 fActPosition=0.12 time=0.000011
+2022/01/27 17:23:00.176 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65514 fPos=0.62 fActPosition=0.63 time=0.000029
+2022/01/27 17:23:00.177 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63382 fPos=0.624 fActPosition=0.63 time=0.000300
+2022/01/27 17:23:00.377 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65488 fPos=1.404 fActPosition=1.41 time=0.000026
+2022/01/27 17:23:00.378 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63409 fPos=1.408 fActPosition=1.44 time=0.000012
+2022/01/27 17:23:00.578 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65461 fPos=2.208 fActPosition=2.22 time=0.000018
+2022/01/27 17:23:00.578 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63435 fPos=2.208 fActPosition=2.22 time=0.000012
+2022/01/27 17:23:00.779 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65434 fPos=3.012 fActPosition=3.03 time=0.000023
+2022/01/27 17:23:00.779 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63462 fPos=3.012 fActPosition=3.03 time=0.000014
+2022/01/27 17:23:00.980 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65407 fPos=3.816 fActPosition=3.84 time=0.000279
+2022/01/27 17:23:00.980 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63489 fPos=3.816 fActPosition=3.84 time=0.000011
+2022/01/27 17:23:01.180 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65381 fPos=4.616 fActPosition=4.62 time=0.000023
+2022/01/27 17:23:01.181 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63515 fPos=4.62 fActPosition=4.62 time=0.000158
+2022/01/27 17:23:01.382 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65354 fPos=5.424 fActPosition=5.43 time=0.000310
+2022/01/27 17:23:01.382 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63542 fPos=5.424 fActPosition=5.43 time=0.000008
+2022/01/27 17:23:01.582 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65327 fPos=6.224 fActPosition=6.24 time=0.000014
+2022/01/27 17:23:01.582 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63569 fPos=6.224 fActPosition=6.24 time=0.000011
+2022/01/27 17:23:01.782 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65300 fPos=7.032 fActPosition=7.05 time=0.000016
+2022/01/27 17:23:01.783 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63595 fPos=7.032 fActPosition=7.02 time=0.000012
+2022/01/27 17:23:01.983 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65274 fPos=7.828 fActPosition=7.83 time=0.000018
+2022/01/27 17:23:01.984 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63622 fPos=7.836 fActPosition=7.83 time=0.000150
+2022/01/27 17:23:02.184 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65247 fPos=8.632 fActPosition=8.64 time=0.000018
+2022/01/27 17:23:02.185 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63649 fPos=8.64 fActPosition=8.64 time=0.000288
+2022/01/27 17:23:02.385 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65220 fPos=9.436 fActPosition=9.45 time=0.000024
+2022/01/27 17:23:02.385 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63675 fPos=9.436 fActPosition=9.42 time=0.000013
+2022/01/27 17:23:02.586 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65194 fPos=10.24 fActPosition=10.23 time=0.000404
+2022/01/27 17:23:02.587 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63703 fPos=10.244 fActPosition=10.26 time=0.000367
+2022/01/27 17:23:02.787 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65167 fPos=11.044 fActPosition=11.04 time=0.000024
+2022/01/27 17:23:02.788 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63730 fPos=11.048 fActPosition=11.07 time=0.000121
+2022/01/27 17:23:02.988 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65140 fPos=11.848 fActPosition=11.85 time=0.000029
+2022/01/27 17:23:02.989 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63756 fPos=11.852 fActPosition=11.85 time=0.000024
+2022/01/27 17:23:03.190 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65113 fPos=12.656 fActPosition=12.66 time=0.000304
+2022/01/27 17:23:03.190 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63783 fPos=12.656 fActPosition=12.66 time=0.000020
+2022/01/27 17:23:03.391 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65086 fPos=13.46 fActPosition=13.47 time=0.000248
+2022/01/27 17:23:03.391 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63810 fPos=13.46 fActPosition=13.47 time=0.000011
+2022/01/27 17:23:03.591 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65059 fPos=14.26 fActPosition=14.28 time=0.000011
+2022/01/27 17:23:03.591 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63836 fPos=14.264 fActPosition=14.25 time=0.000185
+2022/01/27 17:23:03.792 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65033 fPos=15.064 fActPosition=15.06 time=0.000011
+2022/01/27 17:23:03.792 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63863 fPos=15.064 fActPosition=15.06 time=0.000007
+2022/01/27 17:23:03.992 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65006 fPos=15.864 fActPosition=15.87 time=0.000016
+2022/01/27 17:23:03.992 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63890 fPos=15.868 fActPosition=15.87 time=0.000011
+2022/01/27 17:23:04.193 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64979 fPos=16.668 fActPosition=16.68 time=0.000012
+2022/01/27 17:23:04.193 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63916 fPos=16.668 fActPosition=16.65 time=0.000008
+2022/01/27 17:23:04.393 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64953 fPos=17.468 fActPosition=17.46 time=0.000016
+2022/01/27 17:23:04.393 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63944 fPos=17.472 fActPosition=17.49 time=0.000015
+2022/01/27 17:23:04.594 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64926 fPos=18.276 fActPosition=18.27 time=0.000010
+2022/01/27 17:23:04.594 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63970 fPos=18.276 fActPosition=18.27 time=0.000007
+2022/01/27 17:23:04.794 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64899 fPos=19.072 fActPosition=19.08 time=0.000012
+2022/01/27 17:23:04.794 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63997 fPos=19.08 fActPosition=19.08 time=0.000077
+2022/01/27 17:23:04.995 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64877 fPos=19.716 fActPosition=19.74 time=0.000011
+2022/01/27 17:23:04.995 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64018 fPos=19.716 fActPosition=19.71 time=0.000008
+2022/01/27 17:23:05.195 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64868 fPos=19.992 fActPosition=20.01 time=0.000011
+2022/01/27 17:23:05.195 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64028 fPos=19.992 fActPosition=20.01 time=0.000007
+2022/01/27 17:23:05.396 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64872 fPos=19.868 fActPosition=19.89 time=0.000643
+2022/01/27 17:23:05.397 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64024 fPos=19.868 fActPosition=19.89 time=0.000152
+2022/01/27 17:23:05.597 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64890 fPos=19.372 fActPosition=19.35 time=0.000035
+2022/01/27 17:23:05.598 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64006 fPos=19.368 fActPosition=19.35 time=0.000021
+2022/01/27 17:23:05.798 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64916 fPos=18.584 fActPosition=18.57 time=0.000012
+2022/01/27 17:23:05.798 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63980 fPos=18.58 fActPosition=18.57 time=0.000009
+2022/01/27 17:23:05.999 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64943 fPos=17.78 fActPosition=17.76 time=0.000011
+2022/01/27 17:23:05.999 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63954 fPos=17.78 fActPosition=17.79 time=0.000006
+2022/01/27 17:23:06.199 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64970 fPos=16.98 fActPosition=16.95 time=0.000012
+2022/01/27 17:23:06.199 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63927 fPos=16.98 fActPosition=16.98 time=0.000007
+2022/01/27 17:23:06.399 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64996 fPos=16.176 fActPosition=16.17 time=0.000011
+2022/01/27 17:23:06.400 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63900 fPos=16.176 fActPosition=16.17 time=0.000007
+2022/01/27 17:23:06.600 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65023 fPos=15.376 fActPosition=15.36 time=0.000011
+2022/01/27 17:23:06.600 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63873 fPos=15.376 fActPosition=15.36 time=0.000007
+2022/01/27 17:23:06.800 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65050 fPos=14.576 fActPosition=14.55 time=0.000011
+2022/01/27 17:23:06.801 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63847 fPos=14.572 fActPosition=14.58 time=0.000172
+2022/01/27 17:23:07.001 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65076 fPos=13.772 fActPosition=13.77 time=0.000012
+2022/01/27 17:23:07.001 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63820 fPos=13.772 fActPosition=13.77 time=0.000007
+2022/01/27 17:23:07.201 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65103 fPos=12.968 fActPosition=12.96 time=0.000073
+2022/01/27 17:23:07.202 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63793 fPos=12.968 fActPosition=12.96 time=0.000007
+2022/01/27 17:23:07.402 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65130 fPos=12.164 fActPosition=12.15 time=0.000013
+2022/01/27 17:23:07.402 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63766 fPos=12.164 fActPosition=12.15 time=0.000008
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+../grbl/grbl_stepper.c:st_next_block_index:652:
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+../grbl/grbl_stepper.c:st_go_idle:259:
+GRBL busy:   0.00000
+Retrigger g-code!!
+GRBL: INFO: Write command (command[0] = G1X20Y20F360)
+Added: G1X20Y20F360to buffer: G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+
+../grbl/grbl_gcode.c:gc_execute_line:71:
+../grbl/grbl_motion_control.c:mc_line:33:
+GRBL: INFO: Reply OK (command[0] = G1X20Y20F360)
+GRBL: INFO: Write command (command[1] = G1X0Y0F360)
+Added: G1X0Y0F360to buffer: G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+
+../grbl/grbl_stepper.c:st_next_block_index:652:
+../grbl/grbl_stepper.c:st_wake_up:228:
+../grbl/grbl_gcode.c:gc_execute_line:71:
+../grbl/grbl_motion_control.c:mc_line:33:
+../grbl/grbl_stepper.c:st_update_plan_block_parameters:639:
+GRBL: INFO: Reply OK (command[1] = G1X0Y0F360)
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+../grbl/grbl_stepper.c:st_next_block_index:652:
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+2022/01/27 17:23:07.602 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65156 fPos=11.368 fActPosition=11.37 time=0.000061
+2022/01/27 17:23:07.603 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63739 fPos=11.36 fActPosition=11.34 time=0.000013
+2022/01/27 17:23:07.803 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65183 fPos=10.564 fActPosition=10.56 time=0.000018
+2022/01/27 17:23:07.804 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63713 fPos=10.56 fActPosition=10.56 time=0.000217
+2022/01/27 17:23:08.004 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65210 fPos=9.76 fActPosition=9.75 time=0.000014
+2022/01/27 17:23:08.004 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63686 fPos=9.76 fActPosition=9.75 time=0.000008
+2022/01/27 17:23:08.204 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65236 fPos=8.96 fActPosition=8.97 time=0.000017
+2022/01/27 17:23:08.205 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63659 fPos=8.956 fActPosition=8.94 time=0.000010
+2022/01/27 17:23:08.405 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65263 fPos=8.156 fActPosition=8.16 time=0.000029
+2022/01/27 17:23:08.406 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63633 fPos=8.152 fActPosition=8.16 time=0.000513
+2022/01/27 17:23:08.606 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65290 fPos=7.348 fActPosition=7.35 time=0.000086
+2022/01/27 17:23:08.607 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63606 fPos=7.348 fActPosition=7.35 time=0.000013
+2022/01/27 17:23:08.807 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65317 fPos=6.548 fActPosition=6.54 time=0.000014
+2022/01/27 17:23:08.807 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63579 fPos=6.544 fActPosition=6.54 time=0.000199
+2022/01/27 17:23:09.008 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65344 fPos=5.744 fActPosition=5.73 time=0.000018
+2022/01/27 17:23:09.008 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63552 fPos=5.744 fActPosition=5.73 time=0.000010
+2022/01/27 17:23:09.209 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65371 fPos=4.94 fActPosition=4.92 time=0.000353
+2022/01/27 17:23:09.209 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63525 fPos=4.94 fActPosition=4.92 time=0.000018
+2022/01/27 17:23:09.410 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65397 fPos=4.136 fActPosition=4.14 time=0.000307
+2022/01/27 17:23:09.410 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63498 fPos=4.136 fActPosition=4.11 time=0.000024
+2022/01/27 17:23:09.611 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65424 fPos=3.332 fActPosition=3.33 time=0.000338
+2022/01/27 17:23:09.611 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63472 fPos=3.332 fActPosition=3.33 time=0.000015
+2022/01/27 17:23:09.812 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65451 fPos=2.528 fActPosition=2.52 time=0.000363
+2022/01/27 17:23:09.812 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63445 fPos=2.528 fActPosition=2.52 time=0.000022
+2022/01/27 17:23:10.013 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65477 fPos=1.724 fActPosition=1.74 time=0.000017
+2022/01/27 17:23:10.013 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63418 fPos=1.724 fActPosition=1.71 time=0.000015
+2022/01/27 17:23:10.213 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65504 fPos=0.92 fActPosition=0.93 time=0.000066
+2022/01/27 17:23:10.214 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63392 fPos=0.92 fActPosition=0.93 time=0.000010
+2022/01/27 17:23:10.414 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65526 fPos=0.28 fActPosition=0.27 time=0.000051
+2022/01/27 17:23:10.415 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63370 fPos=0.28 fActPosition=0.27 time=0.000148
+2022/01/27 17:23:10.616 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65535 fPos=0.008 fActPosition=0 time=0.000519
+2022/01/27 17:23:10.617 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63361 fPos=0.008 fActPosition=0 time=0.000363
+2022/01/27 17:23:10.817 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65534 fPos=0.056 fActPosition=0.03 time=0.000077
+2022/01/27 17:23:10.818 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63362 fPos=0.056 fActPosition=0.03 time=0.000006
+2022/01/27 17:23:11.018 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65520 fPos=0.444 fActPosition=0.45 time=0.000014
+2022/01/27 17:23:11.018 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63375 fPos=0.444 fActPosition=0.42 time=0.000008
+2022/01/27 17:23:11.218 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65496 fPos=1.176 fActPosition=1.17 time=0.000021
+2022/01/27 17:23:11.219 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63400 fPos=1.176 fActPosition=1.17 time=0.000017
+2022/01/27 17:23:11.419 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65469 fPos=1.98 fActPosition=1.98 time=0.000018
+2022/01/27 17:23:11.419 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63428 fPos=1.98 fActPosition=2.01 time=0.000012
+2022/01/27 17:23:11.620 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65442 fPos=2.78 fActPosition=2.79 time=0.000265
+2022/01/27 17:23:11.621 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63454 fPos=2.788 fActPosition=2.79 time=0.000608
+2022/01/27 17:23:11.821 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65415 fPos=3.592 fActPosition=3.6 time=0.000114
+2022/01/27 17:23:11.822 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63481 fPos=3.592 fActPosition=3.6 time=0.000011
+2022/01/27 17:23:12.022 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65389 fPos=4.388 fActPosition=4.38 time=0.000026
+2022/01/27 17:23:12.023 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63508 fPos=4.392 fActPosition=4.41 time=0.000288
+2022/01/27 17:23:12.223 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65361 fPos=5.192 fActPosition=5.22 time=0.000022
+2022/01/27 17:23:12.224 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63534 fPos=5.196 fActPosition=5.19 time=0.000264
+2022/01/27 17:23:12.424 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65335 fPos=5.996 fActPosition=6 time=0.000030
+2022/01/27 17:23:12.425 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63561 fPos=6 fActPosition=6 time=0.000142
+2022/01/27 17:23:12.625 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65308 fPos=6.8 fActPosition=6.81 time=0.000023
+2022/01/27 17:23:12.626 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63588 fPos=6.804 fActPosition=6.81 time=0.000350
+2022/01/27 17:23:12.826 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65281 fPos=7.604 fActPosition=7.62 time=0.000031
+2022/01/27 17:23:12.827 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63615 fPos=7.608 fActPosition=7.62 time=0.000218
+2022/01/27 17:23:13.027 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65255 fPos=8.408 fActPosition=8.4 time=0.000020
+2022/01/27 17:23:13.028 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63642 fPos=8.412 fActPosition=8.43 time=0.000010
+2022/01/27 17:23:13.228 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65228 fPos=9.212 fActPosition=9.21 time=0.000012
+2022/01/27 17:23:13.228 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63668 fPos=9.212 fActPosition=9.21 time=0.000007
+2022/01/27 17:23:13.428 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65201 fPos=10.012 fActPosition=10.02 time=0.000038
+2022/01/27 17:23:13.429 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63695 fPos=10.016 fActPosition=10.02 time=0.000016
+2022/01/27 17:23:13.629 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65174 fPos=10.816 fActPosition=10.83 time=0.000023
+2022/01/27 17:23:13.630 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63722 fPos=10.82 fActPosition=10.83 time=0.000049
+2022/01/27 17:23:13.830 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65148 fPos=11.62 fActPosition=11.61 time=0.000015
+2022/01/27 17:23:13.830 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63749 fPos=11.62 fActPosition=11.64 time=0.000013
+2022/01/27 17:23:14.031 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65120 fPos=12.424 fActPosition=12.45 time=0.000106
+2022/01/27 17:23:14.031 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63775 fPos=12.424 fActPosition=12.42 time=0.000011
+2022/01/27 17:23:14.231 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65094 fPos=13.224 fActPosition=13.23 time=0.000025
+2022/01/27 17:23:14.232 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63802 fPos=13.228 fActPosition=13.23 time=0.000096
+2022/01/27 17:23:14.432 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65067 fPos=14.032 fActPosition=14.04 time=0.000010
+2022/01/27 17:23:14.432 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63829 fPos=14.032 fActPosition=14.04 time=0.000091
+2022/01/27 17:23:14.633 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65040 fPos=14.836 fActPosition=14.85 time=0.000011
+2022/01/27 17:23:14.633 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63855 fPos=14.836 fActPosition=14.82 time=0.000006
+2022/01/27 17:23:14.833 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65014 fPos=15.632 fActPosition=15.63 time=0.000011
+2022/01/27 17:23:14.833 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63882 fPos=15.632 fActPosition=15.63 time=0.000008
+2022/01/27 17:23:15.033 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64987 fPos=16.436 fActPosition=16.44 time=0.000012
+2022/01/27 17:23:15.034 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63909 fPos=16.436 fActPosition=16.44 time=0.000007
+2022/01/27 17:23:15.234 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64960 fPos=17.236 fActPosition=17.25 time=0.000011
+2022/01/27 17:23:15.234 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63936 fPos=17.236 fActPosition=17.25 time=0.000006
+2022/01/27 17:23:15.434 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64934 fPos=18.036 fActPosition=18.03 time=0.000019
+2022/01/27 17:23:15.435 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63962 fPos=18.04 fActPosition=18.03 time=0.000013
+2022/01/27 17:23:15.635 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64907 fPos=18.84 fActPosition=18.84 time=0.000015
+2022/01/27 17:23:15.635 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63989 fPos=18.84 fActPosition=18.84 time=0.000010
+2022/01/27 17:23:15.836 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64882 fPos=19.568 fActPosition=19.59 time=0.000312
+2022/01/27 17:23:15.836 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64013 fPos=19.568 fActPosition=19.56 time=0.000015
+2022/01/27 17:23:16.037 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64870 fPos=19.948 fActPosition=19.95 time=0.000280
+2022/01/27 17:23:16.037 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64026 fPos=19.948 fActPosition=19.95 time=0.000014
+2022/01/27 17:23:16.237 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64869 fPos=19.944 fActPosition=19.98 time=0.000017
+2022/01/27 17:23:16.237 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64027 fPos=19.944 fActPosition=19.98 time=0.000072
+2022/01/27 17:23:16.438 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64883 fPos=19.552 fActPosition=19.56 time=0.000019
+2022/01/27 17:23:16.438 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64013 fPos=19.552 fActPosition=19.56 time=0.000014
+2022/01/27 17:23:16.639 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64908 fPos=18.816 fActPosition=18.81 time=0.000293
+2022/01/27 17:23:16.639 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63988 fPos=18.816 fActPosition=18.81 time=0.000015
+2022/01/27 17:23:16.840 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64935 fPos=18.012 fActPosition=18 time=0.000763
+2022/01/27 17:23:16.841 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63961 fPos=18.008 fActPosition=18 time=0.000417
+2022/01/27 17:23:17.042 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64962 fPos=17.204 fActPosition=17.19 time=0.000150
+2022/01/27 17:23:17.043 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63934 fPos=17.2 fActPosition=17.19 time=0.000400
+2022/01/27 17:23:17.243 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64989 fPos=16.4 fActPosition=16.38 time=0.000021
+2022/01/27 17:23:17.244 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63908 fPos=16.396 fActPosition=16.41 time=0.000156
+2022/01/27 17:23:17.444 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65015 fPos=15.596 fActPosition=15.6 time=0.000011
+2022/01/27 17:23:17.444 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63880 fPos=15.596 fActPosition=15.57 time=0.000007
+2022/01/27 17:23:17.644 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65042 fPos=14.792 fActPosition=14.79 time=0.000011
+2022/01/27 17:23:17.645 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63854 fPos=14.792 fActPosition=14.79 time=0.000007
+2022/01/27 17:23:17.845 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65069 fPos=13.988 fActPosition=13.98 time=0.000016
+2022/01/27 17:23:17.845 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63827 fPos=13.988 fActPosition=13.98 time=0.000011
+2022/01/27 17:23:18.045 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65095 fPos=13.184 fActPosition=13.2 time=0.000244
+2022/01/27 17:23:18.046 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63800 fPos=13.184 fActPosition=13.17 time=0.000013
+2022/01/27 17:23:18.246 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65122 fPos=12.388 fActPosition=12.39 time=0.000020
+2022/01/27 17:23:18.246 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63774 fPos=12.384 fActPosition=12.39 time=0.000012
+2022/01/27 17:23:18.447 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65149 fPos=11.584 fActPosition=11.58 time=0.000016
+2022/01/27 17:23:18.447 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63747 fPos=11.584 fActPosition=11.58 time=0.000010
+2022/01/27 17:23:18.647 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65176 fPos=10.78 fActPosition=10.77 time=0.000100
+2022/01/27 17:23:18.648 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63720 fPos=10.78 fActPosition=10.77 time=0.000009
+2022/01/27 17:23:18.848 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65202 fPos=9.98 fActPosition=9.99 time=0.000015
+2022/01/27 17:23:18.848 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63694 fPos=9.98 fActPosition=9.99 time=0.000008
+2022/01/27 17:23:19.048 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65230 fPos=9.176 fActPosition=9.15 time=0.000012
+2022/01/27 17:23:19.049 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63667 fPos=9.176 fActPosition=9.18 time=0.000007
+2022/01/27 17:23:19.249 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65256 fPos=8.376 fActPosition=8.37 time=0.000011
+2022/01/27 17:23:19.249 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63640 fPos=8.376 fActPosition=8.37 time=0.000008
+2022/01/27 17:23:19.449 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65282 fPos=7.576 fActPosition=7.59 time=0.000011
+2022/01/27 17:23:19.449 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63613 fPos=7.572 fActPosition=7.56 time=0.000008
+2022/01/27 17:23:19.650 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65310 fPos=6.772 fActPosition=6.75 time=0.000014
+2022/01/27 17:23:19.650 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63587 fPos=6.772 fActPosition=6.78 time=0.000009
+2022/01/27 17:23:19.850 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65336 fPos=5.968 fActPosition=5.97 time=0.000011
+2022/01/27 17:23:19.851 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63560 fPos=5.968 fActPosition=5.97 time=0.000229
+2022/01/27 17:23:20.051 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65363 fPos=5.164 fActPosition=5.16 time=0.000011
+2022/01/27 17:23:20.051 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63533 fPos=5.164 fActPosition=5.16 time=0.000007
+2022/01/27 17:23:20.252 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65390 fPos=4.36 fActPosition=4.35 time=0.000244
+2022/01/27 17:23:20.252 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63506 fPos=4.36 fActPosition=4.35 time=0.000013
+2022/01/27 17:23:20.452 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65416 fPos=3.564 fActPosition=3.57 time=0.000015
+2022/01/27 17:23:20.452 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63479 fPos=3.56 fActPosition=3.54 time=0.000210
+2022/01/27 17:23:20.653 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65443 fPos=2.76 fActPosition=2.76 time=0.000014
+2022/01/27 17:23:20.653 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63453 fPos=2.76 fActPosition=2.76 time=0.000010
+2022/01/27 17:23:20.853 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65470 fPos=1.956 fActPosition=1.95 time=0.000166
+2022/01/27 17:23:20.854 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63426 fPos=1.956 fActPosition=1.95 time=0.000008
+2022/01/27 17:23:21.054 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65496 fPos=1.156 fActPosition=1.17 time=0.000043
+2022/01/27 17:23:21.055 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63399 fPos=1.152 fActPosition=1.14 time=0.000368
+2022/01/27 17:23:21.256 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65521 fPos=0.428 fActPosition=0.42 time=0.000717
+2022/01/27 17:23:21.257 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63375 fPos=0.424 fActPosition=0.42 time=0.000142
+2022/01/27 17:23:21.457 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65534 fPos=0.048 fActPosition=0.03 time=0.000028
+2022/01/27 17:23:21.458 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63362 fPos=0.048 fActPosition=0.03 time=0.000012
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+../grbl/grbl_stepper.c:st_go_idle:259:
+GRBL busy:   0.00000
+Retrigger g-code!!
+GRBL: INFO: Write command (command[0] = G1X20Y20F360)
+Added: G1X20Y20F360to buffer: G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+
+../grbl/grbl_gcode.c:gc_execute_line:71:
+../grbl/grbl_motion_control.c:mc_line:33:
+GRBL: INFO: Reply OK (command[0] = G1X20Y20F360)
+GRBL: INFO: Write command (command[1] = G1X0Y0F360)
+Added: G1X0Y0F360to buffer: G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+
+../grbl/grbl_stepper.c:st_next_block_index:652:
+../grbl/grbl_stepper.c:st_wake_up:228:
+../grbl/grbl_gcode.c:gc_execute_line:71:
+../grbl/grbl_motion_control.c:mc_line:33:
+../grbl/grbl_stepper.c:st_update_plan_block_parameters:639:
+GRBL: INFO: Reply OK (command[1] = G1X0Y0F360)
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+../grbl/grbl_stepper.c:st_next_block_index:652:
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+../grbl/grbl_stepper.c:st_go_idle:259:
+GRBL busy:   0.00000
+Retrigger g-code!!
+GRBL: INFO: Write command (command[0] = G1X20Y20F360)
+Added: G1X20Y20F360to buffer: G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X02022/01/27 17:23:21.658 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65535 fPos=0.008 fActPosition=0 time=0.000018
+2022/01/27 17:23:21.658 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63361 fPos=0.008 fActPosition=0 time=0.000008
+2022/01/27 17:23:21.858 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65526 fPos=0.284 fActPosition=0.27 time=0.000015
+2022/01/27 17:23:21.859 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63370 fPos=0.284 fActPosition=0.27 time=0.000012
+2022/01/27 17:23:22.059 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65504 fPos=0.924 fActPosition=0.93 time=0.000031
+2022/01/27 17:23:22.060 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63392 fPos=0.928 fActPosition=0.93 time=0.000155
+2022/01/27 17:23:22.260 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65477 fPos=1.728 fActPosition=1.74 time=0.000021
+2022/01/27 17:23:22.261 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63419 fPos=1.732 fActPosition=1.74 time=0.000429
+2022/01/27 17:23:22.461 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65450 fPos=2.536 fActPosition=2.55 time=0.000191
+2022/01/27 17:23:22.462 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63446 fPos=2.536 fActPosition=2.55 time=0.000010
+2022/01/27 17:23:22.662 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65423 fPos=3.34 fActPosition=3.36 time=0.000023
+2022/01/27 17:23:22.663 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63473 fPos=3.34 fActPosition=3.36 time=0.000224
+2022/01/27 17:23:22.863 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65397 fPos=4.144 fActPosition=4.14 time=0.000027
+2022/01/27 17:23:22.864 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63499 fPos=4.148 fActPosition=4.14 time=0.000124
+2022/01/27 17:23:23.064 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65370 fPos=4.944 fActPosition=4.95 time=0.000015
+2022/01/27 17:23:23.065 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63526 fPos=4.952 fActPosition=4.95 time=0.000153
+2022/01/27 17:23:23.265 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65343 fPos=5.748 fActPosition=5.76 time=0.000011
+2022/01/27 17:23:23.265 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63553 fPos=5.748 fActPosition=5.76 time=0.000008
+2022/01/27 17:23:23.465 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65316 fPos=6.548 fActPosition=6.57 time=0.000019
+2022/01/27 17:23:23.466 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63579 fPos=6.552 fActPosition=6.54 time=0.000191
+2022/01/27 17:23:23.666 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65290 fPos=7.352 fActPosition=7.35 time=0.000014
+2022/01/27 17:23:23.666 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63607 fPos=7.356 fActPosition=7.38 time=0.000178
+2022/01/27 17:23:23.867 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65263 fPos=8.156 fActPosition=8.16 time=0.000012
+2022/01/27 17:23:23.867 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63633 fPos=8.156 fActPosition=8.16 time=0.000007
+2022/01/27 17:23:24.067 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65236 fPos=8.956 fActPosition=8.97 time=0.000033
+2022/01/27 17:23:24.068 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63660 fPos=8.96 fActPosition=8.97 time=0.000015
+2022/01/27 17:23:24.268 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65210 fPos=9.76 fActPosition=9.75 time=0.000025
+2022/01/27 17:23:24.269 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63687 fPos=9.764 fActPosition=9.78 time=0.000111
+2022/01/27 17:23:24.469 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65183 fPos=10.564 fActPosition=10.56 time=0.000019
+2022/01/27 17:23:24.469 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63713 fPos=10.564 fActPosition=10.56 time=0.000014
+2022/01/27 17:23:24.669 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65156 fPos=11.368 fActPosition=11.37 time=0.000025
+2022/01/27 17:23:24.670 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63740 fPos=11.368 fActPosition=11.37 time=0.000025
+2022/01/27 17:23:24.871 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65129 fPos=12.172 fActPosition=12.18 time=0.000978
+2022/01/27 17:23:24.872 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63767 fPos=12.176 fActPosition=12.18 time=0.000023
+2022/01/27 17:23:25.073 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65102 fPos=12.98 fActPosition=12.99 time=0.000249
+2022/01/27 17:23:25.073 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63794 fPos=12.98 fActPosition=12.99 time=0.000018
+2022/01/27 17:23:25.273 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65075 fPos=13.784 fActPosition=13.8 time=0.000017
+2022/01/27 17:23:25.274 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63821 fPos=13.784 fActPosition=13.8 time=0.000012
+2022/01/27 17:23:25.474 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65049 fPos=14.584 fActPosition=14.58 time=0.000012
+2022/01/27 17:23:25.474 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63847 fPos=14.584 fActPosition=14.58 time=0.000006
+2022/01/27 17:23:25.675 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65022 fPos=15.388 fActPosition=15.39 time=0.000166
+2022/01/27 17:23:25.675 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63874 fPos=15.388 fActPosition=15.39 time=0.000016
+2022/01/27 17:23:25.876 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64995 fPos=16.196 fActPosition=16.2 time=0.000549
+2022/01/27 17:23:25.877 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63901 fPos=16.196 fActPosition=16.2 time=0.000401
+2022/01/27 17:23:26.078 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64968 fPos=17 fActPosition=17.01 time=0.000357
+2022/01/27 17:23:26.078 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63928 fPos=17 fActPosition=17.01 time=0.000023
+2022/01/27 17:23:26.279 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64941 fPos=17.808 fActPosition=17.82 time=0.000124
+2022/01/27 17:23:26.279 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63954 fPos=17.808 fActPosition=17.79 time=0.000023
+2022/01/27 17:23:26.480 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64915 fPos=18.612 fActPosition=18.6 time=0.000013
+2022/01/27 17:23:26.480 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63981 fPos=18.612 fActPosition=18.6 time=0.000008
+2022/01/27 17:23:26.680 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64889 fPos=19.388 fActPosition=19.38 time=0.000018
+2022/01/27 17:23:26.681 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64008 fPos=19.392 fActPosition=19.41 time=0.000533
+2022/01/27 17:23:26.881 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64872 fPos=19.88 fActPosition=19.89 time=0.000114
+2022/01/27 17:23:26.882 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64024 fPos=19.88 fActPosition=19.89 time=0.000013
+2022/01/27 17:23:27.082 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64868 fPos=19.988 fActPosition=20.01 time=0.000019
+2022/01/27 17:23:27.083 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64028 fPos=19.988 fActPosition=20.01 time=0.000143
+2022/01/27 17:23:27.283 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64878 fPos=19.704 fActPosition=19.71 time=0.000029
+2022/01/27 17:23:27.284 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64018 fPos=19.7 fActPosition=19.71 time=0.000497
+2022/01/27 17:23:27.484 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64900 fPos=19.044 fActPosition=19.05 time=0.000011
+2022/01/27 17:23:27.485 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63995 fPos=19.044 fActPosition=19.02 time=0.000007
+2022/01/27 17:23:27.685 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64928 fPos=18.244 fActPosition=18.21 time=0.000011
+2022/01/27 17:23:27.685 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63969 fPos=18.244 fActPosition=18.24 time=0.000007
+2022/01/27 17:23:27.885 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64954 fPos=17.44 fActPosition=17.43 time=0.000196
+2022/01/27 17:23:27.886 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63942 fPos=17.44 fActPosition=17.43 time=0.000012
+2022/01/27 17:23:28.086 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=64980 fPos=16.64 fActPosition=16.65 time=0.000016
+2022/01/27 17:23:28.086 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63915 fPos=16.636 fActPosition=16.62 time=0.000175
+2022/01/27 17:23:28.287 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65008 fPos=15.836 fActPosition=15.81 time=0.000013
+2022/01/27 17:23:28.287 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63889 fPos=15.836 fActPosition=15.84 time=0.000009
+2022/01/27 17:23:28.487 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65034 fPos=15.036 fActPosition=15.03 time=0.000048
+2022/01/27 17:23:28.488 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63862 fPos=15.032 fActPosition=15.03 time=0.000015
+2022/01/27 17:23:28.688 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65061 fPos=14.232 fActPosition=14.22 time=0.000021
+2022/01/27 17:23:28.689 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63835 fPos=14.228 fActPosition=14.22 time=0.000013
+2022/01/27 17:23:28.889 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65088 fPos=13.428 fActPosition=13.41 time=0.000015
+2022/01/27 17:23:28.889 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63809 fPos=13.428 fActPosition=13.44 time=0.000008
+2022/01/27 17:23:29.090 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65114 fPos=12.624 fActPosition=12.63 time=0.000273
+2022/01/27 17:23:29.090 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63782 fPos=12.624 fActPosition=12.63 time=0.000018
+2022/01/27 17:23:29.291 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65141 fPos=11.82 fActPosition=11.82 time=0.000445
+2022/01/27 17:23:29.291 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63755 fPos=11.82 fActPosition=11.82 time=0.000020
+2022/01/27 17:23:29.492 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65168 fPos=11.016 fActPosition=11.01 time=0.000021
+2022/01/27 17:23:29.492 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63728 fPos=11.016 fActPosition=11.01 time=0.000016
+2022/01/27 17:23:29.693 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65195 fPos=10.212 fActPosition=10.2 time=0.000237
+2022/01/27 17:23:29.693 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63701 fPos=10.212 fActPosition=10.2 time=0.000015
+2022/01/27 17:23:29.894 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65221 fPos=9.404 fActPosition=9.42 time=0.000358
+2022/01/27 17:23:29.894 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63674 fPos=9.404 fActPosition=9.39 time=0.000013
+2022/01/27 17:23:30.094 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65249 fPos=8.608 fActPosition=8.58 time=0.000015
+2022/01/27 17:23:30.095 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63648 fPos=8.6 fActPosition=8.61 time=0.000010
+2022/01/27 17:23:30.295 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65275 fPos=7.804 fActPosition=7.8 time=0.000019
+2022/01/27 17:23:30.295 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63621 fPos=7.804 fActPosition=7.8 time=0.000014
+2022/01/27 17:23:30.496 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65302 fPos=7 fActPosition=6.99 time=0.000013
+2022/01/27 17:23:30.496 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63594 fPos=7 fActPosition=6.99 time=0.000009
+2022/01/27 17:23:30.696 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65329 fPos=6.2 fActPosition=6.18 time=0.000014
+2022/01/27 17:23:30.696 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63567 fPos=6.196 fActPosition=6.18 time=0.000161
+2022/01/27 17:23:30.897 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65355 fPos=5.396 fActPosition=5.4 time=0.000011
+2022/01/27 17:23:30.897 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63541 fPos=5.396 fActPosition=5.4 time=0.000008
+2022/01/27 17:23:31.097 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65382 fPos=4.596 fActPosition=4.59 time=0.000022
+2022/01/27 17:23:31.098 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63514 fPos=4.592 fActPosition=4.59 time=0.000017
+2022/01/27 17:23:31.298 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65409 fPos=3.792 fActPosition=3.78 time=0.000012
+2022/01/27 17:23:31.298 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63487 fPos=3.792 fActPosition=3.78 time=0.000008
+2022/01/27 17:23:31.498 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65435 fPos=2.988 fActPosition=3 time=0.000013
+2022/01/27 17:23:31.499 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63460 fPos=2.988 fActPosition=2.97 time=0.000010
+2022/01/27 17:23:31.699 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65462 fPos=2.188 fActPosition=2.19 time=0.000012
+2022/01/27 17:23:31.699 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63434 fPos=2.188 fActPosition=2.19 time=0.000008
+2022/01/27 17:23:31.899 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65489 fPos=1.384 fActPosition=1.38 time=0.000019
+2022/01/27 17:23:31.900 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63407 fPos=1.384 fActPosition=1.38 time=0.000015
+2022/01/27 17:23:32.100 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65515 fPos=0.608 fActPosition=0.6 time=0.000013
+2022/01/27 17:23:32.101 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63381 fPos=0.604 fActPosition=0.6 time=0.000455
+2022/01/27 17:23:32.301 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65531 fPos=0.12 fActPosition=0.12 time=0.000011
+2022/01/27 17:23:32.301 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63365 fPos=0.12 fActPosition=0.12 time=0.000010
+2022/01/27 17:23:32.501 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000012
+2022/01/27 17:23:32.502 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63360 fPos=0 fActPosition=-0.03 time=0.000011
+2022/01/27 17:23:32.702 ecmcMotorRecord:: poll(1) LLS=1
+2022/01/27 17:23:32.702 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65530 fPos=0.176 fActPosition=0.15 time=0.000070
+2022/01/27 17:23:32.702 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63367 fPos=0.176 fActPosition=0.18 time=0.000009
+2022/01/27 17:23:32.903 ecmcMotorRecord:: poll(1) LLS=0
+2022/01/27 17:23:32.903 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65520 fPos=0.436667 fActPosition=0.45 time=0.000270
+2022/01/27 17:23:32.903 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=0 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63373 fPos=0.3411 fActPosition=0.36 time=0.000012
+2022/01/27 17:23:33.104 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65514 fPos=0.64404 fActPosition=0.63 time=0.000793
+2022/01/27 17:23:33.105 ecmcMotorRecord:: poll(2) mvnNRdy=0 bBusy=0 bExecute=0 bEnabled=1 atTarget=1 wf=0 ENC=63372 fPos=0.3411 fActPosition=0.33 time=0.000186
+Y0F360
+G1X20Y20F360
+
+../grbl/grbl_gcode.c:gc_execute_line:71:
+../grbl/grbl_motion_control.c:mc_line:33:
+GRBL: INFO: Reply OK (command[0] = G1X20Y20F360)
+GRBL: INFO: Write command (command[1] = G1X0Y0F360)
+Added: G1X0Y0F360to buffer: G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+
+../grbl/grbl_stepper.c:st_next_block_index:652:
+../grbl/grbl_stepper.c:st_wake_up:228:
+../grbl/grbl_gcode.c:gc_execute_line:71:
+../grbl/grbl_motion_control.c:mc_line:33:
+../grbl/grbl_stepper.c:st_update_plan_block_parameters:639:
+GRBL: INFO: Reply OK (command[1] = G1X0Y0F360)
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+../grbl/grbl_stepper.c:st_next_block_index:652:
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+../grbl/grbl_stepper.c:st_go_idle:259:
+GRBL busy:   0.00000
+Retrigger g-code!!
+GRBL: INFO: Write command (command[0] = G1X20Y20F360)
+Added: G1X20Y20F360to buffer: 360
+0Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F
+../grbl/grbl_gcode.c:gc_execute_line:71:
+../grbl/grbl_motion_control.c:mc_line:33:
+GRBL: INFO: Reply OK (command[0] = G1X20Y20F360)
+GRBL: INFO: Write command (command[1] = G1X0Y0F360)
+Added: G1X0Y0F360to buffer: 360
+G1X0Y0F360
+X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F
+../grbl/grbl_stepper.c:st_next_block_index:652:
+../grbl/grbl_stepper.c:st_wake_up:228:
+../grbl/grbl_gcode.c:gc_execute_line:71:
+../grbl/grbl_motion_control.c:mc_line:33:
+../grbl/grbl_stepper.c:st_update_plan_block_parameters:639:
+GRBL: INFO: Reply OK (command[1] = G1X0Y0F360)
+GRBL busy:   1.00000
+../grbl/grbl_stepper.c:st_update_plan_block_parameters:639:
+GRBL: ERROR: ecmc 0x104, plugin 0x104
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   2022/01/27 17:23:33.305 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65511 fPos=0.722378 fActPosition=0.72 time=0.000018
+2022/01/27 17:23:33.506 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=0 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=65511 fPos=0.730948 fActPosition=0.72 time=0.000108
+2022/01/27 17:23:33.706 ecmcMotorRecord:: poll(1) mvnNRdy=0 bBusy=0 bExecute=0 bEnabled=1 atTarget=1 wf=0 ENC=65511 fPos=0.730948 fActPosition=0.72 time=0.000024
+1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+../grbl/grbl_stepper.c:st_go_idle:259:
+../grbl/grbl_stepper.c:st_update_plan_block_parameters:639:
+../grbl/grbl_stepper.c:st_update_plan_block_parameters:639:
+../grbl/grbl_coolant_control.c:coolant_get_state:37 Not supported yet..
+GRBL busy:   0.00000
+Retrigger g-code!!
+GRBL: INFO: Write command (command[0] = G1X20Y20F360)
+Added: G1X20Y20F360to buffer: 360
+G1X0Y0F360
+G1X20Y20F360
+0Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F360
+G1X0Y0F360
+G1X20Y20F
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+
+raspberrypi-1795 > GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+
+raspberrypi-1795 > GRBL busy:   1.00000
+GRBL busy:   1.00000
+
+raspberrypi-1795 > GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+GRBL busy:   1.00000
+
+raspberrypi-1795 > 

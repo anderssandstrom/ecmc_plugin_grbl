@@ -64,7 +64,6 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILN
 epicsEnvUnset(ECMC_PLUGIN_FILNAME)
 epicsEnvUnset(ECMC_PLUGIN_CONFIG)
 
-
 ecmcGrblAddCommand("G1X20Y20F360");
 ecmcGrblAddCommand("G1X0Y0F360");
 #ecmcGrblAddCommand("G2X0Y0R20");
@@ -80,7 +79,7 @@ ecmcGrblAddCommand("G1X0Y0F360");
 
 ##############################################################################
 ## PLC 0
-#$(SCRIPTEXEC) $(ecmccfg_DIR)loadPLCFile.cmd, "PLC_ID=0, SAMPLE_RATE_MS=100,FILE=./plc/grbl.plc")
+$(SCRIPTEXEC) $(ecmccfg_DIR)loadPLCFile.cmd, "PLC_ID=0, SAMPLE_RATE_MS=1000,FILE=./plc/grbl.plc")
 
 ##############################################################################
 ############# Configure diagnostics:
