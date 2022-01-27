@@ -21,7 +21,8 @@
 #include "ecmcAsynPortDriverUtils.h"
 #include "epicsThread.h"
 #include "ecmcMotion.h"
-
+#include <iostream>
+#include <fstream>
 
 extern "C" {
 #include "grbl.h"
@@ -120,6 +121,8 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   autoEnableExecuted_   = 0;
   timeToNextExeMs_      = 0;
   writerBusy_           = 0;
+  limitsSummary_        = 0;
+  limitsSummaryOld_     = 0;
   grblCommandBufferIndex_ = 0;
   grblCommandBuffer_.clear();
 
@@ -291,10 +294,15 @@ void ecmcGrbl::doWriteWorker() {
   for(;;) {
     if( (grblCommandBuffer_.size() > grblCommandBufferIndex_) &&         
         executeCmd_) {              
-      
+            
       epicsMutexLock(grblCommandBufferMutex_);
-      std::string command = grblCommandBuffer_[grblCommandBufferIndex_];      
+      std::string commandRaw = grblCommandBuffer_[grblCommandBufferIndex_];
       epicsMutexUnlock(grblCommandBufferMutex_);
+      std::string command = commandRaw.substr(0, commandRaw.find(ECMC_CONFIG_FILE_COMMENT_CHAR));
+      
+      if(command.length() == 0) {
+        continue;
+      }
 
       // wait for grbl            
       while(serial_get_rx_buffer_available() <= strlen(command.c_str())+1) {
@@ -495,9 +503,14 @@ double  ecmcGrbl::getEcmcAxisActPos(int axis) {
 }
 
 void ecmcGrbl::preExeAxes() {
+  limitsSummary_ = 1;
   preExeAxis(cfgXAxisId_,X_AXIS);
   preExeAxis(cfgYAxisId_,Y_AXIS);
   preExeAxis(cfgZAxisId_,Z_AXIS);
+
+  // Kill everything if limit switch violation
+  giveControlToEcmcIfNeeded();
+
   //spindle
   autoEnableAxisAtStart(cfgSpindleAxisId_);
   if(getAllConfiguredAxisEnabled()) {
@@ -506,8 +519,59 @@ void ecmcGrbl::preExeAxes() {
 }
 
 void ecmcGrbl::preExeAxis(int ecmcAxisId, int grblAxisId) {
+  if(ecmcAxisId < 0) {
+    return;
+  }
+
   syncAxisPositionIfNotEnabled(ecmcAxisId, grblAxisId);
   autoEnableAxisAtStart(ecmcAxisId);
+  checkLimits(ecmcAxisId);
+}
+
+void ecmcGrbl::checkLimits(int ecmcAxisId) {
+  int lim = 0;
+  getAxisLimitSwitchBwd(ecmcAxisId,&lim);
+  limitsSummary_ = limitsSummary_ && lim;
+  getAxisLimitSwitchFwd(ecmcAxisId,&lim);
+  limitsSummary_ = limitsSummary_ && lim;
+}
+
+void ecmcGrbl::giveControlToEcmcIfNeeded() {
+
+  // Give total control to ecmc at negitive edge of any limit switch
+  if(!limitsSummary_ && limitsSummaryOld_) {
+    printf("####################### ECMC IN CONTROL\n");
+    int source = ECMC_DATA_SOURCE_INTERNAL;
+    if(cfgXAxisId_>=0) {
+      getAxisTrajSource(cfgXAxisId_,&source);
+      if(source == ECMC_DATA_SOURCE_EXTERNAL) {
+        setAxisTrajSource(cfgXAxisId_,ECMC_DATA_SOURCE_INTERNAL);
+      }
+    }
+    if(cfgYAxisId_>=0) {
+      getAxisTrajSource(cfgYAxisId_,&source);
+      if(source == ECMC_DATA_SOURCE_EXTERNAL) {
+        setAxisTrajSource(cfgYAxisId_,ECMC_DATA_SOURCE_INTERNAL);
+      }
+    }
+    if(cfgZAxisId_>=0) {
+      getAxisTrajSource(cfgZAxisId_,&source);
+      if(source == ECMC_DATA_SOURCE_EXTERNAL) {
+        setAxisTrajSource(cfgZAxisId_,ECMC_DATA_SOURCE_INTERNAL);
+      }
+    }
+    // reset grbl
+    setExecute(0);
+    setReset(0);
+    errorCode_ = ECMC_PLUGIN_LIMIT_SWITCH_VIOLATION_ERROR_CODE;
+
+    // Also reset for safety
+    autoEnableExecuted_ = 1;
+    cfgAutoStart_ = 0;
+    cfgAutoEnableAtStart_ = 0;
+  }
+
+  limitsSummaryOld_ = limitsSummary_;
 }
 
 void ecmcGrbl::syncAxisPositionIfNotEnabled(int ecmcAxisId, int grblAxisId) {
@@ -655,5 +719,40 @@ void ecmcGrbl::addCommand(std::string command) {
   epicsMutexUnlock(grblCommandBufferMutex_);
   if(cfgDbgMode_){
     printf("%s:%s:%d: Buffer size %d\n",__FILE__,__FUNCTION__,__LINE__,grblCommandBuffer_.size());
+  }
+}
+void ecmcGrbl::loadFile(std::string fileName, int append) {
+  if(cfgDbgMode_){
+    printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  }
+
+  std::ifstream file;
+  file.open(fileName);
+  if (!file.good()) {
+    if(cfgDbgMode_){
+      printf("%s:%s:%d: ERROR: File not found: %s (0x%x)\n",
+             __FILE__,__FUNCTION__,__LINE__,fileName,ECMC_PLUGIN_LOAD_FILE_ERROR_CODE);
+    }
+    errorCode_ = ECMC_PLUGIN_LOAD_FILE_ERROR_CODE;
+    throw std::runtime_error("Error: File not found.");
+    return;
+  }
+  
+  // Clear buffer (since not append)
+  if(!append) {
+    setExecute(0);
+    epicsMutexLock(grblCommandBufferMutex_);  
+    grblCommandBuffer_.clear();
+    epicsMutexUnlock(grblCommandBufferMutex_);
+  }
+
+  std::string line, lineNoComments;
+  int lineNumber = 1;
+  int errorCode  = 0;
+
+  while (std::getline(file, line)) {
+    if(lineNoComments.length()>0) {
+      addCommand(lineNoComments);
+    }
   }
 }

@@ -43,14 +43,16 @@ class ecmcGrbl : public asynPortDriver {
   void                     doReadWorker();
   void                     doMainWorker();
   void                     doWriteWorker();
+  void                     addCommand(std::string command);
+  void                     loadFile(std::string filename, int append);
   int                      enterRT();
   int                      grblRTexecute(int ecmcError);
-  void                     addCommand(std::string command);
   int                      setExecute(int exe);
   int                      setHalt(int halt);
   int                      setResume(int resume);
   int                      setReset(int reset);
   int                      getBusy();
+  
  private:
   void                     parseConfigStr(char *configStr);
   void                     preExeAxes();
@@ -58,6 +60,8 @@ class ecmcGrbl : public asynPortDriver {
   void                     preExeAxis(int ecmcAxisId, int grblAxisId);
   void                     postExeAxis(int ecmcAxisId, int grblAxisId);
   void                     autoEnableAxisAtStart(int ecmcAxisId);
+  void                     checkLimits(int ecmcAxisId);
+  void                     giveControlToEcmcIfNeeded();
   bool                     getEcmcAxisEnabled(int ecmcAxisId);
   bool                     getAllConfiguredAxisEnabled();
   double                   getEcmcAxisActPos(int axis);
@@ -88,6 +92,8 @@ class ecmcGrbl : public asynPortDriver {
   int                      grblExeCycles_;  
   double                   timeToNextExeMs_;
   bool                     writerBusy_;
+  int                      limitsSummary_;
+  int                      limitsSummaryOld_;
 };
 
 #endif  /* ECMC_GRBL_H_ */

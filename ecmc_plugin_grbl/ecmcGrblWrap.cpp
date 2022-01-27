@@ -163,11 +163,68 @@ static void initCallFunc_0(const iocshArgBuf *args) {
   ecmcGrblAddCommand(args[0].sval);
 }
 
+/** 
+ * EPICS iocsh shell command: ecmcGrblLoadGCodeFile
+*/
+
+void ecmcGrblLoadFilePrintHelp() {
+  printf("\n");
+  printf("       Use ecmcGrblLoadFile(<filename>,<append>)\n");
+  printf("          <filename>             : Filename containg g-code.\n");
+  printf("          <append>               : 0: reset grbl, clear all current commands in buffer before \n"); 
+  printf ("                                     loading file (default).\n");
+  printf("                                 : 1: append commands in file last in buffer. (grbl is not reset)\n");
+  printf("\n");
+}
+
+int ecmcGrblLoadFile(const char* filename, int append) {
+
+  if(!filename) {
+    printf("Error: filename.\n");
+    ecmcGrblLoadFilePrintHelp();
+    return asynError;
+  }
+
+  if(strcmp(filename,"-h") == 0 || strcmp(filename,"--help") == 0 ) {
+    ecmcGrblLoadFilePrintHelp();
+    return asynSuccess;
+  }
+
+  if(!grbl) {
+    printf("Plugin not initialized/loaded.\n");
+    return asynError;
+  }
+
+  try {
+    grbl->loadFile(filename, append);
+  }
+  catch(std::exception& e) {
+    printf("Exception: %s. Load file command failed.\n",e.what());
+    return asynError;
+  }
+  
+  return asynSuccess;
+}
+
+static const iocshArg initArg0_1 =
+{ " Filename", iocshArgString };
+static const iocshArg initArg1_1 =
+{ " Append", iocshArgInt };
+
+static const iocshArg *const initArgs_1[]  = { &initArg0_1,
+                                               &initArg1_1};
+
+static const iocshFuncDef    initFuncDef_1 = { "ecmcGrblLoadFile", 2, initArgs_1 };
+static void initCallFunc_1(const iocshArgBuf *args) {
+  ecmcGrblLoadFile(args[0].sval,args[1].ival);
+}
+
 ///** 
 // * Register all functions
 //*/
 void ecmcGrblPluginDriverRegister(void) {
-  iocshRegister(&initFuncDef_0,    initCallFunc_0);   // ecmcCANOpenAddMaster
+  iocshRegister(&initFuncDef_0,    initCallFunc_0);   // ecmcGrblAddCommand
+  iocshRegister(&initFuncDef_1,    initCallFunc_1);   // ecmcGrblLoadFile
 }
 
 epicsExportRegistrar(ecmcGrblPluginDriverRegister);
