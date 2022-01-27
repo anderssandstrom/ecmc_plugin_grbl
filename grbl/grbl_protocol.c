@@ -73,9 +73,11 @@ void protocol_main_loop()
   uint8_t line_flags = 0;
   uint8_t char_counter = 0;
   uint8_t c;
+  delay_ms(1);
   for (;;) {
     // Process one line of incoming serial data, as the data becomes available. Performs an
     // initial filtering by removing spaces and comments and capitalizing all letters.    
+    delay_ms(1);
     while((c = serial_read()) != SERIAL_NO_DATA) {
       if ((c == '\n') || (c == '\r')) { // End of line reached
         
@@ -152,7 +154,7 @@ void protocol_main_loop()
       }
       delay_us(100);
     }
-    delay_ms(2);
+    delay_ms(1);
     // If there are no more characters in the serial read buffer to be processed and executed,
     // this indicates that g-code streaming has either filled the planner buffer or has
     // completed. In either case, auto-cycle start, if enabled, any queued moves.
@@ -233,7 +235,7 @@ void protocol_exec_rt_system()
         // cycles. Hard limits typically occur while unattended or not paying attention. Gives
         // the user and a GUI time to do what is needed before resetting, like killing the
         // incoming stream. The same could be said about soft limits. While the position is not
-        // lost, continued streaming could cause a serious crash if by chance it gets executed.
+        // lost, continued streaming could cause a serious crash if by chance it gets executed.        
       } while (bit_isfalse(sys_rt_exec_state,EXEC_RESET));
     }
     system_clear_exec_alarm(); // Clear alarm
@@ -257,7 +259,7 @@ void protocol_exec_rt_system()
     // NOTE: Once hold is initiated, the system immediately enters a suspend state to block all
     // main program processes until either reset or resumed. This ensures a hold completes safely.
     if (rt_exec & (EXEC_MOTION_CANCEL | EXEC_FEED_HOLD | EXEC_SAFETY_DOOR | EXEC_SLEEP)) {
-
+      
       // State check for allowable states for hold methods.
       if (!(sys.state & (STATE_ALARM | STATE_CHECK_MODE))) {
       
@@ -548,7 +550,7 @@ static void protocol_exec_rt_suspend()
   while (sys.suspend) {
 
     if (sys.abort) { return; }
-
+    delay_ms(1);
     // Block until initial hold is complete and the machine has stopped motion.
     if (sys.suspend & SUSPEND_HOLD_COMPLETE) {
 
@@ -760,8 +762,7 @@ static void protocol_exec_rt_suspend()
 
       }
     }
-
+    delay_ms(1);
     protocol_exec_rt_system();
-
   }
 }

@@ -1,9 +1,9 @@
 registerChannelProviderLocal firstTime true
 #
-# Start at "2022-W04-Jan27-1450-32-CET"
+# Start at "2022-W04-Jan27-1614-56-CET"
 #
 # Version information:
-# European Spallation Source ERIC : iocsh.bash (3.4.0-PID-18378)
+# European Spallation Source ERIC : iocsh.bash (3.4.0-PID-28403)
 #
 # --->--> snip -->--> 
 # Please Use Version and other environment variables
@@ -31,10 +31,10 @@ registerChannelProviderLocal firstTime true
 # --->--> snip -->--> 
 #
 # Set REQUIRE_IOC for its internal PVs
-epicsEnvSet REQUIRE_IOC "REQMOD:raspberrypi-18378"
+epicsEnvSet REQUIRE_IOC "REQMOD:raspberrypi-28403"
 #
 # Enable an exit subroutine for sotfioc
-dbLoadRecords "/home/pi/epics/base-7.0.5/db/softIocExit.db" "IOC=REQMOD:raspberrypi-18378"
+dbLoadRecords "/home/pi/epics/base-7.0.5/db/softIocExit.db" "IOC=REQMOD:raspberrypi-28403"
 #
 # Set E3_IOCSH_TOP for the absolute path where iocsh.bash is executed.
 epicsEnvSet E3_IOCSH_TOP "/home/pi/sources/e3-ecmc_plugin_grbl/ecmc_plugin_grbl-dev/iocsh"
@@ -262,17 +262,17 @@ epicsEnvUnset(ECMC_TRAJ_VELO_FILT_ENABLE)
 epicsEnvUnset(ECMC_TRAJ_SOURCE)
 epicsEnvSet("ECMC_EGU",               "mm")
 epicsEnvSet("ECMC_PREC",              3)
-epicsEnvSet("ECMC_AXISFIELDINIT",     "")                  # Extra field ini2022/01/27 14:50:33.122 
+epicsEnvSet("ECMC_AXISFIELDINIT",     "")                  # Extra field ini2022/01/27 16:14:57.353 
 ECMC Initializes.............
-2022/01/27 14:50:33.122 ESS Open Source EtherCAT Motion Control Epics Module2022/01/27 14:50:33.122 
+2022/01/27 16:14:57.353 ESS Open Source EtherCAT Motion Control Epics Module2022/01/27 16:14:57.353 
 Mode: Configuration
-2022/01/27 14:50:33.123 OK
-2022/01/27 14:50:33.123 OK
-2022/01/27 14:50:33.124 OK
-2022/01/27 14:50:33.126 OK
-2022/01/27 14:50:33.147 OK
-2022/01/27 14:50:33.147 OK
-2022/01/27 14:50:33.147 OK
+2022/01/27 16:14:57.353 OK
+2022/01/27 16:14:57.353 OK
+2022/01/27 16:14:57.354 OK
+2022/01/27 16:14:58.066 OK
+2022/01/27 16:14:58.096 OK
+2022/01/27 16:14:58.096 OK
+2022/01/27 16:14:58.098 OK
 t to motor record
 epicsEnvSet("ECMC_AXISCONFIG",        "")                  # Extra parameters to driver
 ############################################################
@@ -345,13 +345,13 @@ epicsEnvSet("HW_DESC",            "EK1100")
 epicsEnvSet("P_SCRIPT",           "mXsXXX")
 # add ${HW_DESC} to the bus at position ${SLAVE_ID}
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEK1100.cmd",1)
-iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEK1100.cmd" 2022/01/27 14:50:33.149 OK
-2022/01/27 14:50:33.150 OK
-2022/01/27 14:50:33.157 OK
-2022/01/27 14:50:33.158 OK
-2022/01/27 14:50:33.158 OK
-2022/01/27 14:50:33.158 OK
-2022/01/27 14:50:33.158 OK
+iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEK1100.cmd" 2022/01/27 16:14:58.102 OK
+2022/01/27 16:14:58.104 OK
+2022/01/27 16:14:58.115 OK
+2022/01/27 16:14:58.117 OK
+2022/01/27 16:14:58.117 OK
+2022/01/27 16:14:58.117 OK
+2022/01/27 16:14:58.118 OK
 "NELM=1"
 epicsEnvSet("ECMC_EC_HWTYPE"             "EK1100")
 epicsEnvSet("ECMC_EC_VENDOR_ID"          "0x2")
@@ -417,17 +417,17 @@ ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a00,0x6000,0x1,B1,bina
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a01,0x6010,0x1,B1,binaryInput02)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a02,0x6020,0x1,B1,binaryInput03)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a03,0x6030,0x1,B1,binaryInput04)"
-ecmcConfigOrDie "Cfg.EcAddEn2022/01/27 14:50:33.159 OK
-2022/01/27 14:50:33.159 OK
-2022/01/27 14:50:33.159 OK
-2022/01/27 14:50:33.159 OK
-2022/01/27 14:50:33.167 OK
-2022/01/27 14:50:33.168 OK
-2022/01/27 14:50:33.169 OK
-2022/01/27 14:50:33.169 OK
-2022/01/27 14:50:33.169 OK
-2022/01/27 14:50:33.169 OK
-2022/01/27 14:50:33.169 OK
+ecmcConfigOrDie "Cfg.EcAddEn2022/01/27 16:14:58.118 OK
+2022/01/27 16:14:58.118 OK
+2022/01/27 16:14:58.118 OK
+2022/01/27 16:14:58.118 OK
+2022/01/27 16:14:58.131 OK
+2022/01/27 16:14:58.134 OK
+2022/01/27 16:14:58.134 OK
+2022/01/27 16:14:58.135 OK
+2022/01/27 16:14:58.135 OK
+2022/01/27 16:14:58.135 OK
+2022/01/27 16:14:58.136 OK
 tryDT(1,0x2,0x03fa3052,2,0,0x1a04,0x6040,0x1,B1,binaryInput05)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a05,0x6050,0x1,B1,binaryInput06)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a06,0x6060,0x1,B1,binaryInput07)"
@@ -487,16 +487,16 @@ ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1602,0x7020,0x1,B1,bina
 ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1603,0x7030,0x1,B1,binaryOutput04)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1604,0x7040,0x1,B1,binaryOutput05)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1605,0x7050,0x1,B1,binaryOutput06)"
-ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1606,0x7060,0x1,B1,binaryOutp2022/01/27 14:50:33.170 OK
-2022/01/27 14:50:33.170 OK
-2022/01/27 14:50:33.179 OK
-2022/01/27 14:50:33.272 OK
-2022/01/27 14:50:33.372 14385
-2022/01/27 14:50:33.373 OK
-2022/01/27 14:50:33.373 OK
-2022/01/27 14:50:33.373 OK
-2022/01/27 14:50:33.373 OK
-2022/01/27 14:50:33.373 OK
+ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1606,0x7060,0x1,B1,binaryOutp2022/01/27 16:14:58.136 OK
+2022/01/27 16:14:58.136 OK
+2022/01/27 16:14:58.150 OK
+2022/01/27 16:14:58.432 OK
+2022/01/27 16:14:58.512 14385
+2022/01/27 16:14:58.513 OK
+2022/01/27 16:14:58.513 OK
+2022/01/27 16:14:58.513 OK
+2022/01/27 16:14:58.513 OK
+2022/01/27 16:14:58.513 OK
 ut07)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1607,0x7070,0x1,B1,binaryOutput08)"
 # deduce what the prefix should be
@@ -560,14 +560,14 @@ ecmcConfigOrDie "Cfg.EcAddEntryComplete(3,0x2,0x13ed3052,2,3,0x1a03,0x6010,0x00,
 ecmcConfigOrDie "Cfg.EcAddEntryComplete(3,0x2,0x13ed3052,2,3,0x1a03,0x6010,0x10,16,positionActual01)"
 ecmcConfigOrDie "Cfg.EcAddEntryComplete(3,0x2,0x13ed3052,2,3,0x1a03,0x6010,0x20,16,encoderLatchPostion01)"
 # deduce what the prefix should be
-ecmcFileExist("/home/pi/epics/base-7.0.5/re2022/01/27 14:50:33.381 OK
-2022/01/27 14:50:33.462 OK
-2022/01/27 14:50:33.562 14385
-2022/01/27 14:50:33.563 OK
-2022/01/27 14:50:33.564 OK
-2022/01/27 14:50:33.564 OK
-2022/01/27 14:50:33.564 OK
-2022/01/27 14:50:33.564 OK
+ecmcFileExist("/home/pi/epics/base-7.0.5/re2022/01/27 16:14:58.521 OK
+2022/01/27 16:14:58.612 OK
+2022/01/27 16:14:58.722 14385
+2022/01/27 16:14:58.723 OK
+2022/01/27 16:14:58.723 OK
+2022/01/27 16:14:58.723 OK
+2022/01/27 16:14:58.723 OK
+2022/01/27 16:14:58.723 OK
 quire/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd",1)
 iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd" "MASTER_ID=0,SLAVE_POS=3,HWTYPE=EL5101"
 #==============================================================================
@@ -628,9 +628,9 @@ ecmcConfigOrDie "Cfg.EcAddEntryComplete(4,0x2,0x13ed3052,2,3,0x1a03,0x6010,0x20,
 # deduce what the prefix should be
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd",1)
 iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd" "MASTER_ID=0,SLAVE_POS=4,HWTYPE=EL5101"
-#=======================================================================2022/01/27 14:50:33.575 OK
-2022/01/27 14:50:33.577 OK
-2022/01/27 14:50:33.578 OK
+#=======================================================================2022/01/27 16:14:58.731 OK
+2022/01/27 16:14:58.732 OK
+2022/01/27 16:14:58.733 OK
 =======
 # ecmcmXsXXX.cmd
 ecmcEpicsEnvSetCalc("sid", "4","%03d")
@@ -696,15 +696,15 @@ iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/apply
 ecmcFileExist(ecmcEL9505.substitutions,1,1)
 dbLoadTemplate(ecmcEL9505.substitutions,"ECMC_P=IOC_TEST:m0s005-,ECMC_G=IOC_TEST:m0s005,PORT=MC_CPU1,ADDR=0,TIMEOUT=1,MASTER_ID=0,SLAVE_POS=5,HWTYPE=EL9505,T_SMP_MS=10,TSE=-2,NELM=1")
 epicsEnvUnset(DEFAULT_SUBS)
-ecmcEpicsEnvSetCalcTernary(DEFAULT_SLAVE_PVS, "True", "",2022/01/27 14:50:33.588 OK
-2022/01/27 14:50:33.590 OK
-2022/01/27 14:50:33.590 OK
-2022/01/27 14:50:33.591 OK
-2022/01/27 14:50:33.591 OK
-2022/01/27 14:50:33.591 OK
-2022/01/27 14:50:33.591 OK
-2022/01/27 14:50:33.591 OK
-2022/01/27 14:50:33.591 OK
+ecmcEpicsEnvSetCalcTernary(DEFAULT_SLAVE_PVS, "True", "",2022/01/27 16:14:58.741 OK
+2022/01/27 16:14:58.742 OK
+2022/01/27 16:14:58.742 OK
+2022/01/27 16:14:58.743 OK
+2022/01/27 16:14:58.743 OK
+2022/01/27 16:14:58.743 OK
+2022/01/27 16:14:58.743 OK
+2022/01/27 16:14:58.743 OK
+2022/01/27 16:14:58.743 OK
 "#- ")
 iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/applyTemplate.cmd" "TEMPLATE_FILE=ecmcEcSlave.template,ECMC_P=IOC_TEST:m0s005-,ECMC_G=IOC_TEST:m0s005"
 #==============================================================================
@@ -764,21 +764,21 @@ dbLoadTemplate(ecmcEL1252.substitutions,"ECMC_P=IOC_TEST:m0s006-,ECMC_G=IOC_TEST
 epicsEnvUnset(DEFAULT_SUBS)
 ecmcEpicsEnvSetCalcTernary(DEFAULT_SLAVE_PVS, "True", "","#- ")
 iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/applyTemplate.cmd" "TEMPLATE_FILE=ecmcEcSlave.template,ECMC_P=IOC_TEST:m0s006-,ECMC_G=IOC_TEST:m0s006"
-#==================2022/01/27 14:50:33.605 OK
-2022/01/27 14:50:33.742 OK
-2022/01/27 14:50:33.833 12848
-2022/01/27 14:50:33.835 OK
-2022/01/27 14:50:33.835 OK
-2022/01/27 14:50:33.836 OK
-2022/01/27 14:50:33.836 OK
-2022/01/27 14:50:33.837 OK
-2022/01/27 14:50:33.837 OK
-2022/01/27 14:50:33.837 OK
-2022/01/27 14:50:33.837 OK
-2022/01/27 14:50:33.837 OK
-2022/01/27 14:50:33.838 OK
-2022/01/27 14:50:33.838 OK
-2022/01/27 14:50:33.838 OK
+#==================2022/01/27 16:14:58.753 OK
+2022/01/27 16:14:58.892 OK
+2022/01/27 16:14:58.972 12848
+2022/01/27 16:14:58.974 OK
+2022/01/27 16:14:58.974 OK
+2022/01/27 16:14:58.974 OK
+2022/01/27 16:14:58.975 OK
+2022/01/27 16:14:58.975 OK
+2022/01/27 16:14:58.975 OK
+2022/01/27 16:14:58.975 OK
+2022/01/27 16:14:58.976 OK
+2022/01/27 16:14:58.976 OK
+2022/01/27 16:14:58.976 OK
+2022/01/27 16:14:58.976 OK
+2022/01/27 16:14:58.976 OK
 ============================================================
 # applyTemplate.cmd
 ecmcFileExist(ecmcEcSlave.template,1,1)
@@ -842,12 +842,12 @@ ecmcEpicsEnvSetCalc("sid", "8","%03d")
 ecmcEpicsEnvSetCalc("mid", "0","%01d")
 epicsEnvSet("ECMC_G",            "IOC_TEST:m0s008")
 epicsEnvSet("ECMC_P",            "IOC_TEST:m0s008-")
-epicsE2022/01/27 14:50:33.857 OK
-2022/01/27 14:50:33.858 OK
-2022/01/27 14:50:33.858 OK
-2022/01/27 14:50:33.858 OK
-2022/01/27 14:50:33.858 OK
-2022/01/27 14:50:33.858 OK
+epicsE2022/01/27 16:14:58.991 OK
+2022/01/27 16:14:58.991 OK
+2022/01/27 16:14:58.991 OK
+2022/01/27 16:14:58.991 OK
+2022/01/27 16:14:58.991 OK
+2022/01/27 16:14:58.993 OK
 nvUnset(sid)
 epicsEnvUnset(mid)
 ecmcEpicsEnvSetCalcTernary(DEFAULT_SUBS, "True", "","#- ")
@@ -909,21 +909,21 @@ epicsEnvSet("ECMC_EC_SLAVE_NUM",  "9")
 epicsEnvSet("HW_DESC",            "EL7037")
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/addSlave.cmd",1)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/addSlave.cmd "SLAVE_ID=9, HW_DESC=EL7037, NELM=1"
-#==============================================================2022/01/27 14:50:33.863 OK
-2022/01/27 14:50:33.982 OK
-2022/01/27 14:50:34.072 12848
-2022/01/27 14:50:34.073 OK
-2022/01/27 14:50:34.073 OK
-2022/01/27 14:50:34.073 OK
-2022/01/27 14:50:34.073 OK
-2022/01/27 14:50:34.074 OK
-2022/01/27 14:50:34.074 OK
-2022/01/27 14:50:34.074 OK
-2022/01/27 14:50:34.074 OK
-2022/01/27 14:50:34.074 OK
-2022/01/27 14:50:34.074 OK
-2022/01/27 14:50:34.074 OK
-2022/01/27 14:50:34.074 OK
+#==============================================================2022/01/27 16:14:58.997 OK
+2022/01/27 16:14:59.112 OK
+2022/01/27 16:14:59.192 12848
+2022/01/27 16:14:59.194 OK
+2022/01/27 16:14:59.194 OK
+2022/01/27 16:14:59.194 OK
+2022/01/27 16:14:59.195 OK
+2022/01/27 16:14:59.195 OK
+2022/01/27 16:14:59.195 OK
+2022/01/27 16:14:59.195 OK
+2022/01/27 16:14:59.195 OK
+2022/01/27 16:14:59.196 OK
+2022/01/27 16:14:59.196 OK
+2022/01/27 16:14:59.196 OK
+2022/01/27 16:14:59.196 OK
 ================
 # addSlave.cmd
 epicsEnvSet("ECMC_EC_SLAVE_NUM",  "9")
@@ -987,21 +987,21 @@ epicsEnvUnset(DEFAULT_SLAVE_PVS)
 # increment SLAVE_ID
 ecmcEpicsEnvSetCalc("SLAVE_ID", "9+1","%d")
 # apply config ${CONFIG} for ${HW_DESC}
-e2022/01/27 14:50:34.083 OK
-2022/01/27 14:50:34.083 OK
-2022/01/27 14:50:34.083 OK
-2022/01/27 14:50:34.083 OK
-2022/01/27 14:50:34.083 OK
-2022/01/27 14:50:34.083 OK
-2022/01/27 14:50:34.084 OK
-2022/01/27 14:50:34.084 OK
-2022/01/27 14:50:34.084 OK
-2022/01/27 14:50:34.084 OK
-2022/01/27 14:50:34.084 OK
-2022/01/27 14:50:34.084 OK
-2022/01/27 14:50:34.084 OK
-2022/01/27 14:50:34.084 OK
-2022/01/27 14:50:34.084 OK
+e2022/01/27 16:14:59.209 OK
+2022/01/27 16:14:59.209 OK
+2022/01/27 16:14:59.209 OK
+2022/01/27 16:14:59.209 OK
+2022/01/27 16:14:59.209 OK
+2022/01/27 16:14:59.210 OK
+2022/01/27 16:14:59.210 OK
+2022/01/27 16:14:59.210 OK
+2022/01/27 16:14:59.210 OK
+2022/01/27 16:14:59.211 OK
+2022/01/27 16:14:59.211 OK
+2022/01/27 16:14:59.211 OK
+2022/01/27 16:14:59.211 OK
+2022/01/27 16:14:59.211 OK
+2022/01/27 16:14:59.211 OK
 cmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEL7037-Motor-Nanotec-ST4118L1804-B.cmd",1)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEL7037-Motor-Nanotec-ST4118L1804-B.cmd ""
 epicsEnvSet(I_MAX_MA_LOCAL,"1500")
@@ -1175,45 +1175,45 @@ epicsEnvUnset(ECMC_EXE_CMD)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/verifyOrDie.cmd "EXPR_STR='abs(600.0)<>0',SUCCESS_STR='ECMC_DRV_SCALE_NUM value OK == 600.0...',ERROR_STR='ECMC_DRV_SCALE_NUM == 0...'"
 #==============================================================================
 # verifyOrDie.cmd
-ecmcEpicsEnvSetCalcTe2022/01/27 14:50:34.094 OK
-2022/01/27 14:50:34.095 OK
-2022/01/27 14:50:34.095 OK
-2022/01/27 14:50:34.095 OK
-2022/01/27 14:50:34.097 OK
-2022/01/27 14:50:34.097 OK
-2022/01/27 14:50:34.097 OK
-2022/01/27 14:50:34.097 OK
-2022/01/27 14:50:34.097 OK
-2022/01/27 14:50:34.097 OK
-2022/01/27 14:50:34.097 OK
-2022/01/27 14:50:34.097 OK
-2022/01/27 14:50:34.097 OK
-2022/01/27 14:50:34.097 OK
-2022/01/27 14:50:34.098 OK
-2022/01/27 14:50:34.098 OK
-2022/01/27 14:50:34.098 OK
-2022/01/27 14:50:34.098 OK
-2022/01/27 14:50:34.098 OK
-2022/01/27 14:50:34.098 OK
-2022/01/27 14:50:34.098 OK
-2022/01/27 14:50:34.098 OK
-2022/01/27 14:50:34.098 OK
-2022/01/27 14:50:34.098 OK
-2022/01/27 14:50:34.098 OK
-2022/01/27 14:50:34.098 OK
-2022/01/27 14:50:34.099 OK
-2022/01/27 14:50:34.099 OK
-2022/01/27 14:50:34.099 OK
-2022/01/27 14:50:34.099 OK
-2022/01/27 14:50:34.099 OK
-2022/01/27 14:50:34.099 OK
-2022/01/27 14:50:34.099 OK
-2022/01/27 14:50:34.099 OK
-2022/01/27 14:50:34.099 OK
-2022/01/27 14:50:34.099 OK
-2022/01/27 14:50:34.099 OK
-2022/01/27 14:50:34.099 OK
-2022/01/27 14:50:34.099 OK
+ecmcEpicsEnvSetCalcTe2022/01/27 16:14:59.225 OK
+2022/01/27 16:14:59.225 OK
+2022/01/27 16:14:59.225 OK
+2022/01/27 16:14:59.225 OK
+2022/01/27 16:14:59.228 OK
+2022/01/27 16:14:59.228 OK
+2022/01/27 16:14:59.228 OK
+2022/01/27 16:14:59.229 OK
+2022/01/27 16:14:59.229 OK
+2022/01/27 16:14:59.229 OK
+2022/01/27 16:14:59.229 OK
+2022/01/27 16:14:59.229 OK
+2022/01/27 16:14:59.229 OK
+2022/01/27 16:14:59.229 OK
+2022/01/27 16:14:59.229 OK
+2022/01/27 16:14:59.229 OK
+2022/01/27 16:14:59.229 OK
+2022/01/27 16:14:59.229 OK
+2022/01/27 16:14:59.229 OK
+2022/01/27 16:14:59.230 OK
+2022/01/27 16:14:59.230 OK
+2022/01/27 16:14:59.230 OK
+2022/01/27 16:14:59.230 OK
+2022/01/27 16:14:59.230 OK
+2022/01/27 16:14:59.230 OK
+2022/01/27 16:14:59.230 OK
+2022/01/27 16:14:59.230 OK
+2022/01/27 16:14:59.230 OK
+2022/01/27 16:14:59.230 OK
+2022/01/27 16:14:59.230 OK
+2022/01/27 16:14:59.230 OK
+2022/01/27 16:14:59.231 OK
+2022/01/27 16:14:59.231 OK
+2022/01/27 16:14:59.231 OK
+2022/01/27 16:14:59.231 OK
+2022/01/27 16:14:59.231 OK
+2022/01/27 16:14:59.231 OK
+2022/01/27 16:14:59.231 OK
+2022/01/27 16:14:59.231 OK
 rnary(ECMC_EXE_CMD,"abs(600.0)<>0","# ECMC_DRV_SCALE_NUM value OK == 600.0...", "ecmcExit Error: ECMC_DRV_SCALE_NUM == 0...")
 # ECMC_DRV_SCALE_NUM value OK == 600.0...
 epicsEnvUnset(ECMC_EXE_CMD)
@@ -1276,44 +1276,44 @@ ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.velocitySetpoint01,"ax1.drv.velo
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(,"ax1.drv.position")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(,"ax1.drv.brake")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveControl01.2,"ax1.drv.reducetorque")"
-ecmcConf2022/01/27 14:50:34.099 OK
-2022/01/27 14:50:34.099 OK
-2022/01/27 14:50:34.100 OK
-2022/01/27 14:50:34.100 OK
-2022/01/27 14:50:34.100 OK
-2022/01/27 14:50:34.100 OK
-2022/01/27 14:50:34.100 OK
-2022/01/27 14:50:34.100 OK
-2022/01/27 14:50:34.100 OK
-2022/01/27 14:50:34.100 OK
-2022/01/27 14:50:34.100 OK
-2022/01/27 14:50:34.100 OK
-2022/01/27 14:50:34.100 OK
-2022/01/27 14:50:34.100 OK
-2022/01/27 14:50:34.100 OK
-2022/01/27 14:50:34.101 OK
-2022/01/27 14:50:34.101 OK
-2022/01/27 14:50:34.101 OK
-2022/01/27 14:50:34.101 OK
-2022/01/27 14:50:34.101 OK
-2022/01/27 14:50:34.101 OK
-2022/01/27 14:50:34.101 OK
-2022/01/27 14:50:34.101 OK
-2022/01/27 14:50:34.101 OK
-2022/01/27 14:50:34.101 OK
-2022/01/27 14:50:34.101 OK
-2022/01/27 14:50:34.101 OK
-2022/01/27 14:50:34.102 OK
-2022/01/27 14:50:34.102 OK
-2022/01/27 14:50:34.102 OK
-2022/01/27 14:50:34.102 OK
-2022/01/27 14:50:34.102 OK
-2022/01/27 14:50:34.102 ecmcMotorRecord:: setIntegerParam(1 motorPowerAutoOnOff_)=2
-2022/01/27 14:50:34.102 ecmcMotorRecord:: setDoubleParam(1 motorPowerOnDelay_)=6
-2022/01/27 14:50:34.102 ecmcMotorRecord:: setDoubleParam(1 motorPowerOffDelay_=-1
-2022/01/27 14:50:34.103 ecmcMotorRecord:: udateMotorLimitsRO(1) enabledHighAndLow=1 valid=1 fValueHigh=130 fValueLow=-20
-2022/01/27 14:50:34.103 ecmcMotorRecord:: connected(1)
-2022/01/27 14:50:34.103 ecmcMotorRecord:: initialPoll(1) status=0
+ecmcConf2022/01/27 16:14:59.231 OK
+2022/01/27 16:14:59.231 OK
+2022/01/27 16:14:59.231 OK
+2022/01/27 16:14:59.231 OK
+2022/01/27 16:14:59.231 OK
+2022/01/27 16:14:59.232 OK
+2022/01/27 16:14:59.232 OK
+2022/01/27 16:14:59.232 OK
+2022/01/27 16:14:59.232 OK
+2022/01/27 16:14:59.232 OK
+2022/01/27 16:14:59.232 OK
+2022/01/27 16:14:59.232 OK
+2022/01/27 16:14:59.232 OK
+2022/01/27 16:14:59.233 OK
+2022/01/27 16:14:59.233 OK
+2022/01/27 16:14:59.233 OK
+2022/01/27 16:14:59.233 OK
+2022/01/27 16:14:59.233 OK
+2022/01/27 16:14:59.233 OK
+2022/01/27 16:14:59.234 OK
+2022/01/27 16:14:59.234 OK
+2022/01/27 16:14:59.234 OK
+2022/01/27 16:14:59.234 OK
+2022/01/27 16:14:59.234 OK
+2022/01/27 16:14:59.234 OK
+2022/01/27 16:14:59.234 OK
+2022/01/27 16:14:59.234 OK
+2022/01/27 16:14:59.234 OK
+2022/01/27 16:14:59.234 OK
+2022/01/27 16:14:59.235 OK
+2022/01/27 16:14:59.235 OK
+2022/01/27 16:14:59.235 OK
+2022/01/27 16:14:59.235 ecmcMotorRecord:: setIntegerParam(1 motorPowerAutoOnOff_)=2
+2022/01/27 16:14:59.235 ecmcMotorRecord:: setDoubleParam(1 motorPowerOnDelay_)=6
+2022/01/27 16:14:59.235 ecmcMotorRecord:: setDoubleParam(1 motorPowerOffDelay_=-1
+2022/01/27 16:14:59.236 ecmcMotorRecord:: udateMotorLimitsRO(1) enabledHighAndLow=1 valid=1 fValueHigh=130 fValueLow=-20
+2022/01/27 16:14:59.236 ecmcMotorRecord:: connected(1)
+2022/01/27 16:14:59.236 ecmcMotorRecord:: initialPoll(1) status=0
 igOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveControl01.1,"ax1.drv.reset")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveStatus01.3,"ax1.drv.alarm0")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveStatus01.7,"ax1.drv.alarm1")"
@@ -1482,24 +1482,24 @@ epicsEnvSet("ECMC_AXIS_EXPR_LINE_2",           "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_3",           "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_4",           "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_5",           "")
-epicsEnvSet("ECMC_AXIS_EXPR_LINE_6",           2022/01/27 14:50:34.113 OK
-2022/01/27 14:50:34.113 OK
-2022/01/27 14:50:34.113 OK
-2022/01/27 14:50:34.113 OK
-2022/01/27 14:50:34.113 OK
-2022/01/27 14:50:34.113 OK
-2022/01/27 14:50:34.113 OK
-2022/01/27 14:50:34.113 OK
-2022/01/27 14:50:34.113 OK
-2022/01/27 14:50:34.114 OK
-2022/01/27 14:50:34.114 OK
-2022/01/27 14:50:34.114 OK
-2022/01/27 14:50:34.114 OK
-2022/01/27 14:50:34.114 OK
-2022/01/27 14:50:34.114 OK
-2022/01/27 14:50:34.114 OK
-2022/01/27 14:50:34.114 OK
-2022/01/27 14:50:34.114 OK
+epicsEnvSet("ECMC_AXIS_EXPR_LINE_6",           2022/01/27 16:14:59.255 OK
+2022/01/27 16:14:59.255 OK
+2022/01/27 16:14:59.255 OK
+2022/01/27 16:14:59.255 OK
+2022/01/27 16:14:59.255 OK
+2022/01/27 16:14:59.255 OK
+2022/01/27 16:14:59.256 OK
+2022/01/27 16:14:59.256 OK
+2022/01/27 16:14:59.256 OK
+2022/01/27 16:14:59.256 OK
+2022/01/27 16:14:59.256 OK
+2022/01/27 16:14:59.256 OK
+2022/01/27 16:14:59.256 OK
+2022/01/27 16:14:59.259 OK
+2022/01/27 16:14:59.259 OK
+2022/01/27 16:14:59.261 OK
+2022/01/27 16:14:59.261 OK
+2022/01/27 16:14:59.261 OK
 "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_7",           "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_8",           "")
@@ -1680,53 +1680,53 @@ epicsEnvUnset(ECMC_EXE_CMD)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/verifyOrDie.cmd "EXPR_STR='abs(32768.0)<>0',SUCCESS_STR='ECMC_DRV_SCALE_DENOM value OK == 32768.0...',ERROR_STR='ECMC_DRV_SCALE_DENOM == 0...'"
 #==============================================================================
 # verifyOrDie.cmd
-ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD,"abs(32768.0)<>0","# ECMC_DRV_SCALE_DENOM value2022/01/27 14:50:34.124 OK
-2022/01/27 14:50:34.124 OK
-2022/01/27 14:50:34.125 OK
-2022/01/27 14:50:34.125 OK
-2022/01/27 14:50:34.127 OK
-2022/01/27 14:50:34.127 OK
-2022/01/27 14:50:34.127 OK
-2022/01/27 14:50:34.127 OK
-2022/01/27 14:50:34.128 OK
-2022/01/27 14:50:34.128 OK
-2022/01/27 14:50:34.128 OK
-2022/01/27 14:50:34.128 OK
-2022/01/27 14:50:34.128 OK
-2022/01/27 14:50:34.128 OK
-2022/01/27 14:50:34.128 OK
-2022/01/27 14:50:34.128 OK
-2022/01/27 14:50:34.128 OK
-2022/01/27 14:50:34.128 OK
-2022/01/27 14:50:34.128 OK
-2022/01/27 14:50:34.128 OK
-2022/01/27 14:50:34.128 OK
-2022/01/27 14:50:34.129 OK
-2022/01/27 14:50:34.129 OK
-2022/01/27 14:50:34.129 OK
-2022/01/27 14:50:34.129 OK
-2022/01/27 14:50:34.129 OK
-2022/01/27 14:50:34.129 OK
-2022/01/27 14:50:34.129 OK
-2022/01/27 14:50:34.129 OK
-2022/01/27 14:50:34.129 OK
-2022/01/27 14:50:34.129 OK
-2022/01/27 14:50:34.129 OK
-2022/01/27 14:50:34.129 OK
-2022/01/27 14:50:34.129 OK
-2022/01/27 14:50:34.129 OK
-2022/01/27 14:50:34.129 OK
-2022/01/27 14:50:34.130 OK
-2022/01/27 14:50:34.130 OK
-2022/01/27 14:50:34.130 OK
-2022/01/27 14:50:34.130 OK
-2022/01/27 14:50:34.130 OK
-2022/01/27 14:50:34.130 OK
-2022/01/27 14:50:34.130 OK
-2022/01/27 14:50:34.130 OK
-2022/01/27 14:50:34.130 OK
-2022/01/27 14:50:34.130 OK
-2022/01/27 14:50:34.130 OK
+ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD,"abs(32768.0)<>0","# ECMC_DRV_SCALE_DENOM value2022/01/27 16:14:59.283 OK
+2022/01/27 16:14:59.283 OK
+2022/01/27 16:14:59.283 OK
+2022/01/27 16:14:59.283 OK
+2022/01/27 16:14:59.288 OK
+2022/01/27 16:14:59.289 OK
+2022/01/27 16:14:59.289 OK
+2022/01/27 16:14:59.289 OK
+2022/01/27 16:14:59.289 OK
+2022/01/27 16:14:59.289 OK
+2022/01/27 16:14:59.289 OK
+2022/01/27 16:14:59.290 OK
+2022/01/27 16:14:59.290 OK
+2022/01/27 16:14:59.290 OK
+2022/01/27 16:14:59.290 OK
+2022/01/27 16:14:59.290 OK
+2022/01/27 16:14:59.291 OK
+2022/01/27 16:14:59.291 OK
+2022/01/27 16:14:59.291 OK
+2022/01/27 16:14:59.291 OK
+2022/01/27 16:14:59.291 OK
+2022/01/27 16:14:59.291 OK
+2022/01/27 16:14:59.291 OK
+2022/01/27 16:14:59.292 OK
+2022/01/27 16:14:59.292 OK
+2022/01/27 16:14:59.292 OK
+2022/01/27 16:14:59.293 OK
+2022/01/27 16:14:59.293 OK
+2022/01/27 16:14:59.293 OK
+2022/01/27 16:14:59.293 OK
+2022/01/27 16:14:59.293 OK
+2022/01/27 16:14:59.293 OK
+2022/01/27 16:14:59.293 OK
+2022/01/27 16:14:59.293 OK
+2022/01/27 16:14:59.294 OK
+2022/01/27 16:14:59.294 OK
+2022/01/27 16:14:59.294 OK
+2022/01/27 16:14:59.294 OK
+2022/01/27 16:14:59.295 OK
+2022/01/27 16:14:59.295 OK
+2022/01/27 16:14:59.297 OK
+2022/01/27 16:14:59.297 OK
+2022/01/27 16:14:59.298 OK
+2022/01/27 16:14:59.298 OK
+2022/01/27 16:14:59.298 OK
+2022/01/27 16:14:59.298 OK
+2022/01/27 16:14:59.298 OK
  OK == 32768.0...", "ecmcExit Error: ECMC_DRV_SCALE_DENOM == 0...")
 # ECMC_DRV_SCALE_DENOM value OK == 32768.0...
 epicsEnvUnset(ECMC_EXE_CMD)
@@ -1791,36 +1791,36 @@ ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s9.driveStatus01.2,"ax2.drv.warning
 ecmcConfigOrDie "Cfg.SetAxisDrvScaleDenom(2,32768.0)"
 ecmcConfigOrDie "Cfg.SetAxisDrvScaleNum(2,-600.0)"
 ecmcConfigOrDie "Cfg.SetAxisDrvBrakeOpenDelayTime(2,0)"
-ecmcConfigOrDie "Cfg.SetAxisDrvBr2022/01/27 14:50:34.130 OK
-2022/01/27 14:50:34.130 OK
-2022/01/27 14:50:34.130 OK
-2022/01/27 14:50:34.131 OK
-2022/01/27 14:50:34.131 OK
-2022/01/27 14:50:34.131 OK
-2022/01/27 14:50:34.131 OK
-2022/01/27 14:50:34.131 OK
-2022/01/27 14:50:34.131 OK
-2022/01/27 14:50:34.131 OK
-2022/01/27 14:50:34.131 OK
-2022/01/27 14:50:34.131 OK
-2022/01/27 14:50:34.131 OK
-2022/01/27 14:50:34.131 OK
-2022/01/27 14:50:34.131 OK
-2022/01/27 14:50:34.132 OK
-2022/01/27 14:50:34.132 OK
-2022/01/27 14:50:34.132 OK
-2022/01/27 14:50:34.132 OK
-2022/01/27 14:50:34.132 OK
-2022/01/27 14:50:34.132 OK
-2022/01/27 14:50:34.132 OK
-2022/01/27 14:50:34.132 OK
-2022/01/27 14:50:34.132 OK
-2022/01/27 14:50:34.133 ecmcMotorRecord:: setIntegerParam(2 motorPowerAutoOnOff_)=2
-2022/01/27 14:50:34.133 ecmcMotorRecord:: setDoubleParam(2 motorPowerOnDelay_)=6
-2022/01/27 14:50:34.133 ecmcMotorRecord:: setDoubleParam(2 motorPowerOffDelay_=-1
-2022/01/27 14:50:34.133 ecmcMotorRecord:: udateMotorLimitsRO(2) enabledHighAndLow=1 valid=1 fValueHigh=20 fValueLow=-130
-2022/01/27 14:50:34.133 ecmcMotorRecord:: connected(2)
-2022/01/27 14:50:34.133 ecmcMotorRecord:: initialPoll(2) status=0
+ecmcConfigOrDie "Cfg.SetAxisDrvBr2022/01/27 16:14:59.298 OK
+2022/01/27 16:14:59.299 OK
+2022/01/27 16:14:59.299 OK
+2022/01/27 16:14:59.299 OK
+2022/01/27 16:14:59.299 OK
+2022/01/27 16:14:59.299 OK
+2022/01/27 16:14:59.299 OK
+2022/01/27 16:14:59.299 OK
+2022/01/27 16:14:59.300 OK
+2022/01/27 16:14:59.300 OK
+2022/01/27 16:14:59.300 OK
+2022/01/27 16:14:59.300 OK
+2022/01/27 16:14:59.300 OK
+2022/01/27 16:14:59.300 OK
+2022/01/27 16:14:59.301 OK
+2022/01/27 16:14:59.301 OK
+2022/01/27 16:14:59.301 OK
+2022/01/27 16:14:59.301 OK
+2022/01/27 16:14:59.301 OK
+2022/01/27 16:14:59.301 OK
+2022/01/27 16:14:59.301 OK
+2022/01/27 16:14:59.302 OK
+2022/01/27 16:14:59.302 OK
+2022/01/27 16:14:59.302 OK
+2022/01/27 16:14:59.303 ecmcMotorRecord:: setIntegerParam(2 motorPowerAutoOnOff_)=2
+2022/01/27 16:14:59.303 ecmcMotorRecord:: setDoubleParam(2 motorPowerOnDelay_)=6
+2022/01/27 16:14:59.303 ecmcMotorRecord:: setDoubleParam(2 motorPowerOffDelay_=-1
+2022/01/27 16:14:59.303 ecmcMotorRecord:: udateMotorLimitsRO(2) enabledHighAndLow=1 valid=1 fValueHigh=20 fValueLow=-130
+2022/01/27 16:14:59.303 ecmcMotorRecord:: connected(2)
+2022/01/27 16:14:59.303 ecmcMotorRecord:: initialPoll(2) status=0
 akeCloseAheadTime(2,0)"
 ecmcConfigOrDie "Cfg.SetAxisSoftLimitPosBwd(2,-130)"
 ecmcConfigOrDie "Cfg.SetAxisEnableSoftLimitBwd(2,1)"
@@ -1901,8 +1901,8 @@ epicsEnvUnset(ECMC_ENC_BITS)
 epicsEnvUnset(ECMC_ENC_ABS_BITS)
 epicmacLib: macro ECMC_EXE_CMD is undefined (expanding string ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD, "'${ECMC_MODE=FULL}'='DAQ'","ecmcExit Error: ECMC started in DAQ mode. Motion not supported..","#-")${ECMC_EXE_CMD})
 macLib: macro ECMC_EXE_CMD is undefined (expanding string ${ECMC_EXE_CMD})
-2022/01/27 14:50:34.144 OK
-2022/01/27 14:50:34.144 OK
+2022/01/27 16:14:59.324 OK
+2022/01/27 16:14:59.324 OK
 sEnvUnset(ECMC_ENC_ABS_OFFSET)
 epicsEnvUnset(ECMC_ENC_VEL_FILTER_SIZE)
 epicsEnvUnset(ECMC_ENC_POS_FILTER_SIZE)
@@ -1994,22 +1994,22 @@ iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmc_a
 # ecmc_axis_sync.cmd
 ecmcConfigOrDie "Cfg.SetAxisAllowCommandsFromPLC(2,1)"
 ecmcConfigOrDie "Cfg.SetAxisPLCEnable(2,0)"
-e2022/01/27 14:50:34.144 OK
-2022/01/27 14:50:34.144 OK
-2022/01/27 14:50:34.144 OK
-2022/01/27 14:50:34.144 OK
-2022/01/27 14:50:34.144 OK
-2022/01/27 14:50:34.145 OK
-2022/01/27 14:50:34.145 OK
-2022/01/27 14:50:34.145 OK
-2022/01/27 14:50:34.145 OK
-2022/01/27 14:50:34.145 OK
-2022/01/27 14:50:34.145 OK
-2022/01/27 14:50:34.145 OK
-2022/01/27 14:50:34.145 OK
-2022/01/27 14:50:34.145 OK
-2022/01/27 14:50:34.145 OK
-2022/01/27 14:50:34.145 OK
+e2022/01/27 16:14:59.324 OK
+2022/01/27 16:14:59.325 OK
+2022/01/27 16:14:59.325 OK
+2022/01/27 16:14:59.325 OK
+2022/01/27 16:14:59.325 OK
+2022/01/27 16:14:59.325 OK
+2022/01/27 16:14:59.325 OK
+2022/01/27 16:14:59.325 OK
+2022/01/27 16:14:59.325 OK
+2022/01/27 16:14:59.326 OK
+2022/01/27 16:14:59.326 OK
+2022/01/27 16:14:59.326 OK
+2022/01/27 16:14:59.326 OK
+2022/01/27 16:14:59.326 OK
+2022/01/27 16:14:59.326 OK
+2022/01/27 16:14:59.326 OK
 cmcConfigOrDie "Cfg.AppendAxisPLCExpr(2)=var a:=1|"
 ecmcConfigOrDie "Cfg.AppendAxisPLCExpr(2)="
 ecmcConfigOrDie "Cfg.AppendAxisPLCExpr(2)="
@@ -2068,7 +2068,7 @@ iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/loadPl
 #==============================================================================
 # loadPlugin.cmd
 ecmcConfigOrDie "Cfg.LoadPlugin(0,/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmc_plugin_grbl/develop/lib/linux-arm/libecmc_plugin_grbl.so,DBG_PRINT=1;X_AXIS=1;Y_AXIS=2;AUTO_ENABLE=1;AUTO_START=1;)"
-../ecmc_plugin_grbl/ecmcGrbl.cpp:doMainWorker:383
+../ecmc_plugin_grbl/ecmcGrbl.cpp:doMainWorker:388
 ../grbl/grbl_serial.c:serial_init:70:
 ../grbl/grbl_eeprom.c:ecmc_init_file:53
 ../grbl/grbl_settings.c:settings_restore:132 settings_restore complete!!!..
@@ -2078,21 +2078,21 @@ ecmcConfigOrDie "Cfg.LoadPlugin(0,/home/pi/epics/base-7.0.5/require/3.4.0/siteMo
 ../grbl/grbl_gcode.c:gc_init:44:
 ../grbl/grbl_eeprom.c:memcpy_from_eeprom_with_checksum:215 EEPROM simulated by file..
 ../grbl/grbl_spindle_control.c:spindle_init:31 Not supported yet..
-../grbl/grbl_coolant_control.c:coolan2022/01/27 14:50:34.351 OK
-2022/01/27 14:50:34.352 OK
+../grbl/grbl_coolant_control.c:coolan2022/01/27 16:14:59.538 OK
+2022/01/27 16:14:59.539 OK
 t_init:25 Not supported yet..
 ../grbl/grbl_limits.c:limits_init:44 Not supported yet..
 ../grbl/grbl_probe.c:probe_init:31 Not supported yet..
 ../grbl/grbl_stepper.c:st_reset:572:
 ../grbl/grbl_stepper.c:st_go_idle:259:
-Waiting for grbl init..../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:268
+GRBL: INFO: Waiting for grbl init..../ecmc_plugin_grbl/ecmcGrbl.cpp:doWriteWorker:273
 ../grbl/grbl_stepper.c:st_generate_step_dir_invert_masks:550:
 ../grbl/grbl_protocol.c:protocol_main_loop:40:
 ../grbl/grbl_system.c:system_check_safety_door_ajar:93:
 ../grbl/grbl_system.c:system_execute_startup:107:
 ../grbl/grbl_eeprom.c:memcpy_from_eeprom_with_checksum:215 EEPROM simulated by file..
 ../grbl/grbl_eeprom.c:memcpy_from_eeprom_with_checksum:215 EEPROM simulated by file..
-GRBL READY FOR COMMANDS: 
+GRBL: INFO: Ready for commands: 
 Grbl 1.1h ['$' for help]
 
 .ecmcEpicsEnvSetCalcTernary("ECMC_PLUGIN_REPORT", "1>0","","#")
@@ -2117,49 +2117,49 @@ Plugin info:
      max plc funcs     = 64
      max plc func args = 10
      max plc consts    = 64
-  Construct func       = @0xb511598c
-  Enter realtime func  = @0xb5115904
-  Exit realtime func   = @0xb51158d0
-  Realtime func        = @0xb5115900
-  Destruct func        = @0xb51158d8
-  dlhandle             = @0x1b3df18
+  Construct func       = @0xb4e1da34
+  Enter realtime func  = @0xb4e1d9ac
+  Exit realtime func   = @0xb4e1d978
+  Realtime func        = @0xb4e1d9a8
+  Destruct func        = @0xb4e1d980
+  dlhandle             = @0x18b01a8
   Plc functions:
     funcs[00]:
       Name       = "grbl_set_execute(arg0);"
       Desc       = double grbl_set_execute(<exe>) :  Trigg execution of loaded g-code at positive edge of <exe>
       Arg count  = 1
-      func       = @0xb5115908
+      func       = @0xb4e1d9b0
     funcs[01]:
       Name       = "grbl_mc_halt(arg0);"
       Desc       = double grbl_mc_halt(<halt>) :  Halt grbl motion at positive edge of <halt>
       Arg count  = 1
-      func       = @0xb5115924
+      func       = @0xb4e1d9cc
     funcs[02]:
       Name       = "grbl_mc_resume(arg0);"
       Desc       = double grbl_mc_resume(<resume>) : Resume halted grbl motion at positive edge of <resume>
       Arg count  = 1
-      func       = @0xb5115940
+      func       = @0xb4e1d9e8
     funcs[03]:
       Name       = "grbl_mc_reset(arg0);"
       Desc       = double grbl_mc_reset(<reset>) :  Reset grbl at positive edge of <reset>
       Arg count  = 1
-      func       = @0xb511595c
+      func       = @0xb4e1da04
     funcs[04]:
       Name       = "grbl_get_busy();"
       Desc       = double grbl_get_busy() :  Get grbl system busy
       Arg count  = 0
-      func       = @0xb5115978
+      func       = @0xb4e1da20
   Plc constants:
 
 epicsEnvUnset(ECMC_PLUGIN_REPORT);
 epicsEnvUnset(ECMC_PLUGIN_FILNAME)
 epicsEnvUnset(ECMC_PLUGIN_CONFIG)
 ecmcGrblAddCommand("G1X20Y20F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:715:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:721: Buffer size 1
+../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:736:
+../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:743:GRBL: INFO: Buffer size 1
 ecmcGrblAddCommand("G1X0Y0F360");
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:715:
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:721: Buffer size 2
+../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:736:
+../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:743:GRBL: INFO: Buffer size 2
 #ecmcGrblAddCommand("G2X0Y0R20");
 #ecmcGrblAddCommand("G0X10Y10");
 #ecmcGrblAddCommand("G1X0Y0");
@@ -2169,407 +2169,61 @@ ecmcGrblAddCommand("G1X0Y0F360");
 #ecmcGrblAddCommand("G4P1");
 #ecmcGrblAddCommand("G1X50Y50F180");
 #ecmcGrblAddCommand("G1X0Y0");
-##############################################################################
-## PLC 0
-#$(SCRIPTEXEC) $(ec2022/01/27 14:50:34.353 OK
-2022/01/27 14:50:34.353 OK
-2022/01/27 14:50:34.353 OK
-2022/01/27 14:50:34.353 OK
-2022/01/27 14:50:34.353 OK
-2022/01/27 14:50:34.353 OK
-2022/01/27 14:50:34.357 INFO: Locking memory
-2022/01/27 14:50:34.457 ../devEcmcSup/motion/ecmcMonitor.cpp/checkLimits:501: ERROR_MON_BOTH_LIMIT_INTERLOCK (0x14c10).
-2022/01/27 14:50:34.457 ../devEcmcSup/motion/ecmcAxisReal.cpp/execute:185: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315).
-2022/01/27 14:50:34.457 ../devEcmcSup/motion/ecmcMonitor.cpp/checkLimits:501: ERROR_MON_BOTH_LIMIT_INTERLOCK (0x14c10).
-2022/01/27 14:50:34.458 ../devEcmcSup/motion/ecmcAxisReal.cpp/execute:185: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 0: Not operational (0x24011).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 1: Not operational (0x24011).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 2: Not operational (0x24011).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 3: Not operational (0x24011).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 4: Not operational (0x24011).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 5: Not operational (0x24011).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 6: Not operational (0x24011).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 8: Not operational (0x24011).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 9: Not operational (0x24011).
-2022/01/27 14:50:34.458 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
-2022/01/27 14:50:34.480 Starting up EtherCAT bus: 0 second(s). Max wait time 30 second(s).
-2022/01/27 14:50:34.522 ecmcMotorRecord:: poll(1) homed=1
-2022/01/27 14:50:34.522 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000125
-2022/01/27 14:50:34.522 ecmcMotorRecord:: poll(1) bError=1 drvlocal.statusBinData.onChangeData.error=0x14315
-2022/01/27 14:50:34.522 ecmcMotorRecord:: sErrorMessage(1)="ERROR_AXIS_HARDWARE_STATUS_NOT_OK"
-2022/01/27 14:50:34.522 ecmcMotorRecord:: poll(1) callParamCallbacksUpdateError Error=1 old=-1 ErrID=0x14315 old=0x0 Warn=0 nCmd=0 old=0 txt=E: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315)
-2022/01/27 14:50:34.523 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000010
-2022/01/27 14:50:34.523 ecmcMotorRecord:: poll(2) bError=1 drvlocal.statusBinData.onChangeData.error=0x14315
-2022/01/27 14:50:34.523 ecmcMotorRecord:: sErrorMessage(2)="ERROR_AXIS_HARDWARE_STATUS_NOT_OK"
-2022/01/27 14:50:34.523 ecmcMotorRecord:: poll(2) callParamCallbacksUpdateError Error=1 old=-1 ErrID=0x14315 old=0x0 Warn=0 nCmd=0 old=0 txt=E: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315)
-2022/01/27 14:50:34.723 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000018
-2022/01/27 14:50:34.723 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000012
-2022/01/27 14:50:34.924 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000021
-2022/01/27 14:50:34.924 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000012
-2022/01/27 14:50:35.124 ecmcMotorRecord:: poll(1) LLS=0
-2022/01/27 14:50:35.124 ecmcMotorRecord:: poll(1) HLS=0
-2022/01/27 14:50:35.124 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000116
-2022/01/27 14:50:35.124 ecmcMotorRecord:: poll(2) LLS=0
-2022/01/27 14:50:35.124 ecmcMotorRecord:: poll(2) HLS=0
-2022/01/27 14:50:35.124 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=-71.58 time=0.000058
-2022/01/27 14:50:35.324 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000012
-2022/01/27 14:50:35.324 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=-71.58 time=0.000007
-2022/01/27 14:50:35.385 ../devEcmcSup/motion/ecmcDriveBase.cpp/readEntries:328: WARNING (axis 1): Drive hardware in warning state.
-2022/01/27 14:50:35.481 Starting up EtherCAT bus: 1 second(s). Max wait time 30 second(s).
-2022/01/27 14:50:35.524 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000012
-2022/01/27 14:50:35.525 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=-71.58 time=0.000007
-2022/01/27 14:50:35.614 ../devEcmcSup/motion/ecmcDriveBase.cpp/readEntries:328: WARNING (axis 2): Drive hardware in warning state.
-2022/01/27 14:50:35.725 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000011
-2022/01/27 14:50:35.725 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=-71.58 time=0.000006
-2022/01/27 14:50:35.925 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000013
-2022/01/27 14:50:35.925 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=-71.58 time=0.000006
-2022/01/27 14:50:35.961 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
-2022/01/27 14:50:35.961 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
-2022/01/27 14:50:35.961 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
-2022/01/27 14:50:35.961 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
-2022/01/27 14:50:35.961 ../devEcmcSup/main/ecmcError.cpp/errorReset:103: NO_ERROR (0x0).
-2022/01/27 14:50:36.125 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000012
-2022/01/27 14:50:36.125 ecmcMotorRecord:: poll(1) bError=0 drvlocal.statusBinData.onChangeData.error=0x0
-2022/01/27 14:50:36.125 ecmcMotorRecord:: poll(1) callParamCallbacksUpdateError Error=0 old=1 ErrID=0x0 old=0x14315 Warn=0 nCmd=0 old=0 txt=NULL
-2022/01/27 14:50:36.125 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=0 time=0.000007
-2022/01/27 14:50:36.125 ecmcMotorRecord:: poll(2) bError=0 drvlocal.statusBinData.onChangeData.error=0x0
-2022/01/27 14:50:36.125 ecmcMotorRecord:: poll(2) callParamCallbacksUpdateError Error=4 old=1 ErrID=0x0 old=0x14315 Warn=0 nCmd=0 old=0 txt=NULL
-2022/01/27 14:50:36.325 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000012
-2022/01/27 14:50:36.326 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=0 time=0.000006
-2022/01/27 14:50:36.526 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000012
-2022/01/27 14:50:36.526 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=0 time=0.000006
-2022/01/27 14:50:36.726 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000016
-2022/01/27 14:50:36.726 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=0 time=0.000011
-2022/01/27 14:50:36.926 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000020
-2022/01/27 14:50:36.927 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=0 time=0.000185
-2022/01/27 14:50:37.127 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000012
-2022/01/27 14:50:37.127 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=0 time=0.000006
-2022/01/27 14:50:37.327 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000011
-2022/01/27 14:50:37.327 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=0 time=0.000006
-2022/01/27 14:50:37.481 EtherCAT bus started!
-2022/01/27 14:50:37.481 OK
-2022/01/27 14:50:37.481 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAtIocBuild (0). Allow callbacks: true.
-Starting iocInit
-2022/01/27 14:50:37.482 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAtBeginning (1). Allow callbacks: true.
-2022/01/27 14:50:37.495 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterCallbackInit (2). Allow callbacks: true.
-2022/01/27 14:50:37.500 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterCaLinkInit (3). Allow callbacks: true.
-2022/01/27 14:50:37.500 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterInitDrvSup (4). Allow callbacks: true.
-2022/01/27 14:50:37.501 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterInitRecSup (5). Allow callbacks: true.
-2022/01/27 14:50:37.504 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterInitDevSup (6). Allow callbacks: true.
-2022/01/27 14:50:37.508 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s3.positionActual01 linked to record (asyn reason 1).
-2022/01/27 14:50:37.509 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s3.encoderLatchPostion01 linked to record (asyn reason 2).
-2022/01/27 14:50:37.509 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s3.encoderControl01 linked to record (asyn reason 3).
-2022/01/27 14:50:37.510 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s3.encoderValue01 linked to record (asyn reason 4).
-2022/01/27 14:50:37.510 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s4.positionActual01 linked to record (asyn reason 5).
-2022/01/27 14:50:37.511 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s4.encoderLatchPostion01 linked to record (asyn reason 6).
-2022/01/27 14:50:37.511 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s4.encoderControl01 linked to record (asyn reason 7).
-2022/01/27 14:50:37.511 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s4.encoderValue01 linked to record (asyn reason 8).
-2022/01/27 14:50:37.512 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.timestampLatchPositive01 linked to record (asyn reason 9).
-2022/01/27 14:50:37.512 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.timestampLatchNegative01 linked to record (asyn reason 10).
-2022/01/27 14:50:37.512 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.timestampLatchPositive02 linked to record (asyn reason 11).
-2022/01/27 14:50:37.513 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.timestampLatchNegative02 linked to record (asyn reason 12).
-2022/01/27 14:50:37.513 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.driveControl01 linked to record (asyn reason 13).
-2022/01/27 14:50:37.513 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.velocitySetpoint01 linked to record (asyn reason 14).
-2022/01/27 14:50:37.514 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.positionActual01 linked to record (asyn reason 15).
-2022/01/27 14:50:37.514 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.encoderLatchPostion01 linked to record (asyn reason 16).
-2022/01/27 14:50:37.515 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.encoderControl01 linked to record (asyn reason 17).
-2022/01/27 14:50:37.515 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.encoderValue01 linked to record (asyn reason 18).
-2022/01/27 14:50:37.516 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.driveControl01 linked to record (asyn reason 19).
-2022/01/27 14:50:37.516 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.velocitySetpoint01 linked to record (asyn reason 20).
-2022/01/27 14:50:37.517 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.positionActual01 linked to record (asyn reason 21).
-2022/01/27 14:50:37.517 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.encoderLatchPostion01 linked to record (asyn reason 22).
-2022/01/27 14:50:37.518 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.encoderControl01 linked to record (asyn reason 23).
-2022/01/27 14:50:37.518 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.encoderValue01 linked to record (asyn reason 24).
-2022/01/27 14:50:37.520 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.actpos linked to record (asyn reason 25).
-2022/01/27 14:50:37.520 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.setpos linked to record (asyn reason 26).
-2022/01/27 14:50:37.521 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.poserr linked to record (asyn reason 27).
-2022/01/27 14:50:37.521 ecmcAsynPortDriver:drvUserCreate: Parameter plcs.ax1.plc.error linked to record (asyn reason 28).
-2022/01/27 14:50:37.522 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.actpos linked to record (asyn reason 29).
-2022/01/27 14:50:37.523 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.setpos linked to record (asyn reason 30).
-2022/01/27 14:50:37.524 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.poserr linked to record (asyn reason 31).
-2022/01/27 14:50:37.524 ecmcAsynPortDriver:drvUserCreate: Parameter plcs.ax2.plc.error linked to record (asyn reason 32).
-2022/01/27 14:50:37.525 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.appmode linked to record (asyn reason 33).
-2022/01/27 14:50:37.526 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.error.id linked to record (asyn reason 34).
-2022/01/27 14:50:37.527 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.thread.latency.min linked to record (asyn reason 35).
-2022/01/27 14:50:37.527 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000011
-2022/01/27 14:50:37.527 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=0 time=0.000006
-2022/01/27 14:50:37.528 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.thread.latency.max linked to record (asyn reason 36).
-2022/01/27 14:50:37.529 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.thread.period.min linked to record (asyn reason 37).
-2022/01/27 14:50:37.529 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.thread.period.max linked to record (asyn reason 38).
-2022/01/27 14:50:37.536 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.thread.execute.min linked to record (asyn reason 39).
-2022/01/27 14:50:37.538 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.thread.execute.max linked to record (asyn reason 40).
-2022/01/27 14:50:37.539 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.thread.send.min linked to record (asyn reason 41).
-2022/01/27 14:50:37.539 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.thread.send.max linked to record (asyn reason 42).
-2022/01/27 14:50:37.540 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.binaryInput01 linked to record (asyn reason 43).
-2022/01/27 14:50:37.542 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.binaryInput02 linked to record (asyn reason 44).
-2022/01/27 14:50:37.544 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.binaryInput03 linked to record (asyn reason 45).
-2022/01/27 14:50:37.546 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.binaryInput04 linked to record (asyn reason 46).
-2022/01/27 14:50:37.550 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.binaryInput05 linked to record (asyn reason 47).
-2022/01/27 14:50:37.553 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.binaryInput06 linked to record (asyn reason 48).
-2022/01/27 14:50:37.555 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.binaryInput07 linked to record (asyn reason 49).
-2022/01/27 14:50:37.557 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.binaryInput08 linked to record (asyn reason 50).
-2022/01/27 14:50:37.559 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.binaryOutput01 linked to record (asyn reason 51).
-2022/01/27 14:50:37.560 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.binaryOutput02 linked to record (asyn reason 52).
-2022/01/27 14:50:37.562 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.binaryOutput03 linked to record (asyn reason 53).
-2022/01/27 14:50:37.564 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.binaryOutput04 linked to record (asyn reason 54).
-2022/01/27 14:50:37.565 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.binaryOutput05 linked to record (asyn reason 55).
-2022/01/27 14:50:37.567 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.binaryOutput06 linked to record (asyn reason 56).
-2022/01/27 14:50:37.570 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.binaryOutput07 linked to record (asyn reason 57).
-2022/01/27 14:50:37.573 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.binaryOutput08 linked to record (asyn reason 58).
-2022/01/27 14:50:37.579 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s5.powerOk01 linked to record (asyn reason 59).
-2022/01/27 14:50:37.581 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s5.overload01 linked to record (asyn reason 60).
-2022/01/27 14:50:37.584 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.binaryInput01 linked to record (asyn reason 61).
-2022/01/27 14:50:37.587 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.binaryInput02 linked to record (asyn reason 62).
-2022/01/27 14:50:37.590 ecmcAsynPortDriver:drvUserCreate: Parameter plcs.ax1.plc.enable linked to record (asyn reason 63).
-2022/01/27 14:50:37.592 ecmcAsynPortDriver:drvUserCreate: Parameter plcs.ax1.plc.firstscan linked to record (asyn reason 64).
-2022/01/27 14:50:37.597 ecmcAsynPortDriver:drvUserCreate: Parameter plcs.ax2.plc.enable linked to record (asyn reason 65).
-2022/01/27 14:50:37.600 ecmcAsynPortDriver:drvUserCreate: Parameter plcs.ax2.plc.firstscan linked to record (asyn reason 66).
-2022/01/27 14:50:37.603 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.ok linked to record (asyn reason 67).
-2022/01/27 14:50:37.612 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.diagnostic linked to record (asyn reason 68).
-2022/01/27 14:50:37.613 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.plc.expression linked to record (asyn reason 69).
-2022/01/27 14:50:37.615 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.diagnostic linked to record (asyn reason 70).
-2022/01/27 14:50:37.617 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.plc.expression linked to record (asyn reason 71).
-2022/01/27 14:50:37.620 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.error.msg linked to record (asyn reason 72).
-2022/01/27 14:50:37.622 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.updated linked to record (asyn reason 73).
-2022/01/27 14:50:37.624 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.command linked to record (asyn reason 74).
-2022/01/27 14:50:37.627 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.command linked to record (asyn reason 75).
-mccfg_DIR)loadPLCFile.cmd, "PLC_ID=0, SAMPLE_RATE_MS=100,FILE=./plc/grbl.plc")
-##############################################################################
-############# Configure diagnostics:
-ecmcConfigOrDie "Cfg.EcSetDiagnostics(1)"
-ecmcConfigOrDie "Cfg.EcEnablePrintouts(0)"
-ecmcConfigOrDie "Cfg.EcSetDomainFailedCyclesLimit(100)"
-ecmcConfigOrDie "Cfg.SetDiagAxisIndex(1)"
-ecmcConfigOrDie "Cfg.SetDiagAxisFreq(2)"
-ecmcConfigOrDie "Cfg.SetDiagAxisEnable(0)"
-iocshLoad (/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/setAppMode.cmd)
-#==============================================================================
-# setAppMode.cmd
-ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/general.cmd",1)
-iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/general.cmd
-#==============================================================================
-# general.cmd
-ecmcFileExist("ecmcGeneral.db",1,1)
-dbLoadRecords("ecmcGeneral.db","P=IOC_TEST:,PORT=MC_CPU1,ADDR=0,TIMEOUT=1,T_SMP_MS=10,TSE=-2,ECMC_PROC_HOOK=")
-# Examples of commands for info:
-# ecmcReport <level> or asynReport <level>
-# ecmcReport 3
-# ecmcGrepParam <pattern>
-# List all ecmc params for ethercat slave 2:
-# ecmcGrepParam *s2*
-#
-ecmcEpicsEnvSetCalcTernary(ECMC_MASTER_CMD, "0>=0", "","#- ")
- ecmcFileExist("ecmcEc.db",1,1)
- dbLoadRecords("ecmcEc.db","P=IOC_TEST:,PORT=MC_CPU1,ADDR=0,TIMEOUT=1,MASTER_ID=0,T_SMP_MS=10,TSE=-2")
-ecmcConfigOrDie "Cfg.SetAppMode(1)"
-#asynSetTraceMask(MC_CPU1, -1, 0x41)
-# Note need to test 0x21 later..
-#asynSetTraceMask(MC_CPU1, -1, 0x21)
-asynSetTraceMask(MC_CPU1, -1, 0x41)
-iocInit()
-############################################################################
-## EPICS R7.0.5-E3-7.0.5-patch
-## Rev. 2021-05-05T19:45+0200
-############################################################################
-ECATtimestamp aSubRecord: IOC_TEST:m0s006-BI01-TimeRiseTS
-ECATtimestamp aSubRecord: IOC_TEST:m0s006-BI01-TimeFallTS
-ECATtimestamp aSubRecord: IOC_TEST:m0s006-BI02-TimeRiseTS
-ECATtimestamp aSubRecord: IOC_TEST:m0s006-BI02-TimeFallTS
-2022/01/27 14:50:37.631 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s0.ONE linked to record (asyn reason 76).
-2022/01/27 14:50:37.634 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s0.ZERO linked to record (asyn reason 77).
-2022/01/27 14:50:37.637 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.ONE linked to record (asyn reason 78).
-2022/01/27 14:50:37.639 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.ZERO linked to record (asyn reason 79).
-2022/01/27 14:50:37.642 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.ONE linked to record (asyn reason 80).
-2022/01/27 14:50:37.645 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.ZERO linked to record (asyn reason 81).
-2022/01/27 14:50:37.648 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s3.ONE linked to record (asyn reason 82).
-2022/01/27 14:50:37.650 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s3.ZERO linked to record (asyn reason 83).
-2022/01/27 14:50:37.654 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s4.ONE linked to record (asyn reason 84).
-2022/01/27 14:50:37.657 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s4.ZERO linked to record (asyn reason 85).
-2022/01/27 14:50:37.659 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s5.ONE linked to record (asyn reason 86).
-2022/01/27 14:50:37.662 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s5.ZERO linked to record (asyn reason 87).
-2022/01/27 14:50:37.665 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.ONE linked to record (asyn reason 88).
-2022/01/27 14:50:37.668 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.ZERO linked to record (asyn reason 89).
-2022/01/27 14:50:37.670 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.ONE linked to record (asyn reason 90).
-2022/01/27 14:50:37.673 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.ZERO linked to record (asyn reason 91).
-2022/01/27 14:50:37.676 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.ONE linked to record (asyn reason 92).
-2022/01/27 14:50:37.679 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.ZERO linked to record (asyn reason 93).
-2022/01/27 14:50:37.682 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.cmddata linked to record (asyn reason 94).
-2022/01/27 14:50:37.686 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.cmddata linked to record (asyn reason 95).
-2022/01/27 14:50:37.688 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s0.slavestatus linked to record (asyn reason 96).
-2022/01/27 14:50:37.691 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s1.slavestatus linked to record (asyn reason 97).
-2022/01/27 14:50:37.694 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s2.slavestatus linked to record (asyn reason 98).
-2022/01/27 14:50:37.697 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s3.slavestatus linked to record (asyn reason 99).
-2022/01/27 14:50:37.699 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s4.slavestatus linked to record (asyn reason 100).
-2022/01/27 14:50:37.701 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s5.slavestatus linked to record (asyn reason 101).
-2022/01/27 14:50:37.704 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.slavestatus linked to record (asyn reason 102).
-2022/01/27 14:50:37.707 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.slavestatus linked to record (asyn reason 103).
-2022/01/27 14:50:37.710 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.slavestatus linked to record (asyn reason 104).
-2022/01/27 14:50:37.714 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.status linked to record (asyn reason 105).
-2022/01/27 14:50:37.716 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.errorid linked to record (asyn reason 106).
-2022/01/27 14:50:37.719 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.status linked to record (asyn reason 107).
-2022/01/27 14:50:37.722 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.errorid linked to record (asyn reason 108).
-2022/01/27 14:50:37.725 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.masterstatus linked to record (asyn reason 109).
-2022/01/27 14:50:37.727 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000015
-2022/01/27 14:50:37.727 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=0 time=0.000008
-2022/01/27 14:50:37.728 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.slavecounter linked to record (asyn reason 110).
-2022/01/27 14:50:37.731 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.memmapcounter linked to record (asyn reason 111).
-2022/01/27 14:50:37.733 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.domainfailcountertotal linked to record (asyn reason 112).
-2022/01/27 14:50:37.736 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.entrycounter linked to record (asyn reason 113).
-2022/01/27 14:50:37.739 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.domainstatus linked to record (asyn reason 114).
-2022/01/27 14:50:37.744 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.control linked to record (asyn reason 115).
-2022/01/27 14:50:37.750 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.control linked to record (asyn reason 116).
-2022/01/27 14:50:37.757 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s3.encoderStatus01 linked to record (asyn reason 117).
-2022/01/27 14:50:37.764 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s4.encoderStatus01 linked to record (asyn reason 118).
-2022/01/27 14:50:37.772 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.status01 linked to record (asyn reason 119).
-2022/01/27 14:50:37.781 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s6.status02 linked to record (asyn reason 120).
-2022/01/27 14:50:37.790 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.driveStatus01 linked to record (asyn reason 121).
-2022/01/27 14:50:37.797 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s8.encoderStatus01 linked to record (asyn reason 122).
-2022/01/27 14:50:37.804 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.driveStatus01 linked to record (asyn reason 123).
-2022/01/27 14:50:37.811 ecmcAsynPortDriver:drvUserCreate: Parameter ec0.s9.encoderStatus01 linked to record (asyn reason 124).
-2022/01/27 14:50:37.868 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.targpos linked to record (asyn reason 125).
-2022/01/27 14:50:37.871 ecmcAsynPortDriver:drvUserCreate: Parameter ax1.targvelo linked to record (asyn reason 126).
-2022/01/27 14:50:37.876 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.targpos linked to record (asyn reason 127).
-2022/01/27 14:50:37.879 ecmcAsynPortDriver:drvUserCreate: Parameter ax2.targvelo linked to record (asyn reason 128).
-2022/01/27 14:50:37.897 ecmcAsynPortDriver:drvUserCreate: Parameter ecmc.error.reset linked to record (asyn reason 129).
-2022/01/27 14:50:37.901 ecmcMotorRecord:: setIntegerParam(1 motorUpdateStatus_)=0
-2022/01/27 14:50:37.901 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000085
-2022/01/27 14:50:37.902 ecmcMotorRecord:: setIntegerParam(2 motorUpdateStatus_)=0
-2022/01/27 14:50:37.902 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=0 time=0.000007
-2022/01/27 14:50:37.928 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000011
-2022/01/27 14:50:37.928 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=0 time=0.000007
-2022/01/27 14:50:37.954 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterInitDatabase (7). Allow callbacks: true.
-2022/01/27 14:50:37.954 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterFinishDevSup (8). Allow callbacks: true.
-2022/01/27 14:50:38.128 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000010
-2022/01/27 14:50:38.128 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=0 time=0.000006
-2022/01/27 14:50:38.328 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000009
-2022/01/27 14:50:38.328 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=0 time=0.000005
-2022/01/27 14:50:38.490 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterScanInit (9). Allow callbacks: true.
-2022/01/27 14:50:38.491 ecmcMotorRecord:: setIntegerParam(1 HomProc_)=3 motorNotHomedProblem=0
-2022/01/27 14:50:38.491 ecmcMotorRecord:: setIntegerParam(2 HomProc_)=3 motorNotHomedProblem=0
-2022/01/27 14:50:38.492 ecmcMotorRecord:: setDoubleParam(1 HomPos_)=0.000000
-2022/01/27 14:50:38.492 ecmcMotorRecord:: setDoubleParam(2 HomPos_)=0.000000
-2022/01/27 14:50:38.492 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterInitialProcess (10). Allow callbacks: true.
-2022/01/27 14:50:38.498 ecmcAsynPortDriver:getEpicsState: EPICS state: Unknown state (11). Allow callbacks: true.
-2022/01/27 14:50:38.498 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterIocBuilt (12). Allow callbacks: true.
-2022/01/27 14:50:38.528 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=804 fPos=0 fActPosition=-24.12 time=0.000011
-2022/01/27 14:50:38.528 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63149 fPos=0 fActPosition=0 time=0.000006
-2022/01/27 14:50:38.531 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAtIocRun (13). Allow callbacks: true.
-2022/01/27 14:50:38.532 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterDatabaseRunning (14). Allow callbacks: true.
-2022/01/27 14:50:38.532 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterInterruptAccept (28). Allow callbacks: true.
-2022/01/27 14:50:38.532 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterCaServerRunning (15). Allow callbacks: true.
-2022/01/27 14:50:38.532 ecmcAsynPortDriver:getEpicsState: EPICS state: Unknown state (29). Allow callbacks: true.
-iocRun: All initialization complete
-2022/01/27 14:50:38.602 ecmcAsynPortDriver:getEpicsState: EPICS state: initHookAfterIocRunning (16). Allow callbacks: true.
-2022/01/27 14:50:38.606 ../devEcmcSup/motion/ecmcDriveBase.cpp/readEntries:336: INFO (axis 1): Drive hardware warning state cleared.
-2022/01/27 14:50:38.606 ../devEcmcSup/motion/ecmcDriveBase.cpp/readEntries:336: INFO (axis 2): Drive hardware warning state cleared.
-2022/01/27 14:50:38.728 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=808 fPos=-24.12 fActPosition=-24.24 time=0.000010
-2022/01/27 14:50:38.729 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63148 fPos=0 fActPosition=-0.03 time=0.000007
-2022/01/27 14:50:37.900 [devMotorAsyn.c:439  IOC_TEST:Axis1] init_record IOC_TEST:Axis1 position=-24.120000 encoderPos=-24.120000 velocity=0.000000 MSTAstatus=0x4d00 flagsValue=0x3f flagsWritten=0x3f pmr->mflg=0x0
-2022/01/27 14:50:37.901 [devMotorAsyn.c:185  IOC_TEST:Axis1] init_controller IOC_TEST:Axis1 set encoder ratio=1.000000 status=0
-2022/01/27 14:50:37.901 [devMotorAsyn.c:266  IOC_TEST:Axis1] update_soft_limits IOC_TEST:Axis1 RawHLM_RO=130.000000 RawLLM_RO=-20.000000 valid=1 DHLM_RO=130.000000 DLLM_RO=-20.000000
-2022/01/27 14:50:37.901 [motorDevSup.c:327  IOC_TEST:Axis1] PositionRestoreNeeded IOC_TEST:Axis1 rstm=2 dval=0.000000 drbv=-24.120000 pmr->rdbd=0.100000 rdbd=0.100000 pmr->mres=0.030000 pmr->mflg=0x3f dval_non_zero_pos_near_zero=0 ret=0
-2022/01/27 14:50:37.901 [motorRecord.cc:782  IOC_TEST:Axis1] init_re_init start neverPolled=0 stat=17 nsta=0
-2022/01/27 14:50:37.901 [motorRecord.cc:720  IOC_TEST:Axis1] enforceMinRetryDeadband spdb=0.100000 rdbd=0.100000 mres=0.030000
-2022/01/27 14:50:37.901 [motorRecord.cc:4484 IOC_TEST:Axis1] pmr->dhlm=130 softLimitRO=130
-2022/01/27 14:50:37.901 [motorRecord.cc:4545 IOC_TEST:Axis1] pmr->dllm=-20 softLimitRO=-20
-2022/01/27 14:50:37.901 [motorRecord.cc:833  IOC_TEST:Axis1] init_re_init  end dval=-24.120000 drbv=-24.120000 rdbd=0.100000 spdb=0.100000
-2022/01/27 14:50:37.901 [motorRecord.cc:968  IOC_TEST:Axis1] init_record process_reason="callbackdata + soft limits" dval=-24.120000 drbv=-24.120000 rdbd=0.100000 spdb=0.100000 stat=0 msta=0x4d00 neverPolled=0
-2022/01/27 14:50:37.901 [devMotorAsyn.c:439  IOC_TEST:Axis2] init_record IOC_TEST:Axis2 position=0.000000 encoderPos=0.000000 velocity=0.000000 MSTAstatus=0x0f00 flagsValue=0x3f flagsWritten=0x3f pmr->mflg=0x0
-2022/01/27 14:50:37.902 [devMotorAsyn.c:185  IOC_TEST:Axis2] init_controller IOC_TEST:Axis2 set encoder ratio=1.000000 status=0
-2022/01/27 14:50:37.902 [devMotorAsyn.c:266  IOC_TEST:Axis2] update_soft_limits IOC_TEST:Axis2 RawHLM_RO=20.000000 RawLLM_RO=-130.000000 valid=1 DHLM_RO=20.000000 DLLM_RO=-130.000000
-2022/01/27 14:50:37.902 [motorDevSup.c:327  IOC_TEST:Axis2] PositionRestoreNeeded IOC_TEST:Axis2 rstm=2 dval=0.000000 drbv=0.000000 pmr->rdbd=0.100000 rdbd=0.100000 pmr->mres=0.030000 pmr->mflg=0x3f dval_non_zero_pos_near_zero=0 ret=0
-2022/01/27 14:50:37.902 [motorRecord.cc:782  IOC_TEST:Axis2] init_re_init start neverPolled=0 stat=17 nsta=0
-2022/01/27 14:50:37.902 [motorRecord.cc:720  IOC_TEST:Axis2] enforceMinRetryDeadband spdb=0.100000 rdbd=0.100000 mres=0.030000
-2022/01/27 14:50:37.902 [motorRecord.cc:4484 IOC_TEST:Axis2] pmr->dhlm=20 softLimitRO=20
-2022/01/27 14:50:37.902 [motorRecord.cc:4545 IOC_TEST:Axis2] pmr->dllm=-130 softLimitRO=-130
-2022/01/27 14:50:37.902 [motorRecord.cc:833  IOC_TEST:Axis2] init_re_init  end dval=0.000000 drbv=0.000000 rdbd=0.100000 spdb=0.100000
-2022/01/27 14:50:37.902 [motorRecord.cc:968  IOC_TEST:Axis2] init_record process_reason="callbackdata + soft limits" dval=0.000000 drbv=0.000000 rdbd=0.100000 spdb=0.100000 stat=0 msta=0xf00 neverPolled=0
-dbpf IOC_TEST:Axis1.SPAM 0
-DBF_SHORT:          0 = 0x0   
-dbpf IOC_TEST:Axis2.SPAM 0
-DBF_SHORT:          0 = 0x0   
-# Set the IOC Prompt String One 
-epicsEnvSet IOCSH_PS1 "raspberrypi-18378 > "
-#
-raspberrypi-18378 > 2022/01/27 14:50:38.929 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=808 fPos=-24.12 fActPosition=-24.24 time=0.000010
-2022/01/27 14:50:38.929 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63148 fPos=0 fActPosition=-0.03 time=0.000007
-2022/01/27 14:50:39.129 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=807 fPos=-24.18 fActPosition=-24.21 time=0.000010
-2022/01/27 14:50:39.129 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63145 fPos=0 fActPosition=-0.12 time=0.000007
-2022/01/27 14:50:39.329 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=792 fPos=-23.772 fActPosition=-23.76 time=0.000009
-2022/01/27 14:50:39.330 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63156 fPos=0.184 fActPosition=0.21 time=0.000007
-2022/01/27 14:50:39.530 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=766 fPos=-22.996 fActPosition=-22.98 time=0.000015
-2022/01/27 14:50:39.530 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63168 fPos=0.536 fActPosition=0.57 time=0.000009
-2022/01/27 14:50:39.730 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=732 fPos=-21.972 fActPosition=-21.96 time=0.000018
-2022/01/27 14:50:39.731 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63183 fPos=1 fActPosition=1.02 time=0.000011
-2022/01/27 14:50:39.931 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=698 fPos=-20.94 fActPosition=-20.94 time=0.000015
-2022/01/27 14:50:39.931 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63198 fPos=1.464 fActPosition=1.47 time=0.000009
-2022/01/27 14:50:40.131 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=663 fPos=-19.92 fActPosition=-19.89 time=0.000018
-2022/01/27 14:50:40.132 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63214 fPos=1.932 fActPosition=1.95 time=0.000291
-2022/01/27 14:50:40.332 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=629 fPos=-18.888 fActPosition=-18.87 time=0.000009
-2022/01/27 14:50:40.332 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63229 fPos=2.396 fActPosition=2.4 time=0.000006
-2022/01/27 14:50:40.532 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=595 fPos=-17.86 fActPosition=-17.85 time=0.000157
-2022/01/27 14:50:40.533 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63245 fPos=2.86 fActPosition=2.88 time=0.000006
-2022/01/27 14:50:40.733 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=561 fPos=-16.832 fActPosition=-16.83 time=0.000009
-2022/01/27 14:50:40.733 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63260 fPos=3.328 fActPosition=3.33 time=0.000006
-2022/01/27 14:50:40.933 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=527 fPos=-15.804 fActPosition=-15.81 time=0.000018
-2022/01/27 14:50:40.934 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63275 fPos=3.792 fActPosition=3.78 time=0.000136
-2022/01/27 14:50:41.134 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=493 fPos=-14.776 fActPosition=-14.79 time=0.000016
-2022/01/27 14:50:41.134 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63291 fPos=4.256 fActPosition=4.26 time=0.000011
-2022/01/27 14:50:41.335 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=458 fPos=-13.748 fActPosition=-13.74 time=0.000167
-2022/01/27 14:50:41.335 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63307 fPos=4.724 fActPosition=4.74 time=0.000011
-2022/01/27 14:50:41.535 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=424 fPos=-12.724 fActPosition=-12.72 time=0.000018
-2022/01/27 14:50:41.536 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63322 fPos=5.188 fActPosition=5.19 time=0.000247
-2022/01/27 14:50:41.736 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=389 fPos=-11.688 fActPosition=-11.67 time=0.000018
-2022/01/27 14:50:41.736 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63337 fPos=5.652 fActPosition=5.64 time=0.000011
-2022/01/27 14:50:41.937 ecmcMotorRecord:: poll(1) HLS=1
-2022/01/27 14:50:41.937 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=356 fPos=-10.6767 fActPosition=-10.68 time=0.000183
-2022/01/27 14:50:41.937 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63351 fPos=0 fActPosition=6.06 time=0.000013
-2022/01/27 14:50:42.137 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=323 fPos=-9.7008 fActPosition=-9.69 time=0.000018
-2022/01/27 14:50:42.138 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=0 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=63355 fPos=6.1668 fActPosition=6.18 time=0.000235
-2022/01/27 14:50:42.338 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=295 fPos=-8.8419 fActPosition=-8.85 time=0.000016
-2022/01/27 14:50:42.338 ecmcMotorRecord:: poll(2) mvnNRdy=0 bBusy=0 bExecute=0 bEnabled=1 atTarget=1 wf=0 ENC=63354 fPos=6.1668 fActPosition=6.15 time=0.000010
-2022/01/27 14:50:42.539 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=273 fPos=-8.18622 fActPosition=-8.19 time=0.000068
-2022/01/27 14:50:42.739 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=260 fPos=-7.81003 fActPosition=-7.8 time=0.000097
-2022/01/27 14:50:42.939 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=254 fPos=-7.60928 fActPosition=-7.62 time=0.000009
-2022/01/27 14:50:43.140 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=252 fPos=-7.55609 fActPosition=-7.56 time=0.000012
-2022/01/27 14:50:43.340 ecmcMotorRecord:: poll(1) HLS=0
-2022/01/27 14:50:43.340 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=0 bExecute=0 bEnabled=1 atTarget=0 wf=0 ENC=252 fPos=-7.55297 fActPosition=-7.56 time=0.000063
-2022/01/27 14:50:43.540 ecmcMotorRecord:: poll(1) mvnNRdy=0 bBusy=0 bExecute=0 bEnabled=1 atTarget=1 wf=0 ENC=252 fPos=-7.55297 fActPosition=-7.56 time=0.000010
-Write command to grbl (command[0] = G1X20Y20F360)
-Added: G1X20Y20F360to buffer: G1X20Y20F360
-
-../grbl/grbl_gcode.c:gc_execute_line:71:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:652:
-../grbl/grbl_stepper.c:st_wake_up:228:
-GRBL Reply: OK (command[0] = G1X20Y20F360)
-Write command to grbl (command[1] = G1X0Y0F360)
-Added: G1X0Y0F360to buffer: G1X20Y20F360
-G1X0Y0F360
-
-../grbl/grbl_gcode.c:gc_execute_line:71:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_update_plan_block_parameters:639:
-GRBL Reply: OK (command[1] = G1X0Y0F360)
-####################### ECMC IN CONTROL
-Error encountered: ecmc 0x104, plugin 0x104
-../grbl/grbl_stepper.c:st_update_plan_block_parameters:639:
-../grbl/grbl_stepper.c:st_go_idle:259:
-../grbl/grbl_stepper.c:st_update_plan_block_parameters:639:
-../grbl/grbl_stepper.c:st_update_plan_block_parameters:639:
-../grbl/grbl_coolant_control.c:coolant_get_state:37 Not supported yet..
-
-raspberrypi-18378 > 
-raspberrypi-18378 > 
-raspberrypi-18378 > 
-raspberrypi-18378 > 
-raspberrypi-18378 > 
-raspberrypi-18378 > 
+##################################################################2022/01/27 16:14:59.539 OK
+2022/01/27 16:14:59.539 OK
+2022/01/27 16:14:59.540 OK
+2022/01/27 16:14:59.540 OK
+2022/01/27 16:14:59.540 OK
+2022/01/27 16:14:59.540 OK
+2022/01/27 16:14:59.546 INFO: Locking memory
+2022/01/27 16:14:59.645 ../devEcmcSup/motion/ecmcMonitor.cpp/checkLimits:501: ERROR_MON_BOTH_LIMIT_INTERLOCK (0x14c10).
+2022/01/27 16:14:59.646 ../devEcmcSup/motion/ecmcAxisReal.cpp/execute:185: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315).
+2022/01/27 16:14:59.646 ../devEcmcSup/motion/ecmcMonitor.cpp/checkLimits:501: ERROR_MON_BOTH_LIMIT_INTERLOCK (0x14c10).
+2022/01/27 16:14:59.646 ../devEcmcSup/motion/ecmcAxisReal.cpp/execute:185: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 0: Not operational (0x24011).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 1: Not operational (0x24011).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 2: Not operational (0x24011).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 3: Not operational (0x24011).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 4: Not operational (0x24011).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 5: Not operational (0x24011).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 6: Not operational (0x24011).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 8: Not operational (0x24011).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:374: ERROR: Slave 9: Not operational (0x24011).
+2022/01/27 16:14:59.646 ../devEcmcSup/ethercat/ecmcEcSlave.cpp/checkConfigState:379: ERROR_EC_SLAVE_NOT_OPERATIONAL (0x24011).
+2022/01/27 16:14:59.704 Starting up EtherCAT bus: 0 second(s). Max wait time 30 second(s).
+2022/01/27 16:14:59.753 ecmcMotorRecord:: poll(1) homed=1
+2022/01/27 16:14:59.753 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000119
+2022/01/27 16:14:59.753 ecmcMotorRecord:: poll(1) bError=1 drvlocal.statusBinData.onChangeData.error=0x14315
+2022/01/27 16:14:59.753 ecmcMotorRecord:: sErrorMessage(1)="ERROR_AXIS_HARDWARE_STATUS_NOT_OK"
+2022/01/27 16:14:59.753 ecmcMotorRecord:: poll(1) callParamCallbacksUpdateError Error=1 old=-1 ErrID=0x14315 old=0x0 Warn=0 nCmd=0 old=0 txt=E: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315)
+2022/01/27 16:14:59.754 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000026
+2022/01/27 16:14:59.754 ecmcMotorRecord:: poll(2) bError=1 drvlocal.statusBinData.onChangeData.error=0x14315
+2022/01/27 16:14:59.754 ecmcMotorRecord:: sErrorMessage(2)="ERROR_AXIS_HARDWARE_STATUS_NOT_OK"
+2022/01/27 16:14:59.754 ecmcMotorRecord:: poll(2) callParamCallbacksUpdateError Error=1 old=-1 ErrID=0x14315 old=0x0 Warn=0 nCmd=0 old=0 txt=E: ERROR_AXIS_HARDWARE_STATUS_NOT_OK (0x14315)
+2022/01/27 16:14:59.954 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000063
+2022/01/27 16:14:59.954 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000006
+2022/01/27 16:15:00.155 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000021
+2022/01/27 16:15:00.155 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000018
+2022/01/27 16:15:00.355 ecmcMotorRecord:: poll(1) LLS=0
+2022/01/27 16:15:00.355 ecmcMotorRecord:: poll(1) HLS=0
+2022/01/27 16:15:00.355 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000082
+2022/01/27 16:15:00.355 ecmcMotorRecord:: poll(2) LLS=0
+2022/01/27 16:15:00.355 ecmcMotorRecord:: poll(2) HLS=0
+2022/01/27 16:15:00.355 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=0 fPos=0 fActPosition=0 time=0.000071
+2022/01/27 16:15:00.555 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000012
+2022/01/27 16:15:00.555 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63758 fPos=0 fActPosition=-53.31 time=0.000008
+2022/01/27 16:15:00.705 Starting up EtherCAT bus: 1 second(s). Max wait time 30 second(s).
+2022/01/27 16:15:00.750 ../devEcmcSup/motion/ecmcDriveBase.cpp/readEntries:328: WARNING (axis 1): Drive hardware in warning state.
+2022/01/27 16:15:00.755 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000011
+2022/01/27 16:15:00.755 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63758 fPos=0 fActPosition=-53.31 time=0.000008
+2022/01/27 16:15:00.956 ecmcMotorRecord:: poll(1) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=65535 fPos=0 fActPosition=0 time=0.000009
+2022/01/27 16:15:00.956 ecmcMotorRecord:: poll(2) mvnNRdy=1 bBusy=1 bExecute=0 bEnabled=0 atTarget=1 wf=0 ENC=63758 fPos=0 fActPosition=-53.31 time=0.000005
+2022/01/27 16:15:01.053 ../devEcmcSup/motion/ecmcDriveBase.cpp/readEntries:328: WARNING (axis 2): Drive hardware in warning state.
