@@ -96,7 +96,7 @@ $(SCRIPTEXEC) ($(ecmccfg_DIR)setAppMode.cmd)
 #asynSetTraceMask(MC_CPU1, -1, 0x41)
 # Note need to test 0x21 later..
 #asynSetTraceMask(MC_CPU1, -1, 0x21)
-asynSetTraceMask(MC_CPU1, -1, 0x0)
+asynSetTraceMask(MC_CPU1, -1, 0x41)
 iocInit()
 
 dbpf $(IOC):Axis1.SPAM 0
