@@ -73,11 +73,11 @@ void protocol_main_loop()
   uint8_t line_flags = 0;
   uint8_t char_counter = 0;
   uint8_t c;
-  delay_ms(1);
+  delay_ms(1);  // added for ecmc (I think..)
   for (;;) {
     // Process one line of incoming serial data, as the data becomes available. Performs an
     // initial filtering by removing spaces and comments and capitalizing all letters.    
-    delay_ms(1);
+    delay_ms(1);  // added for ecmc
     while((c = serial_read()) != SERIAL_NO_DATA) {
       if ((c == '\n') || (c == '\r')) { // End of line reached
         
@@ -152,9 +152,9 @@ void protocol_main_loop()
         }
 
       }
-      delay_us(100);
+      delay_us(100); // added for ecmc
     }
-    delay_ms(1);
+    delay_ms(1); // added for ecmc
     // If there are no more characters in the serial read buffer to be processed and executed,
     // this indicates that g-code streaming has either filled the planner buffer or has
     // completed. In either case, auto-cycle start, if enabled, any queued moves.
@@ -177,6 +177,7 @@ void protocol_buffer_synchronize()
   do {
     protocol_execute_realtime();   // Check and execute run-time commands
     if (sys.abort) { return; } // Check for system abort
+    delay_ms(1);  // added for ecmc
   } while (plan_get_current_block() || (sys.state == STATE_CYCLE));
 }
 
@@ -550,7 +551,7 @@ static void protocol_exec_rt_suspend()
   while (sys.suspend) {
 
     if (sys.abort) { return; }
-    delay_ms(1);
+    delay_ms(1);  // added for ecmc
     // Block until initial hold is complete and the machine has stopped motion.
     if (sys.suspend & SUSPEND_HOLD_COMPLETE) {
 
@@ -762,7 +763,7 @@ static void protocol_exec_rt_suspend()
 
       }
     }
-    delay_ms(1);
+    delay_ms(1);  // added for ecmc
     protocol_exec_rt_system();
   }
 }
