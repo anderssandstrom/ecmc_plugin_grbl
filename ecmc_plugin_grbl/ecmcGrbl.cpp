@@ -159,13 +159,13 @@ ecmcGrbl::ecmcGrbl(char* configStr,
 
   // Create worker thread for main grbl loop
   std::string threadname = "ecmc.grbl.main";
-  if(epicsThreadCreate(threadname.c_str(), 0, 32768, f_worker_main, this) == NULL) {
+  if(epicsThreadCreate(threadname.c_str(), epicsThreadPriorityMedium, 32768, f_worker_main, this) == NULL) {
     throw std::runtime_error("GRBL: ERROR: Failed create worker thread for main().");
   }
 
   // Create worker thread for write socket
   threadname = "ecmc.grbl.write";
-  if(epicsThreadCreate(threadname.c_str(), 0, 32768, f_worker_write, this) == NULL) {
+  if(epicsThreadCreate(threadname.c_str(), epicsThreadPriorityLow, 32768, f_worker_write, this) == NULL) {
     throw std::runtime_error("GRBL: ERROR: Failed create worker thread for write().");
   }
 
