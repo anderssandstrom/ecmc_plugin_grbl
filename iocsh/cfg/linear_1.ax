@@ -1,6 +1,5 @@
 #General
 epicsEnvSet("ECMC_MOTOR_NAME",            "Axis1")
-epicsEnvSet("ECMC_R",                     "Axis1-")
 epicsEnvSet("ECMC_AXIS_NO",               "1")
 epicsEnvSet("ECMC_DESC",                  "MCU1021 Lower Axis (1)")
 epicsEnvSet("ECMC_EGU",                   "mm")                        # Motor Record Unit
