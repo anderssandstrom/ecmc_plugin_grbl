@@ -20,6 +20,7 @@
 */
 
 #include "grbl.h"
+#include <epicsMutex.h>
 
 #define RX_RING_BUFFER (RX_BUFFER_SIZE+1)
 #define TX_RING_BUFFER (TX_BUFFER_SIZE+1)
@@ -32,13 +33,34 @@ uint8_t serial_tx_buffer[TX_RING_BUFFER];
 uint16_t serial_tx_buffer_head = 0;
 volatile uint16_t serial_tx_buffer_tail = 0;
 
+epicsMutexId serialRxBufferMutex = NULL;
+epicsMutexId serialTxBufferMutex = NULL;
+
+#define MUTEX_LOCK(mutex)              \
+  {                                    \
+    if (mutex) {                       \
+      epicsMutexLock(mutex);           \
+    }                                  \
+  }                                    \
+
+#define MUTEX_UNLOCK(mutex)            \
+  {                                    \
+    if (mutex) {                       \
+      epicsMutexUnlock(mutex);         \
+    }                                  \
+  }                                    \
 
 // Returns the number of bytes available in the RX serial buffer.
 uint16_t serial_get_rx_buffer_available()
 {
-  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  MUTEX_LOCK(serialRxBufferMutex);
   uint16_t rtail = serial_rx_buffer_tail; // Copy to limit multiple calls to volatile
-  if (serial_rx_buffer_head >= rtail) { return(RX_BUFFER_SIZE - (serial_rx_buffer_head-rtail)); }
+  if (serial_rx_buffer_head >= rtail) { 
+    MUTEX_UNLOCK(serialRxBufferMutex);
+    return(RX_BUFFER_SIZE - (serial_rx_buffer_head-rtail)); 
+  }
+  MUTEX_UNLOCK(serialRxBufferMutex);
   return((rtail-serial_rx_buffer_head-1));
 }
 
@@ -48,8 +70,16 @@ uint16_t serial_get_rx_buffer_available()
 uint16_t serial_get_rx_buffer_count()
 {
   //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
+
+  MUTEX_LOCK(serialRxBufferMutex);
+
   uint16_t rtail = serial_rx_buffer_tail; // Copy to limit multiple calls to volatile
-  if (serial_rx_buffer_head >= rtail) { return(serial_rx_buffer_head-rtail); }
+  if (serial_rx_buffer_head >= rtail) { 
+    MUTEX_UNLOCK(serialRxBufferMutex);
+    return(serial_rx_buffer_head-rtail); 
+  }
+
+  MUTEX_UNLOCK(serialRxBufferMutex);
   return (RX_BUFFER_SIZE - (rtail-serial_rx_buffer_head));
 }
 
@@ -58,16 +88,36 @@ uint16_t serial_get_rx_buffer_count()
 // NOTE: Not used except for debugging and ensuring no TX bottlenecks.
 uint16_t serial_get_tx_buffer_count()
 {
-  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+
+  MUTEX_LOCK(serialTxBufferMutex);
+  
   uint16_t ttail = serial_tx_buffer_tail; // Copy to limit multiple calls to volatile
-  if (serial_tx_buffer_head >= ttail) { return(serial_tx_buffer_head-ttail); }
+  if (serial_tx_buffer_head >= ttail) {
+    MUTEX_UNLOCK(serialTxBufferMutex);
+    return(serial_tx_buffer_head-ttail); 
+  }
+  
+  MUTEX_UNLOCK(serialTxBufferMutex);
   return (TX_RING_BUFFER - (ttail-serial_tx_buffer_head));
 }
 
 
 void serial_init()
 {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
+  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  // Create some mutexes to ensure safe communication
+  if(!(serialRxBufferMutex = epicsMutexCreate())) {
+    printf("%s:%s:%d: Failed create serialRxBufferMutex\n",__FILE__,__FUNCTION__,__LINE__); 
+    return;
+  }
+  MUTEX_UNLOCK(serialRxBufferMutex);
+
+  if(!(serialTxBufferMutex = epicsMutexCreate())) {
+    printf("%s:%s:%d: Failed create serialTxBufferMutex\n",__FILE__,__FUNCTION__,__LINE__); 
+    return;
+  }
+  MUTEX_UNLOCK(serialTxBufferMutex);
 
   // Set baud rate
   //#if BAUD_RATE < 57600
@@ -89,7 +139,9 @@ void serial_init()
 
 // Writes one byte to the TX serial buffer. Called by main program.
 void serial_write(uint8_t data) {
-  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+
+  MUTEX_LOCK(serialTxBufferMutex);
 
   // Calculate next head
   uint16_t next_head = serial_tx_buffer_head + 1;
@@ -98,12 +150,17 @@ void serial_write(uint8_t data) {
   // Wait until there is space in the buffer
   while (next_head == serial_tx_buffer_tail) {
     // TODO: Restructure st_prep_buffer() calls to be executed here during a long print.
-    if (sys_rt_exec_state & EXEC_RESET) { return; } // Only check for abort to avoid an endless loop.
+    if (sys_rt_exec_state & EXEC_RESET) {
+      MUTEX_UNLOCK(serialTxBufferMutex);
+      return; 
+    } // Only check for abort to avoid an endless loop.
   }
 
   // Store data and advance head
   serial_tx_buffer[serial_tx_buffer_head] = data;
   serial_tx_buffer_head = next_head;
+
+  MUTEX_UNLOCK(serialTxBufferMutex);
 
   // Enable Data Register Empty Interrupt to make sure tx-streaming is running
   //UCSR0B |=  (1 << UDRIE0);
@@ -115,6 +172,9 @@ char ecmc_get_char_from_grbl_tx_buffer()
 //ISR(SERIAL_UDRE)
 {
   //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+
+  MUTEX_LOCK(serialTxBufferMutex);
+
   uint16_t tail = serial_tx_buffer_tail; // Temporary serial_tx_buffer_tail (to optimize for volatile)
   char tempChar=0;
   // Send a byte from the buffer
@@ -127,6 +187,8 @@ char ecmc_get_char_from_grbl_tx_buffer()
 
   serial_tx_buffer_tail = tail;
 
+  MUTEX_UNLOCK(serialTxBufferMutex);
+
   // Turn off Data Register Empty Interrupt to stop tx-streaming if this concludes the transfer
   //if (tail == serial_tx_buffer_head) { UCSR0B &= ~(1 << UDRIE0); }
   return tempChar;
@@ -135,17 +197,23 @@ char ecmc_get_char_from_grbl_tx_buffer()
 // Fetches the first byte in the serial read buffer. Called by main program.
 uint8_t serial_read()
 {
-  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);  
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+
+  MUTEX_LOCK(serialRxBufferMutex);
   uint16_t tail = serial_rx_buffer_tail; // Temporary serial_rx_buffer_tail (to optimize for volatile)
   if (serial_rx_buffer_head == tail) {
+    MUTEX_UNLOCK(serialRxBufferMutex);
     return SERIAL_NO_DATA;
   } else {
     uint8_t data = serial_rx_buffer[tail];
 
     tail++;
-    if (tail == RX_RING_BUFFER) { tail = 0; }
+    if (tail == RX_RING_BUFFER) { 
+      tail = 0; 
+    }
+    
     serial_rx_buffer_tail = tail;
-
+    MUTEX_UNLOCK(serialRxBufferMutex);
     return data;
   }
 }
@@ -212,13 +280,14 @@ void ecmc_add_char_to_buffer(char data)
 
 // write direct to serial buffer
 void ecmc_write_command_serial(char* line) {
-  for(int i=0; i<strlen(line);i++) {
+  MUTEX_LOCK(serialRxBufferMutex);
+  for(unsigned int i=0; i<strlen(line);i++) {
     ecmc_add_char_to_buffer(line[i]);    
   }
   ecmc_add_char_to_buffer('\n');
+  MUTEX_UNLOCK(serialRxBufferMutex);
   if(enableDebugPrintouts) {
-    printf("Added: %s",line);
-    printf("to buffer: %s\n",serial_rx_buffer);
+    printf("Added: %s",line);   
   }
   free(line);
 }
