@@ -64,13 +64,15 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILN
 epicsEnvUnset(ECMC_PLUGIN_FILNAME)
 epicsEnvUnset(ECMC_PLUGIN_CONFIG)
 
-ecmcGrblAddCommand("G1X20Y20F360");
-ecmcGrblAddCommand("G4P2");
-ecmcGrblAddCommand("G2X0Y0R20");
-ecmcGrblAddCommand("G4P2");
-ecmcGrblAddCommand("G0X10Y10");
-ecmcGrblAddCommand("G4P2");
-ecmcGrblAddCommand("G1X0Y0");
+ecmcGrblLoadFile("./cfg/test.gcode",0)
+
+#ecmcGrblAddCommand("G1X20Y20F360");
+#ecmcGrblAddCommand("G4P2");
+#ecmcGrblAddCommand("G2X0Y0R20");
+#ecmcGrblAddCommand("G4P2");
+#ecmcGrblAddCommand("G0X10Y10");
+#ecmcGrblAddCommand("G4P2");
+#ecmcGrblAddCommand("G1X0Y0");
 
 #ecmcGrblAddCommand("G2X0adadsdY0R20");
 #ecmcGrblAddCommand("G1X0Y20");

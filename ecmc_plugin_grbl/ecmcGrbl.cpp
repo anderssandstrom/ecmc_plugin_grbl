@@ -740,7 +740,7 @@ void ecmcGrbl::addCommand(std::string command) {
   grblCommandBuffer_.push_back(command.c_str());
   epicsMutexUnlock(grblCommandBufferMutex_);
   if(cfgDbgMode_){
-    printf("%s:%s:%d:GRBL: INFO: Buffer size %d\n",
+    printf("%s:%s:%d: GRBL: INFO: Buffer size %d\n",
            __FILE__,__FUNCTION__,__LINE__,grblCommandBuffer_.size());
   }
 }
@@ -753,8 +753,8 @@ void ecmcGrbl::loadFile(std::string fileName, int append) {
   file.open(fileName);
   if (!file.good()) {
     if(cfgDbgMode_){
-      printf("%s:%s:%d:GRBL: ERROR: File not found: %s (0x%x)\n",
-             __FILE__,__FUNCTION__,__LINE__,fileName,ECMC_PLUGIN_LOAD_FILE_ERROR_CODE);
+      printf("%s:%s:%d: GRBL: ERROR: File not found: %s (0x%x)\n",
+             __FILE__,__FUNCTION__,__LINE__,fileName.c_str(),ECMC_PLUGIN_LOAD_FILE_ERROR_CODE);
     }
     errorCode_ = ECMC_PLUGIN_LOAD_FILE_ERROR_CODE;
     throw std::runtime_error("Error: File not found.");
@@ -770,12 +770,10 @@ void ecmcGrbl::loadFile(std::string fileName, int append) {
   }
 
   std::string line, lineNoComments;
-  int lineNumber = 1;
-  int errorCode  = 0;
 
   while (std::getline(file, line)) {
-    if(lineNoComments.length()>0) {
-      addCommand(lineNoComments);
+    if(line.length()>0) {
+      addCommand(line);
     }
   }
 }
