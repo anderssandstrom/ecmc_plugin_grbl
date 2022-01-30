@@ -73,7 +73,7 @@ void protocol_main_loop()
   uint8_t line_flags = 0;
   uint8_t char_counter = 0;
   uint8_t c;
-  delay_us(100);  // added for ecmc (I think..)
+  delay_ms(1);  // added for ecmc (I think..)
   for (;;) {
     // Process one line of incoming serial data, as the data becomes available. Performs an
     // initial filtering by removing spaces and comments and capitalizing all letters.    
@@ -110,7 +110,7 @@ void protocol_main_loop()
         // Reset tracking data for next line.
         line_flags = 0;
         char_counter = 0;
-        //delay_us(100);  // added for ecmc
+        delay_us(100);  // added for ecmc
       } else {
 
         if (line_flags) {
@@ -236,7 +236,8 @@ void protocol_exec_rt_system()
         // cycles. Hard limits typically occur while unattended or not paying attention. Gives
         // the user and a GUI time to do what is needed before resetting, like killing the
         // incoming stream. The same could be said about soft limits. While the position is not
-        // lost, continued streaming could cause a serious crash if by chance it gets executed.        
+        // lost, continued streaming could cause a serious crash if by chance it gets executed.
+        delay_us(100); // added for ecmc
       } while (bit_isfalse(sys_rt_exec_state,EXEC_RESET));
     }
     system_clear_exec_alarm(); // Clear alarm
@@ -639,7 +640,10 @@ static void protocol_exec_rt_suspend()
             spindle_set_state(SPINDLE_DISABLE,0.0); // De-energize
             coolant_set_state(COOLANT_DISABLE); // De-energize
             st_go_idle(); // Disable steppers
-            while (!(sys.abort)) { protocol_exec_rt_system(); } // Do nothing until reset.
+            while (!(sys.abort)) { 
+              protocol_exec_rt_system();
+              delay_us(100); // added for ecmc
+            } // Do nothing until reset.
             return; // Abort received. Return to re-initialize.
           }    
           
