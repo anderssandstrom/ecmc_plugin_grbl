@@ -177,7 +177,7 @@ void protocol_buffer_synchronize()
   do {
     protocol_execute_realtime();   // Check and execute run-time commands
     if (sys.abort) { return; } // Check for system abort
-    delay_ms(1);  // added for ecmc
+    delay_us(100);  // added for ecmc
   } while (plan_get_current_block() || (sys.state == STATE_CYCLE));
 }
 

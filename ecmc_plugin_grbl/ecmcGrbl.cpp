@@ -23,6 +23,7 @@
 #include "ecmcMotion.h"
 #include <iostream>
 #include <fstream>
+#include <time.h>
 
 extern "C" {
 #include "grbl.h"
@@ -626,6 +627,10 @@ int  ecmcGrbl::grblRTexecute(int ecmcError) {
     return 0;
   }
 
+  struct timespec starttime, endtime;
+  clock_gettime(CLOCK_MONOTONIC,&starttime);
+  
+
   if((ecmcError_ == 0 && ecmcError>0) || (errorCode_>0 && errorCodeOld_ == 0)) {    
     setHalt(0);
     setHalt(1);
@@ -648,7 +653,7 @@ int  ecmcGrbl::grblRTexecute(int ecmcError) {
 
   //auto enable, sync positions
   preExeAxes();
-  
+
   double sampleRateMs = 0.0;
   if(grblInitDone_ && autoEnableExecuted_) {
     while(timeToNextExeMs_ < exeSampleTimeMs_ && sampleRateMs >= 0) {      
@@ -663,9 +668,18 @@ int  ecmcGrbl::grblRTexecute(int ecmcError) {
       timeToNextExeMs_-= exeSampleTimeMs_;
     }
   }
-
+  
+  int diffNs=0;
   //update setpoints
   postExeAxes();
+  clock_gettime(CLOCK_MONOTONIC,&endtime);
+  if(endtime.tv_sec > starttime.tv_sec) {
+    diffNs = 1E9-starttime.tv_nsec + endtime.tv_nsec;
+  }
+  else {
+    diffNs = endtime.tv_nsec - starttime.tv_nsec;
+  }
+  if(diffNs>5000) printf("DIFF %d\n",diffNs);
   return errorCode_;
 }
 

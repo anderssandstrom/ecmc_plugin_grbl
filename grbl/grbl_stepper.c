@@ -270,7 +270,9 @@ void st_go_idle()
   if (((settings.stepper_idle_lock_time != 0xff) || sys_rt_exec_alarm || sys.state == STATE_SLEEP) && sys.state != STATE_HOMING) {
     // Force stepper dwell to lock axes for a defined amount of time to ensure the axes come to a complete
     // stop and not drift from residual inertial forces at the end of the last movement.
-    delay_ms(settings.stepper_idle_lock_time);
+    
+    // ecmc need to take away below setting because it blocks ecmc rt system. Consider add it in another way.
+    // delay_ms(settings.stepper_idle_lock_time);
     pin_state = true; // Override. Disable steppers.
   }
 //  if (bit_istrue(settings.flags,BITFLAG_INVERT_ST_ENABLE)) { pin_state = !pin_state; } // Apply pin invert.
@@ -716,7 +718,6 @@ void st_prep_buffer()
   if (bit_istrue(sys.step_control,STEP_CONTROL_END_MOTION)) { return; }
 
   while (segment_buffer_tail != segment_next_head) { // Check if we need to fill the buffer.
-
     // Determine if we need to load a new planner block or if the block needs to be recomputed.
     if (pl_block == NULL) {
 
@@ -994,6 +995,7 @@ void st_prep_buffer()
           break; // **Complete** Exit loop. Segment execution time maxed.
         }
       }
+
     } while (mm_remaining > prep.mm_complete); // **Complete** Exit loop. Profile complete.
 
     #ifdef VARIABLE_SPINDLE
@@ -1130,7 +1132,6 @@ void st_prep_buffer()
         plan_discard_current_block();
       }
     }
-
   }
 }
 
