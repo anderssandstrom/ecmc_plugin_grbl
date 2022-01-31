@@ -1,4 +1,3 @@
-
 #
 # Test of GRBL plugin for g-code parsing
 #  
@@ -6,7 +5,8 @@
 println('GRBL busy:', grbl_get_busy());
 
 if(not(grbl_get_busy())) {
-  println('Retrigger g-code!!');
+  static.counter+=1;
+  println('Retrigger g-code. Counter: ', static.counter);
   grbl_set_execute(0);
-  grbl_set_execute(1);  
+  grbl_set_execute(1);
 };
