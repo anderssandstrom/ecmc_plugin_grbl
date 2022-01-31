@@ -119,10 +119,19 @@ double grbl_mc_reset(double halt) {
   return setReset((int)halt);
 }
 
-
 // Plc function for reset grbl
 double grbl_get_busy() {
   return getBusy();
+}
+
+// Plc function for reset grbl
+double grbl_get_parser_busy() {
+  return getParserBusy();
+}
+
+// Plc function for reset grbl
+double grbl_get_code_row_num() {
+  return getCodeRowNum();
 }
 
 // Register data for plugin so ecmc know what to use
@@ -248,11 +257,11 @@ struct ecmcPluginData pluginDataDef = {
         .funcGenericObj = NULL,
       },
   .funcs[4] =
-      { /*----can_connect----*/
+      { /*----grbl_get_busy----*/
         // Function name (this is the name you use in ecmc plc-code)
         .funcName = "grbl_get_busy",
         // Function description
-        .funcDesc = "double grbl_get_busy() :  Get grbl system busy",
+        .funcDesc = "double grbl_get_busy() :  Get grbl system busy (still executing motion code)",
         /**
         * 7 different prototypes allowed (only doubles since reg in plc).
         * Only funcArg${argCount} func shall be assigned the rest set to NULL.
@@ -270,8 +279,53 @@ struct ecmcPluginData pluginDataDef = {
         .funcArg10 = NULL,
         .funcGenericObj = NULL,
       },
-
-  .funcs[5] = {0},  // last element set all to zero..
+  .funcs[5] =
+      { /*----grbl_get_parser_busy----*/
+        // Function name (this is the name you use in ecmc plc-code)
+        .funcName = "grbl_get_parser_busy",
+        // Function description
+        .funcDesc = "double grbl_get_parser_busy() :  Get g-code parser busy.",
+        /**
+        * 7 different prototypes allowed (only doubles since reg in plc).
+        * Only funcArg${argCount} func shall be assigned the rest set to NULL.
+        **/
+        .funcArg0 = grbl_get_parser_busy,
+        .funcArg1 = NULL,
+        .funcArg2 = NULL,
+        .funcArg3 = NULL,
+        .funcArg4 = NULL,
+        .funcArg5 = NULL,
+        .funcArg6 = NULL,
+        .funcArg7 = NULL,
+        .funcArg8 = NULL,
+        .funcArg9 = NULL,
+        .funcArg10 = NULL,
+        .funcGenericObj = NULL,
+      },
+  .funcs[6] =
+      { /*----grbl_get_code_row_num----*/
+        // Function name (this is the name you use in ecmc plc-code)
+        .funcName = "grbl_get_code_row_num",
+        // Function description
+        .funcDesc = "double grbl_get_code_row_num() :  Get g-code row number currently preparing for exe.",
+        /**
+        * 7 different prototypes allowed (only doubles since reg in plc).
+        * Only funcArg${argCount} func shall be assigned the rest set to NULL.
+        **/
+        .funcArg0 = grbl_get_code_row_num,
+        .funcArg1 = NULL,
+        .funcArg2 = NULL,
+        .funcArg3 = NULL,
+        .funcArg4 = NULL,
+        .funcArg5 = NULL,
+        .funcArg6 = NULL,
+        .funcArg7 = NULL,
+        .funcArg8 = NULL,
+        .funcArg9 = NULL,
+        .funcArg10 = NULL,
+        .funcGenericObj = NULL,
+      },
+  .funcs[7] = {0},  // last element set all to zero..
   // PLC consts
   .consts[0] = {0}, // last element set all to zero..
 };

@@ -99,6 +99,21 @@ int getBusy() {
   return 0;
 }
 
+int getParserBusy() {
+  if(grbl){
+    return grbl->getParserBusy();
+  }
+  return 0;
+}
+
+int getCodeRowNum() {
+  if(grbl){
+    return grbl->getCodeRowNum();
+  }
+  return 0;
+}
+
+
 int setReset(int reset) {
   if(grbl){
     return grbl->setReset(reset);

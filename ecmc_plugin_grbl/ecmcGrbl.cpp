@@ -731,12 +731,20 @@ int ecmcGrbl::setReset(int reset) {
   if(!resetCmd_ && reset) {
     mc_reset();
   }
-  resetCmd_ = reset;  
+  resetCmd_ = reset;
   return 0;
 }
 
 int ecmcGrbl::getBusy() {
   return getEcmcEpicsIOCState()!=16 || writerBusy_ || stepperInterruptEnable;
+}
+
+int ecmcGrbl::getParserBusy() {
+  return getEcmcEpicsIOCState()!=16 || writerBusy_;
+}
+
+int ecmcGrbl::getCodeRowNum() {
+  return grblCommandBufferIndex_;
 }
 
 // Avoid issues with std:to_string()

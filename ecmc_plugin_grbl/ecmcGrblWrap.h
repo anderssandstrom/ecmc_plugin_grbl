@@ -58,6 +58,15 @@ int setReset(int reset);
   */
 int getBusy();
 
+/** \brief get grbl g-code parser busy\n
+  */
+int getParserBusy();
+
+/** \brief get grbl g-code row number\n
+  */
+int getCodeRowNum();
+
+
 // Delete object
 void deleteGrbl();
 

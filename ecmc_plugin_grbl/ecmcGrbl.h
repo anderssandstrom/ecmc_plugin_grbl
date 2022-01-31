@@ -52,7 +52,9 @@ class ecmcGrbl : public asynPortDriver {
   int                      setResume(int resume);
   int                      setReset(int reset);
   int                      getBusy();
-  
+  int                      getParserBusy();
+  int                      getCodeRowNum();
+
  private:
   void                     parseConfigStr(char *configStr);
   void                     preExeAxes();
