@@ -54,7 +54,8 @@ class ecmcGrbl : public asynPortDriver {
   int                      getBusy();
   int                      getParserBusy();
   int                      getCodeRowNum();
-
+  int                      setAllAxesEnable(int enable);
+  bool                     getAllAxesEnabled();
  private:
   void                     parseConfigStr(char *configStr);
   void                     preExeAxes();
@@ -65,7 +66,6 @@ class ecmcGrbl : public asynPortDriver {
   void                     checkLimits(int ecmcAxisId);
   void                     giveControlToEcmcIfNeeded();
   bool                     getEcmcAxisEnabled(int ecmcAxisId);
-  bool                     getAllConfiguredAxisEnabled();
   double                   getEcmcAxisActPos(int axis);
   void                     syncAxisPositionIfNotEnabled(int ecmcAxisId, int grblAxisId);
   static std::string       to_string(int value);
@@ -97,6 +97,8 @@ class ecmcGrbl : public asynPortDriver {
   int                      limitsSummary_;
   int                      limitsSummaryOld_;
   double                   spindleAcceleration_;
+  int                      cfgAutoEnableTimeOutSecs_;
+  int                      autoEnableTimeOutCounter_;
 };
 
 #endif  /* ECMC_GRBL_H_ */

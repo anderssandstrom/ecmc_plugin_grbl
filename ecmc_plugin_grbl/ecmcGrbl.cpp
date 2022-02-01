@@ -125,6 +125,8 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   limitsSummary_        = 0;
   limitsSummaryOld_     = 0;
   spindleAcceleration_  = 0;
+  cfgAutoEnableTimeOutSecs_ = ECMC_PLUGIN_AUTO_ENABLE_TIME_OUT_SEC;
+  autoEnableTimeOutCounter_ = 0;
   grblCommandBufferIndex_ = 0;
   grblCommandBuffer_.clear();
 
@@ -467,9 +469,26 @@ void ecmcGrbl::doMainWorker() {
   }
 }
 
+int   ecmcGrbl::setAllAxesEnable(int enable) {
+
+  if(cfgXAxisId_ >= 0) {
+     setAxisEnable(cfgXAxisId_, enable);
+  }
+  if(cfgYAxisId_ >= 0 ) {
+    setAxisEnable(cfgYAxisId_, enable);
+  }
+  if(cfgZAxisId_ >=0 ) {
+    setAxisEnable(cfgZAxisId_, enable);
+  }
+  if(cfgSpindleAxisId_ >= 0) {
+    setAxisEnable(cfgSpindleAxisId_, enable);
+  }
+  return 0;
+}
+
 void  ecmcGrbl::autoEnableAxisAtStart(int ecmcAxisId) {
   
-  if(!cfgAutoEnableAtStart_ || autoEnableExecuted_ || getEcmcEpicsIOCState()!=16) { 
+  if(!cfgAutoEnableAtStart_ || autoEnableExecuted_ || getEcmcEpicsIOCState()!=16 || errorCode_) { 
     return;
   }
   
@@ -485,7 +504,7 @@ bool  ecmcGrbl::getEcmcAxisEnabled(int ecmcAxisId) {
   return ena;
 }
 
-bool ecmcGrbl::getAllConfiguredAxisEnabled() {
+bool ecmcGrbl::getAllAxesEnabled() {
   int ena = 1;
   if(cfgXAxisId_ >= 0 && ena) {
     ena = getEcmcAxisEnabled(cfgXAxisId_);
@@ -520,8 +539,22 @@ void ecmcGrbl::preExeAxes() {
 
   //spindle
   autoEnableAxisAtStart(cfgSpindleAxisId_);
-  if(getAllConfiguredAxisEnabled()) {
+  
+  if(getAllAxesEnabled()) {
     autoEnableExecuted_ = 1;
+    autoEnableTimeOutCounter_ = 0;
+  } else {
+    if(cfgAutoEnableAtStart_) {
+      if(autoEnableTimeOutCounter_ >= cfgAutoEnableTimeOutSecs_/exeSampleTimeMs_*1000) {
+        errorCode_ = ECMC_PLUGIN_AUTO_ENABLE_TIMEOUT_ERROR_CODE;
+        if(errorCode_!=errorCodeOld_) {
+          printf("GRBL: ERROR: Auto enable timeout 0x%x\n",errorCode_);
+        }
+        setAllAxesEnable(0);
+      } else {
+        autoEnableTimeOutCounter_++;
+      }
+    }
   }
 }
 
