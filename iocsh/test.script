@@ -23,7 +23,24 @@ $(ECMCCFG_INIT)$(SCRIPTEXEC) ${ecmccfg_DIR}startup.cmd, "IOC=$(IOC),ECMC_VER=ruc
 ##############################################################################
 ## Configure hardware:
 
+# Hardware for X and Y in ESS crate
 $(SCRIPTEXEC) $(ecmccfg_DIR)ecmcMCU1021_coupler.cmd
+
+
+# Use EL7211 as spindle
+epicsEnvSet("ECMC_EC_SLAVE_NUM",              "11")
+epicsEnvSet("ECMC_EC_SLAVE_NUM_SPINDLE",      "$(ECMC_EC_SLAVE_NUM)")
+
+${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=$(ECMC_EC_SLAVE_NUM), HW_DESC=EL7211-0010"
+
+# Apply local 24V config (local here)
+${SCRIPTEXEC} ${ecmccfg_DIR}applySlaveConfig.cmd, "LOCAL_CONFIG=./ecmcEL7211-0010-Motor-Beckhoff-AM8121-0F00-0000_24V.cmd"
+
+#Apply hardware configuration  (wronmg here, should only be caööed once)
+ecmcConfigOrDie "Cfg.EcApplyConfig(1)"
+
+#Does not work. Known issue DC-patch for etherlab manster needed...
+#ecmcConfigOrDie "Cfg.EcSelectReferenceDC(0,$(ECMC_EC_SLAVE_NUM))"
 
 # ADDITIONAL SETUP
 # Set all outputs to feed switches
@@ -38,7 +55,7 @@ ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},binaryOut
 # END of ADDITIONAL SETUP
 
 ##############################################################################
-## AXIS 1
+## AXIS 1: X-axis
 #
 epicsEnvSet("DEV",      "$(IOC)")
 $(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/linear_1.ax)
@@ -46,7 +63,7 @@ $(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/linear_1.ax)
 $(SCRIPTEXEC) ($(ecmccfg_DIR)applyAxisSynchronization.cmd, CONFIG=./cfg/linear_1.sax)
 
 ##############################################################################
-## AXIS 2
+## AXIS 2: Y-axis
 #
 #epicsEnvSet("DEV",      "$(IOC)")
 $(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/linear_2.ax)
@@ -54,12 +71,18 @@ $(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/linear_2.ax)
 $(SCRIPTEXEC) ($(ecmccfg_DIR)applyAxisSynchronization.cmd, CONFIG=./cfg/linear_2.sax)
 
 ##############################################################################
+## AXIS 3: Spindle
+#
+epicsEnvSet("DEV",      "$(IOC)")
+$(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/el7201_mod.ax)
+
+##############################################################################
 ## Load plugin:
 epicsEnvSet("PLUGIN_VER" ,"develop")
 require ecmc_plugin_grbl $(PLUGIN_VER)
 
 epicsEnvSet(ECMC_PLUGIN_FILNAME,"/home/pi/epics/base-7.0.5/require/${E3_REQUIRE_VERSION}/siteMods/ecmc_plugin_grbl/$(PLUGIN_VER)/lib/${EPICS_HOST_ARCH=linux-x86_64}/libecmc_plugin_grbl.so")
-epicsEnvSet(ECMC_PLUGIN_CONFIG,"DBG_PRINT=1;X_AXIS=1;Y_AXIS=2;AUTO_ENABLE=1;AUTO_START=1;") # Only one option implemented in this plugin
+epicsEnvSet(ECMC_PLUGIN_CONFIG,"DBG_PRINT=1;X_AXIS=1;Y_AXIS=2;SPINDLE_AXIS=3;AUTO_ENABLE=1;AUTO_START=1;") # Only one option implemented in this plugin
 ${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILNAME},CONFIG='${ECMC_PLUGIN_CONFIG}', REPORT=1"
 epicsEnvUnset(ECMC_PLUGIN_FILNAME)
 epicsEnvUnset(ECMC_PLUGIN_CONFIG)

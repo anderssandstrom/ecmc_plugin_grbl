@@ -96,6 +96,7 @@ class ecmcGrbl : public asynPortDriver {
   bool                     writerBusy_;
   int                      limitsSummary_;
   int                      limitsSummaryOld_;
+  double                   spindleAcceleration_;
 };
 
 #endif  /* ECMC_GRBL_H_ */

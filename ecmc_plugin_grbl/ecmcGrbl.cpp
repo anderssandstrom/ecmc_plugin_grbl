@@ -124,6 +124,7 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   writerBusy_           = 0;
   limitsSummary_        = 0;
   limitsSummaryOld_     = 0;
+  spindleAcceleration_  = 0;
   grblCommandBufferIndex_ = 0;
   grblCommandBuffer_.clear();
 
@@ -571,6 +572,7 @@ void ecmcGrbl::giveControlToEcmcIfNeeded() {
     // Stop spindle
     if(cfgSpindleAxisId_>=0) {
       setAxisTargetVel(cfgSpindleAxisId_, 0);
+      moveStop(cfgSpindleAxisId_);
     }
 
     // Halt grbl and stop motion (even though should be handled by ecmc)
@@ -616,6 +618,23 @@ void ecmcGrbl::syncAxisPositionIfNotEnabled(int ecmcAxisId, int grblAxisId) {
 
 // prepare for rt here  
 int ecmcGrbl::enterRT() {
+  // readback spindleAcceleration_
+  if(cfgSpindleAxisId_ >= 0) {
+    double acc = 0;
+    int errorCode = getAxisAcceleration(cfgSpindleAxisId_,
+                                        &acc);
+    if(errorCode) {
+      errorCode_ = errorCode;            
+      return errorCode;
+    }
+
+    if(acc <= 0) {
+      errorCode_ = ECMC_PLUGIN_SPINDLE_ACC_ERROR_CODE;
+      retrun errorCode_;
+    }
+
+    spindleAcceleration_ = acc;                 
+  }
   return 0;
 }
 
@@ -679,9 +698,14 @@ void ecmcGrbl::postExeAxes() {
   postExeAxis(cfgXAxisId_,X_AXIS);
   postExeAxis(cfgYAxisId_,Y_AXIS);
   postExeAxis(cfgZAxisId_,Z_AXIS);
-  //  if(cfgSpindleAxisId_>=0) {
-  //    setAxisTargetVel(xxx);
-  //  }
+  //printf("Spindle Velo %f\n", sys.spindle_speed);
+  if(cfgSpindleAxisId_>=0) {
+    setAxisTargetVel(cfgSpindleAxisId_,(double)sys.spindle_speed);
+    moveVelocity(cfgSpindleAxisId_,
+                (double)sys.spindle_speed,
+                spindleAcceleration_,
+                spindleAcceleration_);
+  }
 }
 
 // trigg start of g-code

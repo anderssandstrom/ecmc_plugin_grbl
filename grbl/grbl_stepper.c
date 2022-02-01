@@ -414,8 +414,8 @@ double ecmc_grbl_main_rt_thread()
       #endif
 
       #ifdef VARIABLE_SPINDLE
-        // Set real-time spindle output as segment is loaded, just prior to the first step.
-        spindle_set_speed(st.exec_segment->spindle_pwm);
+        // Set real-time spindle output as segment is loaded, just prior to the first step.        
+        //spindle_set_speed(st.exec_segment->spindle_pwm);
       #endif
 
     } else {
@@ -424,7 +424,9 @@ double ecmc_grbl_main_rt_thread()
       st_go_idle();
       #ifdef VARIABLE_SPINDLE
         // Ensure pwm is set properly upon completion of rate-controlled motion.
-        if (st.exec_block->is_pwm_rate_adjusted) { spindle_set_speed(SPINDLE_PWM_OFF_VALUE); }
+        if (st.exec_block->is_pwm_rate_adjusted) {
+          //spindle_set_speed(SPINDLE_PWM_OFF_VALUE);         
+        }
       #endif
       system_set_exec_state_flag(EXEC_CYCLE_STOP); // Flag main program for cycle end
       return -1.0; // Nothing to do but exit.
