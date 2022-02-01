@@ -487,16 +487,16 @@ bool  ecmcGrbl::getEcmcAxisEnabled(int ecmcAxisId) {
 
 bool ecmcGrbl::getAllConfiguredAxisEnabled() {
   int ena = 1;
-  if(cfgXAxisId_>=0 && ena) {
+  if(cfgXAxisId_ >= 0 && ena) {
     ena = getEcmcAxisEnabled(cfgXAxisId_);
   }
-  if(cfgYAxisId_>=0 && ena) {
+  if(cfgYAxisId_ >= 0 && ena) {
     ena = getEcmcAxisEnabled(cfgYAxisId_);
   }
-  if(cfgZAxisId_>=0 && ena) {
+  if(cfgZAxisId_ >=0 && ena) {
     ena = getEcmcAxisEnabled(cfgZAxisId_);
   }
-  if(cfgSpindleAxisId_>=0 && ena) {
+  if(cfgSpindleAxisId_ >= 0 && ena) {
     ena = getEcmcAxisEnabled(cfgSpindleAxisId_);
   }
   return ena;
@@ -546,7 +546,7 @@ void ecmcGrbl::checkLimits(int ecmcAxisId) {
 void ecmcGrbl::giveControlToEcmcIfNeeded() {
 
   // Give total control to ecmc at negative edge of any limit switch
-  if(!limitsSummary_ && limitsSummaryOld_) {    
+  if(!limitsSummary_ && limitsSummaryOld_) {
     int source = ECMC_DATA_SOURCE_INTERNAL;
     if(cfgXAxisId_>=0) {
       getAxisTrajSource(cfgXAxisId_,&source);
@@ -570,9 +570,9 @@ void ecmcGrbl::giveControlToEcmcIfNeeded() {
     }
 
     // Stop spindle
-    if(cfgSpindleAxisId_>=0) {
+    if(cfgSpindleAxisId_ >= 0) {
       setAxisTargetVel(cfgSpindleAxisId_, 0);
-      moveStop(cfgSpindleAxisId_);
+      stopMotion(cfgSpindleAxisId_,0);
     }
 
     // Halt grbl and stop motion (even though should be handled by ecmc)
@@ -630,7 +630,7 @@ int ecmcGrbl::enterRT() {
 
     if(acc <= 0) {
       errorCode_ = ECMC_PLUGIN_SPINDLE_ACC_ERROR_CODE;
-      retrun errorCode_;
+      return errorCode_;
     }
 
     spindleAcceleration_ = acc;                 
@@ -699,12 +699,18 @@ void ecmcGrbl::postExeAxes() {
   postExeAxis(cfgYAxisId_,Y_AXIS);
   postExeAxis(cfgZAxisId_,Z_AXIS);
   //printf("Spindle Velo %f\n", sys.spindle_speed);
-  if(cfgSpindleAxisId_>=0) {
+  if(cfgSpindleAxisId_ >= 0) {
     setAxisTargetVel(cfgSpindleAxisId_,(double)sys.spindle_speed);
-    moveVelocity(cfgSpindleAxisId_,
-                (double)sys.spindle_speed,
-                spindleAcceleration_,
-                spindleAcceleration_);
+    if(sys.spindle_speed!=0) {
+      int errorCode = moveVelocity(cfgSpindleAxisId_,
+                                   (double)sys.spindle_speed,
+                                   spindleAcceleration_,
+                                   spindleAcceleration_);
+      if (errorCode) {
+        errorCode_ = errorCode;
+        //printf("ERROR %d\n", errorCode_);
+      }
+    }
   }
 }
 
