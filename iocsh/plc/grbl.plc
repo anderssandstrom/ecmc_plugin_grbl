@@ -12,7 +12,6 @@ ax1.reset:=0;
 ax2.reset:=0;
 ax3.reset:=0;
 
-
 # Enable axis in state 0
 if(static.state==0) {
   if(not(grbl_get_busy()) and not(grbl_get_error())) {
@@ -32,7 +31,6 @@ if(static.state == 1) {
     grbl_set_execute(1);
   };
 };
-
 
 #if(grbl_get_error()) {
 #  println('Try reset');
