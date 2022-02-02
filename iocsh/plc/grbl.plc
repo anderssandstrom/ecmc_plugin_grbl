@@ -2,9 +2,9 @@
 # Test of GRBL plugin for g-code parsing
 #  
 
-println('GRBL busy:', grbl_get_busy());
-
-if(not(grbl_get_busy())) {
+println('GRBL busy  :', grbl_get_busy());
+println('Parser busy:', grbl_get_parser_busy());
+if(not(grbl_get_parser_busy())) {
   static.counter+=1;
   println('Retrigger g-code. Counter: ', static.counter);
   grbl_set_execute(0);

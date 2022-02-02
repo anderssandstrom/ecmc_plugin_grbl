@@ -28,7 +28,7 @@
 
 void spindle_init()
 {
-  printf("%s:%s:%d Not supported yet..\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d Not supported yet..\n",__FILE__,__FUNCTION__,__LINE__);
 
   #ifdef VARIABLE_SPINDLE
     // Configure variable spindle PWM and enable pin, if requried. On the Uno, PWM and enable are
@@ -107,7 +107,7 @@ uint8_t spindle_get_state()
 // Called by spindle_init(), spindle_set_speed(), spindle_set_state(), and mc_reset().
 void spindle_stop()
 {
-  printf("%s:%s:%d Not supported yet..\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d Not supported yet..\n",__FILE__,__FUNCTION__,__LINE__);
 
   //#ifdef VARIABLE_SPINDLE
   //  SPINDLE_TCCRA_REGISTER &= ~(1<<SPINDLE_COMB_BIT); // Disable PWM. Output voltage is zero.

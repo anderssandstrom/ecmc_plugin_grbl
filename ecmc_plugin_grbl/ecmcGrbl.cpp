@@ -802,11 +802,11 @@ int ecmcGrbl::setReset(int reset) {
 }
 
 int ecmcGrbl::getBusy() {
-  return getEcmcEpicsIOCState()!=16 || writerBusy_ || stepperInterruptEnable;
+  return getEcmcEpicsIOCState()!=16 || writerBusy_ || stepperInterruptEnable || !grblInitDone_;
 }
 
 int ecmcGrbl::getParserBusy() {
-  return getEcmcEpicsIOCState()!=16 || writerBusy_;
+  return getEcmcEpicsIOCState()!=16 || writerBusy_ || !grblInitDone_;
 }
 
 int ecmcGrbl::getCodeRowNum() {
