@@ -134,6 +134,14 @@ double grbl_get_code_row_num() {
   return getCodeRowNum();
 }
 
+double grbl_reset_error() {
+  return resetError();
+}
+
+double grbl_get_error() {
+  return getError();
+}
+
 // Register data for plugin so ecmc know what to use
 struct ecmcPluginData pluginDataDef = {
   // Allways use ECMC_PLUG_VERSION_MAGIC
@@ -325,7 +333,54 @@ struct ecmcPluginData pluginDataDef = {
         .funcArg10 = NULL,
         .funcGenericObj = NULL,
       },
-  .funcs[7] = {0},  // last element set all to zero..
+  .funcs[7] =
+      { /*----grbl_get_error----*/
+        // Function name (this is the name you use in ecmc plc-code)
+        .funcName = "grbl_get_error",
+        // Function description
+        .funcDesc = "double grbl_get_error() :  Get error code.",
+        /**
+        * 7 different prototypes allowed (only doubles since reg in plc).
+        * Only funcArg${argCount} func shall be assigned the rest set to NULL.
+        **/
+        .funcArg0 = grbl_get_error,
+        .funcArg1 = NULL,
+        .funcArg2 = NULL,
+        .funcArg3 = NULL,
+        .funcArg4 = NULL,
+        .funcArg5 = NULL,
+        .funcArg6 = NULL,
+        .funcArg7 = NULL,
+        .funcArg8 = NULL,
+        .funcArg9 = NULL,
+        .funcArg10 = NULL,
+        .funcGenericObj = NULL,
+      },
+  .funcs[8] =
+      { /*----grbl_reset_error----*/
+        // Function name (this is the name you use in ecmc plc-code)
+        .funcName = "grbl_reset_error",
+        // Function description
+        .funcDesc = "double grbl_reset_error() :  Reset error.",
+        /**
+        * 7 different prototypes allowed (only doubles since reg in plc).
+        * Only funcArg${argCount} func shall be assigned the rest set to NULL.
+        **/
+        .funcArg0 = grbl_reset_error,
+        .funcArg1 = NULL,
+        .funcArg2 = NULL,
+        .funcArg3 = NULL,
+        .funcArg4 = NULL,
+        .funcArg5 = NULL,
+        .funcArg6 = NULL,
+        .funcArg7 = NULL,
+        .funcArg8 = NULL,
+        .funcArg9 = NULL,
+        .funcArg10 = NULL,
+        .funcGenericObj = NULL,
+      },
+
+  .funcs[9] = {0},  // last element set all to zero..
   // PLC consts
   .consts[0] = {0}, // last element set all to zero..
 };

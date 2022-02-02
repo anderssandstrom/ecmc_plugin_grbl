@@ -514,12 +514,13 @@ void ecmcGrbl::preExeAxes() {
     autoEnableExecuted_ = 1;
     autoEnableTimeOutCounter_ = 0;
   } else {
-    if(cfgAutoEnable_) {
+    if(cfgAutoEnable_ && !errorCode_) {
       if(autoEnableTimeOutCounter_ >= cfgAutoEnableTimeOutSecs_/exeSampleTimeMs_*1000) {
         errorCode_ = ECMC_PLUGIN_AUTO_ENABLE_TIMEOUT_ERROR_CODE;
         if(errorCode_ != errorCodeOld_) {
           printf("GRBL: ERROR: Auto enable timeout 0x%x\n",errorCode_);
         }
+        setExecute(0);
         setAllAxesEnable(0);
       } else {
         autoEnableTimeOutCounter_++;
@@ -686,16 +687,18 @@ int  ecmcGrbl::grblRTexecute(int ecmcError) {
   if(getEcmcEpicsIOCState()!=16 || !grblInitDone_) {
     return 0;
   }
-
-  readEcmcStatus( ecmcError);
   
+  // Read all ecmc data
+  readEcmcStatus(ecmcError);
+  
+  // Error handling
   if((ecmcData_.errorOld == 0 && ecmcData_.error > 0) ||
-     (errorCode_>0 && errorCodeOld_ == 0)) {
+     (errorCode_ > 0 && errorCodeOld_ == 0)) {
     setHalt(0);
     setHalt(1);
 
-    if(ecmcError != errorCode_) {  // ecmc error then reset
-      if(ecmcError>0 && ecmcData_.errorOld == 0) {
+    if(ecmcData_.error != errorCode_) {  // ecmc error then reset
+      if(ecmcData_.error > 0 && ecmcData_.errorOld == 0) {
         setReset(0);
         setReset(1);
       }
@@ -704,6 +707,10 @@ int  ecmcGrbl::grblRTexecute(int ecmcError) {
     printf("GRBL: ERROR: ecmc 0x%x, plugin 0x%x\n",ecmcError,errorCode_);    
     errorCodeOld_ = errorCode_;    
     return errorCode_;
+  }
+
+  if(errorCodeOld_) {    
+    writerBusy_ = false;
   }
 
   // auto start
@@ -768,7 +775,10 @@ void ecmcGrbl::postExeAxes() {
 int ecmcGrbl::setExecute(int exe) {
   if(!exe) {
     writerBusy_ = 0;
+    autoEnableTimeOutCounter_ = 0;
+    autoEnableExecuted_       = 0;
   }
+
   if(!executeCmd_ && exe) {
     grblCommandBufferIndex_ = 0;
     writerBusy_ = 1;
@@ -820,6 +830,15 @@ std::string ecmcGrbl::to_string(int value) {
   return os.str();
 }
 
+int ecmcGrbl::getError() {
+  return errorCode_;
+}
+
+void ecmcGrbl::resetError() {
+  errorCode_ = 0;
+  errorCodeOld_ = 0;
+}
+
 void ecmcGrbl::addCommand(std::string command) {
   if(cfgDbgMode_){
     printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
@@ -832,6 +851,7 @@ void ecmcGrbl::addCommand(std::string command) {
            __FILE__,__FUNCTION__,__LINE__,grblCommandBuffer_.size());
   }
 }
+
 void ecmcGrbl::loadFile(std::string fileName, int append) {
   if(cfgDbgMode_){
     printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);

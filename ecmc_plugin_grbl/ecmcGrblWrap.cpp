@@ -113,13 +113,27 @@ int getCodeRowNum() {
   return 0;
 }
 
-
 int setReset(int reset) {
   if(grbl){
     return grbl->setReset(reset);
   }
   return 0;
 }
+
+int getError() {
+  if(grbl){
+    return grbl->getError();
+  }
+  return 0;
+}
+
+int resetError() {
+  if(grbl){
+    grbl->resetError();
+  }
+  return 0;
+}
+
 
 void deleteGrbl() {
   if(grbl) {

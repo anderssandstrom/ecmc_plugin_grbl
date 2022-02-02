@@ -4,7 +4,13 @@
 
 println('GRBL busy  :', grbl_get_busy());
 println('Parser busy:', grbl_get_parser_busy());
-if(not(grbl_get_parser_busy())) {
+println('Error:', grbl_get_error());
+
+if(grbl_get_error()) {
+  println('Try reset');
+  grbl_reset_error();
+  ec_err_rst();
+} else if(not(grbl_get_parser_busy())) {
   static.counter+=1;
   println('Retrigger g-code. Counter: ', static.counter);
   grbl_set_execute(0);

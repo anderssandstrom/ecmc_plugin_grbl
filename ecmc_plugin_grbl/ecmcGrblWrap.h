@@ -66,6 +66,13 @@ int getParserBusy();
   */
 int getCodeRowNum();
 
+/** \brief get error code\n
+  */
+int getError();
+
+/** \brief reset error code\n
+  */
+int resetError();
 
 // Delete object
 void deleteGrbl();
