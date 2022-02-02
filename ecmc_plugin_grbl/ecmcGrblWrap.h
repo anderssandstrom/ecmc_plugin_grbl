@@ -74,6 +74,14 @@ int getError();
   */
 int resetError();
 
+/** \brief get all configured axes enabled\n
+  */
+int getAllAxesEnabled();
+
+/** \brief set all enable of all configured axes\n
+  */
+int setAllAxesEnable(int enable);
+
 // Delete object
 void deleteGrbl();
 

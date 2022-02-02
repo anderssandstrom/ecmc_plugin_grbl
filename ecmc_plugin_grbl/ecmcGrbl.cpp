@@ -431,22 +431,26 @@ void ecmcGrbl::doMainWorker() {
   }
 }
 
-int   ecmcGrbl::setAllAxesEnable(int enable) {
+int ecmcGrbl::setAllAxesEnable(int enable) {
 
-  if(cfgXAxisId_ >= 0) {
-     setAxisEnable(cfgXAxisId_, enable);
+  if(ecmcData_.xAxis.axisId >= 0) {
+     setAxisEnable(ecmcData_.xAxis.axisId, enable);
   }
-  if(cfgYAxisId_ >= 0 ) {
-    setAxisEnable(cfgYAxisId_, enable);
+  if(ecmcData_.yAxis.axisId >= 0 ) {
+    setAxisEnable(ecmcData_.yAxis.axisId, enable);
   }
-  if(cfgZAxisId_ >=0 ) {
-    setAxisEnable(cfgZAxisId_, enable);
+  if(ecmcData_.zAxis.axisId >= 0 ) {
+    setAxisEnable(ecmcData_.zAxis.axisId, enable);
   }
-  if(cfgSpindleAxisId_ >= 0) {
-    setAxisEnable(cfgSpindleAxisId_, enable);
+  if(ecmcData_.spindleAxis.axisId >= 0) {
+    setAxisEnable(ecmcData_.spindleAxis.axisId, enable);
   }
   return 0;
 }
+
+int ecmcGrbl::getAllAxesEnabled() {
+  return ecmcData_.allEnabled;
+}  
 
 void  ecmcGrbl::autoEnableAxis(ecmcAxisStatusData ecmcAxisData) {
   
@@ -676,7 +680,7 @@ void   ecmcGrbl::readEcmcStatus(int ecmcError) {
 
 // grb realtime thread!!!  
 int  ecmcGrbl::grblRTexecute(int ecmcError) {
-  
+
   if(getEcmcEpicsIOCState()!=16 || !grblInitDone_) {
     return 0;
   }
@@ -690,12 +694,13 @@ int  ecmcGrbl::grblRTexecute(int ecmcError) {
     setHalt(0);
     setHalt(1);
 
-    if(ecmcData_.error != errorCode_) {  // ecmc error then reset
-      if(ecmcData_.error > 0 && ecmcData_.errorOld == 0) {
-        setReset(0);
-        setReset(1);
-      }
-    }
+    //if(ecmcData_.error != errorCode_) {  // ecmc error then reset
+    //  if(ecmcData_.error > 0 && ecmcData_.errorOld == 0) {
+    //    setReset(0);
+    //    setReset(1);
+    //  }
+    //}
+
     // Stop spindle
     if(ecmcData_.spindleAxis.axisId >= 0) {
       setAxisTargetVel(ecmcData_.spindleAxis.axisId, 0);
@@ -753,8 +758,8 @@ void ecmcGrbl::postExeAxes() {
   postExeAxis(ecmcData_.zAxis,Z_AXIS);
 
   
-  if(cfgSpindleAxisId_ >= 0) {
-    setAxisTargetVel(cfgSpindleAxisId_,(double)sys.spindle_speed);
+  if(ecmcData_.spindleAxis.axisId >= 0) {
+    setAxisTargetVel(ecmcData_.spindleAxis.axisId,(double)sys.spindle_speed);
     if(sys.spindle_speed!=0) {
       moveVelocity(cfgSpindleAxisId_,
                    (double)sys.spindle_speed,

@@ -79,6 +79,7 @@ class ecmcGrbl : public asynPortDriver {
   int                      setAllAxesEnable(int enable);
   int                      getError();
   void                     resetError();
+  int                      getAllAxesEnabled();
 
  private:
   void                     parseConfigStr(char *configStr);

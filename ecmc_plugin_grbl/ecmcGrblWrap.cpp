@@ -134,6 +134,19 @@ int resetError() {
   return 0;
 }
 
+int setAllAxesEnable(int enable) { 
+  if(grbl){
+    grbl->setAllAxesEnable(enable);
+  }
+  return 0;
+}
+
+int getAllAxesEnabled() { 
+  if(grbl){
+    return grbl->getAllAxesEnabled();
+  }
+  return 0;
+}
 
 void deleteGrbl() {
   if(grbl) {
