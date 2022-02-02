@@ -1,6 +1,5 @@
 #General
-epicsEnvSet("ECMC_MOTOR_NAME",            "Axis1")
-epicsEnvSet("ECMC_R",                     "Axis1-")
+epicsEnvSet("ECMC_MOTOR_NAME",            "Axis3")
 epicsEnvSet("ECMC_AXIS_NO",               "3")
 epicsEnvSet("ECMC_DESC",                  "EL7201 Test")
 epicsEnvSet("ECMC_EGU",                   "mm")                       # Motor Record Unit

@@ -116,7 +116,6 @@ class ecmcGrbl : public asynPortDriver {
   unsigned int             grblCommandBufferIndex_;
   epicsMutexId             grblCommandBufferMutex_;
   bool                     autoStartDone_;
-  int                      autoEnableExecuted_;
   int                      grblExeCycles_;  
   double                   timeToNextExeMs_;
   bool                     writerBusy_;

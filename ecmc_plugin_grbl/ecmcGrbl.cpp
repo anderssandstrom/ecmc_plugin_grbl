@@ -108,7 +108,6 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   cfgAutoEnable_        = 0;
   grblInitDone_         = 0;
   autoStartDone_        = 0;
-  autoEnableExecuted_   = 0;
   timeToNextExeMs_      = 0;
   writerBusy_           = 0;
   spindleAcceleration_  = 0;
@@ -125,11 +124,7 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   
   parseConfigStr(configStr); // Assigns all configs
   
-  // simulate auto enable
-  if(!cfgAutoEnable_) {
-    autoEnableExecuted_ = 1;
-  }
-
+  
   ecmcData_.xAxis.axisId       = cfgXAxisId_;
   ecmcData_.yAxis.axisId       = cfgYAxisId_;
   ecmcData_.zAxis.axisId       = cfgZAxisId_;
@@ -263,15 +258,14 @@ void ecmcGrbl::doWriteWorker() {
   }
 
   // wait for epics state && auto enable at start
-  while(getEcmcEpicsIOCState()!=16 || !autoEnableExecuted_) {
+  while(getEcmcEpicsIOCState()!=16) {
     delay_ms(2);
   }
 
   // GRBL ready, now we can send comamnds
   for(;;) {
     if( (grblCommandBuffer_.size() > grblCommandBufferIndex_) &&         
-        executeCmd_) {              
-            
+        executeCmd_ && ecmcData_.allEnabled && grblInitDone_) {
       epicsMutexLock(grblCommandBufferMutex_);
       std::string commandRaw = grblCommandBuffer_[grblCommandBufferIndex_];
       epicsMutexUnlock(grblCommandBufferMutex_);
@@ -340,14 +334,14 @@ void ecmcGrbl::doWriteWorker() {
           }
         }
       }
-      // All rows written
-      //if(grblCommandBufferIndex_ == grblCommandBuffer_.size()) {
-      //  writerBusy_ = 0;
-      //}
       grblCommandBufferIndex_++;
     }
     else {
-      writerBusy_ = 0;
+      if( (( grblCommandBufferIndex_ >= grblCommandBuffer_.size()) || !executeCmd_ ) &&
+            grblInitDone_) {
+        writerBusy_ = 0;
+      }
+
       // Wait for right condition to start
       delay_ms(5);
     }
@@ -511,7 +505,6 @@ void ecmcGrbl::preExeAxes() {
   autoEnableAxis(ecmcData_.spindleAxis);
   
   if(ecmcData_.allEnabled) {
-    autoEnableExecuted_ = 1;
     autoEnableTimeOutCounter_ = 0;
   } else {
     if(cfgAutoEnable_ && !errorCode_) {
@@ -541,7 +534,8 @@ void ecmcGrbl::preExeAxis(ecmcAxisStatusData ecmcAxisData, int grblAxisId) {
 void ecmcGrbl::giveControlToEcmcIfNeeded() {
 
   // Give total control to ecmc at negative edge of any limit switch
-  if(!ecmcData_.allLimitsOK && ecmcData_.allLimitsOKOld) {
+  if( (!ecmcData_.allLimitsOK && ecmcData_.allLimitsOKOld) ||
+     (!ecmcData_.errorOld && ecmcData_.error) ) {
 
     if(ecmcData_.xAxis.axisId >= 0) {
       if(ecmcData_.xAxis.trajSource == ECMC_DATA_SOURCE_EXTERNAL) {
@@ -578,8 +572,7 @@ void ecmcGrbl::giveControlToEcmcIfNeeded() {
     errorCode_ = ECMC_PLUGIN_LIMIT_SWITCH_VIOLATION_ERROR_CODE;
 
     // Also reset for safety (avoid autoenable)
-    autoEnableExecuted_   = 1;
-    cfgAutoStart_         = 0;    
+    cfgAutoStart_         = 0; 
   }
 }
 
@@ -703,14 +696,18 @@ int  ecmcGrbl::grblRTexecute(int ecmcError) {
         setReset(1);
       }
     }
+    // Stop spindle
+    if(ecmcData_.spindleAxis.axisId >= 0) {
+      setAxisTargetVel(ecmcData_.spindleAxis.axisId, 0);
+      stopMotion(ecmcData_.spindleAxis.axisId,0);
+    }
+
     setExecute(0);
     printf("GRBL: ERROR: ecmc 0x%x, plugin 0x%x\n",ecmcError,errorCode_);    
-    errorCodeOld_ = errorCode_;    
-    return errorCode_;
-  }
+    errorCodeOld_ = errorCode_;
 
-  if(errorCodeOld_) {    
-    writerBusy_ = false;
+    giveControlToEcmcIfNeeded();
+    return errorCode_;
   }
 
   // auto start
@@ -726,7 +723,7 @@ int  ecmcGrbl::grblRTexecute(int ecmcError) {
   preExeAxes();
 
   double sampleRateMs = 0.0;
-  if(grblInitDone_ && autoEnableExecuted_) {
+  if(grblInitDone_ && ecmcData_.allEnabled) {
     while(timeToNextExeMs_ < exeSampleTimeMs_ && sampleRateMs >= 0) {      
       sampleRateMs = ecmc_grbl_main_rt_thread();
       if(sampleRateMs > 0){
@@ -739,7 +736,6 @@ int  ecmcGrbl::grblRTexecute(int ecmcError) {
       timeToNextExeMs_-= exeSampleTimeMs_;
     }
   }
-  
   //update setpoints
   postExeAxes();
   return errorCode_;
@@ -760,23 +756,18 @@ void ecmcGrbl::postExeAxes() {
   if(cfgSpindleAxisId_ >= 0) {
     setAxisTargetVel(cfgSpindleAxisId_,(double)sys.spindle_speed);
     if(sys.spindle_speed!=0) {
-      int errorCode = moveVelocity(cfgSpindleAxisId_,
-                                   (double)sys.spindle_speed,
-                                   ecmcData_.spindleAxis.acceleration,
-                                   ecmcData_.spindleAxis.acceleration);
-      if (errorCode) {
-        errorCode_ = errorCode;
-      }
+      moveVelocity(cfgSpindleAxisId_,
+                   (double)sys.spindle_speed,
+                   ecmcData_.spindleAxis.acceleration,
+                   ecmcData_.spindleAxis.acceleration);      
     }
   }
 }
 
 // trigg start of g-code
 int ecmcGrbl::setExecute(int exe) {
-  if(!exe) {
-    writerBusy_ = 0;
+  if(!exe) {    
     autoEnableTimeOutCounter_ = 0;
-    autoEnableExecuted_       = 0;
   }
 
   if(!executeCmd_ && exe) {
@@ -807,6 +798,7 @@ int ecmcGrbl::setReset(int reset) {
   if(!resetCmd_ && reset) {
     mc_reset();
   }
+  grblInitDone_ = 0;
   resetCmd_ = reset;
   return 0;
 }
