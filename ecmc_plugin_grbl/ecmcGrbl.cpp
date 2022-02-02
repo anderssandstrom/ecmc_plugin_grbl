@@ -45,17 +45,6 @@ volatile uint8_t sys_rt_exec_accessory_override; // Global realtime executor bit
   volatile uint8_t sys_rt_exec_debug;
 #endif
 
-// Start worker for socket read()
-void f_worker_read(void *obj) {
-  if(!obj) {
-      printf("%s/%s:%d: GRBL: ERROR: Worker read thread ecmcGrbl object NULL..\n",
-              __FILE__, __FUNCTION__, __LINE__);
-    return;
-  }
-  ecmcGrbl * grblObj = (ecmcGrbl*)obj;
-  grblObj->doReadWorker();
-}
-
 // Thread that writes commands to grbl
 void f_worker_write(void *obj) {
   if(!obj) {
@@ -154,13 +143,7 @@ ecmcGrbl::ecmcGrbl(char* configStr,
     throw std::out_of_range("GRBL: ERROR: No valid axis choosen.");
   }
 
-  //// Create worker thread for reading socket
-  //std::string threadname = "ecmc.grbl.read";
-  //if(epicsThreadCreate(threadname.c_str(), 0, 32768, f_worker_read, this) == NULL) {
-  //  throw std::runtime_error("Error: Failed create worker thread for read().");
-  //}
-
-  // Create worker thread for main grbl loop
+    // Create worker thread for main grbl loop
   std::string threadname = "ecmc.grbl.main";
   if(epicsThreadCreate(threadname.c_str(), 0, 32768, f_worker_main, this) == NULL) {
     throw std::runtime_error("GRBL: ERROR: Failed create worker thread for main().");
@@ -252,21 +235,6 @@ void ecmcGrbl::parseConfigStr(char *configStr) {
     }    
     free(pOptions);
   }
-}
-
-// Read socket worker
-void ecmcGrbl::doReadWorker() {
-//  // simulate serial connection here (need mutex)
-//  if(cfgDbgMode_){
-//    printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
-//  }
-//  for(;;) {
-//    //while(serial_get_tx_buffer_count()==0) {
-//    //  delay_ms(1);      
-//    //}
-//    //printf("%c",ecmc_get_char_from_grbl_tx_buffer());
-//    delay_ms(100);
-//  }
 }
 
 // Write socket worker

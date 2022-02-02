@@ -63,7 +63,6 @@ class ecmcGrbl : public asynPortDriver {
            double exeSampelTimeMs);
   ~ecmcGrbl();
 
-  void                     doReadWorker();
   void                     doMainWorker();
   void                     doWriteWorker();
   void                     addCommand(std::string command);

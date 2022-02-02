@@ -36,7 +36,7 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=$(ECMC_EC_SLAVE_NUM), HW_DES
 # Apply local 24V config (local here)
 ${SCRIPTEXEC} ${ecmccfg_DIR}applySlaveConfig.cmd, "LOCAL_CONFIG=./ecmcEL7211-0010-Motor-Beckhoff-AM8121-0F00-0000_24V.cmd"
 
-#Apply hardware configuration  (wronmg here, should only be caööed once)
+#Apply hardware configuration  (wrong here, should only be done once (also done in ecmcMCU1021_coupler), but will work)
 ecmcConfigOrDie "Cfg.EcApplyConfig(1)"
 
 #Does not work. Known issue DC-patch for etherlab manster needed...
@@ -82,12 +82,12 @@ epicsEnvSet("PLUGIN_VER" ,"develop")
 require ecmc_plugin_grbl $(PLUGIN_VER)
 
 epicsEnvSet(ECMC_PLUGIN_FILNAME,"/home/pi/epics/base-7.0.5/require/${E3_REQUIRE_VERSION}/siteMods/ecmc_plugin_grbl/$(PLUGIN_VER)/lib/${EPICS_HOST_ARCH=linux-x86_64}/libecmc_plugin_grbl.so")
-epicsEnvSet(ECMC_PLUGIN_CONFIG,"DBG_PRINT=0;X_AXIS=1;Y_AXIS=2;SPINDLE_AXIS=3;AUTO_ENABLE=1;AUTO_START=1;") # Only one option implemented in this plugin
+epicsEnvSet(ECMC_PLUGIN_CONFIG,"DBG_PRINT=0;X_AXIS=1;Y_AXIS=2;SPINDLE_AXIS=3;AUTO_ENABLE=1;AUTO_START=0;") # Only one option implemented in this plugin
 ${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILNAME},CONFIG='${ECMC_PLUGIN_CONFIG}', REPORT=1"
 epicsEnvUnset(ECMC_PLUGIN_FILNAME)
 epicsEnvUnset(ECMC_PLUGIN_CONFIG)
 
-ecmcGrblLoadFile("./cfg/test.nc",0)
+ecmcGrblLoadFile("./plc/test.nc",0)
 
 #ecmcGrblAddCommand("G1X20Y20F360");
 #ecmcGrblAddCommand("G4P2");
