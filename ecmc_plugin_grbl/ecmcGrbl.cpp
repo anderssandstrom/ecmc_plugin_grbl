@@ -110,15 +110,15 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   haltCmd_              = 0;
   resumeCmd_            = 0;
   errorCode_            = 0;
-  ecmcError_            = 0;
   errorCodeOld_         = 0;
   exeSampleTimeMs_      = exeSampleTimeMs;
   cfgXAxisId_           = -1;
   cfgYAxisId_           = -1;
   cfgZAxisId_           = -1;
   cfgSpindleAxisId_     = -1;
+  cfgAutoEnable_        = 0;
   grblInitDone_         = 0;
-  cfgAutoEnable_ = 0;
+  autoStartDone_        = 0;
   autoEnableExecuted_   = 0;
   timeToNextExeMs_      = 0;
   writerBusy_           = 0;
@@ -145,11 +145,6 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   ecmcData_.yAxis.axisId       = cfgYAxisId_;
   ecmcData_.zAxis.axisId       = cfgZAxisId_;
   ecmcData_.spindleAxis.axisId = cfgSpindleAxisId_;
-
-  // auto execute
-  if(cfgAutoStart_) {
-    setExecute(1);
-  }
 
   // global varaible in grbl  
   enableDebugPrintouts = cfgDbgMode_;
@@ -536,7 +531,7 @@ double  ecmcGrbl::getEcmcAxisActPos(int axis) {
 }
 
 void ecmcGrbl::preExeAxes() {
-  
+
   preExeAxis(ecmcData_.xAxis,X_AXIS);
   preExeAxis(ecmcData_.yAxis,Y_AXIS);
   preExeAxis(ecmcData_.zAxis,Z_AXIS);
@@ -554,7 +549,7 @@ void ecmcGrbl::preExeAxes() {
     if(cfgAutoEnable_) {
       if(autoEnableTimeOutCounter_ >= cfgAutoEnableTimeOutSecs_/exeSampleTimeMs_*1000) {
         errorCode_ = ECMC_PLUGIN_AUTO_ENABLE_TIMEOUT_ERROR_CODE;
-        if(errorCode_!=errorCodeOld_) {
+        if(errorCode_ != errorCodeOld_) {
           printf("GRBL: ERROR: Auto enable timeout 0x%x\n",errorCode_);
         }
         setAllAxesEnable(0);
@@ -575,7 +570,6 @@ void ecmcGrbl::preExeAxis(ecmcAxisStatusData ecmcAxisData, int grblAxisId) {
 }
 
 void ecmcGrbl::giveControlToEcmcIfNeeded() {
-
 
   // Give total control to ecmc at negative edge of any limit switch
   if(!ecmcData_.allLimitsOK && ecmcData_.allLimitsOKOld) {
@@ -653,99 +647,107 @@ int ecmcGrbl::enterRT() {
 }
 
 // Get data from ecmc and check enabled and limits
-void   ecmcGrbl::readEcmcStatus() {
+void   ecmcGrbl::readEcmcStatus(int ecmcError) {
+
+  ecmcData_.errorOld       = ecmcData_.error;
+  ecmcData_.error          = ecmcError;
   ecmcData_.allLimitsOKOld = ecmcData_.allLimitsOK;
-  ecmcData_.allEnabled = true;
-  ecmcData_.allLimitsOK = true;
-  if(cfgXAxisId_ >= 0) {
-    ecmcData_.xAxis.enabled  = getEcmcAxisEnabled(cfgXAxisId_);
-    ecmcData_.xAxis.limitBwd = getEcmcAxisLimitBwd(cfgXAxisId_);
-    ecmcData_.xAxis.limitFwd = getEcmcAxisLimitFwd(cfgXAxisId_);
-    ecmcData_.xAxis.error    = getAxisError(cfgXAxisId_);
-    ecmcData_.xAxis.actpos   = getEcmcAxisActPos(cfgXAxisId_);
-    ecmcData_.xAxis.trajSource = getEcmcAxisTrajSource(cfgXAxisId_);
-    ecmcData_.allEnabled     = ecmcData_.allEnabled &&
-                               ecmcData_.xAxis.enabled;
-    ecmcData_.allLimitsOK    = ecmcData_.allLimitsOK &&
-                               ecmcData_.xAxis.limitBwd && 
-                               ecmcData_.xAxis.limitFwd;
+  ecmcData_.allEnabled     = true;
+  ecmcData_.allLimitsOK    = true;
+
+  if(ecmcData_.xAxis.axisId >= 0) {
+     ecmcData_.xAxis.enabled    = getEcmcAxisEnabled(cfgXAxisId_);
+     ecmcData_.xAxis.limitBwd   = getEcmcAxisLimitBwd(cfgXAxisId_);
+     ecmcData_.xAxis.limitFwd   = getEcmcAxisLimitFwd(cfgXAxisId_);
+     ecmcData_.xAxis.error      = getAxisError(cfgXAxisId_);
+     ecmcData_.xAxis.actpos     = getEcmcAxisActPos(cfgXAxisId_);
+     ecmcData_.xAxis.trajSource = getEcmcAxisTrajSource(cfgXAxisId_);
+     ecmcData_.allEnabled       = ecmcData_.allEnabled &&
+                                  ecmcData_.xAxis.enabled;
+     ecmcData_.allLimitsOK      = ecmcData_.allLimitsOK &&
+                                  ecmcData_.xAxis.limitBwd && 
+                                  ecmcData_.xAxis.limitFwd;
   }
 
-  if(cfgYAxisId_ >= 0) {
-    ecmcData_.yAxis.enabled  = getEcmcAxisEnabled(cfgYAxisId_);
-    ecmcData_.yAxis.limitBwd = getEcmcAxisLimitBwd(cfgYAxisId_);
-    ecmcData_.yAxis.limitFwd = getEcmcAxisLimitFwd(cfgYAxisId_);
-    ecmcData_.yAxis.error    = getAxisError(cfgYAxisId_);
-    ecmcData_.yAxis.actpos   = getEcmcAxisActPos(cfgYAxisId_);
-    ecmcData_.yAxis.trajSource = getEcmcAxisTrajSource(cfgYAxisId_);
-    ecmcData_.allEnabled     = ecmcData_.allEnabled &&
-                               ecmcData_.yAxis.enabled;
-    ecmcData_.allLimitsOK    = ecmcData_.allLimitsOK &&
-                               ecmcData_.yAxis.limitBwd && 
-                               ecmcData_.yAxis.limitFwd;
+  if(ecmcData_.yAxis.axisId >= 0) {
+     ecmcData_.yAxis.enabled    = getEcmcAxisEnabled(cfgYAxisId_);
+     ecmcData_.yAxis.limitBwd   = getEcmcAxisLimitBwd(cfgYAxisId_);
+     ecmcData_.yAxis.limitFwd   = getEcmcAxisLimitFwd(cfgYAxisId_);
+     ecmcData_.yAxis.error      = getAxisError(cfgYAxisId_);
+     ecmcData_.yAxis.actpos     = getEcmcAxisActPos(cfgYAxisId_);
+     ecmcData_.yAxis.trajSource = getEcmcAxisTrajSource(cfgYAxisId_);
+     ecmcData_.allEnabled       = ecmcData_.allEnabled &&
+                                  ecmcData_.yAxis.enabled;
+     ecmcData_.allLimitsOK      = ecmcData_.allLimitsOK &&
+                                  ecmcData_.yAxis.limitBwd && 
+                                  ecmcData_.yAxis.limitFwd;
   }
 
-  if(cfgZAxisId_ >= 0) {
-    ecmcData_.zAxis.enabled  = getEcmcAxisEnabled(cfgZAxisId_);
-    ecmcData_.zAxis.limitBwd = getEcmcAxisLimitBwd(cfgZAxisId_);
-    ecmcData_.zAxis.limitFwd = getEcmcAxisLimitFwd(cfgZAxisId_);
-    ecmcData_.zAxis.error    = getAxisError(cfgZAxisId_);
-    ecmcData_.zAxis.actpos   = getEcmcAxisActPos(cfgZAxisId_);
-    ecmcData_.zAxis.trajSource = getEcmcAxisTrajSource(cfgZAxisId_);
-    ecmcData_.allEnabled     = ecmcData_.allEnabled &&
-                               ecmcData_.zAxis.enabled;
-    ecmcData_.allLimitsOK    = ecmcData_.allLimitsOK &&
-                               ecmcData_.zAxis.limitBwd && 
-                               ecmcData_.zAxis.limitFwd;
+  if(ecmcData_.zAxis.axisId >= 0) {
+     ecmcData_.zAxis.enabled    = getEcmcAxisEnabled(cfgZAxisId_);
+     ecmcData_.zAxis.limitBwd   = getEcmcAxisLimitBwd(cfgZAxisId_);
+     ecmcData_.zAxis.limitFwd   = getEcmcAxisLimitFwd(cfgZAxisId_);
+     ecmcData_.zAxis.error      = getAxisError(cfgZAxisId_);
+     ecmcData_.zAxis.actpos     = getEcmcAxisActPos(cfgZAxisId_);
+     ecmcData_.zAxis.trajSource = getEcmcAxisTrajSource(cfgZAxisId_);
+     ecmcData_.allEnabled       = ecmcData_.allEnabled &&
+                                  ecmcData_.zAxis.enabled;
+     ecmcData_.allLimitsOK      = ecmcData_.allLimitsOK &&
+                                  ecmcData_.zAxis.limitBwd && 
+                                  ecmcData_.zAxis.limitFwd;
   }
 
-  if(cfgSpindleAxisId_>= 0) {
-    ecmcData_.spindleAxis.enabled  = getEcmcAxisEnabled(cfgSpindleAxisId_);
-    ecmcData_.spindleAxis.limitBwd = getEcmcAxisLimitBwd(cfgSpindleAxisId_);
-    ecmcData_.spindleAxis.limitFwd = getEcmcAxisLimitFwd(cfgSpindleAxisId_);
-    ecmcData_.spindleAxis.error    = getAxisError(cfgSpindleAxisId_);
-    ecmcData_.spindleAxis.actpos   = getEcmcAxisActPos(cfgSpindleAxisId_);
-    ecmcData_.spindleAxis.trajSource = getEcmcAxisTrajSource(cfgSpindleAxisId_);    
-    ecmcData_.allEnabled           = ecmcData_.allEnabled &&
-                                     ecmcData_.spindleAxis.enabled;
-    ecmcData_.allLimitsOK          = ecmcData_.allLimitsOK &&
-                                     ecmcData_.spindleAxis.limitBwd && 
-                                     ecmcData_.spindleAxis.limitFwd;
+  if(ecmcData_.spindleAxis.axisId >= 0) {
+     ecmcData_.spindleAxis.enabled    = getEcmcAxisEnabled(cfgSpindleAxisId_);
+     ecmcData_.spindleAxis.limitBwd   = getEcmcAxisLimitBwd(cfgSpindleAxisId_);
+     ecmcData_.spindleAxis.limitFwd   = getEcmcAxisLimitFwd(cfgSpindleAxisId_);
+     ecmcData_.spindleAxis.error      = getAxisError(cfgSpindleAxisId_);
+     ecmcData_.spindleAxis.actpos     = getEcmcAxisActPos(cfgSpindleAxisId_);
+     ecmcData_.spindleAxis.trajSource = getEcmcAxisTrajSource(cfgSpindleAxisId_);    
+     ecmcData_.allEnabled             = ecmcData_.allEnabled &&
+                                        ecmcData_.spindleAxis.enabled;
+     ecmcData_.allLimitsOK            = ecmcData_.allLimitsOK &&
+                                        ecmcData_.spindleAxis.limitBwd && 
+                                        ecmcData_.spindleAxis.limitFwd;
   }
 }
 
 // grb realtime thread!!!  
 int  ecmcGrbl::grblRTexecute(int ecmcError) {
   
-  if(getEcmcEpicsIOCState()!=16) {
+  if(getEcmcEpicsIOCState()!=16 || !grblInitDone_) {
     return 0;
   }
+
+  readEcmcStatus( ecmcError);
   
-  readEcmcStatus();
-  ecmcData_.error = ecmcError;
-  
-  
-  if((ecmcError_ == 0 && ecmcError>0) || (errorCode_>0 && errorCodeOld_ == 0)) {    
+  if((ecmcData_.errorOld == 0 && ecmcData_.error > 0) ||
+     (errorCode_>0 && errorCodeOld_ == 0)) {
     setHalt(0);
     setHalt(1);
-    if(ecmcError != errorCode_) {  // ecmc error the reset
-      if(ecmcError>0 && ecmcError_ == 0) {
+
+    if(ecmcError != errorCode_) {  // ecmc error then reset
+      if(ecmcError>0 && ecmcData_.errorOld == 0) {
         setReset(0);
         setReset(1);
       }
     }
     setExecute(0);
-    printf("GRBL: ERROR: ecmc 0x%x, plugin 0x%x\n",ecmcError,errorCode_);
-    ecmcError_ = ecmcError;
-    errorCodeOld_ = errorCode_;
-  
+    printf("GRBL: ERROR: ecmc 0x%x, plugin 0x%x\n",ecmcError,errorCode_);    
+    errorCodeOld_ = errorCode_;    
     return errorCode_;
   }
 
-  ecmcError_ = ecmcError;
-  errorCodeOld_ = errorCode_;
+  // auto start
+  if (!autoStartDone_) {
+    if(cfgAutoStart_) {
+      setExecute(1);
+      autoStartDone_ = 1;
+    }
+  }
 
-  //auto enable, sync positions
+  errorCodeOld_ = errorCode_;
+  
   preExeAxes();
 
   double sampleRateMs = 0.0;

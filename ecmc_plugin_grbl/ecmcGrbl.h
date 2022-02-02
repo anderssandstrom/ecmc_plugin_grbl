@@ -42,6 +42,7 @@ typedef struct {
   ecmcAxisStatusData  zAxis;
   ecmcAxisStatusData  spindleAxis;
   int error;
+  int errorOld;
   bool allEnabled;
   bool allLimitsOK;
   bool allLimitsOKOld;
@@ -80,7 +81,7 @@ class ecmcGrbl : public asynPortDriver {
 
  private:
   void                     parseConfigStr(char *configStr);
-  void                     readEcmcStatus();
+  void                     readEcmcStatus(int ecmcError);
   void                     preExeAxes();
   void                     postExeAxes();
   void                     preExeAxis(ecmcAxisStatusData ecmcAxisData, int grblAxisId);
@@ -107,14 +108,13 @@ class ecmcGrbl : public asynPortDriver {
   int                      haltCmd_;
   int                      resumeCmd_;
   int                      errorCode_;
-  int                      ecmcError_;
   int                      errorCodeOld_;
   double                   exeSampleTimeMs_;
   int                      grblInitDone_;
   std::vector<std::string> grblCommandBuffer_;
   unsigned int             grblCommandBufferIndex_;
   epicsMutexId             grblCommandBufferMutex_;
-  bool                     firstCommandWritten_;
+  bool                     autoStartDone_;
   int                      autoEnableExecuted_;
   int                      grblExeCycles_;  
   double                   timeToNextExeMs_;
