@@ -118,17 +118,17 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   cfgZAxisId_           = -1;
   cfgSpindleAxisId_     = -1;
   grblInitDone_         = 0;
-  cfgAutoEnableAtStart_ = 0;
+  cfgAutoEnable_ = 0;
   autoEnableExecuted_   = 0;
   timeToNextExeMs_      = 0;
   writerBusy_           = 0;
-  limitsSummary_        = 0;
-  limitsSummaryOld_     = 0;
   spindleAcceleration_  = 0;
   cfgAutoEnableTimeOutSecs_ = ECMC_PLUGIN_AUTO_ENABLE_TIME_OUT_SEC;
   autoEnableTimeOutCounter_ = 0;
   grblCommandBufferIndex_ = 0;
   grblCommandBuffer_.clear();
+
+  memset(&ecmcData_,0,sizeof(ecmcStatusData));
 
   if(!(grblCommandBufferMutex_ = epicsMutexCreate())) {
     throw std::runtime_error("GRBL: ERROR: Failed create mutex thread for write().");
@@ -137,9 +137,14 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   parseConfigStr(configStr); // Assigns all configs
   
   // simulate auto enable
-  if(!cfgAutoEnableAtStart_) {
+  if(!cfgAutoEnable_) {
     autoEnableExecuted_ = 1;
   }
+
+  ecmcData_.xAxis.axisId       = cfgXAxisId_;
+  ecmcData_.yAxis.axisId       = cfgYAxisId_;
+  ecmcData_.zAxis.axisId       = cfgZAxisId_;
+  ecmcData_.spindleAxis.axisId = cfgSpindleAxisId_;
 
   // auto execute
   if(cfgAutoStart_) {
@@ -239,7 +244,7 @@ void ecmcGrbl::parseConfigStr(char *configStr) {
       // ECMC_PLUGIN_AUTO_ENABLE_AT_START_OPTION_CMD
       if (!strncmp(pThisOption, ECMC_PLUGIN_AUTO_ENABLE_AT_START_OPTION_CMD, strlen(ECMC_PLUGIN_AUTO_ENABLE_AT_START_OPTION_CMD))) {
         pThisOption += strlen(ECMC_PLUGIN_AUTO_ENABLE_AT_START_OPTION_CMD);
-        cfgAutoEnableAtStart_ = atoi(pThisOption);
+        cfgAutoEnable_ = atoi(pThisOption);
       }
 
       // ECMC_PLUGIN_AUTO_START_OPTION_CMD
@@ -486,16 +491,29 @@ int   ecmcGrbl::setAllAxesEnable(int enable) {
   return 0;
 }
 
-void  ecmcGrbl::autoEnableAxisAtStart(int ecmcAxisId) {
+void  ecmcGrbl::autoEnableAxis(ecmcAxisStatusData ecmcAxisData) {
   
-  if(!cfgAutoEnableAtStart_ || autoEnableExecuted_ || getEcmcEpicsIOCState()!=16 || errorCode_) { 
+  if(!cfgAutoEnable_ || getEcmcEpicsIOCState()!=16 || errorCode_ || ecmcAxisData.axisId < 0) {
     return;
   }
   
-  // write to ecmc
-  if(ecmcAxisId>=0) {
-    setAxisEnable(ecmcAxisId,1);
-  }    
+  if(ecmcAxisData.enabled) {
+    return;
+  }
+
+  setAxisEnable(ecmcAxisData.axisId,1);
+}
+
+bool ecmcGrbl::getEcmcAxisLimitBwd(int ecmcAxisId) {
+  int lim = 0;
+  getAxisLimitSwitchBwd(ecmcAxisId,&lim);
+  return lim == 1;
+}
+
+bool ecmcGrbl::getEcmcAxisLimitFwd(int ecmcAxisId) {
+  int lim = 0;
+  getAxisLimitSwitchFwd(ecmcAxisId,&lim);
+  return lim == 1;
 }
 
 bool  ecmcGrbl::getEcmcAxisEnabled(int ecmcAxisId) {
@@ -504,21 +522,10 @@ bool  ecmcGrbl::getEcmcAxisEnabled(int ecmcAxisId) {
   return ena;
 }
 
-bool ecmcGrbl::getAllAxesEnabled() {
-  int ena = 1;
-  if(cfgXAxisId_ >= 0 && ena) {
-    ena = getEcmcAxisEnabled(cfgXAxisId_);
-  }
-  if(cfgYAxisId_ >= 0 && ena) {
-    ena = getEcmcAxisEnabled(cfgYAxisId_);
-  }
-  if(cfgZAxisId_ >=0 && ena) {
-    ena = getEcmcAxisEnabled(cfgZAxisId_);
-  }
-  if(cfgSpindleAxisId_ >= 0 && ena) {
-    ena = getEcmcAxisEnabled(cfgSpindleAxisId_);
-  }
-  return ena;
+int  ecmcGrbl::getEcmcAxisTrajSource(int ecmcAxisId) {
+  int source = ECMC_DATA_SOURCE_INTERNAL;
+  getAxisTrajSource(ecmcAxisId,&source);
+  return source;
 }
 
 double  ecmcGrbl::getEcmcAxisActPos(int axis) {
@@ -529,22 +536,22 @@ double  ecmcGrbl::getEcmcAxisActPos(int axis) {
 }
 
 void ecmcGrbl::preExeAxes() {
-  limitsSummary_ = 1;
-  preExeAxis(cfgXAxisId_,X_AXIS);
-  preExeAxis(cfgYAxisId_,Y_AXIS);
-  preExeAxis(cfgZAxisId_,Z_AXIS);
+  
+  preExeAxis(ecmcData_.xAxis,X_AXIS);
+  preExeAxis(ecmcData_.yAxis,Y_AXIS);
+  preExeAxis(ecmcData_.zAxis,Z_AXIS);
 
   // Kill everything if limit switch violation
   giveControlToEcmcIfNeeded();
 
   //spindle
-  autoEnableAxisAtStart(cfgSpindleAxisId_);
+  autoEnableAxis(ecmcData_.spindleAxis);
   
-  if(getAllAxesEnabled()) {
+  if(ecmcData_.allEnabled) {
     autoEnableExecuted_ = 1;
     autoEnableTimeOutCounter_ = 0;
   } else {
-    if(cfgAutoEnableAtStart_) {
+    if(cfgAutoEnable_) {
       if(autoEnableTimeOutCounter_ >= cfgAutoEnableTimeOutSecs_/exeSampleTimeMs_*1000) {
         errorCode_ = ECMC_PLUGIN_AUTO_ENABLE_TIMEOUT_ERROR_CODE;
         if(errorCode_!=errorCodeOld_) {
@@ -558,54 +565,46 @@ void ecmcGrbl::preExeAxes() {
   }
 }
 
-void ecmcGrbl::preExeAxis(int ecmcAxisId, int grblAxisId) {
-  if(ecmcAxisId < 0) {
+void ecmcGrbl::preExeAxis(ecmcAxisStatusData ecmcAxisData, int grblAxisId) {
+  if(ecmcAxisData.axisId < 0) {
     return;
   }
-
-  syncAxisPositionIfNotEnabled(ecmcAxisId, grblAxisId);
-  autoEnableAxisAtStart(ecmcAxisId);
-  checkLimits(ecmcAxisId);
-}
-
-void ecmcGrbl::checkLimits(int ecmcAxisId) {
-  int lim = 0;
-  getAxisLimitSwitchBwd(ecmcAxisId,&lim);
-  limitsSummary_ = limitsSummary_ && lim;
-  getAxisLimitSwitchFwd(ecmcAxisId,&lim);
-  limitsSummary_ = limitsSummary_ && lim;
+  
+  syncAxisPosition(ecmcAxisData, grblAxisId);
+  autoEnableAxis(ecmcAxisData);  
 }
 
 void ecmcGrbl::giveControlToEcmcIfNeeded() {
 
+
   // Give total control to ecmc at negative edge of any limit switch
-  if(!limitsSummary_ && limitsSummaryOld_) {
-    int source = ECMC_DATA_SOURCE_INTERNAL;
-    if(cfgXAxisId_>=0) {
-      getAxisTrajSource(cfgXAxisId_,&source);
-      if(source == ECMC_DATA_SOURCE_EXTERNAL) {
-        setAxisTrajSource(cfgXAxisId_,ECMC_DATA_SOURCE_INTERNAL);
+  if(!ecmcData_.allLimitsOK && ecmcData_.allLimitsOKOld) {
+
+    if(ecmcData_.xAxis.axisId >= 0) {
+      if(ecmcData_.xAxis.trajSource == ECMC_DATA_SOURCE_EXTERNAL) {
+        setAxisTrajSource(ecmcData_.xAxis.axisId,ECMC_DATA_SOURCE_INTERNAL);
+        stopMotion(ecmcData_.xAxis.axisId,0);
       }
     }
 
-    if(cfgYAxisId_>=0) {
-      getAxisTrajSource(cfgYAxisId_,&source);
-      if(source == ECMC_DATA_SOURCE_EXTERNAL) {
-        setAxisTrajSource(cfgYAxisId_,ECMC_DATA_SOURCE_INTERNAL);
+    if(ecmcData_.yAxis.axisId >= 0) {
+      if(ecmcData_.yAxis.trajSource == ECMC_DATA_SOURCE_EXTERNAL) {
+        setAxisTrajSource(ecmcData_.yAxis.axisId,ECMC_DATA_SOURCE_INTERNAL);
+        stopMotion(ecmcData_.yAxis.axisId,0);
       }
     }
 
-    if(cfgZAxisId_>=0) {
-      getAxisTrajSource(cfgZAxisId_,&source);
-      if(source == ECMC_DATA_SOURCE_EXTERNAL) {
-        setAxisTrajSource(cfgZAxisId_,ECMC_DATA_SOURCE_INTERNAL);
+    if(ecmcData_.zAxis.axisId >= 0) {
+      if(ecmcData_.zAxis.trajSource == ECMC_DATA_SOURCE_EXTERNAL) {
+        setAxisTrajSource(ecmcData_.zAxis.axisId,ECMC_DATA_SOURCE_INTERNAL);
+        stopMotion(ecmcData_.zAxis.axisId,0);
       }
     }
 
     // Stop spindle
-    if(cfgSpindleAxisId_ >= 0) {
-      setAxisTargetVel(cfgSpindleAxisId_, 0);
-      stopMotion(cfgSpindleAxisId_,0);
+    if(ecmcData_.spindleAxis.axisId >= 0) {
+      setAxisTargetVel(ecmcData_.spindleAxis.axisId, 0);
+      stopMotion(ecmcData_.spindleAxis.axisId,0);
     }
 
     // Halt grbl and stop motion (even though should be handled by ecmc)
@@ -617,33 +616,15 @@ void ecmcGrbl::giveControlToEcmcIfNeeded() {
 
     // Also reset for safety (avoid autoenable)
     autoEnableExecuted_   = 1;
-    cfgAutoStart_         = 0;
-    cfgAutoEnableAtStart_ = 0;
+    cfgAutoStart_         = 0;    
   }
-
-  limitsSummaryOld_ = limitsSummary_;
 }
 
-void ecmcGrbl::syncAxisPositionIfNotEnabled(int ecmcAxisId, int grblAxisId) {
-  
-  bool sync = 0;
+void ecmcGrbl::syncAxisPosition(ecmcAxisStatusData ecmcAxisData, int grblAxisId) {
   
   // sync positions when not enabled
-  if(!getEcmcAxisEnabled(ecmcAxisId)) {    
-    sync = 1;
-  }
-
-  // sync positions when ecmc is in internal mode
-  if(!sync)  {
-    int source = ECMC_DATA_SOURCE_INTERNAL;
-    getAxisTrajSource(ecmcAxisId,&source);
-    if(source == ECMC_DATA_SOURCE_INTERNAL) {
-      sync = 1;
-    }
-  }
-
-  if(sync) {
-    sys_position[grblAxisId] = (int32_t)(double(settings.steps_per_mm[grblAxisId])*getEcmcAxisActPos(ecmcAxisId));
+  if(!ecmcAxisData.enabled || ecmcAxisData.trajSource == ECMC_DATA_SOURCE_INTERNAL) {
+    sys_position[grblAxisId] = (int32_t)(double(settings.steps_per_mm[grblAxisId])*ecmcAxisData.actpos);
     plan_sync_position();
     gc_sync_position();
   }
@@ -666,9 +647,71 @@ int ecmcGrbl::enterRT() {
       return errorCode_;
     }
 
-    spindleAcceleration_ = acc;                 
+    ecmcData_.spindleAxis.acceleration = acc;                 
   }
   return 0;
+}
+
+// Get data from ecmc and check enabled and limits
+void   ecmcGrbl::readEcmcStatus() {
+  ecmcData_.allLimitsOKOld = ecmcData_.allLimitsOK;
+  ecmcData_.allEnabled = true;
+  ecmcData_.allLimitsOK = true;
+  if(cfgXAxisId_ >= 0) {
+    ecmcData_.xAxis.enabled  = getEcmcAxisEnabled(cfgXAxisId_);
+    ecmcData_.xAxis.limitBwd = getEcmcAxisLimitBwd(cfgXAxisId_);
+    ecmcData_.xAxis.limitFwd = getEcmcAxisLimitFwd(cfgXAxisId_);
+    ecmcData_.xAxis.error    = getAxisError(cfgXAxisId_);
+    ecmcData_.xAxis.actpos   = getEcmcAxisActPos(cfgXAxisId_);
+    ecmcData_.xAxis.trajSource = getEcmcAxisTrajSource(cfgXAxisId_);
+    ecmcData_.allEnabled     = ecmcData_.allEnabled &&
+                               ecmcData_.xAxis.enabled;
+    ecmcData_.allLimitsOK    = ecmcData_.allLimitsOK &&
+                               ecmcData_.xAxis.limitBwd && 
+                               ecmcData_.xAxis.limitFwd;
+  }
+
+  if(cfgYAxisId_ >= 0) {
+    ecmcData_.yAxis.enabled  = getEcmcAxisEnabled(cfgYAxisId_);
+    ecmcData_.yAxis.limitBwd = getEcmcAxisLimitBwd(cfgYAxisId_);
+    ecmcData_.yAxis.limitFwd = getEcmcAxisLimitFwd(cfgYAxisId_);
+    ecmcData_.yAxis.error    = getAxisError(cfgYAxisId_);
+    ecmcData_.yAxis.actpos   = getEcmcAxisActPos(cfgYAxisId_);
+    ecmcData_.yAxis.trajSource = getEcmcAxisTrajSource(cfgYAxisId_);
+    ecmcData_.allEnabled     = ecmcData_.allEnabled &&
+                               ecmcData_.yAxis.enabled;
+    ecmcData_.allLimitsOK    = ecmcData_.allLimitsOK &&
+                               ecmcData_.yAxis.limitBwd && 
+                               ecmcData_.yAxis.limitFwd;
+  }
+
+  if(cfgZAxisId_ >= 0) {
+    ecmcData_.zAxis.enabled  = getEcmcAxisEnabled(cfgZAxisId_);
+    ecmcData_.zAxis.limitBwd = getEcmcAxisLimitBwd(cfgZAxisId_);
+    ecmcData_.zAxis.limitFwd = getEcmcAxisLimitFwd(cfgZAxisId_);
+    ecmcData_.zAxis.error    = getAxisError(cfgZAxisId_);
+    ecmcData_.zAxis.actpos   = getEcmcAxisActPos(cfgZAxisId_);
+    ecmcData_.zAxis.trajSource = getEcmcAxisTrajSource(cfgZAxisId_);
+    ecmcData_.allEnabled     = ecmcData_.allEnabled &&
+                               ecmcData_.zAxis.enabled;
+    ecmcData_.allLimitsOK    = ecmcData_.allLimitsOK &&
+                               ecmcData_.zAxis.limitBwd && 
+                               ecmcData_.zAxis.limitFwd;
+  }
+
+  if(cfgSpindleAxisId_>= 0) {
+    ecmcData_.spindleAxis.enabled  = getEcmcAxisEnabled(cfgSpindleAxisId_);
+    ecmcData_.spindleAxis.limitBwd = getEcmcAxisLimitBwd(cfgSpindleAxisId_);
+    ecmcData_.spindleAxis.limitFwd = getEcmcAxisLimitFwd(cfgSpindleAxisId_);
+    ecmcData_.spindleAxis.error    = getAxisError(cfgSpindleAxisId_);
+    ecmcData_.spindleAxis.actpos   = getEcmcAxisActPos(cfgSpindleAxisId_);
+    ecmcData_.spindleAxis.trajSource = getEcmcAxisTrajSource(cfgSpindleAxisId_);    
+    ecmcData_.allEnabled           = ecmcData_.allEnabled &&
+                                     ecmcData_.spindleAxis.enabled;
+    ecmcData_.allLimitsOK          = ecmcData_.allLimitsOK &&
+                                     ecmcData_.spindleAxis.limitBwd && 
+                                     ecmcData_.spindleAxis.limitFwd;
+  }
 }
 
 // grb realtime thread!!!  
@@ -677,6 +720,10 @@ int  ecmcGrbl::grblRTexecute(int ecmcError) {
   if(getEcmcEpicsIOCState()!=16) {
     return 0;
   }
+  
+  readEcmcStatus();
+  ecmcData_.error = ecmcError;
+  
   
   if((ecmcError_ == 0 && ecmcError>0) || (errorCode_>0 && errorCodeOld_ == 0)) {    
     setHalt(0);
@@ -721,27 +768,27 @@ int  ecmcGrbl::grblRTexecute(int ecmcError) {
   return errorCode_;
 }
 
-void ecmcGrbl::postExeAxis(int ecmcAxisId, int grblAxisId) {
-  if(ecmcAxisId>=0) {
-    setAxisExtSetPos(ecmcAxisId,double(sys_position[grblAxisId])/double(settings.steps_per_mm[grblAxisId]));
+void ecmcGrbl::postExeAxis(ecmcAxisStatusData ecmcAxisData, int grblAxisId) {
+  if(ecmcAxisData.axisId >= 0) {
+    setAxisExtSetPos(ecmcAxisData.axisId,double(sys_position[grblAxisId])/double(settings.steps_per_mm[grblAxisId]));
   }
 }
 
 void ecmcGrbl::postExeAxes() {
-  postExeAxis(cfgXAxisId_,X_AXIS);
-  postExeAxis(cfgYAxisId_,Y_AXIS);
-  postExeAxis(cfgZAxisId_,Z_AXIS);
-  //printf("Spindle Velo %f\n", sys.spindle_speed);
+  postExeAxis(ecmcData_.xAxis,X_AXIS);
+  postExeAxis(ecmcData_.yAxis,Y_AXIS);
+  postExeAxis(ecmcData_.zAxis,Z_AXIS);
+
+  
   if(cfgSpindleAxisId_ >= 0) {
     setAxisTargetVel(cfgSpindleAxisId_,(double)sys.spindle_speed);
     if(sys.spindle_speed!=0) {
       int errorCode = moveVelocity(cfgSpindleAxisId_,
                                    (double)sys.spindle_speed,
-                                   spindleAcceleration_,
-                                   spindleAcceleration_);
+                                   ecmcData_.spindleAxis.acceleration,
+                                   ecmcData_.spindleAxis.acceleration);
       if (errorCode) {
         errorCode_ = errorCode;
-        //printf("ERROR %d\n", errorCode_);
       }
     }
   }

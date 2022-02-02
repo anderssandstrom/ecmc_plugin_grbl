@@ -25,6 +25,28 @@
 #include <vector>
 #include <string.h>
 
+typedef struct {
+  bool        limitBwd;
+  bool        limitFwd;
+  bool        enabled;
+  int         error;
+  double      acceleration; // only spindle
+  double      actpos;
+  int         axisId;
+  int         trajSource;
+} ecmcAxisStatusData;
+
+typedef struct {
+  ecmcAxisStatusData  xAxis;
+  ecmcAxisStatusData  yAxis;
+  ecmcAxisStatusData  zAxis;
+  ecmcAxisStatusData  spindleAxis;
+  int error;
+  bool allEnabled;
+  bool allLimitsOK;
+  bool allLimitsOKOld;
+} ecmcStatusData;
+
 class ecmcGrbl : public asynPortDriver {
  public:
 
@@ -55,26 +77,29 @@ class ecmcGrbl : public asynPortDriver {
   int                      getParserBusy();
   int                      getCodeRowNum();
   int                      setAllAxesEnable(int enable);
-  bool                     getAllAxesEnabled();
+
  private:
   void                     parseConfigStr(char *configStr);
+  void                     readEcmcStatus();
   void                     preExeAxes();
   void                     postExeAxes();
-  void                     preExeAxis(int ecmcAxisId, int grblAxisId);
-  void                     postExeAxis(int ecmcAxisId, int grblAxisId);
-  void                     autoEnableAxisAtStart(int ecmcAxisId);
-  void                     checkLimits(int ecmcAxisId);
+  void                     preExeAxis(ecmcAxisStatusData ecmcAxisData, int grblAxisId);
+  void                     postExeAxis(ecmcAxisStatusData ecmcAxisData, int grblAxisId);
+  void                     autoEnableAxis(ecmcAxisStatusData ecmcAxisData);
   void                     giveControlToEcmcIfNeeded();
+  void                     syncAxisPosition(ecmcAxisStatusData ecmcAxisData, int grblAxisId);
   bool                     getEcmcAxisEnabled(int ecmcAxisId);
   double                   getEcmcAxisActPos(int axis);
-  void                     syncAxisPositionIfNotEnabled(int ecmcAxisId, int grblAxisId);
+  int                      getEcmcAxisTrajSource(int ecmcAxisId);
+  bool                     getEcmcAxisLimitBwd(int ecmcAxisId);
+  bool                     getEcmcAxisLimitFwd(int ecmcAxisId);
   static std::string       to_string(int value);
   int                      cfgDbgMode_;
   int                      cfgXAxisId_;
   int                      cfgYAxisId_;
   int                      cfgZAxisId_;
   int                      cfgSpindleAxisId_;
-  int                      cfgAutoEnableAtStart_;
+  int                      cfgAutoEnable_;
   int                      cfgAutoStart_;
   int                      destructs_;
   int                      executeCmd_;
@@ -94,11 +119,11 @@ class ecmcGrbl : public asynPortDriver {
   int                      grblExeCycles_;  
   double                   timeToNextExeMs_;
   bool                     writerBusy_;
-  int                      limitsSummary_;
-  int                      limitsSummaryOld_;
   double                   spindleAcceleration_;
   int                      cfgAutoEnableTimeOutSecs_;
   int                      autoEnableTimeOutCounter_;
+  ecmcStatusData           ecmcData_;
+
 };
 
 #endif  /* ECMC_GRBL_H_ */
