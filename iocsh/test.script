@@ -87,7 +87,7 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILN
 epicsEnvUnset(ECMC_PLUGIN_FILNAME)
 epicsEnvUnset(ECMC_PLUGIN_CONFIG)
 
-ecmcGrblLoadFile("./plc/test.nc",0)
+ecmcGrblLoadFile("./plc/gcode.nc",0)
 
 #ecmcGrblAddCommand("G1X20Y20F360");
 #ecmcGrblAddCommand("G4P2");
