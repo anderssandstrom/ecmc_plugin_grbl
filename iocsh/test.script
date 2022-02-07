@@ -88,6 +88,7 @@ epicsEnvUnset(ECMC_PLUGIN_FILNAME)
 epicsEnvUnset(ECMC_PLUGIN_CONFIG)
 
 ecmcGrblLoadFile("./plc/gcode.nc",0)
+asynSetTraceMask(MC_CPU1, -1, 0x0)
 
 #ecmcGrblAddCommand("G1X20Y20F360");
 #ecmcGrblAddCommand("G4P2");
@@ -123,7 +124,7 @@ $(SCRIPTEXEC) ($(ecmccfg_DIR)setAppMode.cmd)
 #asynSetTraceMask(MC_CPU1, -1, 0x41)
 # Note need to test 0x21 later..
 #asynSetTraceMask(MC_CPU1, -1, 0x21)
-asynSetTraceMask(MC_CPU1, -1, 0x41)
+asynSetTraceMask(MC_CPU1, -1, 0x0)
 iocInit()
 
 dbpf $(IOC):Axis1.SPAM 0

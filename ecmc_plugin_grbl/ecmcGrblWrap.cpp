@@ -154,7 +154,6 @@ void deleteGrbl() {
   }
 }
 
-
 /** 
  * EPICS iocsh shell command: ecmcGrblAddCommand
 */
@@ -261,12 +260,86 @@ static void initCallFunc_1(const iocshArgBuf *args) {
   ecmcGrblLoadFile(args[0].sval,args[1].ival);
 }
 
+
+
+/*
+$11 - Junction deviation, mm
+$12 – Arc tolerance, mm
+$30 - Max spindle speed, RPM
+$31 - Min spindle speed, RPM
+$100, $101 and $102 – [X,Y,Z] steps/mm
+$110, $111 and $112 – [X,Y,Z] Max rate, mm/min
+$120, $121, $122 – [X,Y,Z] Acceleration, mm/sec^2*/
+
+/** 
+ * EPICS iocsh shell command: ecmcGrblAddConfig
+*/
+
+void ecmcGrblAddConfigPrintHelp() {
+  printf("\n");
+  printf("       Use ecmcGrblAddConfig(<command>)\n");
+  printf("          <command>                      : Grbl command.\n");
+  printf("\n");
+  printf("       Supported grbl comamnds:\n");
+  printf("          $11 - Junction deviation, mm\n");
+  printf("          $12 – Arc tolerance, mm\n");
+  printf("          $30 - Max spindle speed, RPM\n");
+  printf("          $31 - Min spindle speed, RPM\n");
+  printf("          $100, $101 and $102 – [X,Y,Z] steps/mm\n");
+  printf("          $110, $111 and $112 – [X,Y,Z] Max rate, mm/min\n");
+  printf("          $120, $121, $122 – [X,Y,Z] Acceleration, mm/sec^2\n");
+  printf("\n");
+  printf("       Example: Set resolution to 1 micrometer\n");
+  printf("        ecmcGrblAddConfig(\"$100=1000\")  \n");
+  printf("\n");
+}
+
+int ecmcGrblAddConfig(const char* command) {
+
+  if(!command) {
+    printf("Error: command.\n");
+    ecmcGrblAddConfigPrintHelp();
+    return asynError;
+  }
+
+  if(strcmp(command,"-h") == 0 || strcmp(command,"--help") == 0 ) {
+    ecmcGrblAddConfigPrintHelp();
+    return asynSuccess;
+  }
+
+  if(!grbl) {
+    printf("Plugin not initialized/loaded.\n");
+    return asynError;
+  }
+
+  try {
+    grbl->addConfig(command);
+  }
+  catch(std::exception& e) {
+    printf("Exception: %s. Add config failed.\n",e.what());
+    return asynError;
+  }
+  
+  return asynSuccess;
+}
+
+static const iocshArg initArg0_2 =
+{ " Grbl Config", iocshArgString };
+
+static const iocshArg *const initArgs_2[]  = { &initArg0_2};
+
+static const iocshFuncDef    initFuncDef_2 = { "ecmcGrblAddConfig", 1, initArgs_2 };
+static void initCallFunc_2(const iocshArgBuf *args) {
+  ecmcGrblAddConfig(args[0].sval);
+}
+
 ///** 
 // * Register all functions
 //*/
 void ecmcGrblPluginDriverRegister(void) {
   iocshRegister(&initFuncDef_0,    initCallFunc_0);   // ecmcGrblAddCommand
   iocshRegister(&initFuncDef_1,    initCallFunc_1);   // ecmcGrblLoadFile
+  iocshRegister(&initFuncDef_2,    initCallFunc_2);   // ecmcGrblAddConfig
 }
 
 epicsExportRegistrar(ecmcGrblPluginDriverRegister);

@@ -111,16 +111,22 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   timeToNextExeMs_      = 0;
   writerBusy_           = 0;
   spindleAcceleration_  = 0;
+  unrecoverableError_   = 0;
   cfgAutoEnableTimeOutSecs_ = ECMC_PLUGIN_AUTO_ENABLE_TIME_OUT_SEC;
   autoEnableTimeOutCounter_ = 0;
   grblCommandBufferIndex_ = 0;
   grblCommandBuffer_.clear();
-
+  grblConfigBuffer_.clear();
   memset(&ecmcData_,0,sizeof(ecmcStatusData));
 
-  if(!(grblCommandBufferMutex_ = epicsMutexCreate())) {
-    throw std::runtime_error("GRBL: ERROR: Failed create mutex thread for write().");
+  if(!(grblConfigBufferMutex_ = epicsMutexCreate())) {
+    throw std::runtime_error("GRBL: ERROR: Failed create mutex config buffer.");
   }
+  
+  if(!(grblCommandBufferMutex_ = epicsMutexCreate())) {
+    throw std::runtime_error("GRBL: ERROR: Failed create mutex for command buffer.");
+  }
+  
   
   parseConfigStr(configStr); // Assigns all configs
   
@@ -240,112 +246,168 @@ void ecmcGrbl::doWriteWorker() {
     printf("%s:%s:%d\n",__FILE__,__FUNCTION__,__LINE__);
   }
   
-  // Wait for grbl startup string before send comamnds"['$' for help]" 
-  // basically flush buffer
   for(;;) {
-    while(serial_get_tx_buffer_count()==0) {
+    // Wait for grbl startup string before send comamnds"['$' for help]" 
+    // basically flush buffer
+  
+    if(cfgDbgMode_){
+      printf("GRBL: INFO: Wait for startup\n");
+    }
+
+    while (grblReadReply() != ECMC_GRBL_REPLY_START) {
+        delay_ms(2);
+    }
+  
+    if(cfgDbgMode_){
+      printf("GRBL: INFO: Ready for commands\n");
+    }
+  
+    if(cfgDbgMode_){
+      printf("GRBL: INFO: Wait for IOC state RUN \n");
+    }
+    // wait for epics state
+    while(getEcmcEpicsIOCState()!=16) {
       delay_ms(2);
     }
-    char c = ecmc_get_char_from_grbl_tx_buffer();
-    reply += c;
-    if(c == '\n' && 
-      reply.find(ECMC_PLUGIN_GRBL_GRBL_STARTUP_STRING) != std::string::npos ) {
-      if(cfgDbgMode_){
-        printf("GRBL: INFO: Ready for commands: %s\n",reply.c_str());
-      }
-      break;
-    }
-  }
-
-  // wait for epics state && auto enable at start
-  while(getEcmcEpicsIOCState()!=16) {
     delay_ms(2);
-  }
+  
+    if(cfgDbgMode_){
+      printf("GRBL: INFO: Configuration start\n");
+    }
 
-  // GRBL ready, now we can send comamnds
-  for(;;) {
-    if( (grblCommandBuffer_.size() > grblCommandBufferIndex_) &&         
-        executeCmd_ && ecmcData_.allEnabled && grblInitDone_) {
-      epicsMutexLock(grblCommandBufferMutex_);
-      std::string commandRaw = grblCommandBuffer_[grblCommandBufferIndex_];
-      epicsMutexUnlock(grblCommandBufferMutex_);
+    // Apply configs
+    int index = 0;
+    while(index < grblConfigBuffer_.size()) {
+      epicsMutexLock(grblConfigBufferMutex_);
+      std::string commandRaw = grblConfigBuffer_[index];
+      epicsMutexUnlock(grblConfigBufferMutex_);
       std::string command = commandRaw.substr(0, commandRaw.find(ECMC_CONFIG_FILE_COMMENT_CHAR));
-      
+
       if(command.length() == 0) {
         continue;
       }
 
-      // wait for grbl            
-      while(serial_get_rx_buffer_available() <= strlen(command.c_str())+1) {
-        delay_ms(1);
-      }
-      if(cfgDbgMode_){
-        printf("GRBL: INFO: Write command (command[%d] = %s)\n",
-               grblCommandBufferIndex_,
-               command.c_str());
-      }
+      //Write command (will block untill written)
+      grblWriteCommand(command);
       
-      ecmc_write_command_serial(strdup(command.c_str()));
-      reply = "";
+      // will block untill answer
+      grblReplyType replyStat = grblReadReply();
 
-      // Wait for reply!
-      for(;;) {
-        while(serial_get_tx_buffer_count()==0) {
-          delay_ms(1);      
-        }
-        char c = ecmc_get_char_from_grbl_tx_buffer();
-        reply += c;
-        if(c == '\n'&& reply.length() > 1) {
-          if(reply.find(ECMC_PLUGIN_GRBL_GRBL_OK_STRING) != std::string::npos) {            
-            if(cfgDbgMode_){
-              printf("GRBL: INFO: Reply OK (command[%d] = %s)\n",
-                     grblCommandBufferIndex_,
-                     command.c_str());
-            }
-            break;
-
-          } else if(reply.find(ECMC_PLUGIN_GRBL_GRBL_ERR_STRING) != std::string::npos) {
-            if(cfgDbgMode_){
-              printf("GRBL: ERROR: Reply ERROR (command[%d] = %s)\n",
-                      grblCommandBufferIndex_,
-                      command.c_str());
-            }
-            errorCode_ = ECMC_PLUGIN_GRBL_COMMAND_ERROR_CODE;
-            // stop motion
-            setExecute(0);            
-            setReset(1);
-            setReset(0);
-            break; 
-
-          } else if(reply.find(ECMC_PLUGIN_GRBL_GRBL_STARTUP_STRING) != std::string::npos ) {
-            if(cfgDbgMode_){
-              printf("GRBL: INFO: Ready for commands: %s\n",reply.c_str());
-            }
-            // system has reset
-            setExecute(0);
-            break;
-
-          } else {
-            // keep waiting (no break)            
-            if(cfgDbgMode_){
-              printf("GRBL: INFO: Reply non protocol related: %s\n",reply.c_str());
-
-            }
-          }
-        }
+      if(replyStat != ECMC_GRBL_REPLY_OK) {
+        errorCode_ = ECMC_PLUGIN_CONFIG_ERROR_CODE;
+        printf("GRBL: ERROR: Plugin suspended due to configuration failed on command %s\n",command.c_str());
+        printf("GRBL: ERROR: Restart of IOC needed.\n");
+        unrecoverableError_ = 1;
+        setExecute(0);
+        return;  //kill thread
       }
-      grblCommandBufferIndex_++;
+
+      index++;
     }
-    else {
-      if( (( grblCommandBufferIndex_ >= grblCommandBuffer_.size()) || !executeCmd_ ) &&
-            grblInitDone_) {
-        writerBusy_ = 0;
-      }
+    
+    if(cfgDbgMode_){
+      printf("GRBL: INFO: Configuration ready\n");
+    }
 
-      // Wait for right condition to start
-      delay_ms(5);
+    if(cfgDbgMode_){
+      printf("GRBL: INFO: Start load g-code\n");
+    }
+
+    // GRBL ready, now we can send g-code comamnds
+    for(;;) {
+      if( (grblCommandBuffer_.size() > grblCommandBufferIndex_) &&         
+          executeCmd_ && ecmcData_.allEnabled && grblInitDone_) {
+        epicsMutexLock(grblCommandBufferMutex_);
+        std::string commandRaw = grblCommandBuffer_[grblCommandBufferIndex_];
+        epicsMutexUnlock(grblCommandBufferMutex_);
+        std::string command = commandRaw.substr(0, commandRaw.find(ECMC_CONFIG_FILE_COMMENT_CHAR));
+        if(command.length() == 0) {
+          continue;
+        }
+  
+        //Write command (will block untill written)
+        grblWriteCommand(command);
+        
+        // will block untill answer
+        grblReplyType replyStat = grblReadReply();
+  
+        if(replyStat != ECMC_GRBL_REPLY_OK) {
+          errorCode_ = ECMC_PLUGIN_GRBL_COMMAND_ERROR_CODE;
+          // stop motion
+          setExecute(0);
+          setReset(0);
+          setReset(1);
+          setReset(0);
+          grblCommandBufferIndex_ = 0;
+          break;  // for loop
+        }
+        
+        grblCommandBufferIndex_++;
+      }
+      else {
+        if( (( grblCommandBufferIndex_ >= grblCommandBuffer_.size()) || !executeCmd_ ) &&
+              grblInitDone_) {
+          writerBusy_ = 0;
+        }
+  
+        // Wait for right condition to start
+        delay_ms(5);
+      }
+    }    
+  }
+}
+
+void ecmcGrbl::grblWriteCommand(std::string command) {
+
+  // wait for grbl            
+  while(serial_get_rx_buffer_available() <= strlen(command.c_str())+1) {
+    delay_ms(1);
+  }
+  if(cfgDbgMode_){
+    printf("GRBL: INFO: Write command (command[%d] = %s)\n",
+           grblCommandBufferIndex_,
+           command.c_str());
+  }
+  
+  ecmc_write_command_serial(strdup(command.c_str()));      
+}
+
+ grblReplyType ecmcGrbl::grblReadReply() {
+  std::string reply = "";
+
+  // Wait for reply!
+  for(;;) {
+    while(serial_get_tx_buffer_count()==0) {
+      delay_ms(1);      
+    }
+    char c = ecmc_get_char_from_grbl_tx_buffer();
+    reply += c;
+    if(c == '\n'&& reply.length() > 1) {
+      if(reply.find(ECMC_PLUGIN_GRBL_GRBL_OK_STRING) != std::string::npos) {            
+        if(cfgDbgMode_){
+          printf("GRBL: INFO: Reply OK\n");
+        }
+        return ECMC_GRBL_REPLY_OK;        
+      } else if(reply.find(ECMC_PLUGIN_GRBL_GRBL_ERR_STRING) != std::string::npos) {
+        if(cfgDbgMode_){
+          printf("GRBL: ERROR: Reply ERROR\n");
+        }
+        return ECMC_GRBL_REPLY_ERROR;
+      } else if(reply.find(ECMC_PLUGIN_GRBL_GRBL_STARTUP_STRING) != std::string::npos ) {
+        if(cfgDbgMode_){
+          printf("GRBL: INFO: Ready for commands: %s\n",reply.c_str());
+        }
+        return ECMC_GRBL_REPLY_START;
+      } else {
+        // keep waiting (no break)            
+        if(cfgDbgMode_){
+          printf("GRBL: INFO: Reply non protocol related: %s\n",reply.c_str());
+        }
+        return ECMC_GRBL_REPLY_NON_PROTOCOL;
+      }
     }
   }
+  return ECMC_GRBL_REPLY_NON_PROTOCOL;
 }
 
 // Main grbl worker (copied from grbl main.c)
@@ -681,7 +743,7 @@ void   ecmcGrbl::readEcmcStatus(int ecmcError) {
 // grb realtime thread!!!  
 int  ecmcGrbl::grblRTexecute(int ecmcError) {
 
-  if(getEcmcEpicsIOCState()!=16 || !grblInitDone_) {
+  if(getEcmcEpicsIOCState()!=16 || !grblInitDone_ || unrecoverableError_) {
     return 0;
   }
   
@@ -838,7 +900,7 @@ void ecmcGrbl::resetError() {
 
 void ecmcGrbl::addCommand(std::string command) {
   if(cfgDbgMode_){
-    printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+    printf("%s:%s:%d:command %s\n",__FILE__,__FUNCTION__,__LINE__,command.c_str());
   }
   epicsMutexLock(grblCommandBufferMutex_);  
   grblCommandBuffer_.push_back(command.c_str());
@@ -851,7 +913,7 @@ void ecmcGrbl::addCommand(std::string command) {
 
 void ecmcGrbl::loadFile(std::string fileName, int append) {
   if(cfgDbgMode_){
-    printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+    printf("%s:%s:%d: file %s, append %d\n",__FILE__,__FUNCTION__,__LINE__,fileName.c_str(),append);
   }
 
   std::ifstream file;
@@ -882,3 +944,27 @@ void ecmcGrbl::loadFile(std::string fileName, int append) {
     }
   }
 }
+
+void  ecmcGrbl::addConfig(std::string command) {
+  if(cfgDbgMode_){
+    printf("%s:%s:%d:command %s\n",__FILE__,__FUNCTION__,__LINE__,command.c_str());
+  }
+  if (getEcmcEpicsIOCState() == 16) {
+    if(cfgDbgMode_){
+      printf("%s:%s:%d: GRBL: ERROR: Configuratoin can only be applied during startup:(0x%x)\n",
+        __FILE__,__FUNCTION__,__LINE__,ECMC_PLUGIN_CONFIG_ERROR_CODE);
+    }
+    return;
+  }
+    if(cfgDbgMode_){
+    printf("%s:%s:%d:command %s\n",__FILE__,__FUNCTION__,__LINE__,command.c_str());
+  }
+  epicsMutexLock(grblConfigBufferMutex_);  
+  grblConfigBuffer_.push_back(command.c_str());
+  epicsMutexUnlock(grblConfigBufferMutex_);
+  if(cfgDbgMode_){
+    printf("%s:%s:%d: GRBL: INFO: Buffer size %d\n",
+           __FILE__,__FUNCTION__,__LINE__,grblConfigBuffer_.size());
+  }
+}
+

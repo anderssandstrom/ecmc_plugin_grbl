@@ -48,6 +48,13 @@ typedef struct {
   bool allLimitsOKOld;
 } ecmcStatusData;
 
+enum grblReplyType {
+  ECMC_GRBL_REPLY_START = 0,
+  ECMC_GRBL_REPLY_OK = 1,
+  ECMC_GRBL_REPLY_ERROR = 2,
+  ECMC_GRBL_REPLY_NON_PROTOCOL = 3
+};
+
 class ecmcGrbl : public asynPortDriver {
  public:
 
@@ -66,6 +73,7 @@ class ecmcGrbl : public asynPortDriver {
   void                     doMainWorker();
   void                     doWriteWorker();
   void                     addCommand(std::string command);
+  void                     addConfig(std::string command);
   void                     loadFile(std::string filename, int append);
   int                      enterRT();
   int                      grblRTexecute(int ecmcError);
@@ -97,6 +105,8 @@ class ecmcGrbl : public asynPortDriver {
   bool                     getEcmcAxisLimitBwd(int ecmcAxisId);
   bool                     getEcmcAxisLimitFwd(int ecmcAxisId);
   static std::string       to_string(int value);
+  grblReplyType            grblReadReply();
+  void                     grblWriteCommand(std::string command);
   int                      cfgDbgMode_;
   int                      cfgXAxisId_;
   int                      cfgYAxisId_;
@@ -113,6 +123,8 @@ class ecmcGrbl : public asynPortDriver {
   int                      errorCodeOld_;
   double                   exeSampleTimeMs_;
   int                      grblInitDone_;
+  std::vector<std::string> grblConfigBuffer_;
+  epicsMutexId             grblConfigBufferMutex_;
   std::vector<std::string> grblCommandBuffer_;
   unsigned int             grblCommandBufferIndex_;
   epicsMutexId             grblCommandBufferMutex_;
@@ -123,6 +135,7 @@ class ecmcGrbl : public asynPortDriver {
   double                   spindleAcceleration_;
   int                      cfgAutoEnableTimeOutSecs_;
   int                      autoEnableTimeOutCounter_;
+  int                      unrecoverableError_;
   ecmcStatusData           ecmcData_;
 
 };
