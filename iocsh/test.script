@@ -97,10 +97,12 @@ epicsEnvUnset(ECMC_PLUGIN_CONFIG)
 #    $100, $101 and $102 – [X,Y,Z] steps/mm\n
 #    $110, $111 and $112 – [X,Y,Z] Max rate, mm/min\n
 #    $120, $121, $122 – [X,Y,Z] Acceleration, mm/sec^2\n
-  
-ecmcGrblAddConfig("$120=1234");
-ecmcGrblAddConfig("$121=1234");
-ecmcGrblAddConfig("$122=1234");
+
+ecmcGrblLoadConfigFile("./cfg/grbl.cfg")
+
+#ecmcGrblAddConfig("$120=1234");
+#ecmcGrblAddConfig("$121=1234");
+#ecmcGrblAddConfig("$122=1234");
 
 # Load g-code
 ecmcGrblLoadGCodeFile("./plc/gcode.nc",0)

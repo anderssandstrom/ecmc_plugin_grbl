@@ -957,15 +957,21 @@ void  ecmcGrbl::addConfig(std::string command) {
     return;
   }
 
-  std::size_t found = command.find(ECMC_CONFIG_GRBL_CONFIG_CHAR);
+  // ignore comments
+  std::string commandStrip = command.substr(0, command.find(ECMC_CONFIG_FILE_COMMENT_CHAR));
+  if (commandStrip.length()==0) {
+    return;
+  }
+
+  std::size_t found = commandStrip.find(ECMC_CONFIG_GRBL_CONFIG_CHAR);
   if (found==std::string::npos) {
     printf("%s:%s:%d: GRBL: ERROR: Configuration command not valid (0x%x)\n",
         __FILE__,__FUNCTION__,__LINE__,ECMC_PLUGIN_CONFIG_ERROR_CODE);
     return;
   }
 
-  epicsMutexLock(grblConfigBufferMutex_);  
-  grblConfigBuffer_.push_back(command.c_str());
+  epicsMutexLock(grblConfigBufferMutex_);
+  grblConfigBuffer_.push_back(commandStrip.c_str());
   epicsMutexUnlock(grblConfigBufferMutex_);
   if(cfgDbgMode_){
     printf("%s:%s:%d: GRBL: INFO: Buffer size %d\n",
