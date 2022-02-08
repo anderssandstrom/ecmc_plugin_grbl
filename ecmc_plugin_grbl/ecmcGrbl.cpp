@@ -28,7 +28,7 @@ extern "C" {
 #include "grbl.h"
 }
 
-// Global vars
+// Global grbl vars
 int enableDebugPrintouts = 0;
 int stepperInterruptEnable = 0;
 
@@ -126,9 +126,7 @@ ecmcGrbl::ecmcGrbl(char* configStr,
     throw std::runtime_error("GRBL: ERROR: Failed create mutex for command buffer.");
   }
   
-  
   parseConfigStr(configStr); // Assigns all configs
-  
   
   ecmcData_.xAxis.axisId       = cfgXAxisId_;
   ecmcData_.yAxis.axisId       = cfgYAxisId_;
@@ -348,11 +346,11 @@ bool ecmcGrbl::autoEnableAxesSuccess() {
     return true;
   }
 
-  if(!cfgAutoEnable_ && !errorCode_) {
+  if(cfgAutoEnable_ && !errorCode_) {
     setAllAxesEnable(1);
   }
 
-  int loopCounter=0;
+  int loopCounter = 0;
   while(!ecmcData_.allEnabled || loopCounter >= 100) {
     delay_ms(cfgAutoEnableTimeOutSecs_*10); //*1000/100
     loopCounter++;
@@ -375,7 +373,6 @@ bool ecmcGrbl::WriteGCodeSuccess() {
       if(command.length() == 0) {
         continue;
       }
-      printf("KHEWALHsl:dh:lashdlöaskd_akndsa_skjndläasldkjnlkasjfd\n");
 
       //Write command (will block untill written)
       grblWriteCommand(command);
@@ -899,13 +896,6 @@ int ecmcGrbl::getParserBusy() {
 
 int ecmcGrbl::getCodeRowNum() {
   return grblCommandBufferIndex_;
-}
-
-// Avoid issues with std:to_string()
-std::string ecmcGrbl::to_string(int value) {
-  std::ostringstream os;
-  os << value;
-  return os.str();
 }
 
 int ecmcGrbl::getError() {

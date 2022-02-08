@@ -70,14 +70,14 @@ class ecmcGrbl : public asynPortDriver {
            double exeSampelTimeMs);
   ~ecmcGrbl();
 
-  void                     doMainWorker();
-  void                     doWriteWorker();
+  void                     doMainWorker();     // Simulated grbl main.c
+  void                     doWriteWorker();    // Simulated grbl client
   void                     addCommand(std::string command);
   void                     addConfig(std::string command);
   void                     loadGCodeFile(std::string filename, int append);
   void                     loadConfigFile(std::string fileName, int append);
   int                      enterRT();
-  int                      grblRTexecute(int ecmcError);
+  int                      grblRTexecute(int ecmcError);              //ecmc rt thread (main)
   int                      setExecute(int exe);
   int                      setHalt(int halt);
   int                      setResume(int resume);
@@ -91,25 +91,24 @@ class ecmcGrbl : public asynPortDriver {
   int                      getAllAxesEnabled();
 
  private:
-  void                     parseConfigStr(char *configStr);
-  void                     readEcmcStatus(int ecmcError);
-  void                     preExeAxes();
-  void                     postExeAxes();
-  void                     preExeAxis(ecmcAxisStatusData ecmcAxisData, int grblAxisId);
-  void                     postExeAxis(ecmcAxisStatusData ecmcAxisData, int grblAxisId);
-  void                     giveControlToEcmcIfNeeded();
-  void                     syncAxisPosition(ecmcAxisStatusData ecmcAxisData, int grblAxisId);
-  bool                     getEcmcAxisEnabled(int ecmcAxisId);
-  double                   getEcmcAxisActPos(int axis);
-  int                      getEcmcAxisTrajSource(int ecmcAxisId);
-  bool                     getEcmcAxisLimitBwd(int ecmcAxisId);
-  bool                     getEcmcAxisLimitFwd(int ecmcAxisId);
-  static std::string       to_string(int value);
-  grblReplyType            grblReadReply();
-  void                     grblWriteCommand(std::string command);
-  bool                     applyConfigsSuccess();
-  bool                     WriteGCodeSuccess();
-  bool                     autoEnableAxesSuccess();
+  void                     parseConfigStr(char *configStr);           // constructor (iocsh thread)
+  void                     readEcmcStatus(int ecmcError);             // ecmc rt thread
+  void                     preExeAxes();                              // ecmc rt thread
+  void                     postExeAxes();                             // ecmc rt thread
+  void                     preExeAxis(ecmcAxisStatusData ecmcAxisData, int grblAxisId); //ecmc rt thread
+  void                     postExeAxis(ecmcAxisStatusData ecmcAxisData, int grblAxisId); //ecmc rt thread
+  void                     giveControlToEcmcIfNeeded();                //ecmc rt thread
+  void                     syncAxisPosition(ecmcAxisStatusData ecmcAxisData, int grblAxisId); //ecmc rt thread
+  bool                     getEcmcAxisEnabled(int ecmcAxisId);        //ecmc rt thread
+  double                   getEcmcAxisActPos(int axis);               //ecmc rt thread
+  int                      getEcmcAxisTrajSource(int ecmcAxisId);     //ecmc rt thread
+  bool                     getEcmcAxisLimitBwd(int ecmcAxisId);       //ecmc rt thread
+  bool                     getEcmcAxisLimitFwd(int ecmcAxisId);       //ecmc rt thread
+  grblReplyType            grblReadReply();                           // doWriteWorker thread
+  void                     grblWriteCommand(std::string command);     // doWriteWorker thread
+  bool                     applyConfigsSuccess();                     // doWriteWorker thread
+  bool                     WriteGCodeSuccess();                       // doWriteWorker thread
+  bool                     autoEnableAxesSuccess();                   // doWriteWorker thread
 
   int                      cfgDbgMode_;
   int                      cfgXAxisId_;

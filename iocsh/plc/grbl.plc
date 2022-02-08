@@ -13,14 +13,15 @@ ax2.reset:=0;
 ax3.reset:=0;
 
 # Enable axis in state 0
-if(static.state==0) {
-  if(not(grbl_get_busy()) and not(grbl_get_error())) {
-    grbl_set_all_enable(1);    
-  };
-  if(grbl_get_all_enabled()) {
-    static.state:=1;
-  };
-};
+#if(static.state==0) {
+#  if(not(grbl_get_busy()) and not(grbl_get_error())) {
+#    grbl_set_all_enable(1);    
+#  };
+#  if(grbl_get_all_enabled()) {
+#    static.state:=1;
+#  };
+#};
+static.state:=1;
 
 # Trigg motion
 if(static.state == 1) {
