@@ -289,11 +289,12 @@ void ecmcGrbl::doWriteWorker() {
       }
 
       // Execute auto enable
-      if(cfgDbgMode_){
-        printf("GRBL: INFO: auto enable\n");
+      if( cfgAutoEnable_) {
+        if(cfgDbgMode_){
+          printf("GRBL: INFO: auto enable\n");
+        }
+        autoEnableAxesSuccess();
       }
-
-      autoEnableAxesSuccess();
 
       // Write g-code commands
       if(cfgDbgMode_){
@@ -301,7 +302,9 @@ void ecmcGrbl::doWriteWorker() {
       }
       if(!WriteGCodeSuccess()) {
         return;  // Something went seriously wrong, kill thread
-      }      
+      }
+      executeCmd_ = 0;
+      writerBusy_ = false;
     }
   }
 }
@@ -372,6 +375,7 @@ bool ecmcGrbl::WriteGCodeSuccess() {
       if(command.length() == 0) {
         continue;
       }
+      printf("KHEWALHsl:dh:lashdlöaskd_akndsa_skjndläasldkjnlkasjfd\n");
 
       //Write command (will block untill written)
       grblWriteCommand(command);
@@ -393,9 +397,8 @@ bool ecmcGrbl::WriteGCodeSuccess() {
       grblCommandBufferIndex_++;
     }
     else {
-      if( (( grblCommandBufferIndex_ >= grblCommandBuffer_.size()) || !executeCmd_ ) &&
-            grblInitDone_) {
-        writerBusy_ = 0;
+      if( ( (grblCommandBufferIndex_ >= grblCommandBuffer_.size()) || !executeCmd_) && grblInitDone_) {
+        writerBusy_ = 0;        
         return true;  // code executed once
       }
 
@@ -848,11 +851,15 @@ void ecmcGrbl::postExeAxes() {
 
 // trigg start of g-code
 int ecmcGrbl::setExecute(int exe) {
+  if(getParserBusy() && exe && !executeCmd_) {
+    return ECMC_PLUGIN_GRBL_BUSY_WARNING_CODE;
+  }
 
   if(!executeCmd_ && exe) {
     grblCommandBufferIndex_ = 0;
     writerBusy_ = 1;
   }
+
   executeCmd_ = exe;
   return 0;
 }
@@ -914,8 +921,15 @@ void ecmcGrbl::addCommand(std::string command) {
   if(cfgDbgMode_){
     printf("%s:%s:%d:command %s\n",__FILE__,__FUNCTION__,__LINE__,command.c_str());
   }
+
+    // ignore comments
+  std::string commandStrip = command.substr(0, command.find(ECMC_CONFIG_FILE_COMMENT_CHAR));
+  if (commandStrip.length()==0) {
+    return;
+  }
+
   epicsMutexLock(grblCommandBufferMutex_);  
-  grblCommandBuffer_.push_back(command.c_str());
+  grblCommandBuffer_.push_back(commandStrip.c_str());
   epicsMutexUnlock(grblCommandBufferMutex_);
   if(cfgDbgMode_){
     printf("%s:%s:%d: GRBL: INFO: Buffer size %d\n",
