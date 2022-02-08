@@ -113,7 +113,6 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   spindleAcceleration_  = 0;
   unrecoverableError_   = 0;
   cfgAutoEnableTimeOutSecs_ = ECMC_PLUGIN_AUTO_ENABLE_TIME_OUT_SEC;
-  autoEnableTimeOutCounter_ = 0;
   grblCommandBufferIndex_ = 0;
   grblCommandBuffer_.clear();
   grblConfigBuffer_.clear();
@@ -238,7 +237,7 @@ void ecmcGrbl::parseConfigStr(char *configStr) {
   }
 }
 
-// Write socket worker
+// Main program for writing configs and g-code to grbl
 void ecmcGrbl::doWriteWorker() {
   // simulate serial connection here (need mutex)
   std::string reply = "";
@@ -271,11 +270,41 @@ void ecmcGrbl::doWriteWorker() {
     }
     delay_ms(2);
   
+    // Blocks until written
     if(cfgDbgMode_){
       printf("GRBL: INFO: Configuration start\n");
+    }    
+    if(!applyConfigsSuccess()) {
+      return; // Something went wrong, kill thread
     }
 
-    // Apply configs
+    // Auto enable
+    if(cfgDbgMode_){
+      printf("GRBL: INFO: Auto enable configured axes\n");
+    }
+
+    // All configs done above.
+    for(;;) {
+      // Execute auto enable
+      if(cfgDbgMode_){
+        printf("GRBL: INFO: auto enable\n");
+      }
+    
+      autoEnableAxesSuccess();
+
+      // GRBL ready, now we can send g-code comamnds
+      if(cfgDbgMode_){
+        printf("GRBL: INFO: Start load g-code\n");
+      }
+      if(!WriteGCodeSuccess()) {
+        return;  // Something went wrong, kill thread
+      }      
+    }
+  }
+}
+
+bool ecmcGrbl::applyConfigsSuccess() {
+     // Apply configs
     int index = 0;
     while(index < grblConfigBuffer_.size()) {
       epicsMutexLock(grblConfigBufferMutex_);
@@ -299,62 +328,78 @@ void ecmcGrbl::doWriteWorker() {
         printf("GRBL: ERROR: Restart of IOC needed.\n");
         unrecoverableError_ = 1;
         setExecute(0);
-        return;  //kill thread
+        return false;  
       }
 
       index++;
     }
-    
-    if(cfgDbgMode_){
-      printf("GRBL: INFO: Configuration ready\n");
-    }
+  return true;
+}
 
-    if(cfgDbgMode_){
-      printf("GRBL: INFO: Start load g-code\n");
-    }
+bool ecmcGrbl::autoEnableAxesSuccess() {
 
-    // GRBL ready, now we can send g-code comamnds
-    for(;;) {
-      if( (grblCommandBuffer_.size() > grblCommandBufferIndex_) &&         
-          executeCmd_ && ecmcData_.allEnabled && grblInitDone_) {
-        epicsMutexLock(grblCommandBufferMutex_);
-        std::string commandRaw = grblCommandBuffer_[grblCommandBufferIndex_];
-        epicsMutexUnlock(grblCommandBufferMutex_);
-        std::string command = commandRaw.substr(0, commandRaw.find(ECMC_CONFIG_FILE_COMMENT_CHAR));
-        if(command.length() == 0) {
-          continue;
-        }
-  
-        //Write command (will block untill written)
-        grblWriteCommand(command);
-        
-        // will block untill answer
-        grblReplyType replyStat = grblReadReply();
-  
-        if(replyStat != ECMC_GRBL_REPLY_OK) {
-          errorCode_ = ECMC_PLUGIN_GRBL_COMMAND_ERROR_CODE;
-          // stop motion
-          setExecute(0);
-          setReset(0);
-          setReset(1);
-          setReset(0);
-          grblCommandBufferIndex_ = 0;
-          break;  // for loop
-        }
-        
-        grblCommandBufferIndex_++;
-      }
-      else {
-        if( (( grblCommandBufferIndex_ >= grblCommandBuffer_.size()) || !executeCmd_ ) &&
-              grblInitDone_) {
-          writerBusy_ = 0;
-        }
-  
-        // Wait for right condition to start
-        delay_ms(5);
-      }
-    }    
+  if(ecmcData_.allEnabled) {
+    return true;
   }
+
+  if(!cfgAutoEnable_ && !errorCode_) {
+    setAllAxesEnable(1);
+  }
+
+  int loopCounter=0;
+  while(!ecmcData_.allEnabled || loopCounter >= 100) {
+    delay_ms(cfgAutoEnableTimeOutSecs_*10); //*1000/100
+    loopCounter++;
+  }
+  if(loopCounter >= 100 && !ecmcData_.allEnabled) {
+    errorCode_ = ECMC_PLUGIN_AUTO_ENABLE_TIMEOUT_ERROR_CODE;
+  }
+  return ecmcData_.allEnabled;
+}
+
+bool ecmcGrbl::WriteGCodeSuccess() {
+  for(;;) {
+    
+    if( (grblCommandBuffer_.size() > grblCommandBufferIndex_) &&         
+        executeCmd_ && ecmcData_.allEnabled && grblInitDone_) {
+      epicsMutexLock(grblCommandBufferMutex_);
+      std::string commandRaw = grblCommandBuffer_[grblCommandBufferIndex_];
+      epicsMutexUnlock(grblCommandBufferMutex_);
+      std::string command = commandRaw.substr(0, commandRaw.find(ECMC_CONFIG_FILE_COMMENT_CHAR));
+      if(command.length() == 0) {
+        continue;
+      }
+
+      //Write command (will block untill written)
+      grblWriteCommand(command);
+      
+      // will block untill answer
+      grblReplyType replyStat = grblReadReply();
+
+      if(replyStat != ECMC_GRBL_REPLY_OK) {
+        errorCode_ = ECMC_PLUGIN_GRBL_COMMAND_ERROR_CODE;
+        // stop motion
+        setExecute(0);
+        setReset(0);
+        setReset(1);
+        setReset(0);
+        grblCommandBufferIndex_ = 0;
+        return false;  // for loop
+      }
+      
+      grblCommandBufferIndex_++;
+    }
+    else {
+      if( (( grblCommandBufferIndex_ >= grblCommandBuffer_.size()) || !executeCmd_ ) &&
+            grblInitDone_) {
+        writerBusy_ = 0;
+      }
+
+      // Wait for right condition to start
+      delay_ms(5);
+    }
+  }
+  return true;
 }
 
 void ecmcGrbl::grblWriteCommand(std::string command) {
@@ -514,19 +559,6 @@ int ecmcGrbl::getAllAxesEnabled() {
   return ecmcData_.allEnabled;
 }  
 
-void  ecmcGrbl::autoEnableAxis(ecmcAxisStatusData ecmcAxisData) {
-  
-  if(!cfgAutoEnable_ || getEcmcEpicsIOCState()!=16 || errorCode_ || ecmcAxisData.axisId < 0) {
-    return;
-  }
-  
-  if(ecmcAxisData.enabled) {
-    return;
-  }
-
-  setAxisEnable(ecmcAxisData.axisId,1);
-}
-
 bool ecmcGrbl::getEcmcAxisLimitBwd(int ecmcAxisId) {
   int lim = 0;
   getAxisLimitSwitchBwd(ecmcAxisId,&lim);
@@ -566,26 +598,6 @@ void ecmcGrbl::preExeAxes() {
 
   // Kill everything if limit switch violation
   giveControlToEcmcIfNeeded();
-
-  //spindle
-  autoEnableAxis(ecmcData_.spindleAxis);
-  
-  if(ecmcData_.allEnabled) {
-    autoEnableTimeOutCounter_ = 0;
-  } else {
-    if(cfgAutoEnable_ && !errorCode_) {
-      if(autoEnableTimeOutCounter_ >= cfgAutoEnableTimeOutSecs_/exeSampleTimeMs_*1000) {
-        errorCode_ = ECMC_PLUGIN_AUTO_ENABLE_TIMEOUT_ERROR_CODE;
-        if(errorCode_ != errorCodeOld_) {
-          printf("GRBL: ERROR: Auto enable timeout 0x%x\n",errorCode_);
-        }
-        setExecute(0);
-        setAllAxesEnable(0);
-      } else {
-        autoEnableTimeOutCounter_++;
-      }
-    }
-  }
 }
 
 void ecmcGrbl::preExeAxis(ecmcAxisStatusData ecmcAxisData, int grblAxisId) {
@@ -593,8 +605,7 @@ void ecmcGrbl::preExeAxis(ecmcAxisStatusData ecmcAxisData, int grblAxisId) {
     return;
   }
   
-  syncAxisPosition(ecmcAxisData, grblAxisId);
-  autoEnableAxis(ecmcAxisData);  
+  syncAxisPosition(ecmcAxisData, grblAxisId);  
 }
 
 void ecmcGrbl::giveControlToEcmcIfNeeded() {
@@ -833,9 +844,6 @@ void ecmcGrbl::postExeAxes() {
 
 // trigg start of g-code
 int ecmcGrbl::setExecute(int exe) {
-  if(!exe) {    
-    autoEnableTimeOutCounter_ = 0;
-  }
 
   if(!executeCmd_ && exe) {
     grblCommandBufferIndex_ = 0;

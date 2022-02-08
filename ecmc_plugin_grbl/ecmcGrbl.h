@@ -97,7 +97,6 @@ class ecmcGrbl : public asynPortDriver {
   void                     postExeAxes();
   void                     preExeAxis(ecmcAxisStatusData ecmcAxisData, int grblAxisId);
   void                     postExeAxis(ecmcAxisStatusData ecmcAxisData, int grblAxisId);
-  void                     autoEnableAxis(ecmcAxisStatusData ecmcAxisData);
   void                     giveControlToEcmcIfNeeded();
   void                     syncAxisPosition(ecmcAxisStatusData ecmcAxisData, int grblAxisId);
   bool                     getEcmcAxisEnabled(int ecmcAxisId);
@@ -108,6 +107,10 @@ class ecmcGrbl : public asynPortDriver {
   static std::string       to_string(int value);
   grblReplyType            grblReadReply();
   void                     grblWriteCommand(std::string command);
+  bool                     applyConfigsSuccess();
+  bool                     WriteGCodeSuccess();
+  bool                     autoEnableAxesSuccess();
+
   int                      cfgDbgMode_;
   int                      cfgXAxisId_;
   int                      cfgYAxisId_;
@@ -135,7 +138,6 @@ class ecmcGrbl : public asynPortDriver {
   bool                     writerBusy_;
   double                   spindleAcceleration_;
   int                      cfgAutoEnableTimeOutSecs_;
-  int                      autoEnableTimeOutCounter_;
   int                      unrecoverableError_;
   ecmcStatusData           ecmcData_;
 
