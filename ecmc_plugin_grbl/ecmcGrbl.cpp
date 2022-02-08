@@ -235,7 +235,7 @@ void ecmcGrbl::parseConfigStr(char *configStr) {
   }
 }
 
-// Main program for writing configs and g-code to grbl
+// Main program for grbl client (interaction with grbl, configs and g-code)
 void ecmcGrbl::doWriteWorker() {
   // simulate serial connection here (need mutex)
   std::string reply = "";
@@ -267,8 +267,8 @@ void ecmcGrbl::doWriteWorker() {
       delay_ms(2);
     }
     delay_ms(2);
-  
-    // Blocks until written
+
+    // Write configs (blocks)     
     if(cfgDbgMode_){
       printf("GRBL: INFO: Configuration start\n");
     }    
@@ -278,6 +278,12 @@ void ecmcGrbl::doWriteWorker() {
     
     // All configs done above
     writerBusy_ = false;
+    
+    if(cfgAutoStart_) {
+      setExecute(0);
+      setExecute(1);
+    }
+
     for(;;) {
 
       // wait for execute
