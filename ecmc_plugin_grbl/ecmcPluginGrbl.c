@@ -115,9 +115,9 @@ double grbl_mc_resume(double halt) {
 }
 
 // Plc function for reset grbl
-double grbl_mc_reset(double halt) {
-  return setReset((int)halt);
-}
+//double grbl_mc_reset(double halt) {
+//  return setReset((int)halt);
+//}
 
 // Plc function for reset grbl
 double grbl_get_busy() {
@@ -249,30 +249,30 @@ struct ecmcPluginData pluginDataDef = {
         .funcArg10 = NULL,
         .funcGenericObj = NULL,
       },
+//  .funcs[3] =
+//      { /*----grbl_mc_reset----*/
+//        // Function name (this is the name you use in ecmc plc-code)
+//        .funcName = "grbl_mc_reset",
+//        // Function description
+//        .funcDesc = "double grbl_mc_reset(<reset>) :  Reset grbl at positive edge of <reset>",
+//        /**
+//        * 7 different prototypes allowed (only doubles since reg in plc).
+//        * Only funcArg${argCount} func shall be assigned the rest set to NULL.
+//        **/
+//        .funcArg0 = NULL,
+//        .funcArg1 = grbl_mc_reset,
+//        .funcArg2 = NULL,
+//        .funcArg3 = NULL,
+//        .funcArg4 = NULL,
+//        .funcArg5 = NULL,
+//        .funcArg6 = NULL,
+//        .funcArg7 = NULL,
+//        .funcArg8 = NULL,
+//        .funcArg9 = NULL,
+//        .funcArg10 = NULL,
+//        .funcGenericObj = NULL,
+//      },
   .funcs[3] =
-      { /*----grbl_mc_reset----*/
-        // Function name (this is the name you use in ecmc plc-code)
-        .funcName = "grbl_mc_reset",
-        // Function description
-        .funcDesc = "double grbl_mc_reset(<reset>) :  Reset grbl at positive edge of <reset>",
-        /**
-        * 7 different prototypes allowed (only doubles since reg in plc).
-        * Only funcArg${argCount} func shall be assigned the rest set to NULL.
-        **/
-        .funcArg0 = NULL,
-        .funcArg1 = grbl_mc_reset,
-        .funcArg2 = NULL,
-        .funcArg3 = NULL,
-        .funcArg4 = NULL,
-        .funcArg5 = NULL,
-        .funcArg6 = NULL,
-        .funcArg7 = NULL,
-        .funcArg8 = NULL,
-        .funcArg9 = NULL,
-        .funcArg10 = NULL,
-        .funcGenericObj = NULL,
-      },
-  .funcs[4] =
       { /*----grbl_get_busy----*/
         // Function name (this is the name you use in ecmc plc-code)
         .funcName = "grbl_get_busy",
@@ -295,7 +295,7 @@ struct ecmcPluginData pluginDataDef = {
         .funcArg10 = NULL,
         .funcGenericObj = NULL,
       },
-  .funcs[5] =
+  .funcs[4] =
       { /*----grbl_get_parser_busy----*/
         // Function name (this is the name you use in ecmc plc-code)
         .funcName = "grbl_get_parser_busy",
@@ -318,7 +318,7 @@ struct ecmcPluginData pluginDataDef = {
         .funcArg10 = NULL,
         .funcGenericObj = NULL,
       },
-  .funcs[6] =
+  .funcs[5] =
       { /*----grbl_get_code_row_num----*/
         // Function name (this is the name you use in ecmc plc-code)
         .funcName = "grbl_get_code_row_num",
@@ -341,7 +341,7 @@ struct ecmcPluginData pluginDataDef = {
         .funcArg10 = NULL,
         .funcGenericObj = NULL,
       },
-  .funcs[7] =
+  .funcs[6] =
       { /*----grbl_get_error----*/
         // Function name (this is the name you use in ecmc plc-code)
         .funcName = "grbl_get_error",
@@ -364,7 +364,7 @@ struct ecmcPluginData pluginDataDef = {
         .funcArg10 = NULL,
         .funcGenericObj = NULL,
       },
-  .funcs[8] =
+  .funcs[7] =
       { /*----grbl_reset_error----*/
         // Function name (this is the name you use in ecmc plc-code)
         .funcName = "grbl_reset_error",
@@ -387,7 +387,7 @@ struct ecmcPluginData pluginDataDef = {
         .funcArg10 = NULL,
         .funcGenericObj = NULL,
       },
-  .funcs[9] =
+  .funcs[8] =
       { /*----grbl_get_all_enabled----*/
         // Function name (this is the name you use in ecmc plc-code)
         .funcName = "grbl_get_all_enabled",
@@ -410,7 +410,7 @@ struct ecmcPluginData pluginDataDef = {
         .funcArg10 = NULL,
         .funcGenericObj = NULL,
       },
-  .funcs[10] =
+  .funcs[9] =
       { /*----grbl_set_all_enable----*/
         // Function name (this is the name you use in ecmc plc-code)
         .funcName = "grbl_set_all_enable",
@@ -434,7 +434,7 @@ struct ecmcPluginData pluginDataDef = {
         .funcGenericObj = NULL,
       },
 
-  .funcs[11] = {0},  // last element set all to zero..
+  .funcs[10] = {0},  // last element set all to zero..
   // PLC consts
   .consts[0] = {0}, // last element set all to zero..
 };

@@ -777,13 +777,6 @@ int  ecmcGrbl::grblRTexecute(int ecmcError) {
     setHalt(0);
     setHalt(1);
 
-    //if(ecmcData_.error != errorCode_) {  // ecmc error then reset
-    //  if(ecmcData_.error > 0 && ecmcData_.errorOld == 0) {
-    //    setReset(0);
-    //    setReset(1);
-    //  }
-    //}
-
     // Stop spindle
     if(ecmcData_.spindleAxis.axisId >= 0) {
       setAxisTargetVel(ecmcData_.spindleAxis.axisId, 0);
