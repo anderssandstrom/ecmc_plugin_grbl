@@ -23,7 +23,7 @@
 
 void system_init()
 {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
 
   //CONTROL_DDR &= ~(CONTROL_MASK); // Configure as input pins
   //#ifdef DISABLE_CONTROL_PIN_PULL_UP
@@ -41,7 +41,7 @@ void system_init()
 // defined by the CONTROL_PIN_INDEX in the header file.
 uint8_t system_control_get_state()
 {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
   return 0;
 //  uint8_t control_state = 0;
 //  uint8_t pin = (CONTROL_PIN & CONTROL_MASK) ^ CONTROL_MASK;
@@ -90,7 +90,7 @@ uint8_t system_control_get_state()
 // Returns if safety door is ajar(T) or closed(F), based on pin state.
 uint8_t system_check_safety_door_ajar()
 {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
   return 0;
 
   //#ifdef ENABLE_SAFETY_DOOR_INPUT_PIN
@@ -104,7 +104,7 @@ uint8_t system_check_safety_door_ajar()
 // Executes user startup script, if stored.
 void system_execute_startup(char *line)
 {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
   uint8_t n;
   for (n=0; n < N_STARTUP_LINE; n++) {
     if (!(settings_read_startup_line(n, line))) {
@@ -130,14 +130,12 @@ void system_execute_startup(char *line)
 // be an issue, since these commands are not typically used during a cycle.
 
 uint8_t system_execute_line(char *line)
-{
-  printf("\n%s:%s:%d:###################\n",__FILE__,__FUNCTION__,__LINE__);
-  printf("%s:%s:%d:%s\n",__FILE__,__FUNCTION__,__LINE__,line);
+{  
+  //printf("%s:%s:%d:%s\n",__FILE__,__FUNCTION__,__LINE__,line);
 
   uint8_t char_counter = 1;
   uint8_t helper_var = 0; // Helper variable
-  float parameter, value;
-  printf("system_execute_line switch line[1]=%c\n",line[char_counter]);
+  float parameter, value;  
   switch( line[char_counter] ) {
     case 0 : report_grbl_help(); break;
     case 'J' : // Jogging
@@ -263,11 +261,8 @@ uint8_t system_execute_line(char *line)
             // No break. Continues into default: to read remaining command characters.
           }
         default :  // Storing setting methods [IDLE/ALARM]
-          printf("1\n");
           if(!read_float(line, &char_counter, &parameter)) { return(STATUS_BAD_NUMBER_FORMAT); }
-          printf("2 parameter %f\n",parameter);
           if(line[char_counter++] != '=') { return(STATUS_INVALID_STATEMENT); }
-          printf("3\n");
           if (helper_var) { // Store startup line
             // Prepare sending gcode block to gcode parser by shifting all characters
             helper_var = char_counter; // Set helper variable as counter to start of gcode block
@@ -389,7 +384,7 @@ void system_clear_exec_state_flag(uint8_t mask) {
 }
 
 void system_set_exec_alarm(uint8_t code) {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
   //uint8_t sreg = SREG;
   //cli();
   sys_rt_exec_alarm = code;
@@ -397,7 +392,7 @@ void system_set_exec_alarm(uint8_t code) {
 }
 
 void system_clear_exec_alarm() {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
   //uint8_t sreg = SREG;
   //cli();
   sys_rt_exec_alarm = 0;
@@ -405,7 +400,7 @@ void system_clear_exec_alarm() {
 }
 
 void system_set_exec_motion_override_flag(uint8_t mask) {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
   //uint8_t sreg = SREG;
   //cli();
   sys_rt_exec_motion_override |= (mask);
@@ -413,7 +408,7 @@ void system_set_exec_motion_override_flag(uint8_t mask) {
 }
 
 void system_set_exec_accessory_override_flag(uint8_t mask) {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
   //uint8_t sreg = SREG;
   //cli();
   sys_rt_exec_accessory_override |= (mask);
@@ -421,7 +416,7 @@ void system_set_exec_accessory_override_flag(uint8_t mask) {
 }
 
 void system_clear_exec_motion_overrides() {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
   //uint8_t sreg = SREG;
   //cli();
   sys_rt_exec_motion_override = 0;
@@ -429,7 +424,7 @@ void system_clear_exec_motion_overrides() {
 }
 
 void system_clear_exec_accessory_overrides() {
-  printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  //printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
   //uint8_t sreg = SREG;
   //cli();
   sys_rt_exec_accessory_override = 0;
