@@ -89,7 +89,7 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILN
 epicsEnvUnset(ECMC_PLUGIN_FILNAME)
 epicsEnvUnset(ECMC_PLUGIN_CONFIG)
 
-# Load grbl configs:
+# Load grbl configs (use "ecmcGrblAddConfig()" or "ecmcGrblAddConfig()"):
 #    $11 - Junction deviation, mm\n
 #    $12 – Arc tolerance, mm\n
 #    $30 - Max spindle speed, RPM\n
@@ -104,7 +104,7 @@ ecmcGrblLoadConfigFile("./cfg/grbl.cfg")
 #ecmcGrblAddConfig("$121=1234");
 #ecmcGrblAddConfig("$122=1234");
 
-# Load g-code
+# Load g-code (use "ecmcGrblLoadGCodeFile()" or "ecmcGrblAddCommand()")
 ecmcGrblLoadGCodeFile("./plc/gcode.nc",0)
 
 #ecmcGrblAddCommand("G1X20Y20F360");
@@ -116,7 +116,7 @@ ecmcGrblLoadGCodeFile("./plc/gcode.nc",0)
 #ecmcGrblAddCommand("G1X0Y0");
 
 ##############################################################################
-## PLC 0
+## PLC 0: Test some grbl plc commands
 $(SCRIPTEXEC) $(ecmccfg_DIR)loadPLCFile.cmd, "PLC_ID=0, SAMPLE_RATE_MS=1000,FILE=./plc/grbl.plc")
 
 ##############################################################################
@@ -135,6 +135,10 @@ $(SCRIPTEXEC) ($(ecmccfg_DIR)setAppMode.cmd)
 # Note need to test 0x21 later..
 #asynSetTraceMask(MC_CPU1, -1, 0x21)
 asynSetTraceMask(MC_CPU1, -1, 0x0)
+
+##############################################################################
+############# Go Live:
+
 iocInit()
 
 dbpf $(IOC):Axis1.SPAM 0
