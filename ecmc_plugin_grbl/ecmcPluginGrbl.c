@@ -249,29 +249,6 @@ struct ecmcPluginData pluginDataDef = {
         .funcArg10 = NULL,
         .funcGenericObj = NULL,
       },
-//  .funcs[3] =
-//      { /*----grbl_mc_reset----*/
-//        // Function name (this is the name you use in ecmc plc-code)
-//        .funcName = "grbl_mc_reset",
-//        // Function description
-//        .funcDesc = "double grbl_mc_reset(<reset>) :  Reset grbl at positive edge of <reset>",
-//        /**
-//        * 7 different prototypes allowed (only doubles since reg in plc).
-//        * Only funcArg${argCount} func shall be assigned the rest set to NULL.
-//        **/
-//        .funcArg0 = NULL,
-//        .funcArg1 = grbl_mc_reset,
-//        .funcArg2 = NULL,
-//        .funcArg3 = NULL,
-//        .funcArg4 = NULL,
-//        .funcArg5 = NULL,
-//        .funcArg6 = NULL,
-//        .funcArg7 = NULL,
-//        .funcArg8 = NULL,
-//        .funcArg9 = NULL,
-//        .funcArg10 = NULL,
-//        .funcGenericObj = NULL,
-//      },
   .funcs[3] =
       { /*----grbl_get_busy----*/
         // Function name (this is the name you use in ecmc plc-code)

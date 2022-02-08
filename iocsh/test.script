@@ -84,7 +84,7 @@ epicsEnvSet("PLUGIN_VER" ,"develop")
 require ecmc_plugin_grbl $(PLUGIN_VER)
 
 epicsEnvSet(ECMC_PLUGIN_FILNAME,"/home/pi/epics/base-7.0.5/require/${E3_REQUIRE_VERSION}/siteMods/ecmc_plugin_grbl/$(PLUGIN_VER)/lib/${EPICS_HOST_ARCH=linux-x86_64}/libecmc_plugin_grbl.so")
-epicsEnvSet(ECMC_PLUGIN_CONFIG,"DBG_PRINT=1;X_AXIS=1;Y_AXIS=2;SPINDLE_AXIS=3;AUTO_ENABLE=1;AUTO_START=1;") # Only one option implemented in this plugin
+epicsEnvSet(ECMC_PLUGIN_CONFIG,"DBG_PRINT=1;X_AXIS=1;Y_AXIS=2;SPINDLE_AXIS=3;AUTO_ENABLE=0;AUTO_START=0;")
 ${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILNAME},CONFIG='${ECMC_PLUGIN_CONFIG}', REPORT=1"
 epicsEnvUnset(ECMC_PLUGIN_FILNAME)
 epicsEnvUnset(ECMC_PLUGIN_CONFIG)
@@ -117,7 +117,7 @@ ecmcGrblLoadGCodeFile("./plc/gcode.nc",0)
 
 ##############################################################################
 ## PLC 0
-#$(SCRIPTEXEC) $(ecmccfg_DIR)loadPLCFile.cmd, "PLC_ID=0, SAMPLE_RATE_MS=1000,FILE=./plc/grbl.plc")
+$(SCRIPTEXEC) $(ecmccfg_DIR)loadPLCFile.cmd, "PLC_ID=0, SAMPLE_RATE_MS=1000,FILE=./plc/grbl.plc")
 
 ##############################################################################
 ############# Configure diagnostics:
