@@ -911,7 +911,7 @@ void ecmcGrbl::addCommand(std::string command) {
   }
 }
 
-void ecmcGrbl::loadFile(std::string fileName, int append) {
+void ecmcGrbl::loadGCodeFile(std::string fileName, int append) {
   if(cfgDbgMode_){
     printf("%s:%s:%d: file %s, append %d\n",__FILE__,__FUNCTION__,__LINE__,fileName.c_str(),append);
   }
@@ -946,19 +946,24 @@ void ecmcGrbl::loadFile(std::string fileName, int append) {
 }
 
 void  ecmcGrbl::addConfig(std::string command) {
+  
   if(cfgDbgMode_){
     printf("%s:%s:%d:command %s\n",__FILE__,__FUNCTION__,__LINE__,command.c_str());
   }
+    
   if (getEcmcEpicsIOCState() == 16) {
-    if(cfgDbgMode_){
-      printf("%s:%s:%d: GRBL: ERROR: Configuratoin can only be applied during startup:(0x%x)\n",
+    printf("%s:%s:%d: GRBL: ERROR: Configuratoin can only be applied during startup:(0x%x)\n",
         __FILE__,__FUNCTION__,__LINE__,ECMC_PLUGIN_CONFIG_ERROR_CODE);
-    }
     return;
   }
-    if(cfgDbgMode_){
-    printf("%s:%s:%d:command %s\n",__FILE__,__FUNCTION__,__LINE__,command.c_str());
+
+  std::size_t found = command.find(ECMC_CONFIG_GRBL_CONFIG_CHAR);
+  if (found==std::string::npos) {
+    printf("%s:%s:%d: GRBL: ERROR: Configuration command not valid (0x%x)\n",
+        __FILE__,__FUNCTION__,__LINE__,ECMC_PLUGIN_CONFIG_ERROR_CODE);
+    return;
   }
+
   epicsMutexLock(grblConfigBufferMutex_);  
   grblConfigBuffer_.push_back(command.c_str());
   epicsMutexUnlock(grblConfigBufferMutex_);
@@ -968,3 +973,37 @@ void  ecmcGrbl::addConfig(std::string command) {
   }
 }
 
+void ecmcGrbl::loadConfigFile(std::string fileName, int append) {
+
+  if(cfgDbgMode_){
+    printf("%s:%s:%d: file %s, append %d\n",__FILE__,__FUNCTION__,__LINE__,fileName.c_str(),append);
+  }
+
+  std::ifstream file;
+  file.open(fileName);
+  if (!file.good()) {
+    if(cfgDbgMode_){
+      printf("%s:%s:%d: GRBL: ERROR: File not found: %s (0x%x)\n",
+             __FILE__,__FUNCTION__,__LINE__,fileName.c_str(),ECMC_PLUGIN_LOAD_FILE_ERROR_CODE);
+    }
+    errorCode_ = ECMC_PLUGIN_LOAD_FILE_ERROR_CODE;
+    throw std::runtime_error("Error: File not found.");
+    return;
+  }
+  
+  // Clear buffer (since not append)
+  if(!append) {
+    setExecute(0);
+    epicsMutexLock(grblConfigBufferMutex_);  
+    grblConfigBuffer_.clear();
+    epicsMutexUnlock(grblConfigBufferMutex_);
+  }
+
+  std::string line, lineNoComments;
+
+  while (std::getline(file, line)) {
+    if(line.length()>0) {
+      addConfig(line);
+    }
+  }
+}

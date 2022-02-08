@@ -1,9 +1,9 @@
 registerChannelProviderLocal firstTime true
 #
-# Start at "2022-W06-Feb07-1751-40-CET"
+# Start at "2022-W06-Feb08-0923-56-CET"
 #
 # Version information:
-# European Spallation Source ERIC : iocsh.bash (3.4.0-PID-6966)
+# European Spallation Source ERIC : iocsh.bash (3.4.0-PID-15007)
 #
 # --->--> snip -->--> 
 # Please Use Version and other environment variables
@@ -31,10 +31,10 @@ registerChannelProviderLocal firstTime true
 # --->--> snip -->--> 
 #
 # Set REQUIRE_IOC for its internal PVs
-epicsEnvSet REQUIRE_IOC "REQMOD:raspberrypi-6966"
+epicsEnvSet REQUIRE_IOC "REQMOD:raspberrypi-15007"
 #
 # Enable an exit subroutine for sotfioc
-dbLoadRecords "/home/pi/epics/base-7.0.5/db/softIocExit.db" "IOC=REQMOD:raspberrypi-6966"
+dbLoadRecords "/home/pi/epics/base-7.0.5/db/softIocExit.db" "IOC=REQMOD:raspberrypi-15007"
 #
 # Set E3_IOCSH_TOP for the absolute path where iocsh.bash is executed.
 epicsEnvSet E3_IOCSH_TOP "/home/pi/sources/e3-ecmc_plugin_grbl/ecmc_plugin_grbl-dev/iocsh"
@@ -262,18 +262,18 @@ epicsEnvUnset(ECMC_TRAJ_VELO_FILT_ENABLE)
 epicsEnvUnset(ECMC_TRAJ_SOURCE)
 epicsEnvSet("ECMC_EGU",               "mm")
 epicsEnvSet("ECMC_PREC",              3)
-epicsEnvSet("ECMC_AXISFIELDINIT",     "")                  # Extra field init t2022/02/07 17:51:40.932 
+epicsEnvSet("ECMC_AXISFIELDINIT",     "")                  # Extra field ini2022/02/08 09:23:57.217 
 ECMC Initializes.............
-2022/02/07 17:51:40.932 ESS Open Source EtherCAT Motion Control Epics Module2022/02/07 17:51:40.932 
+2022/02/08 09:23:57.218 ESS Open Source EtherCAT Motion Control Epics Module2022/02/08 09:23:57.218 
 Mode: Configuration
-2022/02/07 17:51:40.932 OK
-2022/02/07 17:51:40.933 OK
-2022/02/07 17:51:40.934 OK
-2022/02/07 17:51:40.936 OK
-2022/02/07 17:51:40.960 OK
-2022/02/07 17:51:40.961 OK
-2022/02/07 17:51:40.961 OK
-o motor record
+2022/02/08 09:23:57.218 OK
+2022/02/08 09:23:57.218 OK
+2022/02/08 09:23:57.219 OK
+2022/02/08 09:23:57.221 OK
+2022/02/08 09:23:57.241 OK
+2022/02/08 09:23:57.242 OK
+2022/02/08 09:23:57.242 OK
+t to motor record
 epicsEnvSet("ECMC_AXISCONFIG",        "")                  # Extra parameters to driver
 ############################################################
 ############# ASYN Configuration:
@@ -346,13 +346,13 @@ epicsEnvSet("HW_DESC",            "EK1100")
 epicsEnvSet("P_SCRIPT",           "mXsXXX")
 # add ${HW_DESC} to the bus at position ${SLAVE_ID}
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEK1100.cmd",1)
-iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMod2022/02/07 17:51:40.963 OK
-2022/02/07 17:51:40.965 OK
-2022/02/07 17:51:40.973 OK
-2022/02/07 17:51:40.974 OK
-2022/02/07 17:51:40.975 OK
-2022/02/07 17:51:40.975 OK
-s/ecmccfg/ruckig/ecmcEK1100.cmd" "NELM=1"
+iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/site2022/02/08 09:23:57.244 OK
+2022/02/08 09:23:57.245 OK
+2022/02/08 09:23:57.252 OK
+2022/02/08 09:23:57.254 OK
+2022/02/08 09:23:57.254 OK
+2022/02/08 09:23:57.254 OK
+Mods/ecmccfg/ruckig/ecmcEK1100.cmd" "NELM=1"
 epicsEnvSet("ECMC_EC_HWTYPE"             "EK1100")
 epicsEnvSet("ECMC_EC_VENDOR_ID"          "0x2")
 epicsEnvSet("ECMC_EC_PRODUCT_ID"         "0x044c2c52")
@@ -416,19 +416,19 @@ iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEX
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a00,0x6000,0x1,B1,binaryInput01)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a01,0x6010,0x1,B1,binaryInput02)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a02,0x6020,0x1,B1,binaryInput03)"
-ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a03,0x6030,0x1,B1,binaryInput2022/02/07 17:51:40.975 OK
-2022/02/07 17:51:40.975 OK
-2022/02/07 17:51:40.976 OK
-2022/02/07 17:51:40.976 OK
-2022/02/07 17:51:40.976 OK
-2022/02/07 17:51:40.989 OK
-2022/02/07 17:51:40.991 OK
-2022/02/07 17:51:40.992 OK
-2022/02/07 17:51:40.992 OK
-2022/02/07 17:51:40.992 OK
-2022/02/07 17:51:40.993 OK
-2022/02/07 17:51:40.993 OK
-04)"
+ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a03,0x6030,0x1,B1,binaryIn2022/02/08 09:23:57.254 OK
+2022/02/08 09:23:57.255 OK
+2022/02/08 09:23:57.255 OK
+2022/02/08 09:23:57.255 OK
+2022/02/08 09:23:57.255 OK
+2022/02/08 09:23:57.264 OK
+2022/02/08 09:23:57.266 OK
+2022/02/08 09:23:57.267 OK
+2022/02/08 09:23:57.267 OK
+2022/02/08 09:23:57.267 OK
+2022/02/08 09:23:57.267 OK
+2022/02/08 09:23:57.268 OK
+put04)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a04,0x6040,0x1,B1,binaryInput05)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a05,0x6050,0x1,B1,binaryInput06)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(1,0x2,0x03fa3052,2,0,0x1a06,0x6060,0x1,B1,binaryInput07)"
@@ -488,17 +488,17 @@ ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1602,0x7020,0x1,B1,bina
 ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1603,0x7030,0x1,B1,binaryOutput04)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1604,0x7040,0x1,B1,binaryOutput05)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1605,0x7050,0x1,B1,binaryOutput06)"
-ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,2022/02/07 17:51:40.994 OK
-2022/02/07 17:51:40.995 OK
-2022/02/07 17:51:41.017 OK
-2022/02/07 17:51:41.079 OK
-2022/02/07 17:51:41.169 14385
-2022/02/07 17:51:41.170 OK
-2022/02/07 17:51:41.170 OK
-2022/02/07 17:51:41.171 OK
-2022/02/07 17:51:41.171 OK
-2022/02/07 17:51:41.171 OK
-0,0x1606,0x7060,0x1,B1,binaryOutput07)"
+ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af830522022/02/08 09:23:57.268 OK
+2022/02/08 09:23:57.268 OK
+2022/02/08 09:23:57.278 OK
+2022/02/08 09:23:57.349 OK
+2022/02/08 09:23:57.429 14385
+2022/02/08 09:23:57.430 OK
+2022/02/08 09:23:57.430 OK
+2022/02/08 09:23:57.430 OK
+2022/02/08 09:23:57.430 OK
+2022/02/08 09:23:57.431 OK
+,1,0,0x1606,0x7060,0x1,B1,binaryOutput07)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(2,0x2,0x0af83052,1,0,0x1607,0x7070,0x1,B1,binaryOutput08)"
 # deduce what the prefix should be
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd",1)
@@ -561,15 +561,15 @@ ecmcConfigOrDie "Cfg.EcAddEntryComplete(3,0x2,0x13ed3052,2,3,0x1a03,0x6010,0x00,
 ecmcConfigOrDie "Cfg.EcAddEntryComplete(3,0x2,0x13ed3052,2,3,0x1a03,0x6010,0x10,16,positionActual01)"
 ecmcConfigOrDie "Cfg.EcAddEntryComplete(3,0x2,0x13ed3052,2,3,0x1a03,0x6010,0x20,16,encoderLatchPostion01)"
 # deduce what the prefix should be
-ecmcFileEx2022/02/07 17:51:41.179 OK
-2022/02/07 17:51:41.259 OK
-2022/02/07 17:51:41.339 14385
-2022/02/07 17:51:41.340 OK
-2022/02/07 17:51:41.340 OK
-2022/02/07 17:51:41.340 OK
-2022/02/07 17:51:41.341 OK
-2022/02/07 17:51:41.341 OK
-ist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd",1)
+ecmcFil2022/02/08 09:23:57.439 OK
+2022/02/08 09:23:57.519 OK
+2022/02/08 09:23:57.629 14385
+2022/02/08 09:23:57.631 OK
+2022/02/08 09:23:57.631 OK
+2022/02/08 09:23:57.631 OK
+2022/02/08 09:23:57.631 OK
+2022/02/08 09:23:57.631 OK
+eExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd",1)
 iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd" "MASTER_ID=0,SLAVE_POS=3,HWTYPE=EL5101"
 #==============================================================================
 # ecmcmXsXXX.cmd
@@ -629,10 +629,10 @@ ecmcConfigOrDie "Cfg.EcAddEntryComplete(4,0x2,0x13ed3052,2,3,0x1a03,0x6010,0x20,
 # deduce what the prefix should be
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd",1)
 iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcmXsXXX.cmd" "MASTER_ID=0,SLAVE_POS=4,HWTYPE=EL5101"
-#======================================2022/02/07 17:51:41.350 OK
-2022/02/07 17:51:41.352 OK
-2022/02/07 17:51:41.352 OK
-========================================
+#===================================2022/02/08 09:23:57.644 OK
+2022/02/08 09:23:57.646 OK
+2022/02/08 09:23:57.647 OK
+===========================================
 # ecmcmXsXXX.cmd
 ecmcEpicsEnvSetCalc("sid", "4","%03d")
 ecmcEpicsEnvSetCalc("mid", "0","%01d")
@@ -697,16 +697,16 @@ iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/apply
 ecmcFileExist(ecmcEL9505.substitutions,1,1)
 dbLoadTemplate(ecmcEL9505.substitutions,"ECMC_P=IOC_TEST:m0s005-,ECMC_G=IOC_TEST:m0s005,PORT=MC_CPU1,ADDR=0,TIMEOUT=1,MASTER_ID=0,SLAVE_POS=5,HWTYPE=EL9505,T_SMP_MS=10,TSE=-2,NELM=1")
 epicsEnvUnset(DEFAULT_SUBS)
-ecmcEpicsEnvSetCalcTerna2022/02/07 17:51:41.361 OK
-2022/02/07 17:51:41.363 OK
-2022/02/07 17:51:41.363 OK
-2022/02/07 17:51:41.364 OK
-2022/02/07 17:51:41.364 OK
-2022/02/07 17:51:41.364 OK
-2022/02/07 17:51:41.364 OK
-2022/02/07 17:51:41.364 OK
-2022/02/07 17:51:41.364 OK
-ry(DEFAULT_SLAVE_PVS, "True", "","#- ")
+ecmcEpicsEnvSetCalcTe2022/02/08 09:23:57.658 OK
+2022/02/08 09:23:57.661 OK
+2022/02/08 09:23:57.661 OK
+2022/02/08 09:23:57.661 OK
+2022/02/08 09:23:57.662 OK
+2022/02/08 09:23:57.662 OK
+2022/02/08 09:23:57.662 OK
+2022/02/08 09:23:57.662 OK
+2022/02/08 09:23:57.662 OK
+rnary(DEFAULT_SLAVE_PVS, "True", "","#- ")
 iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/applyTemplate.cmd" "TEMPLATE_FILE=ecmcEcSlave.template,ECMC_P=IOC_TEST:m0s005-,ECMC_G=IOC_TEST:m0s005"
 #==============================================================================
 # applyTemplate.cmd
@@ -764,22 +764,22 @@ ecmcFileExist(ecmcEL1252.substitutions,1,1)
 dbLoadTemplate(ecmcEL1252.substitutions,"ECMC_P=IOC_TEST:m0s006-,ECMC_G=IOC_TEST:m0s006,PORT=MC_CPU1,ADDR=0,TIMEOUT=1,MASTER_ID=0,SLAVE_POS=6,HWTYPE=EL1252,T_SMP_MS=10,TSE=-2,NELM=1")
 epicsEnvUnset(DEFAULT_SUBS)
 ecmcEpicsEnvSetCalcTernary(DEFAULT_SLAVE_PVS, "True", "","#- ")
-iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/applyTemplate.cmd" "TEMPLATE_FILE=ecmcEcSlave.template,ECMC_P=IOC_TEST:m0s006-,ECMC_G=IOC2022/02/07 17:51:41.376 OK
-2022/02/07 17:51:41.489 OK
-2022/02/07 17:51:41.569 12848
-2022/02/07 17:51:41.570 OK
-2022/02/07 17:51:41.570 OK
-2022/02/07 17:51:41.571 OK
-2022/02/07 17:51:41.571 OK
-2022/02/07 17:51:41.571 OK
-2022/02/07 17:51:41.571 OK
-2022/02/07 17:51:41.571 OK
-2022/02/07 17:51:41.572 OK
-2022/02/07 17:51:41.572 OK
-2022/02/07 17:51:41.572 OK
-2022/02/07 17:51:41.572 OK
-2022/02/07 17:51:41.572 OK
-_TEST:m0s006"
+iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/applyTemplate.cmd" "TEMPLATE_FILE=ecmcEcSlave.template,ECMC_P=IOC_TEST:m0s006-,ECMC_G=2022/02/08 09:23:57.677 OK
+2022/02/08 09:23:57.799 OK
+2022/02/08 09:23:57.909 12848
+2022/02/08 09:23:57.910 OK
+2022/02/08 09:23:57.910 OK
+2022/02/08 09:23:57.910 OK
+2022/02/08 09:23:57.911 OK
+2022/02/08 09:23:57.911 OK
+2022/02/08 09:23:57.911 OK
+2022/02/08 09:23:57.911 OK
+2022/02/08 09:23:57.911 OK
+2022/02/08 09:23:57.911 OK
+2022/02/08 09:23:57.911 OK
+2022/02/08 09:23:57.911 OK
+2022/02/08 09:23:57.912 OK
+IOC_TEST:m0s006"
 #==============================================================================
 # applyTemplate.cmd
 ecmcFileExist(ecmcEcSlave.template,1,1)
@@ -842,13 +842,13 @@ iocshLoad "/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcm
 ecmcEpicsEnvSetCalc("sid", "8","%03d")
 ecmcEpicsEnvSetCalc("mid", "0","%01d")
 epicsEnvSet("ECMC_G",            "IOC_TEST:m0s008")
-epicsEnvSet("ECMC_P",     2022/02/07 17:51:41.583 OK
-2022/02/07 17:51:41.583 OK
-2022/02/07 17:51:41.583 OK
-2022/02/07 17:51:41.583 OK
-2022/02/07 17:51:41.584 OK
-2022/02/07 17:51:41.584 OK
-       "IOC_TEST:m0s008-")
+epicsEnvSet("ECMC_P",  2022/02/08 09:23:57.921 OK
+2022/02/08 09:23:57.921 OK
+2022/02/08 09:23:57.921 OK
+2022/02/08 09:23:57.921 OK
+2022/02/08 09:23:57.921 OK
+2022/02/08 09:23:57.921 OK
+          "IOC_TEST:m0s008-")
 epicsEnvUnset(sid)
 epicsEnvUnset(mid)
 ecmcEpicsEnvSetCalcTernary(DEFAULT_SUBS, "True", "","#- ")
@@ -910,22 +910,22 @@ epicsEnvSet("ECMC_EC_SLAVE_NUM",  "9")
 epicsEnvSet("HW_DESC",            "EL7037")
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/addSlave.cmd",1)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/addSlave.cmd "SLAVE_ID=9, HW_DESC=EL7037, NELM=1"
-#=============================2022/02/07 17:51:41.587 OK
-2022/02/07 17:51:41.699 OK
-2022/02/07 17:51:41.779 12848
-2022/02/07 17:51:41.780 OK
-2022/02/07 17:51:41.781 OK
-2022/02/07 17:51:41.781 OK
-2022/02/07 17:51:41.781 OK
-2022/02/07 17:51:41.781 OK
-2022/02/07 17:51:41.781 OK
-2022/02/07 17:51:41.782 OK
-2022/02/07 17:51:41.782 OK
-2022/02/07 17:51:41.782 OK
-2022/02/07 17:51:41.782 OK
-2022/02/07 17:51:41.782 OK
-2022/02/07 17:51:41.782 OK
-=================================================
+#==========================2022/02/08 09:23:57.924 OK
+2022/02/08 09:23:58.029 OK
+2022/02/08 09:23:58.139 12848
+2022/02/08 09:23:58.140 OK
+2022/02/08 09:23:58.140 OK
+2022/02/08 09:23:58.140 OK
+2022/02/08 09:23:58.141 OK
+2022/02/08 09:23:58.141 OK
+2022/02/08 09:23:58.141 OK
+2022/02/08 09:23:58.141 OK
+2022/02/08 09:23:58.141 OK
+2022/02/08 09:23:58.141 OK
+2022/02/08 09:23:58.141 OK
+2022/02/08 09:23:58.141 OK
+2022/02/08 09:23:58.142 OK
+====================================================
 # addSlave.cmd
 epicsEnvSet("ECMC_EC_SLAVE_NUM",  "9")
 epicsEnvSet("HW_DESC",            "EL7037")
@@ -987,23 +987,23 @@ dbLoadRecords("ecmcEcSlave.template", "ECMC_P=IOC_TEST:m0s009-,ECMC_G=IOC_TEST:m
 epicsEnvUnset(DEFAULT_SLAVE_PVS)
 # increment SLAVE_ID
 ecmcEpicsEnvSetCalc("SLAVE_ID", "9+1","%d")
-# apply 2022/02/07 17:51:41.795 OK
-2022/02/07 17:51:41.795 OK
-2022/02/07 17:51:41.795 OK
-2022/02/07 17:51:41.796 OK
-2022/02/07 17:51:41.796 OK
-2022/02/07 17:51:41.796 OK
-2022/02/07 17:51:41.796 OK
-2022/02/07 17:51:41.800 OK
-2022/02/07 17:51:42.029 OK
-2022/02/07 17:51:42.109 14385
-2022/02/07 17:51:42.199 OK
-2022/02/07 17:51:42.279 OK
-2022/02/07 17:51:42.359 OK
-2022/02/07 17:51:42.439 OK
-2022/02/07 17:51:42.519 OK
-2022/02/07 17:51:42.519 OK
-config ${CONFIG} for ${HW_DESC}
+# app2022/02/08 09:23:58.151 OK
+2022/02/08 09:23:58.151 OK
+2022/02/08 09:23:58.151 OK
+2022/02/08 09:23:58.151 OK
+2022/02/08 09:23:58.151 OK
+2022/02/08 09:23:58.151 OK
+2022/02/08 09:23:58.152 OK
+2022/02/08 09:23:58.153 OK
+2022/02/08 09:23:58.359 OK
+2022/02/08 09:23:58.469 14385
+2022/02/08 09:23:58.559 OK
+2022/02/08 09:23:58.669 OK
+2022/02/08 09:23:58.749 OK
+2022/02/08 09:23:58.859 OK
+2022/02/08 09:23:58.949 OK
+2022/02/08 09:23:58.950 OK
+ly config ${CONFIG} for ${HW_DESC}
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEL7037-Motor-Nanotec-ST4118L1804-B.cmd",1)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEL7037-Motor-Nanotec-ST4118L1804-B.cmd ""
 epicsEnvSet(I_MAX_MA_LOCAL,"1500")
@@ -1072,16 +1072,16 @@ ecmcConfigOrDie "Cfg.EcWriteSdo(11,0x8010,0x14,50,4)"
 ecmcConfigOrDie "Cfg.EcWriteSdo(11,0x8010,0x15,50,4)"
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmcEX72XX_CSV.cmd
 ecmcConfigOrDie "Cfg.EcAddEntryDT(11,0x2,0x1c2b3052,1,2,0x1600,0x7010,0x01,U16,driveControl01)"
-ecm2022/02/07 17:51:42.520 OK
-2022/02/07 17:51:42.520 OK
-2022/02/07 17:51:42.520 OK
-2022/02/07 17:51:42.520 OK
-2022/02/07 17:51:42.522 OK
-2022/02/07 17:51:42.522 OK
-2022/02/07 17:51:42.524 OK
-2022/02/07 17:51:42.524 OK
-2022/02/07 17:51:42.524 OK
-cConfigOrDie "Cfg.EcAddEntryDT(11,0x2,0x1c2b3052,1,2,0x1601,0x7010,0x06,S32,velocitySetpoint01)"
+2022/02/08 09:23:58.950 OK
+2022/02/08 09:23:58.951 OK
+2022/02/08 09:23:58.951 OK
+2022/02/08 09:23:58.952 OK
+2022/02/08 09:23:58.954 OK
+2022/02/08 09:23:58.955 OK
+2022/02/08 09:23:58.957 OK
+2022/02/08 09:23:58.957 OK
+2022/02/08 09:23:58.958 OK
+ecmcConfigOrDie "Cfg.EcAddEntryDT(11,0x2,0x1c2b3052,1,2,0x1601,0x7010,0x06,S32,velocitySetpoint01)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(11,0x2,0x1c2b3052,2,3,0x1a00,0x6000,0x11,U32,positionActual01)"
 ecmcConfigOrDie "Cfg.EcAddEntryDT(11,0x2,0x1c2b3052,2,3,0x1a01,0x6010,0x01,U16,driveStatus01)"
 ecmcConfigOrDie "Cfg.EcAddEntryComplete(11,0x2,0x1c2b3052,2,3,0x1a02,0x6010,0x07,32,velocityActual01)"
@@ -1136,30 +1136,30 @@ epicsEnvUnset(DEFAULT_SLAVE_PVS)
 ecmcEpicsEnvSetCalc("SLAVE_ID", "11+1","%d")
 # Apply local 24V config (local here)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/applySlaveConfig.cmd, "LOCAL_CONFIG=./ecmcEL7211-0010-Motor-Beckhoff-AM8121-0F00-0000_24V.cmd"
-#=======================================================================2022/02/07 17:51:42.531 OK
-2022/02/07 17:51:42.531 OK
-2022/02/07 17:51:42.531 OK
-2022/02/07 17:51:42.531 OK
-2022/02/07 17:51:42.531 OK
-2022/02/07 17:51:42.531 OK
-2022/02/07 17:51:42.531 OK
-2022/02/07 17:51:42.532 OK
-2022/02/07 17:51:42.532 OK
-2022/02/07 17:51:42.532 OK
-2022/02/07 17:51:42.532 OK
-2022/02/07 17:51:42.532 OK
-2022/02/07 17:51:42.532 OK
-2022/02/07 17:51:42.532 OK
-2022/02/07 17:51:42.532 OK
-2022/02/07 17:51:42.532 OK
-2022/02/07 17:51:42.533 OK
-2022/02/07 17:51:42.533 OK
-2022/02/07 17:51:42.533 OK
-2022/02/07 17:51:42.533 OK
-2022/02/07 17:51:42.533 OK
-2022/02/07 17:51:42.533 OK
-2022/02/07 17:51:42.533 OK
-========
+#====================================================================2022/02/08 09:23:58.971 OK
+2022/02/08 09:23:58.972 OK
+2022/02/08 09:23:58.972 OK
+2022/02/08 09:23:58.972 OK
+2022/02/08 09:23:58.972 OK
+2022/02/08 09:23:58.972 OK
+2022/02/08 09:23:58.972 OK
+2022/02/08 09:23:58.973 OK
+2022/02/08 09:23:58.973 OK
+2022/02/08 09:23:58.973 OK
+2022/02/08 09:23:58.973 OK
+2022/02/08 09:23:58.973 OK
+2022/02/08 09:23:58.973 OK
+2022/02/08 09:23:58.973 OK
+2022/02/08 09:23:58.974 OK
+2022/02/08 09:23:58.974 OK
+2022/02/08 09:23:58.974 OK
+2022/02/08 09:23:58.974 OK
+2022/02/08 09:23:58.975 OK
+2022/02/08 09:23:58.975 OK
+2022/02/08 09:23:58.975 OK
+2022/02/08 09:23:58.975 OK
+2022/02/08 09:23:58.975 OK
+===========
 # applySlaveConfig.cmd
 # Arguments: CONFIG _or_ LOCAL_CONFIG
 epicsEnvSet("ECMC_CONFIG_FN", "./ecmcEL7211-0010-Motor-Beckhoff-AM8121-0F00-0000_24V.cmd")
@@ -1342,48 +1342,48 @@ iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/verify
 ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD,"abs(600.0)<>0","# ECMC_DRV_SCALE_NUM value OK == 600.0...", "ecmcExit Error: ECMC_DRV_SCALE_NUM == 0...")
 # ECMC_DRV_SCALE_NUM value OK == 600.0...
 epicsEnvUnset(ECMC_EXE_CMD)
-iocshLoa2022/02/07 17:51:42.544 OK
-2022/02/07 17:51:42.544 OK
-2022/02/07 17:51:42.544 OK
-2022/02/07 17:51:42.544 OK
-2022/02/07 17:51:42.547 OK
-2022/02/07 17:51:42.548 OK
-2022/02/07 17:51:42.548 OK
-2022/02/07 17:51:42.548 OK
-2022/02/07 17:51:42.548 OK
-2022/02/07 17:51:42.548 OK
-2022/02/07 17:51:42.548 OK
-2022/02/07 17:51:42.548 OK
-2022/02/07 17:51:42.548 OK
-2022/02/07 17:51:42.548 OK
-2022/02/07 17:51:42.548 OK
-2022/02/07 17:51:42.548 OK
-2022/02/07 17:51:42.549 OK
-2022/02/07 17:51:42.549 OK
-2022/02/07 17:51:42.549 OK
-2022/02/07 17:51:42.549 OK
-2022/02/07 17:51:42.549 OK
-2022/02/07 17:51:42.549 OK
-2022/02/07 17:51:42.549 OK
-2022/02/07 17:51:42.549 OK
-2022/02/07 17:51:42.549 OK
-2022/02/07 17:51:42.549 OK
-2022/02/07 17:51:42.550 OK
-2022/02/07 17:51:42.550 OK
-2022/02/07 17:51:42.550 OK
-2022/02/07 17:51:42.550 OK
-2022/02/07 17:51:42.550 OK
-2022/02/07 17:51:42.550 OK
-2022/02/07 17:51:42.550 OK
-2022/02/07 17:51:42.550 OK
-2022/02/07 17:51:42.550 OK
-2022/02/07 17:51:42.550 OK
-2022/02/07 17:51:42.550 OK
-2022/02/07 17:51:42.550 OK
-2022/02/07 17:51:42.550 OK
-2022/02/07 17:51:42.550 OK
-2022/02/07 17:51:42.551 OK
-d /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/verifyOrDie.cmd "EXPR_STR='abs(32768.0)<>0',SUCCESS_STR='ECMC_DRV_SCALE_DENOM value OK == 32768.0...',ERROR_STR='ECMC_DRV_SCALE_DENOM == 0...'"
+iocsh2022/02/08 09:23:58.994 OK
+2022/02/08 09:23:58.995 OK
+2022/02/08 09:23:58.995 OK
+2022/02/08 09:23:58.995 OK
+2022/02/08 09:23:58.999 OK
+2022/02/08 09:23:59.000 OK
+2022/02/08 09:23:59.000 OK
+2022/02/08 09:23:59.001 OK
+2022/02/08 09:23:59.001 OK
+2022/02/08 09:23:59.001 OK
+2022/02/08 09:23:59.001 OK
+2022/02/08 09:23:59.001 OK
+2022/02/08 09:23:59.001 OK
+2022/02/08 09:23:59.002 OK
+2022/02/08 09:23:59.002 OK
+2022/02/08 09:23:59.002 OK
+2022/02/08 09:23:59.002 OK
+2022/02/08 09:23:59.002 OK
+2022/02/08 09:23:59.002 OK
+2022/02/08 09:23:59.003 OK
+2022/02/08 09:23:59.003 OK
+2022/02/08 09:23:59.003 OK
+2022/02/08 09:23:59.003 OK
+2022/02/08 09:23:59.004 OK
+2022/02/08 09:23:59.004 OK
+2022/02/08 09:23:59.004 OK
+2022/02/08 09:23:59.004 OK
+2022/02/08 09:23:59.004 OK
+2022/02/08 09:23:59.004 OK
+2022/02/08 09:23:59.004 OK
+2022/02/08 09:23:59.005 OK
+2022/02/08 09:23:59.005 OK
+2022/02/08 09:23:59.005 OK
+2022/02/08 09:23:59.005 OK
+2022/02/08 09:23:59.005 OK
+2022/02/08 09:23:59.006 OK
+2022/02/08 09:23:59.006 OK
+2022/02/08 09:23:59.006 OK
+2022/02/08 09:23:59.006 OK
+2022/02/08 09:23:59.006 OK
+2022/02/08 09:23:59.006 OK
+Load /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/verifyOrDie.cmd "EXPR_STR='abs(32768.0)<>0',SUCCESS_STR='ECMC_DRV_SCALE_DENOM value OK == 32768.0...',ERROR_STR='ECMC_DRV_SCALE_DENOM == 0...'"
 #==============================================================================
 # verifyOrDie.cmd
 ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD,"abs(32768.0)<>0","# ECMC_DRV_SCALE_DENOM value OK == 32768.0...", "ecmcExit Error: ECMC_DRV_SCALE_DENOM == 0...")
@@ -1444,43 +1444,43 @@ ecmcConfigOrDie "Cfg.LinkEcEntryToObject(,"ax1.drv.brake")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveControl01.2,"ax1.drv.reducetorque")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveControl01.1,"ax1.drv.reset")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveStatus01.3,"ax1.drv.alarm0")"
-ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s2022/02/07 17:51:42.551 OK
-2022/02/07 17:51:42.551 OK
-2022/02/07 17:51:42.551 OK
-2022/02/07 17:51:42.551 OK
-2022/02/07 17:51:42.551 OK
-2022/02/07 17:51:42.551 OK
-2022/02/07 17:51:42.551 OK
-2022/02/07 17:51:42.551 OK
-2022/02/07 17:51:42.551 OK
-2022/02/07 17:51:42.552 OK
-2022/02/07 17:51:42.552 OK
-2022/02/07 17:51:42.552 OK
-2022/02/07 17:51:42.552 OK
-2022/02/07 17:51:42.552 OK
-2022/02/07 17:51:42.552 OK
-2022/02/07 17:51:42.552 OK
-2022/02/07 17:51:42.552 OK
-2022/02/07 17:51:42.552 OK
-2022/02/07 17:51:42.552 OK
-2022/02/07 17:51:42.553 OK
-2022/02/07 17:51:42.553 OK
-2022/02/07 17:51:42.553 OK
-2022/02/07 17:51:42.553 OK
-2022/02/07 17:51:42.553 OK
-2022/02/07 17:51:42.553 OK
-2022/02/07 17:51:42.553 OK
-2022/02/07 17:51:42.553 OK
-2022/02/07 17:51:42.553 OK
-2022/02/07 17:51:42.553 OK
-2022/02/07 17:51:42.554 OK
-2022/02/07 17:51:42.554 ecmcMotorRecord:: setIntegerParam(1 motorPowerAutoOnOff_)=2
-2022/02/07 17:51:42.554 ecmcMotorRecord:: setDoubleParam(1 motorPowerOnDelay_)=6
-2022/02/07 17:51:42.554 ecmcMotorRecord:: setDoubleParam(1 motorPowerOffDelay_=-1
-2022/02/07 17:51:42.555 ecmcMotorRecord:: udateMotorLimitsRO(1) enabledHighAndLow=1 valid=1 fValueHigh=130 fValueLow=-20
-2022/02/07 17:51:42.555 ecmcMotorRecord:: connected(1)
-2022/02/07 17:51:42.555 ecmcMotorRecord:: initialPoll(1) status=0
-8.driveStatus01.7,"ax1.drv.alarm1")"
+ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec2022/02/08 09:23:59.007 OK
+2022/02/08 09:23:59.007 OK
+2022/02/08 09:23:59.007 OK
+2022/02/08 09:23:59.007 OK
+2022/02/08 09:23:59.007 OK
+2022/02/08 09:23:59.007 OK
+2022/02/08 09:23:59.008 OK
+2022/02/08 09:23:59.008 OK
+2022/02/08 09:23:59.008 OK
+2022/02/08 09:23:59.008 OK
+2022/02/08 09:23:59.009 OK
+2022/02/08 09:23:59.009 OK
+2022/02/08 09:23:59.009 OK
+2022/02/08 09:23:59.009 OK
+2022/02/08 09:23:59.009 OK
+2022/02/08 09:23:59.010 OK
+2022/02/08 09:23:59.010 OK
+2022/02/08 09:23:59.010 OK
+2022/02/08 09:23:59.010 OK
+2022/02/08 09:23:59.010 OK
+2022/02/08 09:23:59.010 OK
+2022/02/08 09:23:59.011 OK
+2022/02/08 09:23:59.011 OK
+2022/02/08 09:23:59.011 OK
+2022/02/08 09:23:59.011 OK
+2022/02/08 09:23:59.011 OK
+2022/02/08 09:23:59.012 OK
+2022/02/08 09:23:59.012 OK
+2022/02/08 09:23:59.012 OK
+2022/02/08 09:23:59.012 OK
+2022/02/08 09:23:59.013 ecmcMotorRecord:: setIntegerParam(1 motorPowerAutoOnOff_)=2
+2022/02/08 09:23:59.013 ecmcMotorRecord:: setDoubleParam(1 motorPowerOnDelay_)=6
+2022/02/08 09:23:59.013 ecmcMotorRecord:: setDoubleParam(1 motorPowerOffDelay_=-1
+2022/02/08 09:23:59.014 ecmcMotorRecord:: udateMotorLimitsRO(1) enabledHighAndLow=1 valid=1 fValueHigh=130 fValueLow=-20
+2022/02/08 09:23:59.014 ecmcMotorRecord:: connected(1)
+2022/02/08 09:23:59.014 ecmcMotorRecord:: initialPoll(1) status=0
+0.s8.driveStatus01.7,"ax1.drv.alarm1")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveStatus01.14,"ax1.drv.alarm2")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s8.driveStatus01.2,"ax1.drv.warning")"
 ecmcConfigOrDie "Cfg.SetAxisDrvScaleDenom(1,32768.0)"
@@ -1552,9 +1552,9 @@ epicsEnvUnset(ECMC_HOME_VEL_TO)
 epicsEnvUnset(ECMC_HOME_VEL_FRM)
 epicsEnvUnset(ECMC_CNTRL_KP)
 epicsEnvUnset(ECMC_CNTRL_KI)
-epicsEnvUnset(ECMC_macLib: macro ECMC_EXE_CMD is undefined (expanding string ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD, "'${ECMC_MODE=FULL}'='DAQ'","ecmcExit Error: ECMC started in DAQ mode. Motion not supported..","#-")${ECMC_EXE_CMD})
+epicsEnvUnset(ECmacLib: macro ECMC_EXE_CMD is undefined (expanding string ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD, "'${ECMC_MODE=FULL}'='DAQ'","ecmcExit Error: ECMC started in DAQ mode. Motion not supported..","#-")${ECMC_EXE_CMD})
 macLib: macro ECMC_EXE_CMD is undefined (expanding string ${ECMC_EXE_CMD})
-CNTRL_KD)
+MC_CNTRL_KD)
 epicsEnvUnset(ECMC_CNTRL_KFF)
 epicsEnvUnset(ECMC_EC_ENC_ACTPOS)
 epicsEnvUnset(ECMC_EC_ENC_LATCHPOS)
@@ -1651,25 +1651,25 @@ epicsEnvSet("ECMC_AXIS_EXPR_LINE_7",           "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_8",           "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_9",           "")
 epicsEnvSet("ECMC_AXIS_EXPR_LINE_10",          "")
-ecmcFileEx2022/02/07 17:51:42.567 OK
-2022/02/07 17:51:42.567 OK
-2022/02/07 17:51:42.567 OK
-2022/02/07 17:51:42.567 OK
-2022/02/07 17:51:42.567 OK
-2022/02/07 17:51:42.567 OK
-2022/02/07 17:51:42.567 OK
-2022/02/07 17:51:42.567 OK
-2022/02/07 17:51:42.567 OK
-2022/02/07 17:51:42.567 OK
-2022/02/07 17:51:42.568 OK
-2022/02/07 17:51:42.568 OK
-2022/02/07 17:51:42.568 OK
-2022/02/07 17:51:42.568 OK
-2022/02/07 17:51:42.568 OK
-2022/02/07 17:51:42.568 OK
-2022/02/07 17:51:42.568 OK
-2022/02/07 17:51:42.568 OK
-ist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmc_axis_sync.cmd",1)
+ecmcFil2022/02/08 09:23:59.033 OK
+2022/02/08 09:23:59.033 OK
+2022/02/08 09:23:59.033 OK
+2022/02/08 09:23:59.033 OK
+2022/02/08 09:23:59.033 OK
+2022/02/08 09:23:59.033 OK
+2022/02/08 09:23:59.033 OK
+2022/02/08 09:23:59.033 OK
+2022/02/08 09:23:59.034 OK
+2022/02/08 09:23:59.034 OK
+2022/02/08 09:23:59.034 OK
+2022/02/08 09:23:59.034 OK
+2022/02/08 09:23:59.034 OK
+2022/02/08 09:23:59.034 OK
+2022/02/08 09:23:59.034 OK
+2022/02/08 09:23:59.034 OK
+2022/02/08 09:23:59.034 OK
+2022/02/08 09:23:59.034 OK
+eExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmc_axis_sync.cmd",1)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/ecmc_axis_sync.cmd
 #==============================================================================
 # ecmc_axis_sync.cmd
@@ -1847,58 +1847,58 @@ iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/verify
 ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD,"abs(32768.0)<>0","# ECMC_DRV_SCALE_DENOM value OK == 32768.0...", "ecmcExit Error: ECMC_DRV_SCALE_DENOM == 0...")
 # ECMC_DRV_SCALE_DENOM value OK == 32768.0...
 epicsEnvUnset(ECMC_EXE_CMD)
-ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/issueWarni2022/02/07 17:51:42.581 OK
-2022/02/07 17:51:42.581 OK
-2022/02/07 17:51:42.582 OK
-2022/02/07 17:51:42.582 OK
-2022/02/07 17:51:42.586 OK
-2022/02/07 17:51:42.586 OK
-2022/02/07 17:51:42.586 OK
-2022/02/07 17:51:42.586 OK
-2022/02/07 17:51:42.586 OK
-2022/02/07 17:51:42.587 OK
-2022/02/07 17:51:42.587 OK
-2022/02/07 17:51:42.587 OK
-2022/02/07 17:51:42.587 OK
-2022/02/07 17:51:42.587 OK
-2022/02/07 17:51:42.587 OK
-2022/02/07 17:51:42.587 OK
-2022/02/07 17:51:42.587 OK
-2022/02/07 17:51:42.587 OK
-2022/02/07 17:51:42.587 OK
-2022/02/07 17:51:42.587 OK
-2022/02/07 17:51:42.588 OK
-2022/02/07 17:51:42.588 OK
-2022/02/07 17:51:42.588 OK
-2022/02/07 17:51:42.588 OK
-2022/02/07 17:51:42.588 OK
-2022/02/07 17:51:42.588 OK
-2022/02/07 17:51:42.588 OK
-2022/02/07 17:51:42.588 OK
-2022/02/07 17:51:42.588 OK
-2022/02/07 17:51:42.589 OK
-2022/02/07 17:51:42.589 OK
-2022/02/07 17:51:42.589 OK
-2022/02/07 17:51:42.589 OK
-2022/02/07 17:51:42.589 OK
-2022/02/07 17:51:42.589 OK
-2022/02/07 17:51:42.589 OK
-2022/02/07 17:51:42.589 OK
-2022/02/07 17:51:42.589 OK
-2022/02/07 17:51:42.590 OK
-2022/02/07 17:51:42.590 OK
-2022/02/07 17:51:42.590 OK
-2022/02/07 17:51:42.590 OK
-2022/02/07 17:51:42.590 OK
-2022/02/07 17:51:42.590 OK
-2022/02/07 17:51:42.590 OK
-2022/02/07 17:51:42.590 OK
-2022/02/07 17:51:42.590 OK
-2022/02/07 17:51:42.590 OK
-2022/02/07 17:51:42.591 OK
-2022/02/07 17:51:42.591 OK
-2022/02/07 17:51:42.591 OK
-ng.cmd",1)
+ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/issueWa2022/02/08 09:23:59.044 OK
+2022/02/08 09:23:59.044 OK
+2022/02/08 09:23:59.044 OK
+2022/02/08 09:23:59.044 OK
+2022/02/08 09:23:59.047 OK
+2022/02/08 09:23:59.047 OK
+2022/02/08 09:23:59.047 OK
+2022/02/08 09:23:59.047 OK
+2022/02/08 09:23:59.047 OK
+2022/02/08 09:23:59.047 OK
+2022/02/08 09:23:59.047 OK
+2022/02/08 09:23:59.047 OK
+2022/02/08 09:23:59.047 OK
+2022/02/08 09:23:59.047 OK
+2022/02/08 09:23:59.047 OK
+2022/02/08 09:23:59.048 OK
+2022/02/08 09:23:59.048 OK
+2022/02/08 09:23:59.048 OK
+2022/02/08 09:23:59.048 OK
+2022/02/08 09:23:59.048 OK
+2022/02/08 09:23:59.048 OK
+2022/02/08 09:23:59.048 OK
+2022/02/08 09:23:59.048 OK
+2022/02/08 09:23:59.048 OK
+2022/02/08 09:23:59.048 OK
+2022/02/08 09:23:59.048 OK
+2022/02/08 09:23:59.048 OK
+2022/02/08 09:23:59.048 OK
+2022/02/08 09:23:59.049 OK
+2022/02/08 09:23:59.049 OK
+2022/02/08 09:23:59.049 OK
+2022/02/08 09:23:59.049 OK
+2022/02/08 09:23:59.049 OK
+2022/02/08 09:23:59.049 OK
+2022/02/08 09:23:59.049 OK
+2022/02/08 09:23:59.049 OK
+2022/02/08 09:23:59.049 OK
+2022/02/08 09:23:59.049 OK
+2022/02/08 09:23:59.049 OK
+2022/02/08 09:23:59.049 OK
+2022/02/08 09:23:59.050 OK
+2022/02/08 09:23:59.050 OK
+2022/02/08 09:23:59.050 OK
+2022/02/08 09:23:59.050 OK
+2022/02/08 09:23:59.050 OK
+2022/02/08 09:23:59.050 OK
+2022/02/08 09:23:59.050 OK
+2022/02/08 09:23:59.050 OK
+2022/02/08 09:23:59.050 OK
+2022/02/08 09:23:59.050 OK
+2022/02/08 09:23:59.050 OK
+rning.cmd",1)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/issueWarning.cmd "EXPR_STR='-1>0',WARNING_STR='WARNING: ECMC_MRES setting is deprecated and will not be used. (MRES will be calulated instead: ECMC_ENC_SCALE_NUM/ECMC_ENC_SCALE_DENOM).. '"
 #==============================================================================
 # issueWarning.cmd
@@ -1963,33 +1963,33 @@ ecmcConfigOrDie "Cfg.SetAxisDrvBrakeCloseAheadTime(2,0)"
 ecmcConfigOrDie "Cfg.SetAxisSoftLimitPosBwd(2,-130)"
 ecmcConfigOrDie "Cfg.SetAxisEnableSoftLimitBwd(2,1)"
 ecmcConfigOrDie "Cfg.SetAxisSoftLimitPosFwd(2,20)"
-ecmcConfigOrDie "Cfg.SetAxisEnableSoftLimitFwd(2,12022/02/07 17:51:42.591 OK
-2022/02/07 17:51:42.591 OK
-2022/02/07 17:51:42.591 OK
-2022/02/07 17:51:42.591 OK
-2022/02/07 17:51:42.591 OK
-2022/02/07 17:51:42.591 OK
-2022/02/07 17:51:42.592 OK
-2022/02/07 17:51:42.592 OK
-2022/02/07 17:51:42.592 OK
-2022/02/07 17:51:42.592 OK
-2022/02/07 17:51:42.592 OK
-2022/02/07 17:51:42.592 OK
-2022/02/07 17:51:42.592 OK
-2022/02/07 17:51:42.592 OK
-2022/02/07 17:51:42.593 OK
-2022/02/07 17:51:42.593 OK
-2022/02/07 17:51:42.593 OK
-2022/02/07 17:51:42.593 OK
-2022/02/07 17:51:42.593 OK
-2022/02/07 17:51:42.593 OK
-2022/02/07 17:51:42.593 ecmcMotorRecord:: setIntegerParam(2 motorPowerAutoOnOff_)=2
-2022/02/07 17:51:42.594 ecmcMotorRecord:: setDoubleParam(2 motorPowerOnDelay_)=6
-2022/02/07 17:51:42.594 ecmcMotorRecord:: setDoubleParam(2 motorPowerOffDelay_=-1
-2022/02/07 17:51:42.594 ecmcMotorRecord:: udateMotorLimitsRO(2) enabledHighAndLow=1 valid=1 fValueHigh=20 fValueLow=-130
-2022/02/07 17:51:42.594 ecmcMotorRecord:: connected(2)
-2022/02/07 17:51:42.594 ecmcMotorRecord:: initialPoll(2) status=0
-)"
+ecmcConfigOrDie "Cfg.SetAxisEnableSoftLimitFwd(2022/02/08 09:23:59.050 OK
+2022/02/08 09:23:59.051 OK
+2022/02/08 09:23:59.051 OK
+2022/02/08 09:23:59.051 OK
+2022/02/08 09:23:59.051 OK
+2022/02/08 09:23:59.051 OK
+2022/02/08 09:23:59.051 OK
+2022/02/08 09:23:59.051 OK
+2022/02/08 09:23:59.051 OK
+2022/02/08 09:23:59.051 OK
+2022/02/08 09:23:59.051 OK
+2022/02/08 09:23:59.051 OK
+2022/02/08 09:23:59.051 OK
+2022/02/08 09:23:59.051 OK
+2022/02/08 09:23:59.052 OK
+2022/02/08 09:23:59.052 OK
+2022/02/08 09:23:59.052 OK
+2022/02/08 09:23:59.052 OK
+2022/02/08 09:23:59.052 OK
+2022/02/08 09:23:59.052 OK
+2022/02/08 09:23:59.052 ecmcMotorRecord:: setIntegerParam(2 motorPowerAutoOnOff_)=2
+2022/02/08 09:23:59.052 ecmcMotorRecord:: setDoubleParam(2 motorPowerOnDelay_)=6
+2022/02/08 09:23:59.052 ecmcMotorRecord:: setDoubleParam(2 motorPowerOffDelay_=-1
+2022/02/08 09:23:59.053 ecmcMotorRecord:: udateMotorLimitsRO(2) enabledHighAndLow=1 valid=1 fValueHigh=20 fValueLow=-130
+2022/02/08 09:23:59.053 ecmcMotorRecord:: connected(2)
+2022/02/08 09:23:59.053 ecmcMotorRecord:: initialPoll(2) status=0
+2,1)"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s1.binaryInput06.0,"ax2.mon.lowlim")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s1.binaryInput05.0,"ax2.mon.highlim")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s1.binaryInput07.0,"ax2.mon.homesensor")"
@@ -2069,16 +2069,16 @@ epicsEnvUnset(ECMC_ENC_POS_FILTER_SIZE)
 epicsEnvUnset(ECMC_ENC_POS_FILTER_ENABLE)
 epicsEnvUnset(ECMC_EC_ENC_RESET)
 epicsEnvUnset(ECMC_EC_ENC_ALARM_0)
-epicsEnvUnmacLib: macro ECMC_EXE_CMD is undefined (expanding string ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD, "'${ECMC_MODE=FULL}'='DAQ'","ecmcExit Error: ECMC started in DAQ mode. Motion not supported..","#-")${ECMC_EXE_CMD})
+epicsEnmacLib: macro ECMC_EXE_CMD is undefined (expanding string ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD, "'${ECMC_MODE=FULL}'='DAQ'","ecmcExit Error: ECMC started in DAQ mode. Motion not supported..","#-")${ECMC_EXE_CMD})
 macLib: macro ECMC_EXE_CMD is undefined (expanding string ${ECMC_EXE_CMD})
-2022/02/07 17:51:42.608 OK
-2022/02/07 17:51:42.608 OK
-2022/02/07 17:51:42.608 OK
-2022/02/07 17:51:42.608 OK
-2022/02/07 17:51:42.608 OK
-2022/02/07 17:51:42.608 OK
-2022/02/07 17:51:42.608 OK
-set(ECMC_EC_ENC_ALARM_1)
+2022/02/08 09:23:59.063 OK
+2022/02/08 09:23:59.063 OK
+2022/02/08 09:23:59.063 OK
+2022/02/08 09:23:59.063 OK
+2022/02/08 09:23:59.063 OK
+2022/02/08 09:23:59.063 OK
+2022/02/08 09:23:59.063 OK
+vUnset(ECMC_EC_ENC_ALARM_1)
 epicsEnvUnset(ECMC_EC_ENC_ALARM_2)
 epicsEnvUnset(ECMC_EC_ENC_WARNING)
 epicsEnvUnset(ECMC_EC_DRV_CONTROL)
@@ -2168,18 +2168,18 @@ ecmcConfigOrDie "Cfg.AppendAxisPLCExpr(2)="
 ecmcConfigOrDie "Cfg.AppendAxisPLCExpr(2)="
 ecmcConfigOrDie "Cfg.AppendAxisPLCExpr(2)="
 ecmcConfigOrDie "Cfg.AppendAxisPLCExpr(2)="
-ecmcConfigOrDie "2022/02/07 17:51:42.609 OK
-2022/02/07 17:51:42.609 OK
-2022/02/07 17:51:42.609 OK
-2022/02/07 17:51:42.609 OK
-2022/02/07 17:51:42.609 OK
-2022/02/07 17:51:42.609 OK
-2022/02/07 17:51:42.609 OK
-2022/02/07 17:51:42.609 OK
-2022/02/07 17:51:42.610 OK
-2022/02/07 17:51:42.610 OK
-2022/02/07 17:51:42.610 OK
-Cfg.AppendAxisPLCExpr(2)="
+ecmcConfigOrDi2022/02/08 09:23:59.063 OK
+2022/02/08 09:23:59.064 OK
+2022/02/08 09:23:59.064 OK
+2022/02/08 09:23:59.064 OK
+2022/02/08 09:23:59.064 OK
+2022/02/08 09:23:59.064 OK
+2022/02/08 09:23:59.064 OK
+2022/02/08 09:23:59.064 OK
+2022/02/08 09:23:59.064 OK
+2022/02/08 09:23:59.064 OK
+2022/02/08 09:23:59.064 OK
+e "Cfg.AppendAxisPLCExpr(2)="
 ecmcConfigOrDie "Cfg.AppendAxisPLCExpr(2)="
 ecmcConfigOrDie "Cfg.AppendAxisPLCExpr(2)="
 ecmcConfigOrDie "Cfg.AppendAxisPLCExpr(2)="
@@ -2345,57 +2345,57 @@ epicsEnvUnset(ECMC_EXE_CMD)
 iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/verifyOrDie.cmd "EXPR_STR='abs(2147483648)<>0',SUCCESS_STR='ECMC_DRV_SCALE_DENOM value OK == 2147483648...',ERROR_STR='ECMC_DRV_SCALE_DENOM == 0...'"
 #==============================================================================
 # verifyOrDie.cmd
-ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD,"abs(2147483648)<>0","# ECMC_DRV_SCALE_DENOM value OK == 2147483648...", "e2022/02/07 17:51:42.625 OK
-2022/02/07 17:51:42.625 OK
-2022/02/07 17:51:42.625 OK
-2022/02/07 17:51:42.625 OK
-2022/02/07 17:51:42.628 OK
-2022/02/07 17:51:42.628 OK
-2022/02/07 17:51:42.628 OK
-2022/02/07 17:51:42.628 OK
-2022/02/07 17:51:42.628 OK
-2022/02/07 17:51:42.628 OK
-2022/02/07 17:51:42.628 OK
-2022/02/07 17:51:42.629 OK
-2022/02/07 17:51:42.629 OK
-2022/02/07 17:51:42.629 OK
-2022/02/07 17:51:42.629 OK
-2022/02/07 17:51:42.629 OK
-2022/02/07 17:51:42.629 OK
-2022/02/07 17:51:42.629 OK
-2022/02/07 17:51:42.629 OK
-2022/02/07 17:51:42.629 OK
-2022/02/07 17:51:42.629 OK
-2022/02/07 17:51:42.629 OK
-2022/02/07 17:51:42.630 OK
-2022/02/07 17:51:42.630 OK
-2022/02/07 17:51:42.630 OK
-2022/02/07 17:51:42.630 OK
-2022/02/07 17:51:42.630 OK
-2022/02/07 17:51:42.630 OK
-2022/02/07 17:51:42.630 OK
-2022/02/07 17:51:42.630 OK
-2022/02/07 17:51:42.630 OK
-2022/02/07 17:51:42.630 OK
-2022/02/07 17:51:42.630 OK
-2022/02/07 17:51:42.630 OK
-2022/02/07 17:51:42.630 OK
-2022/02/07 17:51:42.631 OK
-2022/02/07 17:51:42.631 OK
-2022/02/07 17:51:42.631 OK
-2022/02/07 17:51:42.631 OK
-2022/02/07 17:51:42.631 OK
-2022/02/07 17:51:42.631 OK
-2022/02/07 17:51:42.631 OK
-2022/02/07 17:51:42.631 OK
-2022/02/07 17:51:42.631 OK
-2022/02/07 17:51:42.631 OK
-2022/02/07 17:51:42.631 OK
-2022/02/07 17:51:42.631 OK
-2022/02/07 17:51:42.631 OK
-2022/02/07 17:51:42.631 OK
-2022/02/07 17:51:42.632 OK
-cmcExit Error: ECMC_DRV_SCALE_DENOM == 0...")
+ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD,"abs(2147483648)<>0","# ECMC_DRV_SCALE_DENOM value OK == 2147483648...",2022/02/08 09:23:59.075 OK
+2022/02/08 09:23:59.075 OK
+2022/02/08 09:23:59.075 OK
+2022/02/08 09:23:59.075 OK
+2022/02/08 09:23:59.078 OK
+2022/02/08 09:23:59.078 OK
+2022/02/08 09:23:59.078 OK
+2022/02/08 09:23:59.078 OK
+2022/02/08 09:23:59.078 OK
+2022/02/08 09:23:59.078 OK
+2022/02/08 09:23:59.078 OK
+2022/02/08 09:23:59.078 OK
+2022/02/08 09:23:59.078 OK
+2022/02/08 09:23:59.078 OK
+2022/02/08 09:23:59.078 OK
+2022/02/08 09:23:59.078 OK
+2022/02/08 09:23:59.079 OK
+2022/02/08 09:23:59.079 OK
+2022/02/08 09:23:59.079 OK
+2022/02/08 09:23:59.079 OK
+2022/02/08 09:23:59.079 OK
+2022/02/08 09:23:59.079 OK
+2022/02/08 09:23:59.079 OK
+2022/02/08 09:23:59.079 OK
+2022/02/08 09:23:59.079 OK
+2022/02/08 09:23:59.079 OK
+2022/02/08 09:23:59.079 OK
+2022/02/08 09:23:59.079 OK
+2022/02/08 09:23:59.080 OK
+2022/02/08 09:23:59.080 OK
+2022/02/08 09:23:59.080 OK
+2022/02/08 09:23:59.080 OK
+2022/02/08 09:23:59.080 OK
+2022/02/08 09:23:59.080 OK
+2022/02/08 09:23:59.080 OK
+2022/02/08 09:23:59.080 OK
+2022/02/08 09:23:59.080 OK
+2022/02/08 09:23:59.080 OK
+2022/02/08 09:23:59.080 OK
+2022/02/08 09:23:59.080 OK
+2022/02/08 09:23:59.080 OK
+2022/02/08 09:23:59.080 OK
+2022/02/08 09:23:59.081 OK
+2022/02/08 09:23:59.081 OK
+2022/02/08 09:23:59.081 OK
+2022/02/08 09:23:59.081 OK
+2022/02/08 09:23:59.081 OK
+2022/02/08 09:23:59.081 OK
+2022/02/08 09:23:59.081 OK
+2022/02/08 09:23:59.081 OK
+ "ecmcExit Error: ECMC_DRV_SCALE_DENOM == 0...")
 # ECMC_DRV_SCALE_DENOM value OK == 2147483648...
 epicsEnvUnset(ECMC_EXE_CMD)
 ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/issueWarning.cmd",1)
@@ -2462,33 +2462,33 @@ ecmcConfigOrDie "Cfg.SetAxisDrvBrakeOpenDelayTime(3,0)"
 ecmcConfigOrDie "Cfg.SetAxisDrvBrakeCloseAheadTime(3,0)"
 ecmcConfigOrDie "Cfg.SetAxisSoftLimitPosBwd(3,0)"
 ecmcConfigOrDie "Cfg.SetAxisEnableSoftLimitBwd(3,0)"
-ecmcConfigOr2022/02/07 17:51:42.632 OK
-2022/02/07 17:51:42.632 OK
-2022/02/07 17:51:42.632 OK
-2022/02/07 17:51:42.632 OK
-2022/02/07 17:51:42.632 OK
-2022/02/07 17:51:42.632 OK
-2022/02/07 17:51:42.633 OK
-2022/02/07 17:51:42.633 OK
-2022/02/07 17:51:42.633 OK
-2022/02/07 17:51:42.633 OK
-2022/02/07 17:51:42.633 OK
-2022/02/07 17:51:42.633 OK
-2022/02/07 17:51:42.633 OK
-2022/02/07 17:51:42.633 OK
-2022/02/07 17:51:42.634 OK
-2022/02/07 17:51:42.634 OK
-2022/02/07 17:51:42.634 OK
-2022/02/07 17:51:42.634 OK
-2022/02/07 17:51:42.634 OK
-2022/02/07 17:51:42.634 OK
-2022/02/07 17:51:42.634 OK
-2022/02/07 17:51:42.635 ecmcMotorRecord:: setIntegerParam(3 motorPowerAutoOnOff_)=2
-2022/02/07 17:51:42.635 ecmcMotorRecord:: setDoubleParam(3 motorPowerOnDelay_)=6
-2022/02/07 17:51:42.635 ecmcMotorRecord:: setDoubleParam(3 motorPowerOffDelay_=-1
-2022/02/07 17:51:42.635 ecmcMotorRecord:: connected(3)
-2022/02/07 17:51:42.635 ecmcMotorRecord:: initialPoll(3) status=0
-Die "Cfg.SetAxisSoftLimitPosFwd(3,0)"
+ecmcConfi2022/02/08 09:23:59.081 OK
+2022/02/08 09:23:59.081 OK
+2022/02/08 09:23:59.081 OK
+2022/02/08 09:23:59.081 OK
+2022/02/08 09:23:59.081 OK
+2022/02/08 09:23:59.082 OK
+2022/02/08 09:23:59.082 OK
+2022/02/08 09:23:59.082 OK
+2022/02/08 09:23:59.082 OK
+2022/02/08 09:23:59.082 OK
+2022/02/08 09:23:59.082 OK
+2022/02/08 09:23:59.082 OK
+2022/02/08 09:23:59.082 OK
+2022/02/08 09:23:59.082 OK
+2022/02/08 09:23:59.082 OK
+2022/02/08 09:23:59.082 OK
+2022/02/08 09:23:59.083 OK
+2022/02/08 09:23:59.083 OK
+2022/02/08 09:23:59.083 OK
+2022/02/08 09:23:59.083 OK
+2022/02/08 09:23:59.083 OK
+2022/02/08 09:23:59.083 ecmcMotorRecord:: setIntegerParam(3 motorPowerAutoOnOff_)=2
+2022/02/08 09:23:59.083 ecmcMotorRecord:: setDoubleParam(3 motorPowerOnDelay_)=6
+2022/02/08 09:23:59.083 ecmcMotorRecord:: setDoubleParam(3 motorPowerOffDelay_=-1
+2022/02/08 09:23:59.084 ecmcMotorRecord:: connected(3)
+2022/02/08 09:23:59.084 ecmcMotorRecord:: initialPoll(3) status=0
+gOrDie "Cfg.SetAxisSoftLimitPosFwd(3,0)"
 ecmcConfigOrDie "Cfg.SetAxisEnableSoftLimitFwd(3,0)"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s11.ONE.0,"ax3.mon.lowlim")"
 ecmcConfigOrDie "Cfg.LinkEcEntryToObject(ec0.s11.ONE.0,"ax3.mon.highlim")"
@@ -2567,9 +2567,9 @@ epicsEnvUnset(ECMC_ENC_ABS_OFFSET)
 epicsEnvUnset(ECMC_ENC_VEL_FILTER_SIZE)
 epicsEnvUnset(ECMC_ENC_POS_FILTER_SIZE)
 epicsEnvUnset(ECMC_ENC_POS_FILTER_ENABLE)
-epicsEnvUnset(epicsMutex pthread_mutex_unlock epicsMutexOsdUnlock failed: error Operation not permitted
+epicsEnvUnsepicsMutex pthread_mutex_unlock epicsMutexOsdUnlock failed: error Operation not permitted
 epicsMutex pthread_mutex_unlock epicsMutexOsdUnlock failed: error Operation not permitted
-ECMC_EC_ENC_RESET)
+et(ECMC_EC_ENC_RESET)
 epicsEnvUnset(ECMC_EC_ENC_ALARM_0)
 epicsEnvUnset(ECMC_EC_ENC_ALARM_1)
 epicsEnvUnset(ECMC_EC_ENC_ALARM_2)
@@ -2621,6 +2621,8 @@ epicsEnvUnset(ECMC_HOME_POS_MOVE_TARG_POS)
 epicsEnvUnset(ECMC_TRAJ_TYPE)
 epicsEnvUnset(ECMC_JERK)
 epicsEnvSet("ECMC_PREFIX"      "IOC_TEST:")
+# Block  motor driver printouts
+asynSetTraceMask(MC_CPU1, -1, 0x0)
 ##############################################################################
 ## Load plugin:
 epicsEnvSet("PLUGIN_VER" ,"develop")
@@ -2648,539 +2650,4 @@ GRBL: INFO: Wait for startup
 ../grbl/grbl_eeprom.c:ecmc_init_file:53
 GRBL: INFO: Waiting for grbl init..../grbl/grbl_settings.c:settings_restore:132 settings_restore complete!!!..
 ../grbl/grbl_eeprom.c:memcpy_from_eeprom_with_checksum:215 EEPROM simulated by file..
-../grbl/grbl_stepper.c:stepper_init:609:
-../grbl/grbl_system.c:system_init:26:
-../grbl/grbl_gcode.c:gc2022/02/07 17:51:42.853 OK
-_init:44:
-../grbl/grbl_eeprom.c:memcpy_from_eeprom_with_checksum:215 EEPROM simulated by file..
-../grbl/grbl_coolant_control.c:coolant_init:25 Not supported yet..
-../grbl/grbl_limits.c:limits_init:44 Not supported yet..
-../grbl/grbl_probe.c:probe_init:31 Not supported yet..
-../grbl/grbl_stepper.c:st_reset:576:
-../grbl/grbl_stepper.c:st_go_idle:259:
-../grbl/grbl_stepper.c:st_generate_step_dir_invert_masks:554:
-../grbl/grbl_protocol.c:protocol_main_loop:40:
-../grbl/grbl_system.c:system_check_safety_door_ajar:93:
-../grbl/grbl_system.c:system_execute_startup:107:
-../grbl/grbl_eeprom.c:memcpy_from_eeprom_with_checksum:215 EEPROM simulated by file..
-../grbl/grbl_eeprom.c:memcpy_from_eeprom_with_checksum:215 EEPROM simulated by file..
-GRBL: INFO: Reply non protocol related: 
-
-GRBL: INFO: Ready for commands: Grbl 1.1h ['$' for help]
-
-GRBL: INFO: Ready for commands
-GRBL: INFO: Wait for IOC state RUN 
-.ecmcEpicsEnvSetCalcTernary("ECMC_PLUGIN_REPORT", "1>0","","#")
-ecmcConfigOrDie "Cfg.ReportPlugin(0)"
-Plugin info: 
-  Index                = 0
-  Name                 = ecmcPluginGrbl
-  Description          = grbl plugin for use with ecmc.
-  Option description   = 
-    DBG_PRINT=<1/0>    : Enables/disables printouts from plugin, default = disabled (=0).
-      X_AXIS=<axis id>: Ecmc Axis id for use as grbl X axis, default = disabled (=-1).
-      Y_AXIS=<axis id>: Ecmc Axis id for use as grbl Y axis, default = disabled (=-1).
-      Z_AXIS=<axis id>: Ecmc Axis id for use as grbl Z axis, default = disabled (=-1).
-      SPINDLE_AXIS=<axis id>: Ecmc Axis id for use as grbl spindle axis, default = disabled (=-1).
-      AUTO_ENABLE=<1/0>: Auto enable the linked ecmc axes autmatically before start, default = disabled (=0).
-      AUTO_START=<1/0>: Auto start g-code at ecmc start, default = disabled (=0).
-
-  Filename             = /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmc_plugin_grbl/develop/lib/linux-arm/libecmc_plugin_grbl.so
-  Config string        = DBG_PRINT=1;X_AXIS=1;Y_AXIS=2;SPINDLE_AXIS=3;AUTO_ENABLE=0;AUTO_START=0;
-  Version              = 2
-  Interface version    = 65536 (ecmc = 65536)
-     max plc funcs     = 64
-     max plc func args = 10
-     max plc consts    = 64
-  Construct func       = @0xb4e1f4c0
-  Enter realtime func  = @0xb4e1f3b8
-  Exit realtime func   = @0xb4e1f384
-  Realtime func        = @0xb4e1f3b4
-  Destruct func        = @0xb4e1f38c
-  dlhandle             = @0x96f0f0
-  Plc functions:
-    funcs[00]:
-      Name       = "grbl_set_execute(arg0);"
-      Desc       = double grbl_set_execute(<exe>) :  Trigg execution of loaded g-code at positive edge of <exe>
-      Arg count  = 1
-      func       = @0xb4e1f3bc
-    funcs[01]:
-      Name       = "grbl_mc_halt(arg0);"
-      Desc       = double grbl_mc_halt(<halt>) :  Halt grbl motion at positive edge of <halt>
-      Arg count  = 1
-      func       = @0xb4e1f3d8
-    funcs[02]:
-      Name       = "grbl_mc_resume(arg0);"
-      Desc       = double grbl_mc_resume(<resume>) : Resume halted grbl motion at positive edge of <resume>
-      Arg count  = 1
-      func       = @0xb4e1f3f4
-    funcs[03]:
-      Name       = "grbl_mc_reset(arg0);"
-      Desc       = double grbl_mc_reset(<reset>) :  Reset grbl at positive edge of <reset>
-      Arg count  = 1
-      func       = @0xb4e1f410
-    funcs[04]:
-      Name       = "grbl_get_busy();"
-      Desc       = double grbl_get_busy() :  Get grbl system busy (still executing motion code)
-      Arg count  = 0
-      func       = @0xb4e1f42c
-    funcs[05]:
-      Name       = "grbl_get_parser_busy();"
-      Desc       = double grbl_get_parser_busy() :  Get g-code parser busy.
-      Arg count  = 0
-      func       = @0xb4e1f440
-    funcs[06]:
-      Name       = "grbl_get_code_row_num();"
-      Desc       = double grbl_get_code_row_num() :  Get g-code row number currently preparing for exe.
-      Arg count  = 0
-      func       = @0xb4e1f454
-    funcs[07]:
-      Name       = "grbl_get_error();"
-      Desc       = double grbl_get_error() :  Get error code.
-      Arg count  = 0
-      func       = @0xb4e1f47c
-    funcs[08]:
-      Name       = "2022/02/07 17:51:42.854 OK
-#
-# Test of GRBL plugin for g-code parsing
-#  
-
-println('GRBL busy   :', grbl_get_busy());
-println('Parser busy :', grbl_get_parser_busy());
-println('Error       :', grbl_get_error());
-println('Row         :', grbl_get_code_row_num());
-println('Ecmc error  :', ax1.error, ax2.error, ax3.error);
-println('All Enabled :', grbl_get_all_enabled());
-ax1.reset:=0;
-ax2.reset:=0;
-ax3.reset:=0;
-
-# Enable axis in state 0
-if(static.state==0) {
-  if(not(grbl_get_busy()) and not(grbl_get_error())) {
-    grbl_set_all_enable(1);    
-  };
-  if(grbl_get_all_enabled()) {
-    static.state:=1;
-  };
-};
-
-# Trigg motion
-if(static.state == 1) {
-  if(not(grbl_get_parser_busy())) {
-    static.counter+=1;
-    println('Retrigger g-code. Counter: ', static.counter);
-    grbl_set_execute(0);
-    grbl_set_execute(1);
-  };
-};
-
-#if(grbl_get_error()) {
-#  println('Try reset');
-#  grbl_reset_error();
-#  grbl_mc_resume(0);
-#  grbl_mc_resume(1);
-#  ax1.reset:=1;
-#  ax2.reset:=1;
-#  ax3.reset:=1;
-#
-#} else if(not(grbl_get_parser_busy())) {
-#  #static.counter+=1;
-#  #println('Retrigger g-code. Counter: ', static.counter);
-#  #grbl_set_execute(0);
-#  #grbl_set_execute(1);
-#};
-grbl_reset_error();"
-      Desc       = double grbl_reset_error() :  Reset error.
-      Arg count  = 0
-      func       = @0xb4e1f468
-    funcs[09]:
-      Name       = "grbl_get_all_enabled();"
-      Desc       = double grbl_get_all_enabled() :  Get all configured axes enabled.
-      Arg count  = 0
-      func       = @0xb4e1f490
-    funcs[10]:
-      Name       = "grbl_set_all_enable(arg0);"
-      Desc       = double grbl_set_all_enable(enable) : Set enable on all configured axes.
-      Arg count  = 1
-      func       = @0xb4e1f4a4
-  Plc constants:
-
-epicsEnvUnset(ECMC_PLUGIN_REPORT);
-epicsEnvUnset(ECMC_PLUGIN_FILNAME)
-epicsEnvUnset(ECMC_PLUGIN_CONFIG)
-ecmcGrblLoadFile("./plc/gcode.nc",0)
-../ecmc_plugin_grbl/ecmcGrbl.cpp:loadFile:916: file ./plc/gcode.nc, append 0
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:903:command G1X20Y20F360
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:910: GRBL: INFO: Buffer size 1
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:903:command S1000
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:910: GRBL: INFO: Buffer size 2
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:903:command M03
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:910: GRBL: INFO: Buffer size 3
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:903:command G4P2
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:910: GRBL: INFO: Buffer size 4
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:903:command G2X0Y0R20
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:910: GRBL: INFO: Buffer size 5
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:903:command G4P2
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:910: GRBL: INFO: Buffer size 6
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:903:command G0X10Y10
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:910: GRBL: INFO: Buffer size 7
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:903:command G2X10Y-10R10
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:910: GRBL: INFO: Buffer size 8
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:903:command M05
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:910: GRBL: INFO: Buffer size 9
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:903:command G4P2
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:910: GRBL: INFO: Buffer size 10
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:903:command G1X0Y0
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:910: GRBL: INFO: Buffer size 11
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:903:command G1X20Y20F360
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:910: GRBL: INFO: Buffer size 12
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:903:command G4P2
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:910: GRBL: INFO: Buffer size 13
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:903:command G2X0Y0R20
-../ecmc_plugin_grbl/ecmcGrbl.cpp:addCommand:910: GRBL: INFO: Buffer size 14
-asynSetTraceMask(MC_CPU1, -1, 0x0)
-#ecmcGrblAddCommand("G1X20Y20F360");
-#ecmcGrblAddCommand("G4P2");
-#ecmcGrblAddCommand("G2X0Y0R20");
-#ecmcGrblAddCommand("G4P2");
-#ecmcGrblAddCommand("G0X10Y10");
-#ecmcGrblAddCommand("G4P2");
-#ecmcGrblAddCommand("G1X0Y0");
-#ecmcGrblAddCommand("G2X0adadsdY0R20");
-#ecmcGrblAddCommand("G1X0Y20");
-#ecmcGrblAddCommand("G1X10Y0F360");
-#ecmcGrblAddCommand("G4P1");
-#ecmcGrblAddCommand("G1X50Y50F180");
-#ecmcGrblAddCommand("G1X0Y0");
-##############################################################################
-## PLC 0
-iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/loadPLCFile.cmd, "PLC_ID=0, SAMPLE_RATE_MS=1000,FILE=./plc/grbl.plc")
-#==============================================================================
-# loadPLCFile.cmd
-epicsEnvSet("ECMC_PLC_ID",              "0")
-ecmcEpicsEnvSetCalc(ECMC_PLC_RATE_, "1000/1000", "%f")
-epicsEnvSet("ECMC_PLC_SAMPLE_RATE_MS",  "1000")
-ecmcEpicsEnvSetCalcTernary(ECMC_PLC_SAMPLE_RATE_MS, "1000>0", "1000","1.000000")
-epicsEnvUnset(ECMC_PLC_RATE_) # clean up, temp variable
-epicsEnvSet("ECMC_TMP_FILE",            "/tmp/PLC0.plc")
-ecmcFileExist("./plc/grbl.plc",1)
-system "msi -V -M 'EMPTY' -o /tmp/PLC0.plc ./plc/grbl.plc"
-ecmcEpicsEnvSetCalcTernary(ECMC_EXE_CMD, 1=1,"", "#-"  )
-########### Parsed PLC file:
-system "cat /tmp/PLC0.plc"
-############ PLC file end
-#
-epicsEnStarting iocInit
-vUnset(ECMC_EXE_CMD)
-ecmcFileExist("/tmp/PLC0.plc",1)
-ecmcConfigOrDie "Cfg.CreatePLC(0,1000)"
-ecmcConfigOrDie "Cfg.LoadPLCFile(0,/tmp/PLC0.plc)"
-system "rm -f /tmp/PLC0.plc"
-ecmcFileExist(ecmcPlc.substitutions,1,1)
-ecmcEpicsEnvSetCalc(ECMC_PLC_ID_2_CHARS, "0", "%02d")
-dbLoadTemplate(ecmcPlc.substitutions, "PORT=MC_CPU1,A=0,Index=0,Name=IOC_TEST:,Index2Char=00,T_SMP_MS=10")
-epicsEnvUnset(ECMC_PLC_ID_2_CHARS)
-##############################################################################
-############# Configure diagnostics:
-ecmcConfigOrDie "Cfg.EcSetDiagnostics(1)"
-ecmcConfigOrDie "Cfg.EcEnablePrintouts(0)"
-ecmcConfigOrDie "Cfg.EcSetDomainFailedCyclesLimit(100)"
-ecmcConfigOrDie "Cfg.SetDiagAxisIndex(1)"
-ecmcConfigOrDie "Cfg.SetDiagAxisFreq(2)"
-ecmcConfigOrDie "Cfg.SetDiagAxisEnable(0)"
-iocshLoad (/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/setAppMode.cmd)
-#==============================================================================
-# setAppMode.cmd
-ecmcFileExist("/home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/general.cmd",1)
-iocshLoad /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmccfg/ruckig/general.cmd
-#==============================================================================
-# general.cmd
-ecmcFileExist("ecmcGeneral.db",1,1)
-dbLoadRecords("ecmcGeneral.db","P=IOC_TEST:,PORT=MC_CPU1,ADDR=0,TIMEOUT=1,T_SMP_MS=10,TSE=-2,ECMC_PROC_HOOK=")
-# Examples of commands for info:
-# ecmcReport <level> or asynReport <level>
-# ecmcReport 3
-# ecmcGrepParam <pattern>
-# List all ecmc params for ethercat slave 2:
-# ecmcGrepParam *s2*
-#
-ecmcEpicsEnvSetCalcTernary(ECMC_MASTER_CMD, "0>=0", "","#- ")
- ecmcFileExist("ecmcEc.db",1,1)
- dbLoadRecords("ecmcEc.db","P=IOC_TEST:,PORT=MC_CPU1,ADDR=0,TIMEOUT=1,MASTER_ID=0,T_SMP_MS=10,TSE=-2")
-ecmcConfigOrDie "Cfg.SetAppMode(1)"
-GRBL busy   :   1.00000
-Parser busy :   1.00000
-Error       :   0.00000
-Row         :   0.00000
-Ecmc error  :   0.00000   0.00000   0.00000
-All Enabled :   0.00000
-#asynSetTraceMask(MC_CPU1, -1, 0x41)
-# Note need to test 0x21 later..
-#asynSetTraceMask(MC_CPU1, -1, 0x21)
-asynSetTraceMask(MC_CPU1, -1, 0x0)
-iocInit()
-############################################################################
-## EPICS R7.0.5-E3-7.0.5-patch
-## Rev. 2021-05-05T19:45+0200
-############################################################################
-ECATtimestamp aSubRecord: IOC_TEST:m0s006-BI01-TimeRiseTS
-ECATtimestamp aSubRecord: IOC_TEST:m0s006-BI01-TimeFallTS
-ECATtimestamp aSubRecord: IOC_TEST:m0s006-BI02-TimeRiseTS
-ECATtimestamp aSubRecord: IOC_TEST:m0s006-BI02-TimeFallTS
-2022/02/07 17:51:49.593 [devMotorAsyn.c:439  IOC_TEST:Axis1] init_record IOC_TEST:Axis1 position=1.410000 encoderPos=1.410000 velocity=0.000000 MSTAstatus=0x4d00 flagsValue=0x3f flagsWritten=0x3f pmr->mflg=0x0
-2022/02/07 17:51:49.593 [devMotorAsyn.c:185  IOC_TEST:Axis1] init_controller IOC_TEST:Axis1 set encoder ratio=1.000000 status=0
-2022/02/07 17:51:49.593 [devMotorAsyn.c:266  IOC_TEST:Axis1] update_soft_limits IOC_TEST:Axis1 RawHLM_RO=130.000000 RawLLM_RO=-20.000000 valid=1 DHLM_RO=130.000000 DLLM_RO=-20.000000
-2022/02/07 17:51:49.593 [motorDevSup.c:327  IOC_TEST:Axis1] PositionRestoreNeeded IOC_TEST:Axis1 rstm=2 dval=0.000000 drbv=1.410000 pmr->rdbd=0.100000 rdbd=0.100000 pmr->mres=0.030000 pmr->mflg=0x3f dval_non_zero_pos_near_zero=0 ret=0
-2022/02/07 17:51:49.593 [motorRecord.cc:782  IOC_TEST:Axis1] init_re_init start neverPolled=0 stat=17 nsta=0
-2022/02/07 17:51:49.593 [motorRecord.cc:720  IOC_TEST:Axis1] enforceMinRetryDeadband spdb=0.100000 rdbd=0.100000 mres=0.030000
-2022/02/07 17:51:49.593 [motorRecord.cc:4484 IOC_TEST:Axis1] pmr->dhlm=130 softLimitRO=130
-2022/02/07 17:51:49.593 [motorRecord.cc:4545 IOC_TEST:Axis1] pmr->dllm=-20 softLimitRO=-20
-2022/02/07 17:51:49.593 [motorRecord.cc:833  IOC_TEST:Axis1] init_re_init  end dval=1.410000 drbv=1.410000 rdbd=0.100000 spdb=0.100000
-2022/02/07 17:51:49.593 [motorRecord.cc:968  IOC_TEST:Axis1] init_record process_reason="callbackdata + soft limits" dval=1.410000 drbv=1.410000 rdbd=0.100000 spdb=0.100000 stat=0 msta=0x4d00 neverPolled=0
-2022/02/07 17:51:49.593 [devMotorAsyn.c:439  IOC_TEST:Axis2] init_record IOC_TEST:Axis2 position=0.000000 encoderPos=0.000000 velocity=0.000000 MSTAstatus=0x0f00 flagsValue=0x3f flagsWritten=0x3f pmr->mflg=0x0
-2022/02/07 17:51:49.593 [devMotorAsyn.c:185  IOC_TEST:Axis2] init_controller IOC_TEST:Axis2 set encoder ratio=1.000000 status=0
-2022/02/07 17:51:49.593 [devMotorAsyn.c:266  IOC_TEST:Axis2] update_soft_limits IOC_TEST:Axis2 RawHLM_RO=20.000000 RawLLM_RO=-130.000000 valid=1 DHLM_RO=20.000000 DLLM_RO=-130.000000
-2022/02/07 17:51:49.593 [motorDevSup.c:327  IOC_TEST:Axis2] PositionRestoreNeeded IOC_TEST:Axis2 rstm=2 dval=0.000000 drbv=0.000000 pmr->rdbd=0.100000 rdbd=0.100000 pmr->mres=0.030000 pmr->mflg=0x3f dval_non_zero_pos_near_zero=0 ret=0
-2022/02/07 17:51:49.593 [motorRecord.cc:782  IOC_TEST:Axis2] init_re_init start neverPolled=0 stat=17 nsta=0
-2022/02/07 17:51:49.593 [motorRecord.cc:720  IOC_TEST:Axis2] enforceMinRetryDeadband spdb=0.100000 rdbd=0.100000 mres=0.030000
-2022/02/07 17:51:49.593 [motorRecord.cc:4484 IOC_TEST:Axis2] pmr->dhlm=20 softLimitRO=20
-2022/02/07 17:51:49.593 [motorRecord.cc:4545 IOC_TEST:Axis2] pmr->dllm=-130 softLimitRO=-130
-2022/02/07 17:51:49.593 [motorRecord.cc:833  IOC_TEST:Axis2] init_re_init  end dval=0.000000 drbv=0.000000 rdbd=0.100000 spdb=0.100000
-2022/02/07 17:51:49.593 [motorRecord.cc:968  IOC_TEST:Axis2] init_record process_reason="callbackdata + soft limits" dval=0.000000 drbv=0.000000 rdbd=0.100000 spdb=0.100000 stat=0 msta=0xf00 neverPolled=0
-2022/02/07 17:51:49.593 [devMotorAsyn.c:439  IOC_TEST:Axis3] init_record IOC_TEST:Axis3 position=0.060425 encoderPos=0.060425 velocity=0.000000 MSTAstatus=0x0b0a flagsValue=0x3f flagsWritten=0x3f pmr->mflg=0x0
-2022/02/07 17:51:49.593 [devMotorAsyn.c:185  IOC_TEST:Axis3] init_controller IOC_TEST:Axis3 set encoder ratio=1.000000 status=0
-2022/02/07 17:51:49.593 [devMotorAsyn.c:266  IOC_TEST:Axis3] update_soft_limits IOC_TEST:Axis3 RawHLM_RO=0.000000 RawLLM_RO=0.000000 valid=0 DHLM_RO=0.000000 DLLM_RO=0.000000
-2022/02/07 17:51:49.593 [motorDevSup.c:327  IOC_TEST:Axis3] PositionRestoreNeeded IOC_TEST:Axis3 rstm=2 dval=0.000000 drbv=0.060425 pmr->rdbd=0.300000 rdbd=0.300000 pmr->mres=0.000343 pmr->mflg=0x3f dval_non_zero_pos_near_zero=0 ret=0
-2022/02/07 17:51:49.594 [motorRecord.cc:782  IOC_TEST:Axis3] init_re_init start neverPolled=0 stat=17 nsta=0
-2022/02/07 17:51:49.594 [motorRecord.cc:720  IOC_TEST:Axis3] enforceMinRetryDeadband spdb=0.300000 rdbd=0.300000 mres=0.000343
-2022/02/07 17:51:49.594 [motorRecord.cc:833  IOC_TEST:Axis3] init_re_init  end dval=0.060425 drbv=0.060425 rdbd=0.300000 spdb=0.300000
-2022/02/07 17:51:49.594 [motorRecord.cc:968  IOC_TEST:Axis3] init_record process_reason="callbackdata + soft limits" dval=0.060425 drbv=0.060425 rdbd=0.300000 spdb=0.300000 stat=0 msta=0xb0a neverPolled=0
-GRBL busy   :   1.00000
-Parser busy :   1.00000
-Error       :   0.00000
-Row         :   0.00000
-Ecmc error  :   0.00000   0.00000   0.00000
-All Enabled :   0.00000
-iocRun: All initialization complete
-dbpf IOC_TEST:Axis1.SPAM 0
-DBF_SHORT:          0 = 0x0   
-dbpf IOC_TEST:Axis2.SPAM 0
-DBF_SHORT:          0 = 0x0   
-# Set the IOC Prompt String One 
-epicsEnvSet IOCSH_PS1 "raspberrypi-6966 > "
-#
-GRBL: INFO: Configuration start
-GRBL: INFO: Configuration ready
-GRBL: INFO: Start load g-code
-raspberrypi-6966 > 
-raspberrypi-6966 > GRBL busy   :   0.00000
-Parser busy :   0.00000
-Error       :   0.00000
-Row         :   0.00000
-Ecmc error  :   0.00000   0.00000   0.00000
-All Enabled :   0.00000
-2022/02/07 17:51:51.139 [motorRecord.cc:1522 IOC_TEST:Axis3] msta.Bits.EA_POSITION power on=1
-GRBL busy   :   0.00000
-Parser busy :   0.00000
-Error       :   0.00000
-Row         :   0.00000
-Ecmc error  :   0.00000   0.00000   0.00000
-All Enabled :   1.00000
-Retrigger g-code. Counter:    1.00000
-GRBL: INFO: Write command (command[0] = G1X20Y20F360)
-Added: G1X20Y20F360../grbl/grbl_gcode.c:gc_execute_line:71:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_stepper.c:st_wake_up:228:
-GRBL: INFO: Reply OK
-GRBL: INFO: Write command (command[1] = S1000)
-Added: S1000../grbl/grbl_gcode.c:gc_execute_line:71:
-GRBL: INFO: Reply OK
-GRBL: INFO: Write command (command[2] = M03)
-Added: M03../grbl/grbl_gcode.c:gc_execute_line:71:
-GRBL busy   :   1.00000
-Parser busy :   1.00000
-Error       :   0.00000
-Row         :   2.00000
-Ecmc error  :   0.00000   0.00000   0.00000
-All Enabled :   1.00000
-GRBL busy   :   1.00000
-Parser busy :   1.00000
-Error       :   0.00000
-Row         :   2.00000
-Ecmc error  :   0.00000   0.00000   0.00000
-All Enabled :   1.00000
-GRBL busy   :   1.00000
-Parser busy :   1.00000
-Error       :   0.00000
-Row         :   2.00000
-Ecmc error  :   0.00000   0.00000   0.00000
-All Enabled :   1.00000
-GRBL busy   :   1.00000
-Parser busy :   1.00000
-Error       :   0.00000
-Row         :   2.00000
-Ecmc error  :   0.00000   0.00000   0.00000
-All Enabled :   1.00000
-GRBL busy   :   1.00000
-Parser busy :   1.00000
-Error       :   0.00000
-Row         :   2.00000
-Ecmc error  :   0.00000   0.00000   0.00000
-All Enabled :   1.00000
-../grbl/grbl_stepper.c:st_go_idle:259:
-GRBL: INFO: Reply OK
-GRBL: INFO: Write command (command[3] = G4P2)
-Added: G4P2../grbl/grbl_gcode.c:gc_execute_line:71:
-../grbl/grbl_motion_control.c:mc_dwell:200:
-2022/02/07 17:51:57.151 [motorRecord.cc:1510 IOC_TEST:Axis3] msta.Bits.RA_MOVING=1
-2022/02/07 17:51:57.151 [motorRecord.cc:1530 IOC_TEST:Axis3] msta.Bits.RA_DONE=0
-2022/02/07 17:51:57.151 [motorRecord.cc:1627 IOC_TEST:Axis3] mipSetBit EXTERNAL(Ex) old='' new=EXTERNAL(Ex)
-GRBL busy   :   1.00000
-Parser busy :   1.00000
-Error       :   0.00000
-Row         :   3.00000
-Ecmc error  :   0.00000   0.00000   0.00000
-All Enabled :   1.00000
-
-raspberrypi-6966 > 
-raspberrypi-6966 > GRBL busy   :   1.00000
-Parser busy :   1.00000
-Error       :   0.00000
-Row         :   3.00000
-Ecmc error  :   0.00000   0.00000   0.00000
-All Enabled :   1.00000
-GRBL: INFO: Reply OK
-GRBL: INFO: Write command (command[4] = G2X0Y0R20)
-Added: G2X0Y0R20../grbl/grbl_gcode.c:gc_execute_line:71:
-../grbl/grbl_motion_control.c:mc_arc:91:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_update_plan_block_parameters:643:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_update_plan_block_parameters:643:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_stepper.c:st_wake_up:228:
-../grbl/grbl_motion_control.c:mc_line:33:
-
-raspberrypi-6966 > ../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-
-raspberrypi-6966 > ../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-
-raspberrypi-6966 > ../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-GRBL busy   :   1.00000
-Parser busy :   1.00000
-Error       :   0.00000
-Row         :   4.00000
-Ecmc error  :   0.00000   0.00000   0.00000
-All Enabled :   1.00000
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-
-raspberrypi-6966 > ../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-
-raspberrypi-6966 > ../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-
-raspberrypi-6966 > ../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-
-raspberrypi-6966 > ../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-GRBL busy   :   1.00000
-Parser busy :   1.00000
-Error       :   0.00000
-Row         :   4.00000
-Ecmc error  :   0.00000   0.00000   0.00000
-All Enabled :   1.00000
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-
-raspberrypi-6966 > ../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-
-raspberrypi-6966 > ../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-
-raspberrypi-6966 > ../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-GRBL busy   :   1.00000
-Parser busy :   1.00000
-Error       :   0.00000
-Row         :   4.00000
-Ecmc error  :   0.00000   0.00000   0.00000
-All Enabled :   1.00000
-../grbl/grbl_motion_control.c:mc_line:33:
-../grbl/grbl_stepper.c:st_next_block_index:656:
-GRBL: ERROR: ecmc 0x14315, plugin 0x0
-GRBL: ERROR: ecmc 0x14315, plugin 0x104
-2022/02/07 17:52:02.160 [motorRecord.cc:1522 IOC_TEST:Axis3] msta.Bits.EA_POSITION power on=0
-
-raspberrypi-6966 > 2022/02/07 17:52:02.360 [motorRecord.cc:1510 IOC_TEST:Axis3] msta.Bits.RA_MOVING=0
-2022/02/07 17:52:02.360 [motorRecord.cc:1530 IOC_TEST:Axis3] msta.Bits.RA_DONE=1
-2022/02/07 17:52:02.360 [motorRecord.cc:1696 IOC_TEST:Axis3] motor is stopped dval=0.060425 drbv=136.363678 pp=1 udf=0 stat=7 stop=0 pmr->spmg=GO mip=0x8000(EXTERNAL(Ex)) msta=0xb0a
-2022/02/07 17:52:02.360 [motorRecord.cc:1212 IOC_TEST:Axis3] mipClrBit STOP(St) old=EXTERNAL(Ex) new=EXTERNAL(Ex)
-2022/02/07 17:52:02.360 [motorRecord.cc:1854 IOC_TEST:Axis3] mipSetVal old=EXTERNAL(Ex) new=''
-
-raspberrypi-6966 > 2022/02/07 17:52:03.362 [motorRecord.cc:1212 IOC_TEST:Axis3] mipClrBit STOP(St) old='' new=''
-GRBL busy   :   1.00000
-Parser busy :   1.00000
-Error       : 260.00000
-Row         :   4.00000
-Ecmc error  :82709.0000082709.0000082709.00000
-All Enabled :   0.00000
-
-raspberrypi-6966 > 
+../grbl/grbl_stepper.c:stepper_i

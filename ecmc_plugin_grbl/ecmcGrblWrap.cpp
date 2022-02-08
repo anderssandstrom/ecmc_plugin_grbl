@@ -210,7 +210,7 @@ static void initCallFunc_0(const iocshArgBuf *args) {
 
 void ecmcGrblLoadFilePrintHelp() {
   printf("\n");
-  printf("       Use ecmcGrblLoadFile(<filename>,<append>)\n");
+  printf("       Use ecmcGrblLoadGCodeFile(<filename>,<append>)\n");
   printf("          <filename>             : Filename containg g-code.\n");
   printf("          <append>               : 0: reset grbl, clear all current commands in buffer before \n"); 
   printf ("                                     loading file (default).\n");
@@ -237,7 +237,7 @@ int ecmcGrblLoadFile(const char* filename, int append) {
   }
 
   try {
-    grbl->loadFile(filename, append);
+    grbl->loadGCodeFile(filename, append);
   }
   catch(std::exception& e) {
     printf("Exception: %s. Load file command failed.\n",e.what());
@@ -255,12 +255,10 @@ static const iocshArg initArg1_1 =
 static const iocshArg *const initArgs_1[]  = { &initArg0_1,
                                                &initArg1_1};
 
-static const iocshFuncDef    initFuncDef_1 = { "ecmcGrblLoadFile", 2, initArgs_1 };
+static const iocshFuncDef    initFuncDef_1 = { "ecmcGrblLoadGCodeFile", 2, initArgs_1 };
 static void initCallFunc_1(const iocshArgBuf *args) {
   ecmcGrblLoadFile(args[0].sval,args[1].ival);
 }
-
-
 
 /*
 $11 - Junction deviation, mm
@@ -333,6 +331,62 @@ static void initCallFunc_2(const iocshArgBuf *args) {
   ecmcGrblAddConfig(args[0].sval);
 }
 
+/** 
+ * EPICS iocsh shell command: ecmcGrblLoadConfigFile
+*/
+
+void ecmcGrblLoadConfigFilePrintHelp() {
+  printf("\n");
+  printf("       Use ecmcGrblLoadConfigFile(<filename>,<append>)\n");
+  printf("          <filename>             : Filename containg grbl configs.\n");
+  printf("          <append>               : 0: clear all current configs in buffer before \n"); 
+  printf ("                                     loading file (default).\n");
+  printf("                                 : 1: append commands in file last in buffer. (grbl is not reset)\n");
+  printf("\n");
+}
+
+int ecmcGrblLoadConfigFile(const char* filename, int append) {
+
+  if(!filename) {
+    printf("Error: filename.\n");
+    ecmcGrblLoadConfigFilePrintHelp();
+    return asynError;
+  }
+
+  if(strcmp(filename,"-h") == 0 || strcmp(filename,"--help") == 0 ) {
+    ecmcGrblLoadConfigFilePrintHelp();
+    return asynSuccess;
+  }
+
+  if(!grbl) {
+    printf("Plugin not initialized/loaded.\n");
+    return asynError;
+  }
+
+  try {
+    grbl->loadConfigFile(filename,append);
+  }
+  catch(std::exception& e) {
+    printf("Exception: %s. Load file command failed.\n",e.what());
+    return asynError;
+  }
+  
+  return asynSuccess;
+}
+
+static const iocshArg initArg0_3 =
+{ " Filename", iocshArgString };
+static const iocshArg initArg1_3 =
+{ " Append", iocshArgInt };
+
+static const iocshArg *const initArgs_3[]  = { &initArg0_3,
+                                               &initArg1_3};
+
+static const iocshFuncDef    initFuncDef_3 = { "ecmcGrblLoadConfigFile", 2, initArgs_3 };
+static void initCallFunc_3(const iocshArgBuf *args) {
+  ecmcGrblLoadConfigFile(args[0].sval,args[1].ival);
+}
+
 ///** 
 // * Register all functions
 //*/
@@ -340,6 +394,7 @@ void ecmcGrblPluginDriverRegister(void) {
   iocshRegister(&initFuncDef_0,    initCallFunc_0);   // ecmcGrblAddCommand
   iocshRegister(&initFuncDef_1,    initCallFunc_1);   // ecmcGrblLoadFile
   iocshRegister(&initFuncDef_2,    initCallFunc_2);   // ecmcGrblAddConfig
+  iocshRegister(&initFuncDef_3,    initCallFunc_3);   // ecmcGrblLoadConfigFile
 }
 
 epicsExportRegistrar(ecmcGrblPluginDriverRegister);

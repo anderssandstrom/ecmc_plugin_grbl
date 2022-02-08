@@ -74,7 +74,8 @@ class ecmcGrbl : public asynPortDriver {
   void                     doWriteWorker();
   void                     addCommand(std::string command);
   void                     addConfig(std::string command);
-  void                     loadFile(std::string filename, int append);
+  void                     loadGCodeFile(std::string filename, int append);
+  void                     loadConfigFile(std::string fileName, int append);
   int                      enterRT();
   int                      grblRTexecute(int ecmcError);
   int                      setExecute(int exe);

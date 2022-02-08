@@ -26,7 +26,6 @@ $(ECMCCFG_INIT)$(SCRIPTEXEC) ${ecmccfg_DIR}startup.cmd, "IOC=$(IOC),ECMC_VER=ruc
 # Hardware for X and Y in ESS crate
 $(SCRIPTEXEC) $(ecmccfg_DIR)ecmcMCU1021_coupler.cmd
 
-
 # Use EL7211 as spindle
 epicsEnvSet("ECMC_EC_SLAVE_NUM",              "11")
 epicsEnvSet("ECMC_EC_SLAVE_NUM_SPINDLE",      "$(ECMC_EC_SLAVE_NUM)")
@@ -76,6 +75,9 @@ $(SCRIPTEXEC) ($(ecmccfg_DIR)applyAxisSynchronization.cmd, CONFIG=./cfg/y.sax)
 epicsEnvSet("DEV",      "$(IOC)")
 $(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/spindle.ax)
 
+# Block  motor driver printouts
+asynSetTraceMask(MC_CPU1, -1, 0x0)
+
 ##############################################################################
 ## Load plugin:
 epicsEnvSet("PLUGIN_VER" ,"develop")
@@ -87,8 +89,21 @@ ${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILN
 epicsEnvUnset(ECMC_PLUGIN_FILNAME)
 epicsEnvUnset(ECMC_PLUGIN_CONFIG)
 
-ecmcGrblLoadFile("./plc/gcode.nc",0)
-asynSetTraceMask(MC_CPU1, -1, 0x0)
+# Load grbl configs:
+#    $11 - Junction deviation, mm\n
+#    $12 – Arc tolerance, mm\n
+#    $30 - Max spindle speed, RPM\n
+#    $31 - Min spindle speed, RPM\n
+#    $100, $101 and $102 – [X,Y,Z] steps/mm\n
+#    $110, $111 and $112 – [X,Y,Z] Max rate, mm/min\n
+#    $120, $121, $122 – [X,Y,Z] Acceleration, mm/sec^2\n
+  
+ecmcGrblAddConfig("$120=1234");
+ecmcGrblAddConfig("$121=1234");
+ecmcGrblAddConfig("$122=1234");
+
+# Load g-code
+ecmcGrblLoadGCodeFile("./plc/gcode.nc",0)
 
 #ecmcGrblAddCommand("G1X20Y20F360");
 #ecmcGrblAddCommand("G4P2");
@@ -96,13 +111,6 @@ asynSetTraceMask(MC_CPU1, -1, 0x0)
 #ecmcGrblAddCommand("G4P2");
 #ecmcGrblAddCommand("G0X10Y10");
 #ecmcGrblAddCommand("G4P2");
-#ecmcGrblAddCommand("G1X0Y0");
-
-#ecmcGrblAddCommand("G2X0adadsdY0R20");
-#ecmcGrblAddCommand("G1X0Y20");
-#ecmcGrblAddCommand("G1X10Y0F360");
-#ecmcGrblAddCommand("G4P1");
-#ecmcGrblAddCommand("G1X50Y50F180");
 #ecmcGrblAddCommand("G1X0Y0");
 
 ##############################################################################
