@@ -109,7 +109,7 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   grblInitDone_         = 0;
   autoStartDone_        = 0;
   timeToNextExeMs_      = 0;
-  writerBusy_           = 0;
+  writerBusy_           = 1;
   spindleAcceleration_  = 0;
   unrecoverableError_   = 0;
   cfgAutoEnableTimeOutSecs_ = ECMC_PLUGIN_AUTO_ENABLE_TIME_OUT_SEC;
@@ -117,7 +117,7 @@ ecmcGrbl::ecmcGrbl(char* configStr,
   grblCommandBuffer_.clear();
   grblConfigBuffer_.clear();
   memset(&ecmcData_,0,sizeof(ecmcStatusData));
-
+  
   if(!(grblConfigBufferMutex_ = epicsMutexCreate())) {
     throw std::runtime_error("GRBL: ERROR: Failed create mutex config buffer.");
   }
@@ -275,29 +275,32 @@ void ecmcGrbl::doWriteWorker() {
       printf("GRBL: INFO: Configuration start\n");
     }    
     if(!applyConfigsSuccess()) {
-      return; // Something went wrong, kill thread
+      return; // Something went seriously wrong, kill thread
     }
-
-    // Auto enable
-    if(cfgDbgMode_){
-      printf("GRBL: INFO: Auto enable configured axes\n");
-    }
-
-    // All configs done above.
+    
+    // All configs done above
+    writerBusy_ = false;
     for(;;) {
+
+      // wait for execute
+      if( !executeCmd_ || !grblInitDone_ || ecmcData_.error) {
+        delay_ms(2);
+        continue;
+      }
+
       // Execute auto enable
       if(cfgDbgMode_){
         printf("GRBL: INFO: auto enable\n");
       }
-    
+
       autoEnableAxesSuccess();
 
-      // GRBL ready, now we can send g-code comamnds
+      // Write g-code commands
       if(cfgDbgMode_){
         printf("GRBL: INFO: Start load g-code\n");
       }
       if(!WriteGCodeSuccess()) {
-        return;  // Something went wrong, kill thread
+        return;  // Something went seriously wrong, kill thread
       }      
     }
   }
@@ -360,8 +363,8 @@ bool ecmcGrbl::autoEnableAxesSuccess() {
 bool ecmcGrbl::WriteGCodeSuccess() {
   for(;;) {
     
-    if( (grblCommandBuffer_.size() > grblCommandBufferIndex_) &&         
-        executeCmd_ && ecmcData_.allEnabled && grblInitDone_) {
+    if( (grblCommandBuffer_.size() > grblCommandBufferIndex_) 
+         && executeCmd_ && ecmcData_.allEnabled) {
       epicsMutexLock(grblCommandBufferMutex_);
       std::string commandRaw = grblCommandBuffer_[grblCommandBufferIndex_];
       epicsMutexUnlock(grblCommandBufferMutex_);
@@ -393,6 +396,7 @@ bool ecmcGrbl::WriteGCodeSuccess() {
       if( (( grblCommandBufferIndex_ >= grblCommandBuffer_.size()) || !executeCmd_ ) &&
             grblInitDone_) {
         writerBusy_ = 0;
+        return true;  // code executed once
       }
 
       // Wait for right condition to start
