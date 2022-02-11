@@ -256,7 +256,7 @@ The test script includes the following:
 * [Plc file](iocsh/plc/grbl.plc)
 * [Nc g-code file](iocsh/plc/g-code.nc)
 
-The plc-file is used to retrigger the nc g-code after it has been finalized.
+The plc-file is used to enable the configured axes and to retrigger the nc g-code after it has been finalized.
  
 # Pictures
 Some pictures of x and y actual and setpoints for G0,G1,G2,G4 commands:
@@ -361,5 +361,5 @@ Plugin info:
 * Add possablity to stream g-code over epics
 * Test g-codes
 * Improve error handling
-* ...
+* Add homing to plc file...
  
