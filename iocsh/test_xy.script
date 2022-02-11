@@ -1,0 +1,145 @@
+##############################################################################
+## Example: Demo of ecmc grbl g-code plugin
+## https://github.com/anderssandstrom/ecmc_plugin_grbl
+## https://github.com/anderssandstrom/e3-ecmc_plugin_grbl
+##
+## The plugin exposes:
+##
+
+## Initiation:
+epicsEnvSet("IOC" ,"$(IOC="IOC_TEST")")
+epicsEnvSet("ECMCCFG_INIT" ,"")  #Only run startup once (auto at PSI, need call at ESS), variable set to "#" in startup.cmd
+epicsEnvSet("SCRIPTEXEC" ,"$(SCRIPTEXEC="iocshLoad")")
+
+require ecmccfg ruckig
+
+# Epics Motor record driver that will be used:
+epicsEnvShow(ECMC_MR_MODULE)
+
+# run module startup.cmd (only needed at ESS  PSI auto call at require)
+$(ECMCCFG_INIT)$(SCRIPTEXEC) ${ecmccfg_DIR}startup.cmd, "IOC=$(IOC),ECMC_VER=ruckig"
+
+
+##############################################################################
+## Configure hardware:
+
+# Hardware for X and Y in ESS crate
+$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcMCU1021_coupler.cmd
+
+## Use EL7211 as spindle
+#epicsEnvSet("ECMC_EC_SLAVE_NUM",              "11")
+#epicsEnvSet("ECMC_EC_SLAVE_NUM_SPINDLE",      "$(ECMC_EC_SLAVE_NUM)")
+#
+#${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=$(ECMC_EC_SLAVE_NUM), HW_DESC=EL7211-0010"
+#
+## Apply local 24V config (local here)
+#${SCRIPTEXEC} ${ecmccfg_DIR}applySlaveConfig.cmd, "LOCAL_CONFIG=./ecmcEL7211-0010-Motor-Beckhoff-AM8121-0F00-0000_24V.cmd"
+#
+##Apply hardware configuration  (wrong here, should only be done once (also done in ecmcMCU1021_coupler), but will work)
+#ecmcConfigOrDie "Cfg.EcApplyConfig(1)"
+
+#Does not work. Known issue DC-patch for etherlab manster needed...
+#ecmcConfigOrDie "Cfg.EcSelectReferenceDC(0,$(ECMC_EC_SLAVE_NUM))"
+
+# ADDITIONAL SETUP
+# Set all outputs to feed switches
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},binaryOutput01,1)"
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},binaryOutput02,1)"
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},binaryOutput03,1)"
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},binaryOutput04,1)"
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},binaryOutput05,1)"
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},binaryOutput06,1)"
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},binaryOutput07,1)"
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},binaryOutput08,1)"
+# END of ADDITIONAL SETUP
+
+##############################################################################
+## AXIS 1: X-axis
+#
+epicsEnvSet("DEV",      "$(IOC)")
+$(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/x.ax)
+# Set external setpoints
+$(SCRIPTEXEC) ($(ecmccfg_DIR)applyAxisSynchronization.cmd, CONFIG=./cfg/x.sax)
+
+##############################################################################
+## AXIS 2: Y-axis
+#
+#epicsEnvSet("DEV",      "$(IOC)")
+$(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/y.ax)
+# Set external setpoints
+$(SCRIPTEXEC) ($(ecmccfg_DIR)applyAxisSynchronization.cmd, CONFIG=./cfg/y.sax)
+
+##############################################################################
+## AXIS 3: Spindle
+#
+#epicsEnvSet("DEV",      "$(IOC)")
+#$(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/spindle.ax)
+
+# Block  motor driver printouts
+asynSetTraceMask(MC_CPU1, -1, 0x0)
+
+##############################################################################
+## Load plugin:
+epicsEnvSet("PLUGIN_VER" ,"develop")
+require ecmc_plugin_grbl $(PLUGIN_VER)
+
+epicsEnvSet(ECMC_PLUGIN_FILNAME,"/home/pi/epics/base-7.0.5/require/${E3_REQUIRE_VERSION}/siteMods/ecmc_plugin_grbl/$(PLUGIN_VER)/lib/${EPICS_HOST_ARCH=linux-x86_64}/libecmc_plugin_grbl.so")
+epicsEnvSet(ECMC_PLUGIN_CONFIG,"DBG_PRINT=1;X_AXIS=1;Y_AXIS=2;AUTO_ENABLE=0;AUTO_START=0;")
+${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILNAME},CONFIG='${ECMC_PLUGIN_CONFIG}', REPORT=1"
+epicsEnvUnset(ECMC_PLUGIN_FILNAME)
+epicsEnvUnset(ECMC_PLUGIN_CONFIG)
+
+# Load grbl configs (use "ecmcGrblAddConfig()" or "ecmcGrblAddConfig()"):
+#    $11 - Junction deviation, mm\n
+#    $12 – Arc tolerance, mm\n
+#    $30 - Max spindle speed, RPM\n
+#    $31 - Min spindle speed, RPM\n
+#    $100, $101 and $102 – [X,Y,Z] steps/mm\n
+#    $110, $111 and $112 – [X,Y,Z] Max rate, mm/min\n
+#    $120, $121, $122 – [X,Y,Z] Acceleration, mm/sec^2\n
+
+ecmcGrblLoadConfigFile("./cfg/grbl.cfg")
+
+#ecmcGrblAddConfig("$120=1234");
+#ecmcGrblAddConfig("$121=1234");
+#ecmcGrblAddConfig("$122=1234");
+
+# Load g-code (use "ecmcGrblLoadGCodeFile()" or "ecmcGrblAddCommand()")
+ecmcGrblLoadGCodeFile("./plc/gcode.nc",0)
+
+#ecmcGrblAddCommand("G1X20Y20F360");
+#ecmcGrblAddCommand("G4P2");
+#ecmcGrblAddCommand("G2X0Y0R20");
+#ecmcGrblAddCommand("G4P2");
+#ecmcGrblAddCommand("G0X10Y10");
+#ecmcGrblAddCommand("G4P2");
+#ecmcGrblAddCommand("G1X0Y0");
+
+##############################################################################
+## PLC 0: Test some grbl plc commands
+$(SCRIPTEXEC) $(ecmccfg_DIR)loadPLCFile.cmd, "PLC_ID=0, SAMPLE_RATE_MS=1000,FILE=./plc/grbl.plc")
+
+##############################################################################
+############# Configure diagnostics:
+
+ecmcConfigOrDie "Cfg.EcSetDiagnostics(1)"
+ecmcConfigOrDie "Cfg.EcEnablePrintouts(0)"
+ecmcConfigOrDie "Cfg.EcSetDomainFailedCyclesLimit(100)"
+ecmcConfigOrDie "Cfg.SetDiagAxisIndex(1)"
+ecmcConfigOrDie "Cfg.SetDiagAxisFreq(2)"
+ecmcConfigOrDie "Cfg.SetDiagAxisEnable(0)"
+
+$(SCRIPTEXEC) ($(ecmccfg_DIR)setAppMode.cmd)
+
+#asynSetTraceMask(MC_CPU1, -1, 0x41)
+# Note need to test 0x21 later..
+#asynSetTraceMask(MC_CPU1, -1, 0x21)
+asynSetTraceMask(MC_CPU1, -1, 0x0)
+
+##############################################################################
+############# Go Live:
+
+iocInit()
+
+dbpf $(IOC):Axis1.SPAM 0
+dbpf $(IOC):Axis2.SPAM 0

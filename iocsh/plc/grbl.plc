@@ -6,11 +6,10 @@ println('GRBL busy   :', grbl_get_busy());
 println('Parser busy :', grbl_get_parser_busy());
 println('Error       :', grbl_get_error());
 println('Row         :', grbl_get_code_row_num());
-println('Ecmc error  :', ax1.error, ax2.error, ax3.error);
+println('Ecmc error  :', ax1.error, ax2.error);
 println('All Enabled :', grbl_get_all_enabled());
 ax1.reset:=0;
 ax2.reset:=0;
-ax3.reset:=0;
 
 # Enable axis in state 0
 if(static.state==0) {

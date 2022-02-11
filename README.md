@@ -247,7 +247,7 @@ ecmcGrblAddCommand("G1X20Y20F360")
 
 # Test script
 
-A [test script](test.script) can be found in the iocsh directory.
+A [test script](test_xyspindle.script) can be found in the iocsh directory.
 
 The test script includes the following:
 * Configuration of three axes as [X](iocsh/cfg/x.ax),[Y](iocsh/cfg/y.ax) and [spindle](iocsh/cfg/spindle.ax)
