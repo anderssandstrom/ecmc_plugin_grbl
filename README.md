@@ -1,65 +1,17 @@
-![GitHub Logo](https://github.com/gnea/gnea-Media/blob/master/Grbl%20Logo/Grbl%20Logo%20250px.png?raw=true)
 
-***
-_Click the `Release` tab to download pre-compiled `.hex` files or just [click here](https://github.com/gnea/grbl/releases)_
-***
-Grbl is a no-compromise, high performance, low cost alternative to parallel-port-based motion control for CNC milling. This version of Grbl runs on an Arduino with a 328p processor (Uno, Duemilanove, Nano, Micro, etc).
+# ecmc_plugin_grbl: Nc g-code support for ecmc
 
-The controller is written in highly optimized C utilizing every clever feature of the AVR-chips to achieve precise timing and asynchronous operation. It is able to maintain up to 30kHz of stable, jitter free control pulses.
+ecmc plugin for cnc g-code execution by grbl.
+The plugin supports 3 axes (x,y,z) and spindle.
 
-It accepts standards-compliant g-code and has been tested with the output of several CAM tools with no problems. Arcs, circles and helical motion are fully supported, as well as, all other primary g-code commands. Macro functions, variables, and most canned cycles are not supported, but we think GUIs can do a much better job at translating them into straight g-code anyhow.
+More info can found in the grbl [readme](README_grbl.md) however not all features are supported.
 
-Grbl includes full acceleration management with look ahead. That means the controller will look up to 16 motions into the future and plan its velocities ahead to deliver smooth acceleration and jerk-free cornering.
+# Supported features
 
-* [Licensing](https://github.com/gnea/grbl/wiki/Licensing): Grbl is free software, released under the GPLv3 license.
+Most, but not all, of the grbl features should be supported but not all have been tested.
 
-* For more information and help, check out our **[Wiki pages!](https://github.com/gnea/grbl/wiki)** If you find that the information is out-dated, please to help us keep it updated by editing it or notifying our community! Thanks!
-
-* Lead Developer: Sungeun "Sonny" Jeon, Ph.D. (USA) aka @chamnit
-
-* Built on the wonderful Grbl v0.6 (2011) firmware written by Simen Svale Skogsrud (Norway).
-
-***
-
-### Official Supporters of the Grbl CNC Project
-![Official Supporters](https://github.com/gnea/gnea-Media/blob/master/Contributors.png?raw=true)
-
-
-***
-
-## Update Summary for v1.1
-- **IMPORTANT:** Your EEPROM will be wiped and restored with new settings. This is due to the addition of two new spindle speed '$' settings.
-
-- **Real-time Overrides** : Alters the machine running state immediately with feed, rapid, spindle speed, spindle stop, and coolant toggle controls. This awesome new feature is common only on industrial machines, often used to optimize speeds and feeds while a job is running. Most hobby CNC's try to mimic this behavior, but usually have large amounts of lag. Grbl executes overrides in realtime and within tens of milliseconds.
-
-- **Jogging Mode** : The new jogging commands are independent of the g-code parser, so that the parser state doesn't get altered and cause a potential crash if not restored properly. Documentation is included on how this works and how it can be used to control your machine via a joystick or rotary dial with a low-latency, satisfying response.
-
-- **Laser Mode** : The new "laser" mode will cause Grbl to move continuously through consecutive G1, G2, and G3 commands with spindle speed changes. When "laser" mode is disabled, Grbl will instead come to a stop to ensure a spindle comes up to speed properly. Spindle speed overrides also work with laser mode so you can tweak the laser power, if you need to during the job. Switch between "laser" mode and "normal" mode via a `$` setting.
-
-	- **Dynamic Laser Power Scaling with Speed** : If your machine has low accelerations, Grbl will automagically scale the laser power based on how fast Grbl is traveling, so you won't have burnt corners when your CNC has to make a turn! Enabled by the `M4` spindle CCW command when laser mode is enabled!
-
-- **Sleep Mode** : Grbl may now be put to "sleep" via a `$SLP` command. This will disable everything, including the stepper drivers. Nice to have when you are leaving your machine unattended and want to power down everything automatically. Only a reset exits the sleep state.
-
-- **Significant Interface Improvements**: Tweaked to increase overall performance, include lots more real-time data, and to simplify maintaining and writing GUIs. Based on direct feedback from multiple GUI developers and bench performance testing. _NOTE: GUIs need to specifically update their code to be compatible with v1.1 and later._
-
-	- **New Status Reports**: To account for the additional override data, status reports have been tweaked to cram more data into it, while still being smaller than before. Documentation is included, outlining how it has been changed. 
-	- **Improved Error/Alarm Feedback** : All Grbl error and alarm messages have been changed to providing a code. Each code is associated with a specific problem, so users will know exactly what is wrong without having to guess. Documentation and an easy to parse CSV is included in the repo.
-	- **Extended-ASCII realtime commands** : All overrides and future real-time commands are defined in the extended-ASCII character space. Unfortunately not easily type-able on a keyboard, but helps prevent accidental commands from a g-code file having these characters and gives lots of space for future expansion.
-	- **Message Prefixes** : Every message type from Grbl has a unique prefix to help GUIs immediately determine what the message is and parse it accordingly without having to know context. The prior interface had several instances of GUIs having to figure out the meaning of a message, which made everything more complicated than it needed to be.
-
-- New OEM specific features, such as safety door parking, single configuration file build option, EEPROM restrictions and restoring controls, and storing product data information.
- 
-- New safety door parking motion as a compile-option. Grbl will retract, disable the spindle/coolant, and park near Z max. When resumed, it will perform these task in reverse order and continue the program. Highly configurable, even to add more than one parking motion. See config.h for details.
-
-- New '$' Grbl settings for max and min spindle rpm. Allows for tweaking the PWM output to more closely match true spindle rpm. When max rpm is set to zero or less than min rpm, the PWM pin D11 will act like a simple enable on/off output.
-
-- Updated G28 and G30 behavior from NIST to LinuxCNC g-code description. In short, if a intermediate motion is specified, only the axes specified will move to the stored coordinates, not all axes as before.
-
-- Lots of minor bug fixes and refactoring to make the code more efficient and flexible.
-
-- **NOTE:** Arduino Mega2560 support has been moved to an active, official Grbl-Mega [project](http://www.github.com/gnea/grbl-Mega/). All new developments here and there will be synced when it makes sense to.
-
-
+## Grbl features
+grbl v1.1 supports the following features: 
 ```
 List of Supported G-Codes in Grbl v1.1:
   - Non-Modal Commands: G4, G10L2, G10L20, G28, G30, G28.1, G30.1, G53, G92, G92.1
@@ -78,3 +30,240 @@ List of Supported G-Codes in Grbl v1.1:
   - Spindle Control: M3, M4, M5
   - Valid Non-Command Words: F, I, J, K, L, N, P, R, S, T, X, Y, Z
 ```
+
+## Tested features
+
+* G0, G1, G2, G3, G4
+* G4
+* M3, M4, M5
+* S
+
+## Not supported features
+Some of the grbl features are not suppored (yet).
+
+### grbl limit switch evaluation
+Limit switches are handled by ecmc. If an limit switch is engaged all control will be taken over by ecmc and the grbl plugin will go into error state.
+
+### grbl homing sequences
+Homing sequences needs to be handled in ecmc prior to execution of any g-code. This since ecmc handles the limit switches.
+
+### Coolant control
+Not supported yet
+
+### Probing 
+Not supported yet
+
+### Softlimits
+Grbl softlimits are not supported. This should be handled in ecmc.
+
+# Configuration and programming
+
+The plugin contains two command buffers:
+* Configuration buffer (for setup of the system)
+* programming buffer (nc g-code)
+
+## Configuration
+A subset of the [grbl configuration comamnds](doc/markdown/settings.md) is supported:
+
+```
+#    $11 - Junction deviation, mm
+#    $12 – Arc tolerance, mm
+#    $30 - Max spindle speed, RPM
+#    $31 - Min spindle speed, RPM
+#    $100, $101 and $102 – [X,Y,Z] steps/mm
+#    $110, $111 and $112 – [X,Y,Z] Max rate, mm/min
+#    $120, $121, $122 – [X,Y,Z] Acceleration, mm/sec^2
+#
+#  Example: Set Max spindle speed to 1000rpm
+#          $30=1000
+#
+```
+### Loading of grbl configuration
+
+Loading of grbl configuration can be done by issuing the following iocsh cmds:
+* ecmcGrblLoadConfigFile(*filename*)
+* ecmcGrblAddConfig(*command*)
+These commands can only be used before iocInit().
+At iocInit() these configurationd will be written to grbl.
+
+#### ecmcGrblLoadConfigFile(filename)
+The ecmcGrblLoadConfigFile(*filename*) command loads a file containing grbl configs:
+
+```
+ecmcGrblLoadConfigFile -h
+
+       Use ecmcGrblLoadConfigFile(<filename>,<append>)
+          <filename>             : Filename containg grbl configs.
+          <append>               : 0: clear all current configs in buffer before 
+                                     loading file (default).
+                                 : 1: append commands in file last in buffer. (grbl is not reset)
+
+```
+
+Example:
+```
+ecmcGrblLoadConfigFile("./cfg/grbl.cfg")
+```
+#### ecmcGrblAddConfig(command);
+
+The ecmcGrblAddConfig(*command*) adds one configuration command to the configuration buffer:
+
+```
+ecmcGrblAddConfig -h
+
+       Use ecmcGrblAddConfig(<command>)
+          <command>                      : Grbl command.
+
+       Supported grbl comamnds:
+          $11 - Junction deviation, mm
+          $12 – Arc tolerance, mm
+          $30 - Max spindle speed, RPM
+          $31 - Min spindle speed, RPM
+          $100, $101 and $102 – [X,Y,Z] steps/mm
+          $110, $111 and $112 – [X,Y,Z] Max rate, mm/min
+          $120, $121, $122 – [X,Y,Z] Acceleration, mm/sec^2
+
+       Example: Set resolution to 1 micrometer
+        ecmcGrblAddConfig("$100=1000")  
+
+```
+
+Example: Set X acceleration to 100mm/sec²
+```
+ecmcGrblAddConfig("$120=100")
+```
+
+## Programming
+
+### Loading of grbl g-code nc programs
+
+Loading of grbl g-code nc programs can be done by issuing the following iocsh cmds:
+* ecmcGrblLoadGCodeFile(*filename*,*append*)
+* ecmcGrblAddCommand(*command*)
+
+#### ecmcGrblLoadGCodeFile(filename, append)
+The ecmcGrblLoadGCodeFile(*filename*, *append*) command loads a file containing nc code.
+If *append* parameter is set then the code in the file will be appended to any previous added nc code in the program buffer,
+otherwise the nc code program buffer will be cleared before adding the contents of the file.
+
+```
+ecmcGrblLoadGCodeFile -h
+
+       Use ecmcGrblLoadGCodeFile(<filename>,<append>)
+          <filename>             : Filename containg g-code.
+          <append>               : 0: reset grbl, clear all current commands in buffer before 
+                                     loading file (default).
+                                 : 1: append commands in file last in buffer. (grbl is not reset)
+
+```
+
+Example: Load file without append
+```
+ecmcGrblLoadGCodeFile("./plc/gcode.nc",0)
+```
+
+#### ecmcGrblAddCommand(command);
+
+The ecmcGrblAddCommand(*command*) adds one nc command to the program buffer:
+
+```
+ecmcGrblAddCommand -h
+
+       Use ecmcGrblAddCommand(<command>)
+          <command>                      : Grbl command.
+
+```
+
+Example: Add nc g-code command
+```
+ecmcGrblAddCommand("G1X20Y20F360")
+```
+
+# Plugin info
+```
+Plugin info: 
+  Index                = 0
+  Name                 = ecmcPluginGrbl
+  Description          = grbl plugin for use with ecmc.
+  Option description   = 
+    DBG_PRINT=<1/0>    : Enables/disables printouts from plugin, default = disabled (=0).
+      X_AXIS=<axis id>: Ecmc Axis id for use as grbl X axis, default = disabled (=-1).
+      Y_AXIS=<axis id>: Ecmc Axis id for use as grbl Y axis, default = disabled (=-1).
+      Z_AXIS=<axis id>: Ecmc Axis id for use as grbl Z axis, default = disabled (=-1).
+      SPINDLE_AXIS=<axis id>: Ecmc Axis id for use as grbl spindle axis, default = disabled (=-1).
+      AUTO_ENABLE=<1/0>: Auto enable the linked ecmc axes autmatically before start, default = disabled (=0).
+      AUTO_START=<1/0>: Auto start g-code at ecmc start, default = disabled (=0).
+
+  Filename             = /home/pi/epics/base-7.0.5/require/3.4.0/siteMods/ecmc_plugin_grbl/develop/lib/linux-arm/libecmc_plugin_grbl.so
+  Config string        = DBG_PRINT=1;X_AXIS=1;Y_AXIS=2;SPINDLE_AXIS=3;AUTO_ENABLE=0;AUTO_START=0;
+  Version              = 2
+  Interface version    = 65536 (ecmc = 65536)
+     max plc funcs     = 64
+     max plc func args = 10
+     max plc consts    = 64
+  Construct func       = @0xb4f1fb50
+  Enter realtime func  = @0xb4f1fa64
+  Exit realtime func   = @0xb4f1fa30
+  Realtime func        = @0xb4f1fa60
+  Destruct func        = @0xb4f1fa38
+  dlhandle             = @0xbb6f48
+  Plc functions:
+    funcs[00]:
+      Name       = "grbl_set_execute(arg0);"
+      Desc       = double grbl_set_execute(<exe>) :  Trigg execution of loaded g-code at positive edge of <exe>
+      Arg count  = 1
+      func       = @0xb4f1fa68
+    funcs[01]:
+      Name       = "grbl_mc_halt(arg0);"
+      Desc       = double grbl_mc_halt(<halt>) :  Halt grbl motion at positive edge of <halt>
+      Arg count  = 1
+      func       = @0xb4f1fa84
+    funcs[02]:
+      Name       = "grbl_mc_resume(arg0);"
+      Desc       = double grbl_mc_resume(<resume>) : Resume halted grbl motion at positive edge of <resume>
+      Arg count  = 1
+      func       = @0xb4f1faa0
+    funcs[03]:
+      Name       = "grbl_get_busy();"
+      Desc       = double grbl_get_busy() :  Get grbl system busy (still executing motion code)
+      Arg count  = 0
+      func       = @0xb4f1fabc
+    funcs[04]:
+      Name       = "grbl_get_parser_busy();"
+      Desc       = double grbl_get_parser_busy() :  Get g-code parser busy.
+      Arg count  = 0
+      func       = @0xb4f1fad0
+    funcs[05]:
+      Name       = "grbl_get_code_row_num();"
+      Desc       = double grbl_get_code_row_num() :  Get g-code row number currently preparing for exe.
+      Arg count  = 0
+      func       = @0xb4f1fae4
+    funcs[06]:
+      Name       = "grbl_get_error();"
+      Desc       = double grbl_get_error() :  Get error code.
+      Arg count  = 0
+      func       = @0xb4f1fb0c
+    funcs[07]:
+      Name       = "grbl_reset_error();"
+      Desc       = double grbl_reset_error() :  Reset error.
+      Arg count  = 0
+      func       = @0xb4f1faf8
+    funcs[08]:
+      Name       = "grbl_get_all_enabled();"
+      Desc       = double grbl_get_all_enabled() :  Get all configured axes enabled.
+      Arg count  = 0
+      func       = @0xb4f1fb20
+    funcs[09]:
+      Name       = "grbl_set_all_enable(arg0);"
+      Desc       = double grbl_set_all_enable(enable) : Set enable on all configured axes.
+      Arg count  = 1
+      func       = @0xb4f1fb34
+  Plc constants:
+```
+
+
+## Todo
+* Add config that executed automatic homing
+* Verify that axes are homed before and g-code is executed
+* Test mc_halt() and mc_resume()
+* Add possablity to stream g-code over epics
