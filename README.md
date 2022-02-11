@@ -269,20 +269,16 @@ The test script includes the following:
 The plc-file is used to retrigger the nc g-code after it has been finalized.
  
 # Pictures
-Some pictures of x and y movements for G0,G1,G2,G4 commands:
-* [X and Y positions](doc/ecmc/example.png)
-* [Detail 1](doc/ecmc/example_zoom_1.png)
-* [Detail 2](doc/ecmc/example_zoom_2.png)
+Some pictures of x and y actual and setpoints for G0,G1,G2,G4 commands (Axis1=x and Axis2=y):
 
-## Load of plugin
-```
-epicsEnvSet("PLUGIN_VER" ,"develop")
-require ecmc_plugin_grbl $(PLUGIN_VER)
-epicsEnvSet(ECMC_PLUGIN_FILNAME,"/home/pi/epics/base-7.0.5/require/${E3_REQUIRE_VERSION}/siteMods/ecmc_plugin_grbl/$(PLUGIN_VER)/lib/${EPICS_HOST_ARCH=linux-x86_64}/libecmc_plugin_grbl.so")
-epicsEnvSet(ECMC_PLUGIN_CONFIG,"DBG_PRINT=1;X_AXIS=1;Y_AXIS=2;SPINDLE_AXIS=3;AUTO_ENABLE=0;AUTO_START=0;")
-${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILNAME},CONFIG='${ECMC_PLUGIN_CONFIG}', REPORT=1"
-```
+## X and Y positions 
+![X and Y positions](doc/ecmc/example.png)
 
+## Detail 1
+![Detail 1](doc/ecmc/example_zoom_1.png)
+
+## Detail 2
+![Detail 2](doc/ecmc/example_zoom_2.png)
 
 # Plugin info
 ```
