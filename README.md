@@ -8,7 +8,7 @@ More info can found in the grbl [readme](README_grbl.md) however not all feature
 
 # Supported features
 
-Most, but not all, of the grbl features should be supported but not all have been tested.
+Most, but not all, of the grbl features should be supported but far from all have been tested.
 
 ## Grbl features
 grbl v1.1 supports the following features: 
@@ -56,16 +56,9 @@ Not supported yet
 ### Grbl Softlimits
 Grbl softlimits are not supported. This should be handled in ecmc.
 
-# Configuration and programming
+# Plugin configuration
 
-The plugin contains two command buffers:
-* Plugin configuration
-* Grbl configuration buffer (for setup of the system)
-* Grbl programming buffer (nc g-code)
-
-## Plugin configuration
-
-### Load of plugin
+## Load of plugin
 
 The plugin must be loaded into ecmc with the *loadPlugin.cmd* command.
 Exmaple of loading of plugin
@@ -86,59 +79,59 @@ The configuration string contains the following configuration commands:
 * AUTO_ENABLE  *1/0: auto enable all configured axis before nc code is triggered*
 * AUTO_START   *1/0: auto start g-code nc program at ioc start*
 
-### ecmc plc functions
+## ecmc plc functions
 
-#### grbl_set_execute(arg0)
+### grbl_set_execute(arg0)
 ```
  double grbl_set_execute(<exe>) :  Trigg execution of loaded g-code at positive edge of <exe>
 ```
 
-#### grbl_mc_halt(arg0)
+### grbl_mc_halt(arg0)
 ```
 double grbl_mc_halt(<halt>) :  Halt grbl motion at positive edge of <halt>
 ```
 
-#### grbl_mc_resume(arg0)
+### grbl_mc_resume(arg0)
 ```
 double grbl_mc_resume(<resume>) : Resume halted grbl motion at positive edge of <resume>
 ```
 
-#### grbl_get_busy()
+### grbl_get_busy()
 ```
 double grbl_get_busy() :  Get grbl system busy (still executing motion code)
 ```
 
-#### grbl_get_parser_busy()
+### grbl_get_parser_busy()
 ```
 double grbl_get_parser_busy() :  Get g-code parser busy.
 ```
 
-#### grbl_get_code_row_num()
+### grbl_get_code_row_num()
 ```
 double grbl_get_code_row_num() :  Get g-code row number currently preparing for exe.
 ```
 
-#### grbl_get_error()
+### grbl_get_error()
 ```
 double grbl_get_error() :  Get error code.
 ```
 
-#### grbl_reset_error()
+### grbl_reset_error()
 ```
 double grbl_reset_error() :  Reset error.
 ```
 
-#### grbl_get_all_enabled()
+### grbl_get_all_enabled()
 ```
 double grbl_get_all_enabled() :  Get all configured axes enabled.
 ```
 
-#### grbl_set_all_enable(arg0)
+### grbl_set_all_enable(arg0)
 ```
 double grbl_set_all_enable(enable) : Set enable on all configured axes.
 ```
 
-## Grbl Configuration
+# Grbl Configuration
 A subset of the [grbl configuration comamnds](doc/markdown/settings.md) is supported:
 
 ```
@@ -153,7 +146,7 @@ A subset of the [grbl configuration comamnds](doc/markdown/settings.md) is suppo
 Example: Set Max spindle speed to 1000rpm
 $30=1000
 ```
-### Loading of grbl configuration
+## Loading of grbl configuration
 
 Loading of grbl configuration can be done by issuing the following iocsh cmds:
 * ecmcGrblLoadConfigFile(*filename*)
@@ -161,7 +154,7 @@ Loading of grbl configuration can be done by issuing the following iocsh cmds:
 These commands can only be used before iocInit().
 At iocInit() these configurationd will be written to grbl.
 
-#### ecmcGrblLoadConfigFile(filename)
+### ecmcGrblLoadConfigFile(filename)
 The ecmcGrblLoadConfigFile(*filename*) command loads a file containing grbl configs:
 
 ```
@@ -179,7 +172,7 @@ Example:
 ```
 ecmcGrblLoadConfigFile("./cfg/grbl.cfg")
 ```
-#### ecmcGrblAddConfig(command);
+### ecmcGrblAddConfig(command);
 
 The ecmcGrblAddConfig(*command*) adds one configuration command to the configuration buffer:
 
@@ -208,15 +201,13 @@ Example: Set X acceleration to 100mm/sec²
 ecmcGrblAddConfig("$120=100")
 ```
 
-## Grbl programming
-
-### Loading of grbl g-code nc programs
+# Grbl programming
 
 Loading of grbl g-code nc programs can be done by issuing the following iocsh cmds:
 * ecmcGrblLoadGCodeFile(*filename*,*append*)
 * ecmcGrblAddCommand(*command*)
 
-#### ecmcGrblLoadGCodeFile(filename, append)
+## ecmcGrblLoadGCodeFile(filename, append)
 The ecmcGrblLoadGCodeFile(*filename*, *append*) command loads a file containing nc code.
 If *append* parameter is set then the code in the file will be appended to any previous added nc code in the program buffer,
 otherwise the nc code program buffer will be cleared before adding the contents of the file.
@@ -237,7 +228,7 @@ Example: Load file without append
 ecmcGrblLoadGCodeFile("./plc/gcode.nc",0)
 ```
 
-#### ecmcGrblAddCommand(command);
+## ecmcGrblAddCommand(command);
 
 The ecmcGrblAddCommand(*command*) adds one nc command to the program buffer:
 
