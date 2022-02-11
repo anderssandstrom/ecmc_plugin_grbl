@@ -362,4 +362,7 @@ Plugin info:
 * Test g-codes
 * Improve error handling
 * Add homing to plc file...
+* Cleanup
+* use asynPrint
+* 
  
