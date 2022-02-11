@@ -151,7 +151,9 @@ $30=1000
 Loading of grbl configuration can be done by issuing the following iocsh cmds:
 * ecmcGrblLoadConfigFile(*filename*)
 * ecmcGrblAddConfig(*command*)
+
 These commands can only be used before iocInit().
+
 At iocInit() these configurationd will be written to grbl.
 
 ### ecmcGrblLoadConfigFile(filename)
@@ -209,6 +211,7 @@ Loading of grbl g-code nc programs can be done by issuing the following iocsh cm
 
 ## ecmcGrblLoadGCodeFile(filename, append)
 The ecmcGrblLoadGCodeFile(*filename*, *append*) command loads a file containing nc code.
+
 If *append* parameter is set then the code in the file will be appended to any previous added nc code in the program buffer,
 otherwise the nc code program buffer will be cleared before adding the contents of the file.
 
@@ -262,6 +265,8 @@ The plc-file is used to enable the configured axes and to retrigger the nc g-cod
 Some pictures of x and y actual and setpoints for G0,G1,G2,G4 commands:
 * X = Axis1
 * Y = Axis2
+
+NOTE: The tests are performed on simple belt drive linear axes.
 
 ## X and Y positions 
 ![X and Y positions](doc/ecmc/example.png)
