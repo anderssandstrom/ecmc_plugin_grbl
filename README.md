@@ -142,17 +142,16 @@ double grbl_set_all_enable(enable) : Set enable on all configured axes.
 A subset of the [grbl configuration comamnds](doc/markdown/settings.md) is supported:
 
 ```
-#    $11 - Junction deviation, mm
-#    $12 – Arc tolerance, mm
-#    $30 - Max spindle speed, RPM
-#    $31 - Min spindle speed, RPM
-#    $100, $101 and $102 – [X,Y,Z] steps/mm
-#    $110, $111 and $112 – [X,Y,Z] Max rate, mm/min
-#    $120, $121, $122 – [X,Y,Z] Acceleration, mm/sec^2
-#
-#  Example: Set Max spindle speed to 1000rpm
-#          $30=1000
-#
+* $11 - Junction deviation, mm
+* $12 – Arc tolerance, mm
+* $30 - Max spindle speed, RPM
+* $31 - Min spindle speed, RPM
+* $100, $101 and $102 – [X,Y,Z] steps/mm
+* $110, $111 and $112 – [X,Y,Z] Max rate, mm/min
+* $120, $121, $122 – [X,Y,Z] Acceleration, mm/sec^2
+
+Example: Set Max spindle speed to 1000rpm
+$30=1000
 ```
 ### Loading of grbl configuration
 
@@ -269,7 +268,9 @@ The test script includes the following:
 The plc-file is used to retrigger the nc g-code after it has been finalized.
  
 # Pictures
-Some pictures of x and y actual and setpoints for G0,G1,G2,G4 commands (Axis1=x and Axis2=y):
+Some pictures of x and y actual and setpoints for G0,G1,G2,G4 commands:
+* X = Axis1
+* Y = Axis2
 
 ## X and Y positions 
 ![X and Y positions](doc/ecmc/example.png)
