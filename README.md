@@ -363,9 +363,12 @@ Plugin info:
   Plc constants:
 ```
 
-
 ## Todo
 * Add config that executed automatic homing
 * Verify that axes are homed before and g-code is executed
 * Test mc_halt() and mc_resume()
 * Add possablity to stream g-code over epics
+* Test g-codes
+* Improve error handling
+* ...
+ 
