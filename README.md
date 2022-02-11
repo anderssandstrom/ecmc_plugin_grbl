@@ -41,28 +41,104 @@ List of Supported G-Codes in Grbl v1.1:
 ## Not supported features
 Some of the grbl features are not suppored (yet).
 
-### grbl limit switch evaluation
+### Grbl limit switch evaluation
 Limit switches are handled by ecmc. If an limit switch is engaged all control will be taken over by ecmc and the grbl plugin will go into error state.
 
-### grbl homing sequences
+### Grbl homing sequences
 Homing sequences needs to be handled in ecmc prior to execution of any g-code. This since ecmc handles the limit switches.
 
-### Coolant control
+### Grbl coolant control
 Not supported yet
 
-### Probing 
+### Grbl probing 
 Not supported yet
 
-### Softlimits
+### Grbl Softlimits
 Grbl softlimits are not supported. This should be handled in ecmc.
 
 # Configuration and programming
 
 The plugin contains two command buffers:
-* Configuration buffer (for setup of the system)
-* programming buffer (nc g-code)
+* Plugin configuration
+* Grbl configuration buffer (for setup of the system)
+* Grbl programming buffer (nc g-code)
 
-## Configuration
+## Plugin configuration
+
+### Load of plugin
+
+The plugin must be loaded into ecmc with the *loadPlugin.cmd* command.
+Exmaple of loading of plugin
+```
+epicsEnvSet("PLUGIN_VER" ,"develop")
+require ecmc_plugin_grbl $(PLUGIN_VER)
+epicsEnvSet(ECMC_PLUGIN_FILNAME,"/home/pi/epics/base-7.0.5/require/${E3_REQUIRE_VERSION}/siteMods/ecmc_plugin_grbl/$(PLUGIN_VER)/lib/${EPICS_HOST_ARCH=linux-x86_64}/libecmc_plugin_grbl.so")
+epicsEnvSet(ECMC_PLUGIN_CONFIG,"DBG_PRINT=1;X_AXIS=1;Y_AXIS=2;SPINDLE_AXIS=3;AUTO_ENABLE=0;AUTO_START=0;")
+${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILNAME},CONFIG='${ECMC_PLUGIN_CONFIG}', REPORT=1"
+```
+The configuration string contains the following configuration commands:
+
+* DBG_PRINT    *1/0: enable/disable debug printouts*
+* X_AXIS       *ecmc axis id that will be used as x-axis*
+* Y_AXIS       *ecmc axis id that will be used as y-axis*
+* Z_AXIS       *ecmc axis id that will be used as z-axis*
+* SPINDLE_AXIS *ecmc axis id that will be used as spindle-axis*
+* AUTO_ENABLE  *1/0: auto enable all configured axis before nc code is triggered*
+* AUTO_START   *1/0: auto start g-code nc program at ioc start*
+
+### ecmc plc functions
+
+#### grbl_set_execute(arg0)
+```
+ double grbl_set_execute(<exe>) :  Trigg execution of loaded g-code at positive edge of <exe>
+```
+
+#### grbl_mc_halt(arg0)
+```
+double grbl_mc_halt(<halt>) :  Halt grbl motion at positive edge of <halt>
+```
+
+#### grbl_mc_resume(arg0)
+```
+double grbl_mc_resume(<resume>) : Resume halted grbl motion at positive edge of <resume>
+```
+
+#### grbl_get_busy()
+```
+double grbl_get_busy() :  Get grbl system busy (still executing motion code)
+```
+
+#### grbl_get_parser_busy()
+```
+double grbl_get_parser_busy() :  Get g-code parser busy.
+```
+
+#### grbl_get_code_row_num()
+```
+double grbl_get_code_row_num() :  Get g-code row number currently preparing for exe.
+```
+
+#### grbl_get_error()
+```
+double grbl_get_error() :  Get error code.
+```
+
+#### grbl_reset_error()
+```
+double grbl_reset_error() :  Reset error.
+```
+
+#### grbl_get_all_enabled()
+```
+double grbl_get_all_enabled() :  Get all configured axes enabled.
+```
+
+#### grbl_set_all_enable(arg0)
+```
+double grbl_set_all_enable(enable) : Set enable on all configured axes.
+```
+
+## Grbl Configuration
 A subset of the [grbl configuration comamnds](doc/markdown/settings.md) is supported:
 
 ```
@@ -133,7 +209,7 @@ Example: Set X acceleration to 100mm/sec²
 ecmcGrblAddConfig("$120=100")
 ```
 
-## Programming
+## Grbl programming
 
 ### Loading of grbl g-code nc programs
 
@@ -178,6 +254,35 @@ Example: Add nc g-code command
 ```
 ecmcGrblAddCommand("G1X20Y20F360")
 ```
+
+# Test script
+
+A [test script](test.script) can be found in the iocsh directory.
+
+The test script includes the following:
+* Configuration of three axes as [X](iocsh/cfg/x.ax),[Y](iocsh/cfg/y.ax) and [spindle](iocsh/cfg/spindle.ax)
+* Needed sync expression files for [X](iocsh/cfg/x.sax) and [Y](iocsh/cfg/y.sax) (spindle does not need sync file)
+* [Grbl configuration file](iocsh/cfg/grbl.cfg)
+* [Plc file](iocsh/plc/grbl.plc)
+* [Nc g-code file](iocsh/plc/g-code.nc)
+
+The plc-file is used to retrigger the nc g-code after it has been finalized.
+ 
+# Pictures
+Some pictures of x and y movements for G0,G1,G2,G4 commands:
+* [X and Y positions](doc/ecmc/example.png)
+* [Detail 1](doc/ecmc/example_zoom_1.png)
+* [Detail 2](doc/ecmc/example_zoom_2.png)
+
+## Load of plugin
+```
+epicsEnvSet("PLUGIN_VER" ,"develop")
+require ecmc_plugin_grbl $(PLUGIN_VER)
+epicsEnvSet(ECMC_PLUGIN_FILNAME,"/home/pi/epics/base-7.0.5/require/${E3_REQUIRE_VERSION}/siteMods/ecmc_plugin_grbl/$(PLUGIN_VER)/lib/${EPICS_HOST_ARCH=linux-x86_64}/libecmc_plugin_grbl.so")
+epicsEnvSet(ECMC_PLUGIN_CONFIG,"DBG_PRINT=1;X_AXIS=1;Y_AXIS=2;SPINDLE_AXIS=3;AUTO_ENABLE=0;AUTO_START=0;")
+${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILNAME},CONFIG='${ECMC_PLUGIN_CONFIG}', REPORT=1"
+```
+
 
 # Plugin info
 ```
