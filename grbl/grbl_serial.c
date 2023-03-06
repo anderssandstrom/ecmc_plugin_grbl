@@ -281,7 +281,8 @@ void ecmc_add_char_to_buffer(char data)
 // write direct to serial buffer
 void ecmc_write_command_serial(char* line) {
   MUTEX_LOCK(serialRxBufferMutex);
-  for(unsigned int i=0; i<strlen(line);i++) {
+  unsigned int i=0;
+  for(i=0; i<strlen(line);i++) {
     ecmc_add_char_to_buffer(line[i]);    
   }
   ecmc_add_char_to_buffer('\n');
