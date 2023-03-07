@@ -69,6 +69,10 @@ void gc_sync_position()
 uint8_t gc_execute_line(char *line)
 {
    PRINTF_DEBUG("");
+   printf("gc_execute_line: %s\n",line);
+   if(strlen(line)<2) {
+     return(STATUS_OK);
+   }
 
   /* -------------------------------------------------------------------------------------
      STEP 1: Initialize parser block struct and copy current g-code state modes. The parser

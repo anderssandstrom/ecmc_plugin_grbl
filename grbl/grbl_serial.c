@@ -106,6 +106,7 @@ uint16_t serial_get_tx_buffer_count()
 void serial_init()
 {
   printf("%s:%s:%d:\n",__FILE__,__FUNCTION__,__LINE__);
+  memset(&serial_rx_buffer[0],0,RX_RING_BUFFER);
   // Create some mutexes to ensure safe communication
   if(!(serialRxBufferMutex = epicsMutexCreate())) {
     printf("%s:%s:%d: Failed create serialRxBufferMutex\n",__FILE__,__FUNCTION__,__LINE__); 
@@ -203,15 +204,17 @@ uint8_t serial_read()
   uint16_t tail = serial_rx_buffer_tail; // Temporary serial_rx_buffer_tail (to optimize for volatile)
   if (serial_rx_buffer_head == tail) {
     MUTEX_UNLOCK(serialRxBufferMutex);
+    //printf("tail %u, head %u, available %u\n",serial_rx_buffer_tail,serial_rx_buffer_head,serial_get_rx_buffer_available());
     return SERIAL_NO_DATA;
   } else {
     uint8_t data = serial_rx_buffer[tail];
+    serial_rx_buffer[tail]=0;
 
     tail++;
     if (tail == RX_RING_BUFFER) { 
       tail = 0; 
     }
-    
+    //printf("tail %u, head %u, available %u\n",serial_rx_buffer_tail,serial_rx_buffer_head,serial_get_rx_buffer_available());
     serial_rx_buffer_tail = tail;
     MUTEX_UNLOCK(serialRxBufferMutex);
     return data;
@@ -270,10 +273,10 @@ void ecmc_add_char_to_buffer(char data)
         if (next_head == RX_RING_BUFFER) { next_head = 0; }
 
         // Write data to buffer unless it is full.
-        if (next_head != serial_rx_buffer_tail) {
+        //if (next_head != serial_rx_buffer_tail) {
           serial_rx_buffer[serial_rx_buffer_head] = data;
           serial_rx_buffer_head = next_head;
-        }
+        //}        
       }
   }
 }
@@ -285,11 +288,24 @@ void ecmc_write_command_serial(char* line) {
   for(i=0; i<strlen(line);i++) {
     ecmc_add_char_to_buffer(line[i]);    
   }
-  ecmc_add_char_to_buffer('\n');
-  MUTEX_UNLOCK(serialRxBufferMutex);
-  if(enableDebugPrintouts) {
-    printf("Added: %s",line);   
+  
+  //ecmc_add_char_to_buffer('\n');
+  
+  printf("Serial Buffer tail %u head %u, avail %u\n",serial_rx_buffer_tail,serial_rx_buffer_head,serial_get_rx_buffer_available()); 
+  for(i = 0;i<RX_RING_BUFFER;i++) {
+    if(serial_rx_buffer[i]==0) {
+      printf("x");
+    } else if ( serial_rx_buffer[i]=='\n' || serial_rx_buffer[i]=='\r' )  {
+      printf("r");
+    } else  {
+      printf("%c",serial_rx_buffer[i]);
+    }
   }
+  printf("\n");
+  MUTEX_UNLOCK(serialRxBufferMutex);
+  //if(enableDebugPrintouts) {
+    printf("Added: %s\n", line);
+  //}
   free(line);
 }
 

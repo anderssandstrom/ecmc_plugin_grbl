@@ -80,7 +80,7 @@ void protocol_main_loop()
     delay_us(100);  // added for ecmc
     while((c = serial_read()) != SERIAL_NO_DATA) {
       if ((c == '\n') || (c == '\r')) { // End of line reached
-        
+    
         protocol_execute_realtime(); // Runtime command check point.
         if (sys.abort) { return; } // Bail to calling function upon system abort
 
@@ -93,7 +93,7 @@ void protocol_main_loop()
         if (line_flags & LINE_FLAG_OVERFLOW) {
           // Report line overflow error.
           report_status_message(STATUS_OVERFLOW);
-        } else if (line[0] == 0) {
+        } else if (line[0] == 0 || line[0]== '0') {
           // Empty or comment line. For syncing purposes.
           report_status_message(STATUS_OK);
         } else if (line[0] == '$') {
@@ -104,7 +104,11 @@ void protocol_main_loop()
           report_status_message(STATUS_SYSTEM_GC_LOCK);
         } else {
           // Parse and execute g-code block.
-          report_status_message(gc_execute_line(line));
+          printf("protocol: Line to gc_execute %s\n",line);
+          if(strlen(line)>1) {
+            
+            report_status_message(gc_execute_line(line));
+          }
         }
 
         // Reset tracking data for next line.

@@ -391,6 +391,7 @@ bool ecmcGrbl::WriteGCodeSuccess() {
         setReset(0);
         setReset(1);
         setReset(0);
+        printf("SOMETHING BAD HAPPEND!!!!\n");
         grblCommandBufferIndex_ = 0;
         return false;  // for loop
       }
@@ -398,6 +399,7 @@ bool ecmcGrbl::WriteGCodeSuccess() {
       grblCommandBufferIndex_++;
     }
     else {
+      printf("NO MORE COMMANDS in buffer!!!\n");
       if( ( (grblCommandBufferIndex_ >= grblCommandBuffer_.size()) || !executeCmd_) && grblInitDone_) {
         writerBusy_ = 0;        
         return true;  // code executed once
@@ -411,18 +413,17 @@ bool ecmcGrbl::WriteGCodeSuccess() {
 }
 
 void ecmcGrbl::grblWriteCommand(std::string command) {
-
   // wait for grbl            
-  while(serial_get_rx_buffer_available() <= strlen(command.c_str())+1) {
-    delay_ms(1);
+  while(serial_get_rx_buffer_available() <= strlen(command.c_str()+1)) {
+    printf("WAITING for freee in buffer %d %d\n",serial_get_rx_buffer_available(),strlen(command.c_str()+1));
+    delay_ms(1000);
   }
+  ecmc_write_command_serial(strdup(command.c_str()));
   if(cfgDbgMode_){
     printf("GRBL: INFO: Write command (command[%d] = %s)\n",
            grblCommandBufferIndex_,
            command.c_str());
   }
-  
-  ecmc_write_command_serial(strdup(command.c_str()));      
 }
 
  grblReplyType ecmcGrbl::grblReadReply() {
@@ -438,7 +439,7 @@ void ecmcGrbl::grblWriteCommand(std::string command) {
     if(c == '\n'&& reply.length() > 1) {
       if(reply.find(ECMC_PLUGIN_GRBL_GRBL_OK_STRING) != std::string::npos) {            
         if(cfgDbgMode_){
-          printf("GRBL: INFO: Reply OK\n");
+          printf("GRBL: INFO: Reply OK (%s)\n",reply.c_str());
         }
         return ECMC_GRBL_REPLY_OK;        
       } else if(reply.find(ECMC_PLUGIN_GRBL_GRBL_ERR_STRING) != std::string::npos) {
@@ -986,8 +987,11 @@ void  ecmcGrbl::addConfig(std::string command) {
         __FILE__,__FUNCTION__,__LINE__,ECMC_PLUGIN_CONFIG_ERROR_CODE);
     return;
   }
+  
+  commandStrip+='\n';
 
   epicsMutexLock(grblConfigBufferMutex_);
+
   grblConfigBuffer_.push_back(commandStrip.c_str());
   epicsMutexUnlock(grblConfigBufferMutex_);
   if(cfgDbgMode_){

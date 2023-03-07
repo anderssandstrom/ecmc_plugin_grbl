@@ -22,6 +22,7 @@
 #ifndef serial_h
 #define serial_h
 
+#define RX_BUFFER_SIZE 100
 
 #ifndef RX_BUFFER_SIZE
   #define RX_BUFFER_SIZE 128
@@ -33,10 +34,6 @@
     #define TX_BUFFER_SIZE 104
   #endif
 #endif
-
-
-//#define RX_BUFFER_SIZE 1024
-//#define TX_BUFFER_SIZE 1024
 
 #define SERIAL_NO_DATA 0xff
 
