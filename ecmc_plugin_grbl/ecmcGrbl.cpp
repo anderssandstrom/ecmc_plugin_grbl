@@ -285,7 +285,6 @@ void ecmcGrbl::doWriteWorker() {
     }
 
     for(;;) {
-
       // wait for execute
       if( !executeCmd_ || !grblInitDone_ || ecmcData_.error) {
         delay_ms(2);
@@ -299,7 +298,6 @@ void ecmcGrbl::doWriteWorker() {
         }
         autoEnableAxesSuccess();
       }
-
       // Write g-code commands
       if(cfgDbgMode_){
         printf("GRBL: INFO: Start load g-code\n");
@@ -445,7 +443,7 @@ void ecmcGrbl::grblWriteCommand(std::string command) {
         return ECMC_GRBL_REPLY_OK;        
       } else if(reply.find(ECMC_PLUGIN_GRBL_GRBL_ERR_STRING) != std::string::npos) {
         if(cfgDbgMode_){
-          printf("GRBL: ERROR: Reply ERROR\n");
+          printf("GRBL: ERROR: Reply ERROR, (%s)\n", reply.c_str());
         }
         return ECMC_GRBL_REPLY_ERROR;
       } else if(reply.find(ECMC_PLUGIN_GRBL_GRBL_STARTUP_STRING) != std::string::npos ) {
@@ -607,7 +605,9 @@ void ecmcGrbl::preExeAxes() {
   preExeAxis(ecmcData_.zAxis,Z_AXIS);
 
   // Kill everything if limit switch violation
-  giveControlToEcmcIfNeeded();
+  if(executeCmd_) {
+    giveControlToEcmcIfNeeded();
+  }
 }
 
 void ecmcGrbl::preExeAxis(ecmcAxisStatusData ecmcAxisData, int grblAxisId) {
@@ -772,8 +772,8 @@ int  ecmcGrbl::grblRTexecute(int ecmcError) {
   readEcmcStatus(ecmcError);
   
   // Error handling
-  if((ecmcData_.errorOld == 0 && ecmcData_.error > 0) ||
-     (errorCode_ > 0 && errorCodeOld_ == 0)) {
+  if(((ecmcData_.errorOld == 0 && ecmcData_.error > 0) ||
+     (errorCode_ > 0 && errorCodeOld_ == 0)) && executeCmd_) {
     setHalt(0);
     setHalt(1);
 
@@ -786,7 +786,6 @@ int  ecmcGrbl::grblRTexecute(int ecmcError) {
     setExecute(0);
     printf("GRBL: ERROR: ecmc 0x%x, plugin 0x%x\n",ecmcError,errorCode_);    
     errorCodeOld_ = errorCode_;
-
     giveControlToEcmcIfNeeded();
     return errorCode_;
   }
@@ -902,6 +901,9 @@ int ecmcGrbl::getError() {
 }
 
 void ecmcGrbl::resetError() {
+  if(cfgDbgMode_){
+    printf("GRBL: INFO: Error reset cmd\n");
+  }
   errorCode_ = 0;
   errorCodeOld_ = 0;
 }
