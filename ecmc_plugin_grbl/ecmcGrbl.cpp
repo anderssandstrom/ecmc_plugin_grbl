@@ -366,14 +366,16 @@ bool ecmcGrbl::autoEnableAxesSuccess() {
 }
 
 bool ecmcGrbl::WriteGCodeSuccess() {
+  //printf("START WRITE G_CODE!\n");
   for(;;) {
-    
+    //printf("grblCommandBuffer_.size() %d grblCommandBufferIndex_ %d executeCmd_  %d ecmcData_.allEnabled %d\n",grblCommandBuffer_.size(), grblCommandBufferIndex_,executeCmd_ ,ecmcData_.allEnabled);
     if( (grblCommandBuffer_.size() > grblCommandBufferIndex_) 
-         && executeCmd_ && ecmcData_.allEnabled) {
+         && executeCmd_ && ecmcData_.allEnabled) {      
       epicsMutexLock(grblCommandBufferMutex_);
       std::string commandRaw = grblCommandBuffer_[grblCommandBufferIndex_];
       epicsMutexUnlock(grblCommandBufferMutex_);
       std::string command = commandRaw.substr(0, commandRaw.find(ECMC_CONFIG_FILE_COMMENT_CHAR));
+      //printf("commandRaw");
       if(command.length() == 0) {
         continue;
       }
@@ -399,7 +401,7 @@ bool ecmcGrbl::WriteGCodeSuccess() {
       grblCommandBufferIndex_++;
     }
     else {
-      printf("GRBL: INFO: No more commands in buffer!!!\n");
+      //printf("GRBL: INFO: No more commands in buffer!!!\n");
       if( ( (grblCommandBufferIndex_ >= grblCommandBuffer_.size()) || !executeCmd_) && grblInitDone_) {
         writerBusy_ = 0;        
         return true;  // code executed once
@@ -413,7 +415,8 @@ bool ecmcGrbl::WriteGCodeSuccess() {
 }
 
 void ecmcGrbl::grblWriteCommand(std::string command) {
-  // wait for grbl            
+  // wait for grbl
+  printf("WAIT FOR SPACE IN BUFFER\n");
   while(serial_get_rx_buffer_available() <= strlen(command.c_str()+1)) {
     //printf("WAITING for free in buffer %d %d\n",serial_get_rx_buffer_available(),strlen(command.c_str()+1));
     delay_ms(10);
@@ -765,7 +768,7 @@ void   ecmcGrbl::readEcmcStatus(int ecmcError) {
 // grb realtime thread!!!  
 int  ecmcGrbl::grblRTexecute(int ecmcError) {
 
-  if(getEcmcEpicsIOCState()!=16 || !grblInitDone_ || unrecoverableError_) {
+  if((getEcmcEpicsIOCState()!=16 && getEcmcEpicsIOCState()!=29) || !grblInitDone_ || unrecoverableError_) {
     return 0;
   }
   
@@ -886,11 +889,12 @@ int ecmcGrbl::setReset(int reset) {
 }
 
 int ecmcGrbl::getBusy() {
-  return getEcmcEpicsIOCState()!=16 || writerBusy_ || stepperInterruptEnable || !grblInitDone_;
+  return (getEcmcEpicsIOCState()!=16 && getEcmcEpicsIOCState()!=29) || writerBusy_ || stepperInterruptEnable || !grblInitDone_;
 }
 
-int ecmcGrbl::getParserBusy() {  
-  return getEcmcEpicsIOCState()!=16 || writerBusy_ || !grblInitDone_;
+int ecmcGrbl::getParserBusy() {
+  bool stateOK = getEcmcEpicsIOCState()==16 || getEcmcEpicsIOCState()==29;
+  return !stateOK || writerBusy_ || !grblInitDone_;
 }
 
 int ecmcGrbl::getCodeRowNum() {
