@@ -104,7 +104,7 @@ void protocol_main_loop()
           report_status_message(STATUS_SYSTEM_GC_LOCK);
         } else {
           // Parse and execute g-code block.
-          printf("protocol: Line to gc_execute %s\n",line);
+          //printf("protocol: Line to gc_execute %s\n",line);
           if(strlen(line)>1) {
             
             report_status_message(gc_execute_line(line));

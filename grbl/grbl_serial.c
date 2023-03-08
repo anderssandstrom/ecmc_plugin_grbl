@@ -291,20 +291,20 @@ void ecmc_write_command_serial(char* line) {
   
   //ecmc_add_char_to_buffer('\n');
   
-  printf("Serial Buffer tail %u head %u, avail %u\n",serial_rx_buffer_tail,serial_rx_buffer_head,serial_get_rx_buffer_available()); 
-  for(i = 0;i<RX_RING_BUFFER;i++) {
-    if(serial_rx_buffer[i]==0) {
-      printf("x");
-    } else if ( serial_rx_buffer[i]=='\n' || serial_rx_buffer[i]=='\r' )  {
-      printf("r");
-    } else  {
-      printf("%c",serial_rx_buffer[i]);
-    }
-  }
-  printf("\n");
+//  printf("Serial Buffer tail %u head %u, avail %u\n",serial_rx_buffer_tail,serial_rx_buffer_head,serial_get_rx_buffer_available()); 
+//  for(i = 0;i<RX_RING_BUFFER;i++) {
+//    if(serial_rx_buffer[i]==0) {
+//      printf("x");
+//    } else if ( serial_rx_buffer[i]=='\n' || serial_rx_buffer[i]=='\r' )  {
+//      printf("r");
+//    } else  {
+//      printf("%c",serial_rx_buffer[i]);
+//    }
+//  }
+//  printf("\n");
   MUTEX_UNLOCK(serialRxBufferMutex);
   //if(enableDebugPrintouts) {
-    printf("Added: %s\n", line);
+  //  printf("Added: %s\n", line);
   //}
   free(line);
 }

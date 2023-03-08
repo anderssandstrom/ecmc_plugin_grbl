@@ -263,7 +263,7 @@ void ecmcGrbl::doWriteWorker() {
       printf("GRBL: INFO: Wait for IOC state RUN \n");
     }
     // wait for epics state
-    while(getEcmcEpicsIOCState()!=16) {
+    while(getEcmcEpicsIOCState()!=16 && getEcmcEpicsIOCState()!=29) {
       delay_ms(2);
     }
     delay_ms(2);
@@ -391,7 +391,7 @@ bool ecmcGrbl::WriteGCodeSuccess() {
         setReset(0);
         setReset(1);
         setReset(0);
-        printf("SOMETHING BAD HAPPEND!!!!\n");
+        printf("GRBL: ERROR: Grbl reply not OK (motion stopped)\n");
         grblCommandBufferIndex_ = 0;
         return false;  // for loop
       }
@@ -399,7 +399,7 @@ bool ecmcGrbl::WriteGCodeSuccess() {
       grblCommandBufferIndex_++;
     }
     else {
-      printf("NO MORE COMMANDS in buffer!!!\n");
+      printf("GRBL: INFO: No more commands in buffer!!!\n");
       if( ( (grblCommandBufferIndex_ >= grblCommandBuffer_.size()) || !executeCmd_) && grblInitDone_) {
         writerBusy_ = 0;        
         return true;  // code executed once
@@ -415,8 +415,8 @@ bool ecmcGrbl::WriteGCodeSuccess() {
 void ecmcGrbl::grblWriteCommand(std::string command) {
   // wait for grbl            
   while(serial_get_rx_buffer_available() <= strlen(command.c_str()+1)) {
-    printf("WAITING for freee in buffer %d %d\n",serial_get_rx_buffer_available(),strlen(command.c_str()+1));
-    delay_ms(1000);
+    //printf("WAITING for free in buffer %d %d\n",serial_get_rx_buffer_available(),strlen(command.c_str()+1));
+    delay_ms(10);
   }
   ecmc_write_command_serial(strdup(command.c_str()));
   if(cfgDbgMode_){
@@ -889,7 +889,7 @@ int ecmcGrbl::getBusy() {
   return getEcmcEpicsIOCState()!=16 || writerBusy_ || stepperInterruptEnable || !grblInitDone_;
 }
 
-int ecmcGrbl::getParserBusy() {
+int ecmcGrbl::getParserBusy() {  
   return getEcmcEpicsIOCState()!=16 || writerBusy_ || !grblInitDone_;
 }
 
@@ -987,7 +987,7 @@ void  ecmcGrbl::addConfig(std::string command) {
         __FILE__,__FUNCTION__,__LINE__,ECMC_PLUGIN_CONFIG_ERROR_CODE);
     return;
   }
-  
+
   commandStrip+='\n';
 
   epicsMutexLock(grblConfigBufferMutex_);

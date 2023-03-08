@@ -69,7 +69,7 @@ void gc_sync_position()
 uint8_t gc_execute_line(char *line)
 {
    PRINTF_DEBUG("");
-   printf("gc_execute_line: %s\n",line);
+   //printf("gc_execute_line: %s\n",line);
    if(strlen(line)<2) {
      return(STATUS_OK);
    }
