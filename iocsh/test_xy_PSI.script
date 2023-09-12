@@ -11,72 +11,46 @@
 require ecmccfg v9.0.1_RC1 "ECMC_VER=v9.0.1_RC1"
 require ecmc_plugin_grbl sandst_a
 
-exit
-
 ##############################################################################
 ## Configure hardware:
 
-# Hardware for X and Y in ESS crate
-$(SCRIPTEXEC) $(ecmccfg_DIR)ecmcMCU1021_coupler.cmd
+${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=1, HW_DESC=EL3004"
+${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=2, HW_DESC=EL5001"
+${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=3, HW_DESC=EL1008"
+${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=4, HW_DESC=EL7031, CONFIG=-Motor-Trinamic-QMot-QSH4218-41-10-035"
+epicsEnvSet(X_DRV_SID,${ECMC_EC_SLAVE_NUM})
+ecmcConfigOrDie "Cfg.EcApplyConfig(1)"
 
-## Use EL7211 as spindle
-#epicsEnvSet("ECMC_EC_SLAVE_NUM",              "11")
-#epicsEnvSet("ECMC_EC_SLAVE_NUM_SPINDLE",      "$(ECMC_EC_SLAVE_NUM)")
-#
-#${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=$(ECMC_EC_SLAVE_NUM), HW_DESC=EL7211-0010"
-#
-## Apply local 24V config (local here)
-#${SCRIPTEXEC} ${ecmccfg_DIR}applySlaveConfig.cmd, "LOCAL_CONFIG=./ecmcEL7211-0010-Motor-Beckhoff-AM8121-0F00-0000_24V.cmd"
-#
-##Apply hardware configuration  (wrong here, should only be done once (also done in ecmcMCU1021_coupler), but will work)
-#ecmcConfigOrDie "Cfg.EcApplyConfig(1)"
+#- HWE for EP7211
+epicsEnvSet("BO_SID",           "6")
+${SCRIPTEXEC} ${ecmccfg_DIR}addSlave.cmd, "SLAVE_ID=$(BO_SID), HW_DESC=EL2008"
+ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${BO_SID},binaryOutput02,1)"
 
-#Does not work. Known issue DC-patch for etherlab manster needed...
-#ecmcConfigOrDie "Cfg.EcSelectReferenceDC(0,$(ECMC_EC_SLAVE_NUM))"
+# Limit torque to 50% of motor rated torque
+#- Rated current = 2710mA (see motor config file, "0x8011 0x12 Rated current (mA)")
+#- Set to 50% of 2710 = 1355mA   (0x8011 0x11 Max current (mA))
+epicsEnvSet("Y_DRV_SID",        "11")
+${SCRIPTEXEC} ${ecmccfg_DIR}configureSlave.cmd, "SLAVE_ID=$(Y_DRV_SID), HW_DESC=EP7211-0034_ALL, CONFIG=-Motor-Beckhoff-AM8111-0F20-0000,CFG_MACROS='I_MAX_MA=1355'"
 
-# ADDITIONAL SETUP
-# Set all outputs to feed switches
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},binaryOutput01,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},binaryOutput02,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},binaryOutput03,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},binaryOutput04,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},binaryOutput05,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},binaryOutput06,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},binaryOutput07,1)"
-ecmcConfigOrDie "Cfg.WriteEcEntryIDString(${ECMC_EC_SLAVE_NUM_DIG_OUT},binaryOutput08,1)"
-# END of ADDITIONAL SETUP
+#Apply hardware configuration
+ecmcConfigOrDie "Cfg.EcApplyConfig(1)"
 
 ##############################################################################
-## AXIS 1: X-axis
-#
+## AXIS 1: X
+# Configure Motion
+epicsEnvSet("DRV_SID",  "${X_DRV_SID}")
 epicsEnvSet("DEV",      "$(IOC)")
-$(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/x.ax)
-# Set external setpoints
-$(SCRIPTEXEC) ($(ecmccfg_DIR)applyAxisSynchronization.cmd, CONFIG=./cfg/x.sax)
+${SCRIPTEXEC} ${ecmccfg_DIR}configureAxis.cmd, "CONFIG=./cfg/X_psi.ax"
 
-##############################################################################
-## AXIS 2: Y-axis
-#
-#epicsEnvSet("DEV",      "$(IOC)")
-$(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/y.ax)
-# Set external setpoints
-$(SCRIPTEXEC) ($(ecmccfg_DIR)applyAxisSynchronization.cmd, CONFIG=./cfg/y.sax)
-
-##############################################################################
-## AXIS 3: Spindle
-#
-#epicsEnvSet("DEV",      "$(IOC)")
-#$(SCRIPTEXEC) ($(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/spindle.ax)
-
-# Block  motor driver printouts
-asynSetTraceMask(MC_CPU1, -1, 0x0)
+# AXIS 2: Y
+epicsEnvSet("DRV_SID",  "${Y_DRV_SID}")
+epicsEnvSet("DEV",      "$(IOC)")
+$(SCRIPTEXEC) $(ecmccfg_DIR)configureAxis.cmd, CONFIG=./cfg/Y_psi.ax
 
 ##############################################################################
 ## Load plugin:
-epicsEnvSet("PLUGIN_VER" ,"develop")
-require ecmc_plugin_grbl $(PLUGIN_VER)
 
-epicsEnvSet(ECMC_PLUGIN_FILNAME,"/home/pi/epics/base-7.0.5/require/${E3_REQUIRE_VERSION}/siteMods/ecmc_plugin_grbl/$(PLUGIN_VER)/lib/${EPICS_HOST_ARCH=linux-x86_64}/libecmc_plugin_grbl.so")
+epicsEnvSet(ECMC_PLUGIN_FILNAME,"${ecmc_plugin_grbl_DIR}lib/${EPICS_HOST_ARCH}/libecmc_plugin_grbl.so")
 epicsEnvSet(ECMC_PLUGIN_CONFIG,"DBG_PRINT=1;X_AXIS=1;Y_AXIS=2;AUTO_ENABLE=0;AUTO_START=0;")
 ${SCRIPTEXEC} ${ecmccfg_DIR}loadPlugin.cmd, "PLUGIN_ID=0,FILE=${ECMC_PLUGIN_FILNAME},CONFIG='${ECMC_PLUGIN_CONFIG}', REPORT=1"
 epicsEnvUnset(ECMC_PLUGIN_FILNAME)
