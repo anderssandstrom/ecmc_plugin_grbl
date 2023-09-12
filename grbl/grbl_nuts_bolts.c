@@ -117,23 +117,7 @@ void delay_sec(float seconds, uint8_t mode)
   clock_gettime(CLOCK_MONOTONIC,&deadline);
   deadline.tv_sec+=1*seconds;
   clock_nanosleep(CLOCK_MONOTONIC,TIMER_ABSTIME, &deadline,NULL);
-  
-  // NOTE!!!: mode not used!!!!
-  
- 	//uint16_t i = ceil(1000/DWELL_TIME_STEP*seconds);
-	//while (i-- > 0) {
-	//	if (sys.abort) { return; }
-	//	if (mode == DELAY_MODE_DWELL) {
-	//		protocol_execute_realtime();
-	//	} else { // DELAY_MODE_SYS_SUSPEND
-	//	  // Execute rt_system() only to avoid nesting suspend loops.
-	//	  protocol_exec_rt_system();
-	//	  if (sys.suspend & SUSPEND_RESTART_RETRACT) { return; } // Bail, if safety door reopens.
-	//	}
-	//	_delay_ms(DWELL_TIME_STEP); // Delay DWELL_TIME_STEP increment
-	//}
 }
-
 
 // Delays variable defined milliseconds. Compiler compatibility fix for _delay_ms(),
 // which only accepts constants in future compiler releases.
@@ -147,8 +131,6 @@ void delay_ms(uint16_t ms)
     deadline.tv_sec++;
   }
   clock_nanosleep(CLOCK_MONOTONIC,TIMER_ABSTIME, &deadline,NULL);
-
-  //while ( ms-- ) { _delay_ms(1); }
 }
 
 
@@ -165,23 +147,6 @@ void delay_us(uint32_t us)
     deadline.tv_sec++;
   }
   clock_nanosleep(CLOCK_MONOTONIC,TIMER_ABSTIME, &deadline,NULL);
-
-  
-  //while (us) {
-  //  if (us < 10) {
-  //    _delay_us(1);
-  //    us--;
-  //  } else if (us < 100) {
-  //    _delay_us(10);
-  //    us -= 10;
-  //  } else if (us < 1000) {
-  //    _delay_us(100);
-  //    us -= 100;
-  //  } else {
-  //    _delay_ms(1);
-  //    us -= 1000;
-  //  }
-  //}
 }
 
 

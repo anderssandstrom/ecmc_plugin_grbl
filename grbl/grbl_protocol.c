@@ -37,8 +37,6 @@ static void protocol_exec_rt_suspend();
 */
 void protocol_main_loop()
 {
-  PRINTF_DEBUG("");
-
   // Perform some machine checks to make sure everything is good to go.
   #ifdef CHECK_LIMITS_AT_INIT
     if (bit_istrue(settings.flags, BITFLAG_HARD_LIMIT_ENABLE)) {
@@ -75,10 +73,12 @@ void protocol_main_loop()
   uint8_t c;
   delay_ms(1);  // added for ecmc (I think..)
   for (;;) {
+
     // Process one line of incoming serial data, as the data becomes available. Performs an
     // initial filtering by removing spaces and comments and capitalizing all letters.    
     delay_us(100);  // added for ecmc
     while((c = serial_read()) != SERIAL_NO_DATA) {
+
       if ((c == '\n') || (c == '\r')) { // End of line reached
     
         protocol_execute_realtime(); // Runtime command check point.
@@ -154,11 +154,11 @@ void protocol_main_loop()
             line[char_counter++] = c;
           }
         }
-
+        delay_us(100);
       }
       delay_us(100); // added for ecmc
     }
-    delay_us(100); // added for ecmc
+    delay_us(1000); // added for ecmc
     // If there are no more characters in the serial read buffer to be processed and executed,
     // this indicates that g-code streaming has either filled the planner buffer or has
     // completed. In either case, auto-cycle start, if enabled, any queued moves.
@@ -241,12 +241,11 @@ void protocol_exec_rt_system()
         // the user and a GUI time to do what is needed before resetting, like killing the
         // incoming stream. The same could be said about soft limits. While the position is not
         // lost, continued streaming could cause a serious crash if by chance it gets executed.
-        delay_us(100); // added for ecmc
       } while (bit_isfalse(sys_rt_exec_state,EXEC_RESET));
     }
     system_clear_exec_alarm(); // Clear alarm
   }
-
+  delay_us(10); // added for ecmc
   rt_exec = sys_rt_exec_state; // Copy volatile sys_rt_exec_state.
   if (rt_exec) {
 
@@ -774,4 +773,5 @@ static void protocol_exec_rt_suspend()
     delay_us(100);  // added for ecmc
     protocol_exec_rt_system();
   }
+  delay_us(100); // added for ecmc
 }

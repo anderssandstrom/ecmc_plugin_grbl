@@ -974,7 +974,7 @@ void  ecmcGrbl::addConfig(std::string command) {
   }
     
   if (getEcmcEpicsIOCState() == 16) {
-    printf("%s:%s:%d: GRBL: ERROR: Configuratoin can only be applied during startup:(0x%x)\n",
+    printf("%s:%s:%d: GRBL: ERROR: Configuration can only be applied during startup:(0x%x)\n",
         __FILE__,__FUNCTION__,__LINE__,ECMC_PLUGIN_CONFIG_ERROR_CODE);
     return;
   }

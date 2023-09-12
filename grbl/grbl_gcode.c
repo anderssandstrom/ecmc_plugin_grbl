@@ -68,7 +68,7 @@ void gc_sync_position()
 // coordinates, respectively.
 uint8_t gc_execute_line(char *line)
 {
-   PRINTF_DEBUG("");
+   PRINTF_DEBUG("gc_execute_line\n");
    //printf("gc_execute_line: %s\n",line);
    if(strlen(line)<2) {
      return(STATUS_OK);
@@ -124,6 +124,8 @@ uint8_t gc_execute_line(char *line)
   else { char_counter = 0; }
 
   while (line[char_counter] != 0) { // Loop until no more g-code words in line.
+    
+    PRINTF_DEBUG("gc_execute_line::while\n");
     //printf("1\n");
     // Import the next g-code word, expecting a letter followed by a value. Otherwise, error out.
     letter = line[char_counter];
