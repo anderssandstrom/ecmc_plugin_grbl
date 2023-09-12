@@ -8,7 +8,7 @@
 
 ## Initiation:
 
-require ecmccfg "ECMC_VER=9.0.0"
+require ecmccfg v9.0.1_RC1 "ECMC_VER=v9.0.1_RC1"
 require ecmc_plugin_grbl sandst_a
 
 exit

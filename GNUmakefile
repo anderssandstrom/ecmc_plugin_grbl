@@ -54,6 +54,11 @@ SOURCES+=$(APPSRC_GRBL)/grbl_probe.c
 SOURCES+=$(APPSRC_GRBL)/grbl_report.c
 SOURCES+=$(APPSRC_GRBL)/grbl_system.c
 
+SOURCES+=$(APPSRC_ECMC)/ecmcPluginGrbl.c
+SOURCES+=$(APPSRC_ECMC)/ecmcGrbl.cpp
+SOURCES+=$(APPSRC_ECMC)/ecmcGrblWrap.cpp
+
+DBDS   += $(APPSRC_ECMC)/ecmcGrbl.dbd
 
 #SOURCES += $(foreach d,${SRC_DIR}, $(wildcard $d/*.c) $(wildcard $d/*.cpp))
 HEADERS += $(foreach d,${SRC_DIR}, $(wildcard $d/*.h))
