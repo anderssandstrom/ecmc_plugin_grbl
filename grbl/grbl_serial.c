@@ -112,13 +112,13 @@ void serial_init()
     printf("%s:%s:%d: Failed create serialRxBufferMutex\n",__FILE__,__FUNCTION__,__LINE__); 
     return;
   }
-  MUTEX_UNLOCK(serialRxBufferMutex);
+  //MUTEX_UNLOCK(serialRxBufferMutex);
 
   if(!(serialTxBufferMutex = epicsMutexCreate())) {
     printf("%s:%s:%d: Failed create serialTxBufferMutex\n",__FILE__,__FUNCTION__,__LINE__); 
     return;
   }
-  MUTEX_UNLOCK(serialTxBufferMutex);
+  //MUTEX_UNLOCK(serialTxBufferMutex);
 
   // Set baud rate
   //#if BAUD_RATE < 57600
