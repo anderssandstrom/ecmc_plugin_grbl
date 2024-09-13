@@ -16,7 +16,7 @@ OPT_CXXFLAGS_YES = -O3
 
 # dependencies
 ECmasterECMC_VERSION = v1.1.0
-ecmc_VERSION = 9
+ecmc_VERSION = 9.6
 
 ################################################################################
 # THIS RELATES TO THE EtherCAT MASTER LIBRARY
