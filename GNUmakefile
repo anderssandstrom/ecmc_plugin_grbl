@@ -6,7 +6,7 @@ BUILDCLASSES = Linux
 ARCH_FILTER = deb10%
 
 # Run 7.0.6 for now
-EXCLUDE_VERSIONS+=3 7.0.5 7.0.7
+EXCLUDE_VERSIONS+=3 7.0.5 7.0.6
 
 IGNORE_MODULES += asynMotor
 IGNORE_MODULES += motorBase
@@ -16,8 +16,7 @@ OPT_CXXFLAGS_YES = -O3
 
 # dependencies
 ECmasterECMC_VERSION = v1.1.0
-motorECMC_VERSION = 7.0.7-ESS
-ecmc_VERSION = v9.0.1_RC1
+ecmc_VERSION = 9
 
 ################################################################################
 # THIS RELATES TO THE EtherCAT MASTER LIBRARY
